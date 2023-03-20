@@ -15,6 +15,19 @@
 		05188DAF29C4FF23004E1D7B /* IlymaxShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188DAE29C4FF23004E1D7B /* IlymaxShopTests.swift */; };
 		05188DB929C4FF23004E1D7B /* IlymaxShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188DB829C4FF23004E1D7B /* IlymaxShopUITests.swift */; };
 		05188DBB29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188DBA29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift */; };
+		051F100729C8E39400877947 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100629C8E39400877947 /* AppCoordinator.swift */; };
+		051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100829C8E3A700877947 /* ProfileCoordinator.swift */; };
+		051F100B29C8E3BD00877947 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100A29C8E3BD00877947 /* ChatCoordinator.swift */; };
+		051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100C29C8E3E400877947 /* PublicShoesCoordinator.swift */; };
+		051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100E29C8E41100877947 /* CartCoordinator.swift */; };
+		051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101029C8E42500877947 /* CatalogCoordinator.swift */; };
+		051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101229C8E5A500877947 /* TabBarCoordinator.swift */; };
+		051F101529C8E99D00877947 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101429C8E99D00877947 /* CatalogViewController.swift */; };
+		051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101629C8E9AF00877947 /* ProfileViewController.swift */; };
+		051F101929C8E9BA00877947 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101829C8E9BA00877947 /* ChatViewController.swift */; };
+		051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101A29C8E9DA00877947 /* CartViewController.swift */; };
+		051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101C29C8EA1900877947 /* PublicShoesViewController.swift */; };
+		051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101E29C8EA4D00877947 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +60,19 @@
 		05188DB429C4FF23004E1D7B /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05188DB829C4FF23004E1D7B /* IlymaxShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopUITests.swift; sourceTree = "<group>"; };
 		05188DBA29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		051F100629C8E39400877947 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		051F100829C8E3A700877947 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		051F100A29C8E3BD00877947 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		051F100C29C8E3E400877947 /* PublicShoesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesCoordinator.swift; sourceTree = "<group>"; };
+		051F100E29C8E41100877947 /* CartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinator.swift; sourceTree = "<group>"; };
+		051F101029C8E42500877947 /* CatalogCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCoordinator.swift; sourceTree = "<group>"; };
+		051F101229C8E5A500877947 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		051F101429C8E99D00877947 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		051F101629C8E9AF00877947 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		051F101829C8E9BA00877947 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		051F101A29C8E9DA00877947 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		051F101C29C8EA1900877947 /* PublicShoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesViewController.swift; sourceTree = "<group>"; };
+		051F101E29C8EA4D00877947 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +175,12 @@
 		05188DDF29C5010D004E1D7B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				051F101429C8E99D00877947 /* CatalogViewController.swift */,
+				051F101629C8E9AF00877947 /* ProfileViewController.swift */,
+				051F101829C8E9BA00877947 /* ChatViewController.swift */,
+				051F101A29C8E9DA00877947 /* CartViewController.swift */,
+				051F101C29C8EA1900877947 /* PublicShoesViewController.swift */,
+				051F101E29C8EA4D00877947 /* WelcomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -163,6 +195,13 @@
 		05188DE129C50146004E1D7B /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				051F100629C8E39400877947 /* AppCoordinator.swift */,
+				051F100829C8E3A700877947 /* ProfileCoordinator.swift */,
+				051F100A29C8E3BD00877947 /* ChatCoordinator.swift */,
+				051F100C29C8E3E400877947 /* PublicShoesCoordinator.swift */,
+				051F100E29C8E41100877947 /* CartCoordinator.swift */,
+				051F101029C8E42500877947 /* CatalogCoordinator.swift */,
+				051F101229C8E5A500877947 /* TabBarCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -326,8 +365,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
+				051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */,
+				051F101529C8E99D00877947 /* CatalogViewController.swift in Sources */,
+				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
+				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
+				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
+				051F100B29C8E3BD00877947 /* ChatCoordinator.swift in Sources */,
+				051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
+				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
+				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
+				051F101929C8E9BA00877947 /* ChatViewController.swift in Sources */,
+				051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */,
+				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
 				05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
