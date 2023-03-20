@@ -10,7 +10,7 @@ import UIKit
 class CatalogCoordinator {
     
     func start() -> UIViewController {
-        let cartController = CartViewController()
+        let cartController = CatalogViewController()
         let image = UIImage(systemName: "house")?.withTintColor(.gray)
         let selectedImage = UIImage(systemName: "house")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         cartController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
