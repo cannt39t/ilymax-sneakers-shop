@@ -40,8 +40,15 @@ class TabBarCoordinator {
     }
     
     func profile() -> UIViewController {
-        let profileCoordinator = ProfileCoordinator()
-        return profileCoordinator.start()
+//        if authorized then profile else signincorrdinator
+//        let profileCoordinator = ProfileCoordinator()
+//        return profileCoordinator.start()
+        let image = UIImage(systemName: "person")?.withTintColor(.gray)
+        let selectedImage = UIImage(systemName: "person")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let signInCoordinator = SignInCoordinator()
+        let controller = signInCoordinator.start()
+        controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+        return controller
     }
     
 }

@@ -28,6 +28,9 @@
 		051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101A29C8E9DA00877947 /* CartViewController.swift */; };
 		051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101C29C8EA1900877947 /* PublicShoesViewController.swift */; };
 		051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101E29C8EA4D00877947 /* WelcomeViewController.swift */; };
+		05D0673729C9DF2800A6BBD7 /* SignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673629C9DF2800A6BBD7 /* SignInCoordinator.swift */; };
+		05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */; };
+		05D0673B29C9E16A00A6BBD7 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673A29C9E16A00A6BBD7 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		051F101A29C8E9DA00877947 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		051F101C29C8EA1900877947 /* PublicShoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesViewController.swift; sourceTree = "<group>"; };
 		051F101E29C8EA4D00877947 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		05D0673629C9DF2800A6BBD7 /* SignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCoordinator.swift; sourceTree = "<group>"; };
+		05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		05D0673A29C9E16A00A6BBD7 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +187,8 @@
 				051F101A29C8E9DA00877947 /* CartViewController.swift */,
 				051F101C29C8EA1900877947 /* PublicShoesViewController.swift */,
 				051F101E29C8EA4D00877947 /* WelcomeViewController.swift */,
+				05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */,
+				05D0673A29C9E16A00A6BBD7 /* LogInViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -202,6 +210,7 @@
 				051F100E29C8E41100877947 /* CartCoordinator.swift */,
 				051F101029C8E42500877947 /* CatalogCoordinator.swift */,
 				051F101229C8E5A500877947 /* TabBarCoordinator.swift */,
+				05D0673629C9DF2800A6BBD7 /* SignInCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -371,8 +380,10 @@
 				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
+				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
 				051F100B29C8E3BD00877947 /* ChatCoordinator.swift in Sources */,
+				05D0673729C9DF2800A6BBD7 /* SignInCoordinator.swift in Sources */,
 				051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
@@ -380,6 +391,7 @@
 				051F101929C8E9BA00877947 /* ChatViewController.swift in Sources */,
 				051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */,
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
+				05D0673B29C9E16A00A6BBD7 /* LogInViewController.swift in Sources */,
 				05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
