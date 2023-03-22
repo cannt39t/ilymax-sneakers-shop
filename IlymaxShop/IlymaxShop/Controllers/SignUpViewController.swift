@@ -7,30 +7,6 @@
 
 import UIKit
 
-class ValidationError: Error {
-    
-    public enum ValidationErrorType {
-        case emptyField
-        case invalidEmail
-        case shortPassword
-        case mismatchedPasswords
-    }
-    
-    public var atIndex: Int
-    public var type: ValidationErrorType
-    
-    init(atIndex: Int, type: ValidationErrorType) {
-        self.atIndex = atIndex
-        self.type = type
-    }
-    
-    public static func validateEmail(email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-}
-
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
@@ -44,6 +20,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     private var signInButton: UIButton = .init()
     
     private var lastRedIndex: Int?
+    var presenter: SignUpPresenter!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +32,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     private func setupLayout(validationError: ValidationError? = nil) {
         let stackSignIn = UIStackView(arrangedSubviews: [alreadyHaveAccountLabel, signInButton])
-        stackSignIn.distribution = .equalCentering
-        stackSignIn.alignment = .center
         
         var arrangedSubviews = [
             nameTextField, emailTextField, passwordTextField, confirmPasswordTextField, signUpButton, stackSignIn
@@ -70,17 +45,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             let validationLabel: UILabel = .init()
             validationLabel.textColor = .red
             validationLabel.font = validationLabel.font.withSize(15)
-            var problemTextField = (arrangedSubviews[error.atIndex] as! UITextField)
+            let problemTextField = (arrangedSubviews[error.atIndex] as! UITextField)
             switch error.type {
                 case .emptyField:
-                validationLabel.text = "Please enter \(String(describing: problemTextField.accessibilityIdentifier!))"
+                    validationLabel.text = "Please enter \(String(describing: problemTextField.accessibilityIdentifier!))"
                 case .invalidEmail:
                     validationLabel.text = "Email doesn't exist"
                 case .shortPassword:
                     validationLabel.text = "Password is too short"
                 case .mismatchedPasswords:
                     validationLabel.text = "Passwords mismatched"
-                }
+                case .emailAlreadyInUse:
+                    validationLabel.text = "Email already in use"
+                default:
+                    validationLabel.text = "Error"
+            }
             highlightTextField(problemTextField)
             lastRedIndex = error.atIndex
             arrangedSubviews.insert(validationLabel, at: error.atIndex)
@@ -101,19 +80,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(welcomeLabel)
 
         NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: frame.topAnchor, constant: 20),
-            mainStack.leadingAnchor.constraint(equalTo: frame.leadingAnchor, constant: 20),
-            mainStack.trailingAnchor.constraint(equalTo: frame.trailingAnchor, constant: -20),
-            mainStack.bottomAnchor.constraint(equalTo: frame.bottomAnchor, constant: -12),
-
-            frame.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            frame.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
-            frame.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            frame.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
+            signUpButton.heightAnchor.constraint(equalToConstant: 48),
             
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             welcomeLabel.widthAnchor.constraint(equalTo: frame.widthAnchor),
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            
+            mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
+            mainStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            frame.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor, constant: -20),
+            frame.bottomAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 40),
+            frame.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor, constant: 20),
+            frame.topAnchor.constraint(equalTo: mainStack.topAnchor, constant: -40)
         ])
         
         frame.translatesAutoresizingMaskIntoConstraints = false
@@ -167,17 +148,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func tapedOnSignUpButton() throws {
-        let flag = try validation()
-        // Create user in service
-        // Add user to session
+        let (validationSuccess, params) = try validation()
+        if validationSuccess {
+            presenter.register(name: params[0], email: params[1], password: params[2])
+        }
         // Start ProfileCoordinator
     }
     
     @objc private func tapedOnSignInButton() {
-        print("Переход на авторизацию")
+        presenter.switchToLoginPage()
     }
     
-    private func validation() throws -> Bool {
+    private func validation() throws -> (Bool, [String]) {
+        var params: [String] = []
         do {
             
             // Empty
@@ -213,12 +196,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 throw ValidationError(atIndex: 3, type: .mismatchedPasswords)
             }
             
+            // Check if email available
+            
+            try presenter.checkAvailableEmail(email: textEmail)
+            
+            params.append(contentsOf: [textName, textEmail, textPassword])
         } catch let error as ValidationError {
             setupLayout(validationError: error)
-            return false
-        }
+            return (false, params)
+        } 
         setupLayout()
-        return true
+        return (true, params)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
