@@ -80,7 +80,7 @@ class LoginViewController: UIViewController {
             
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             welcomeLabel.widthAnchor.constraint(equalTo: frame.widthAnchor),
-            welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            welcomeLabel.bottomAnchor.constraint(equalTo: frame.topAnchor, constant: -24),
             
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
@@ -88,7 +88,7 @@ class LoginViewController: UIViewController {
             mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             frame.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor, constant: -20),
-            frame.bottomAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 40),
+            frame.bottomAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 10),
             frame.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor, constant: 20),
             frame.topAnchor.constraint(equalTo: mainStack.topAnchor, constant: -40)
         ])
