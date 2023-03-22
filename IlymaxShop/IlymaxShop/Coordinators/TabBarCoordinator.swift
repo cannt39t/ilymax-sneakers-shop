@@ -45,8 +45,8 @@ class TabBarCoordinator {
 //        return profileCoordinator.start()
         let image = UIImage(systemName: "person")?.withTintColor(.gray)
         let selectedImage = UIImage(systemName: "person")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let signInCoordinator = SignInCoordinator()
-        let controller = signInCoordinator.start()
+        let authCoordinator = AuthenticationCoordinator()
+        let controller = authCoordinator.start()
         controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
         return controller
     }
