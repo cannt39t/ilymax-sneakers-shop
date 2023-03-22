@@ -80,21 +80,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(welcomeLabel)
 
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(equalToConstant: 48),
-            
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             welcomeLabel.widthAnchor.constraint(equalTo: frame.widthAnchor),
             welcomeLabel.bottomAnchor.constraint(equalTo: frame.topAnchor, constant: -24),
             
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            mainStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            mainStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
 
             frame.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor, constant: -20),
             frame.bottomAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 10),
             frame.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor, constant: 20),
-            frame.topAnchor.constraint(equalTo: mainStack.topAnchor, constant: -40)
+            frame.topAnchor.constraint(equalTo: mainStack.topAnchor, constant: -40),
+            
+            signUpButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         
         frame.translatesAutoresizingMaskIntoConstraints = false
