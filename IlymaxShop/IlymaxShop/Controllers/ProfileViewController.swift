@@ -8,21 +8,29 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    private var label: UILabel = .init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupDesign()
+        setupLayout()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupLayout() {
+        view.addSubview(label)
+    
+        NSLayoutConstraint.activate([
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
     }
-    */
+    
+    func setupDesign() {
+        label.text = "Hello, \(String(describing: MockAuthenticationService.shared.getUser()!.name))"
+    }
 
 }
