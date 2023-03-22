@@ -52,6 +52,11 @@ class AuthenticationCoordinator {
         navigationController.pushViewController(startSignup(), animated: false)
     }
     
+    func startProfile() {
+        navigationController.popViewController(animated: false)
+        navigationController.pushViewController(ProfileCoordinator().start(), animated: false)
+    }
+    
 //    func changeToLogin() {
 //        let controller = startLogin()
 //        setController(controller: controller)

@@ -23,7 +23,7 @@ class SignUpPresenter {
     
     func register(name: String, email: String, password: String) {
         authenticationService.register(name: name, email: email, password: password)
-        // Start Profile coordiantor
+        coordinator.startProfile()
     }
     
     func switchToLoginPage() {

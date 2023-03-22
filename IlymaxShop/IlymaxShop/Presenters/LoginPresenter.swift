@@ -36,7 +36,7 @@ class LoginPresenter {
         if let user = userService.getUserByEmail(email: email) {
             authenticationService.login(user: user)
         }
+        coordinator.startProfile()
     }
-    
     
 }
