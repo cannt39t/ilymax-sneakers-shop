@@ -69,17 +69,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if let error = validationError {
             let validationLabel: UILabel = .init()
             validationLabel.textColor = .red
+            validationLabel.font = validationLabel.font.withSize(15)
+            var problemTextField = (arrangedSubviews[error.atIndex] as! UITextField)
             switch error.type {
                 case .emptyField:
-                    validationLabel.text = "Field can't be blank"
+                validationLabel.text = "Please enter \(String(describing: problemTextField.accessibilityIdentifier!))"
                 case .invalidEmail:
-                    validationLabel.text = "Invalid email"
+                    validationLabel.text = "Email doesn't exist"
                 case .shortPassword:
-                    validationLabel.text = "Password must contains at least 8 characters"
+                    validationLabel.text = "Password is too short"
                 case .mismatchedPasswords:
                     validationLabel.text = "Passwords mismatched"
                 }
-            highlightTextField(arrangedSubviews[error.atIndex] as! UITextField)
+            highlightTextField(problemTextField)
             lastRedIndex = error.atIndex
             arrangedSubviews.insert(validationLabel, at: error.atIndex)
         }
@@ -128,18 +130,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         nameTextField.placeholder = "Name"
         nameTextField.borderStyle = .roundedRect
+        nameTextField.accessibilityIdentifier = "name"
         
         emailTextField.placeholder = "Email"
         emailTextField.textContentType = .emailAddress
         emailTextField.borderStyle = .roundedRect
+        emailTextField.accessibilityIdentifier = "email"
         
         passwordTextField.placeholder = "Password"
         passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
+        passwordTextField.accessibilityIdentifier = "password"
         
         confirmPasswordTextField.placeholder = "Confirm password"
         confirmPasswordTextField.isSecureTextEntry = true
         confirmPasswordTextField.borderStyle = .roundedRect
+        confirmPasswordTextField.accessibilityIdentifier = "confirmation password"
         
         signUpButton.setTitle("Sign up", for: .normal)
         signUpButton.setTitleColor(.white, for: .normal)
