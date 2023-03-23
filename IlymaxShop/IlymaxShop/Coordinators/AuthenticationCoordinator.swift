@@ -54,7 +54,6 @@ class AuthenticationCoordinator {
     
     func startProfile() {
         navigationController.popViewController(animated: false)
-        navigationController.navigationBar.isHidden = false
         let controller = ProfileCoordinator().start()
         navigationController.pushViewController(controller, animated: false)
     }
