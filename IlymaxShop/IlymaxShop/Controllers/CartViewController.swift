@@ -19,7 +19,6 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let buyButton = UIButton()
     private var cartCollectionView: UICollectionView!
     
-    
     private func setup() {
         view.backgroundColor = .systemBackground
         
@@ -150,7 +149,7 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCell.indertifier, for: indexPath) as! CartCell
         let product = presenter?.products[indexPath.item]
-        cell.setProduct(product: product!)
+        cell.setProduct(product: product!, cartPresenterDelegate: presenter)
         return cell
     }
     
@@ -175,6 +174,6 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.didTapOnSection(productID: (presenter?.products[indexPath.item].id)!)
+        presenter?.didTapOnSection(productId: (presenter?.products[indexPath.item].id)!)
     }
 }

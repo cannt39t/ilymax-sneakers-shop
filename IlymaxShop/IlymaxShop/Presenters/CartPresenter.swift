@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CartPresenterDelegate: AnyObject {
+    func deleteByID(productId: Int)
+}
+
 class CartPresenter {
     
     weak var view: CartViewController?
@@ -22,14 +26,6 @@ class CartPresenter {
         }
     }
     
-    // MARK: - Удаление
-    func deleteByID(productId: Int){
-        let id = products.firstIndex(where: { $0.id == productId })
-        cartService.deleteByID(id: id!)
-        getProducts()
-        view?.updateView()
-    }
-    
     // MARK: - Переадресация на платежку
     func buyButtonDidTap() {
         if let url = URL(string: "https://qiwi.com/n/MAKSYAK") {
@@ -38,7 +34,18 @@ class CartPresenter {
     }
     
     // MARK: - Открытие экрана товара
-    func didTapOnSection(productID: Int){
+    func didTapOnSection(productId: Int){
+        
     }
     
+}
+
+extension CartPresenter: CartPresenterDelegate {
+    // MARK: - Удаление
+    func deleteByID(productId: Int){
+        let id = products.firstIndex(where: { $0.id == productId })
+        cartService.deleteByID(id: id!)
+        getProducts()
+        view?.updateView()
+    }
 }

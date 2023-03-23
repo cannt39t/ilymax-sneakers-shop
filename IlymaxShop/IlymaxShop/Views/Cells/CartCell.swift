@@ -29,8 +29,9 @@ class CartCell: UICollectionViewCell {
     private var priceLabel: UILabel = .init()
     private var deleteButton: UIButton = .init()
     private var productID: Int = .init()
+    private var cartPresenterDelegate: CartPresenterDelegate?
     
-    func setProduct (product: Product) {
+    func setProduct (product: Product, cartPresenterDelegate: CartPresenterDelegate) {
         productID = product.id
         nameLabel.text = "\(product.name)"
         nameLabel.textColor = .black
@@ -39,42 +40,27 @@ class CartCell: UICollectionViewCell {
         priceLabel.text = "$\(product.price)"
         priceLabel.textColor = .black
        // imgImageView.image = UIImage(named: "Welcome")
-        loadImage(url: URL(string: "\(product.description)")!)
+        let imageLoader = ImageLoader()
+        
+        imageLoader.loadImage(from: URL(string: "\(product.description)")!) { [self] image in
+            guard let image = image else {
+                imgImageView.image = UIImage(systemName: "photo")
+                return
+            }
+            
+            imgImageView.image = image
+        }
         
         deleteButton.setImage(UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
         
         deleteButton.tintColor = .black
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        self.cartPresenterDelegate = cartPresenterDelegate
     }
     
-    // MARK: - Узнать как удалять
+    // MARK: - Удаление
     @objc private func deleteButtonTapped() {
-        //productID
-    }
-    
-    private var dataTask: URLSessionDataTask?
-
-    private func loadImage(url: URL) {
-        imgImageView.image = nil
-        dataTask?.cancel()
-        let urlRequest = URLRequest(
-            url: url,
-            cachePolicy: .reloadIgnoringLocalAndRemoteCacheData
-        )
-        dataTask = URLSession.shared
-            .dataTask(with: urlRequest) { [imgImageView] data, _, _ in
-                guard let data else {
-                    print("could not load image")
-                    return
-                }
-
-                let image = UIImage(data: data)
-                DispatchQueue.main.async { [imgImageView] in
-                    guard let image else { return }
-                    imgImageView.image = image
-                }
-            }
-        dataTask?.resume()
+        cartPresenterDelegate?.deleteByID(productId: productID)
     }
     
     private func setup() {
