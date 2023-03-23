@@ -78,8 +78,7 @@ class CartCell: UICollectionViewCell {
     }
     
     private func setup() {
-        imgImageView.contentMode = .scaleAspectFit
-        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.backgroundColor = .white
         
@@ -100,18 +99,17 @@ class CartCell: UICollectionViewCell {
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-
-        imgImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-        imgImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -5),
-        imgImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-        imgImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5, constant: -10),
-        
-        stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        stackView.leadingAnchor.constraint(equalTo: imgImageView.trailingAnchor, constant: 10),
-        stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-        
-        deleteButton.centerXAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-        deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            imgImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            imgImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            imgImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            imgImageView.heightAnchor.constraint(equalTo: imgImageView.widthAnchor),
+            
+            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: imgImageView.trailingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            
+            deleteButton.centerXAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
         ])
     }
     
