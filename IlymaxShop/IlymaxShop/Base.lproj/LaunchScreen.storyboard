@@ -15,16 +15,32 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="prg-kB-JSE">
+                                <rect key="frame" x="38" y="331" width="317" height="191"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="191" id="6Pb-ba-9fh"/>
+                                    <constraint firstAttribute="width" constant="317" id="jVg-fV-59J"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="prg-kB-JSE" secondAttribute="bottom" constant="296" id="FkX-Ut-Ftg"/>
+                            <constraint firstItem="prg-kB-JSE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="272" id="WMy-9B-qVs"/>
+                            <constraint firstItem="prg-kB-JSE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="38" id="kEP-HA-neE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="prg-kB-JSE" secondAttribute="trailing" constant="38" id="yYx-oN-3dG"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Launch" width="895" height="895"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
