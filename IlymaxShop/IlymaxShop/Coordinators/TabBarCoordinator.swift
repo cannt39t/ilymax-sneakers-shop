@@ -21,7 +21,11 @@ class TabBarCoordinator {
     
     func catalog() -> UIViewController {
         let catalogCoordinator = CatalogCoordinator()
-        return catalogCoordinator.start()
+        let catalogController = catalogCoordinator.start()
+        let image = UIImage(systemName: "house")?.withTintColor(.gray)
+        let selectedImage = UIImage(systemName: "house")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        catalogController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+        return catalogController
     }
     
     func cart() -> UIViewController {
@@ -40,8 +44,15 @@ class TabBarCoordinator {
     }
     
     func profile() -> UIViewController {
-        let profileCoordinator = ProfileCoordinator()
-        return profileCoordinator.start()
+//        if authorized then profile else signincorrdinator
+//        let profileCoordinator = ProfileCoordinator()
+//        return profileCoordinator.start()
+        let image = UIImage(systemName: "person")?.withTintColor(.gray)
+        let selectedImage = UIImage(systemName: "person")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let authCoordinator = AuthenticationCoordinator()
+        let controller = authCoordinator.start()
+        controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+        return controller
     }
     
 }
