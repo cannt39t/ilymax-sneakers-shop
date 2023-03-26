@@ -75,6 +75,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let frame = UIView()
         frame.backgroundColor = .white
 
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+        }
+        
         view.addSubview(frame)
         view.addSubview(mainStack)
         view.addSubview(welcomeLabel)
@@ -86,8 +90,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
-            mainStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
+            mainStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             frame.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor, constant: -20),
             frame.bottomAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 10),

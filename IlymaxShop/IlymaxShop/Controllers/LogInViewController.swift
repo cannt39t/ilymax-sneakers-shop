@@ -70,6 +70,10 @@ class LoginViewController: UIViewController {
 
         let frame = UIView()
         frame.backgroundColor = .white
+        
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+        }
 
         view.addSubview(frame)
         view.addSubview(mainStack)
