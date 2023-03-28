@@ -28,6 +28,13 @@
 		051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101A29C8E9DA00877947 /* CartViewController.swift */; };
 		051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101C29C8EA1900877947 /* PublicShoesViewController.swift */; };
 		051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101E29C8EA4D00877947 /* WelcomeViewController.swift */; };
+		0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */; };
+		0539C3A729CDDA82008F41B4 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A629CDDA82008F41B4 /* Product.swift */; };
+		0539C3AB29CDDA9A008F41B4 /* MockCartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A829CDDA9A008F41B4 /* MockCartService.swift */; };
+		0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A929CDDA9A008F41B4 /* CartService.swift */; };
+		0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */; };
+		0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AF29CDDAAB008F41B4 /* CartCell.swift */; };
+		0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */; };
 		05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */; };
 		05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */; };
 		05D0673B29C9E16A00A6BBD7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */; };
@@ -84,6 +91,13 @@
 		051F101A29C8E9DA00877947 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		051F101C29C8EA1900877947 /* PublicShoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesViewController.swift; sourceTree = "<group>"; };
 		051F101E29C8EA4D00877947 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
+		0539C3A629CDDA82008F41B4 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		0539C3A829CDDA9A008F41B4 /* MockCartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCartService.swift; sourceTree = "<group>"; };
+		0539C3A929CDDA9A008F41B4 /* CartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartService.swift; sourceTree = "<group>"; };
+		0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
+		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
 		05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -145,17 +159,19 @@
 		05188D9329C4FF21004E1D7B /* IlymaxShop */ = {
 			isa = PBXGroup;
 			children = (
-				05D26CF629CB4E3700EFC040 /* Helpers */,
-				05188DE529C501A0004E1D7B /* Views */,
-				05188DE329C50171004E1D7B /* Resources */,
-				05188DE229C5015D004E1D7B /* Extensions */,
-				05188DE129C50146004E1D7B /* Coordinators */,
-				05188DE029C50114004E1D7B /* Presenters */,
-				05188DDF29C5010D004E1D7B /* Controllers */,
+				05EC2D0E29D07FBC00962420 /* MainTabBar */,
+				05EC2D0D29D07FA800962420 /* Authentication */,
+				05EC2D0C29D07FA200962420 /* Profile */,
+				05EC2D0B29D07F9B00962420 /* Chat */,
+				05EC2D0A29D07F8400962420 /* PublishShoes */,
+				05EC2D0929D07F7D00962420 /* Cart */,
+				05EC2D0829D07F6F00962420 /* Catalog */,
 				05188DDD29C500F0004E1D7B /* Services */,
 				05188DDC29C500EA004E1D7B /* Models */,
 				05188D9429C4FF21004E1D7B /* AppDelegate.swift */,
+				051F100629C8E39400877947 /* AppCoordinator.swift */,
 				05188D9629C4FF21004E1D7B /* SceneDelegate.swift */,
+				051F101E29C8EA4D00877947 /* WelcomeViewController.swift */,
 				05188DA029C4FF23004E1D7B /* Assets.xcassets */,
 				05188DA229C4FF23004E1D7B /* LaunchScreen.storyboard */,
 				05188DA529C4FF23004E1D7B /* Info.plist */,
@@ -184,6 +200,7 @@
 		05188DDC29C500EA004E1D7B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0539C3A629CDDA82008F41B4 /* Product.swift */,
 				05D26CEC29CB24EF00EFC040 /* User.swift */,
 			);
 			path = Models;
@@ -192,8 +209,7 @@
 		05188DDD29C500F0004E1D7B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				05D26CE829CB246400EFC040 /* AuthenticationService.swift */,
-				05D26CEA29CB24B300EFC040 /* MockAuthenticationService.swift */,
+				0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */,
 				05D26CF029CB2FCB00EFC040 /* UserService.swift */,
 				05D26CF229CB30FA00EFC040 /* MockUserService.swift */,
 			);
@@ -204,13 +220,6 @@
 			isa = PBXGroup;
 			children = (
 				051F101429C8E99D00877947 /* CatalogViewController.swift */,
-				051F101629C8E9AF00877947 /* ProfileViewController.swift */,
-				051F101829C8E9BA00877947 /* ChatViewController.swift */,
-				051F101A29C8E9DA00877947 /* CartViewController.swift */,
-				051F101C29C8EA1900877947 /* PublicShoesViewController.swift */,
-				051F101E29C8EA4D00877947 /* WelcomeViewController.swift */,
-				05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */,
-				05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -218,8 +227,7 @@
 		05188DE029C50114004E1D7B /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				05D26CEE29CB2BB900EFC040 /* SignUpPresenter.swift */,
-				05D26CF429CB43A200EFC040 /* LoginPresenter.swift */,
+				0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -227,53 +235,34 @@
 		05188DE129C50146004E1D7B /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				051F100629C8E39400877947 /* AppCoordinator.swift */,
-				051F100829C8E3A700877947 /* ProfileCoordinator.swift */,
-				051F100A29C8E3BD00877947 /* ChatCoordinator.swift */,
-				051F100C29C8E3E400877947 /* PublicShoesCoordinator.swift */,
-				051F100E29C8E41100877947 /* CartCoordinator.swift */,
 				051F101029C8E42500877947 /* CatalogCoordinator.swift */,
-				051F101229C8E5A500877947 /* TabBarCoordinator.swift */,
-				05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */,
 			);
 			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		05188DE229C5015D004E1D7B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		05188DE329C50171004E1D7B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				05188DE429C50178004E1D7B /* Fonts */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		05188DE429C50178004E1D7B /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		05188DE529C501A0004E1D7B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0539C3AE29CDDAAB008F41B4 /* Cells */,
+				0539C3B029CDDAAB008F41B4 /* Headers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		05D26CF629CB4E3700EFC040 /* Helpers */ = {
+		0539C3AE29CDDAAB008F41B4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				05D26CF729CB4E4300EFC040 /* Errors */,
+				0539C3AF29CDDAAB008F41B4 /* CartCell.swift */,
 			);
-			path = Helpers;
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0539C3B029CDDAAB008F41B4 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		05D26CF729CB4E4300EFC040 /* Errors */ = {
@@ -282,6 +271,198 @@
 				05D26CF829CB4E6300EFC040 /* ValidationError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		05EC2D0829D07F6F00962420 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				05188DE129C50146004E1D7B /* Coordinators */,
+				05188DDF29C5010D004E1D7B /* Controllers */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
+		05EC2D0929D07F7D00962420 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2D1C29D0819B00962420 /* Coordinators */,
+				05EC2D1D29D081A100962420 /* Controllers */,
+				05EC2D2029D081AF00962420 /* Services */,
+				05188DE529C501A0004E1D7B /* Views */,
+				05188DE029C50114004E1D7B /* Presenters */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		05EC2D0A29D07F8400962420 /* PublishShoes */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2D1A29D0817B00962420 /* Coordinators */,
+				05EC2D1B29D0818200962420 /* Controllers */,
+			);
+			path = PublishShoes;
+			sourceTree = "<group>";
+		};
+		05EC2D0B29D07F9B00962420 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2D1929D0814F00962420 /* Coordinators */,
+				05EC2D1829D0814A00962420 /* Controllers */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		05EC2D0C29D07FA200962420 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2D1729D0812200962420 /* Coordinators */,
+				05EC2D1629D0811700962420 /* Controllers */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		05EC2D0D29D07FA800962420 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2D1529D080D500962420 /* Coordinators */,
+				05EC2D1129D0803900962420 /* Controllers */,
+				05EC2D1229D0803F00962420 /* Services */,
+				05EC2D1429D0805100962420 /* Presenters */,
+				05EC2D1329D0804600962420 /* Helpers */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		05EC2D0E29D07FBC00962420 /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2D0F29D07FFB00962420 /* Coordinators */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		05EC2D0F29D07FFB00962420 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				051F101229C8E5A500877947 /* TabBarCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		05EC2D1129D0803900962420 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */,
+				05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		05EC2D1229D0803F00962420 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				05D26CE829CB246400EFC040 /* AuthenticationService.swift */,
+				05D26CEA29CB24B300EFC040 /* MockAuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		05EC2D1329D0804600962420 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				05D26CF729CB4E4300EFC040 /* Errors */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		05EC2D1429D0805100962420 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				05D26CEE29CB2BB900EFC040 /* SignUpPresenter.swift */,
+				05D26CF429CB43A200EFC040 /* LoginPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		05EC2D1529D080D500962420 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		05EC2D1629D0811700962420 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				051F101629C8E9AF00877947 /* ProfileViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		05EC2D1729D0812200962420 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				051F100829C8E3A700877947 /* ProfileCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		05EC2D1829D0814A00962420 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				051F101829C8E9BA00877947 /* ChatViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		05EC2D1929D0814F00962420 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				051F100A29C8E3BD00877947 /* ChatCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		05EC2D1A29D0817B00962420 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				051F100C29C8E3E400877947 /* PublicShoesCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		05EC2D1B29D0818200962420 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				051F101C29C8EA1900877947 /* PublicShoesViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		05EC2D1C29D0819B00962420 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				051F100E29C8E41100877947 /* CartCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		05EC2D1D29D081A100962420 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				051F101A29C8E9DA00877947 /* CartViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		05EC2D2029D081AF00962420 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0539C3A929CDDA9A008F41B4 /* CartService.swift */,
+				0539C3A829CDDA9A008F41B4 /* MockCartService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,23 +595,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
 				051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */,
 				051F101529C8E99D00877947 /* CatalogViewController.swift in Sources */,
+				0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */,
 				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
+				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
 				05D26CF529CB43A200EFC040 /* LoginPresenter.swift in Sources */,
 				051F100B29C8E3BD00877947 /* ChatCoordinator.swift in Sources */,
+				0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */,
 				05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */,
 				05D26CED29CB24EF00EFC040 /* User.swift in Sources */,
 				051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
+				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				05D26CF929CB4E6300EFC040 /* ValidationError.swift in Sources */,
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
+				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
+				0539C3AB29CDDA9A008F41B4 /* MockCartService.swift in Sources */,
 				05D26CF329CB30FA00EFC040 /* MockUserService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ChatViewController.swift in Sources */,
 				051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */,

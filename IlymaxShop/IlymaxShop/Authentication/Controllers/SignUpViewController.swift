@@ -79,6 +79,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             subview.removeFromSuperview()
         }
 
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+        }
+        
         view.addSubview(frame)
         view.addSubview(mainStack)
         view.addSubview(welcomeLabel)
