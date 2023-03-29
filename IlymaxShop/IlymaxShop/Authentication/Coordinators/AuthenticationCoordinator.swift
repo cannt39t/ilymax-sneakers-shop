@@ -53,6 +53,10 @@ class AuthenticationCoordinator {
     func startProfile() {
         let controller = ProfileCoordinator().start()
         navigationController.viewControllers = [controller]
+        
+        
+        
+        
     }
     
 }
