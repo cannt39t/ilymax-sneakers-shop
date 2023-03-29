@@ -14,14 +14,82 @@ class SignUpPresenter {
     private var userService: UserService = MockUserService.shared
     var coordinator: AuthenticationCoordinator!
 
-    func checkAvailableEmail(email: String) throws {
-        
+    func checkAvailableEmail(email: String, completion: @escaping (Bool) -> Void) {
         let safeEmail = Security.getSafeEmail(email: email)
         
-        DatabaseManager.shared.userExists(with: safeEmail) { exists in
-            if exists {
-                throw ValidationError.init(atIndex: 1, type: .emailAlreadyInUse)
+        var exists = true
+
+        let group = DispatchGroup()
+        group.enter()
+
+        DatabaseManager.shared.userExists(with: safeEmail) { value in
+            exists = value
+            group.leave()
+        }
+
+        group.wait()
+        
+        print(exists)
+    }
+    
+    func validation(_ name: String?, _ email: String?, _ password: String?, _ confirmPassword: String?) {
+        DispatchQueue.global().sync {
+            do {
+                
+                // Empty
+                
+                guard let textName = name, !textName.isEmpty else {
+                    throw ValidationError(atIndex: 0, type: .emptyField)
+                }
+                guard let textEmail = email, !textEmail.isEmpty else {
+                    throw ValidationError(atIndex: 1, type: .emptyField)
+                }
+                guard let textPassword = password, !textPassword.isEmpty else {
+                    throw ValidationError(atIndex: 2, type: .emptyField)
+                }
+                guard let textPasswordConfirm = confirmPassword, !textPasswordConfirm.isEmpty else {
+                    throw ValidationError(atIndex: 3, type: .emptyField)
+                }
+                
+                // Email
+                
+                if !ValidationError.validateEmail(email: textEmail) {
+                    throw ValidationError(atIndex: 1, type: .invalidEmail)
+                }
+                
+                // Number of chars
+                
+                if textPassword.count < 8 {
+                    throw ValidationError(atIndex: 2, type: .shortPassword)
+                }
+                
+                // Mismatched Passwords
+                
+                if textPassword != textPasswordConfirm {
+                    throw ValidationError(atIndex: 3, type: .mismatchedPasswords)
+                }
+                
+                checkAvailableEmail(email: textEmail) { exists in
+                    
+                }
+                
+//                didGetAvailableEmail(name: textName, email: textEmail, password: textPassword)
+            } catch {
+                didGetNotAvailableEmail(error)
             }
+        }
+    }
+    
+    func didGetAvailableEmail(name: String, email: String, password: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.setupLayout()
+            self?.register(name: name, email: email, password: password)
+        }
+    }
+    
+    func didGetNotAvailableEmail(_ error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.setupLayout(validationError: (error as? ValidationError))
         }
     }
 

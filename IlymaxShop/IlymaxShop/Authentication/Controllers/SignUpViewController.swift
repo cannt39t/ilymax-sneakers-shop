@@ -154,70 +154,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signInButton.clipsToBounds = true
     }
     
-    @objc private func tapedOnSignUpButton() throws {
-        let (validationSuccess, params) = try validation()
-        if validationSuccess {
-            presenter.register(name: params[0], email: params[1], password: params[2])
-        }
-        // Start ProfileCoordinator
+    @objc private func tapedOnSignUpButton() {
+        presenter.validation(nameTextField.text, emailTextField.text, passwordTextField.text, confirmPasswordTextField.text)
     }
     
     @objc private func tapedOnSignInButton() {
         presenter.switchToLoginPage()
-    }
-    
-    private func validation() throws -> (Bool, [String]) {
-        var params: [String] = []
-        
-        do {
-            
-            // Empty
-            
-            guard let textName = nameTextField.text, !textName.isEmpty else {
-                throw ValidationError(atIndex: 0, type: .emptyField)
-            }
-            guard let textEmail = emailTextField.text, !textEmail.isEmpty else {
-                throw ValidationError(atIndex: 1, type: .emptyField)
-            }
-            guard let textPassword = passwordTextField.text, !textPassword.isEmpty else {
-                throw ValidationError(atIndex: 2, type: .emptyField)
-            }
-            guard let textPasswordConfirm = confirmPasswordTextField.text, !textPasswordConfirm.isEmpty else {
-                throw ValidationError(atIndex: 3, type: .emptyField)
-            }
-            
-            // Email
-            
-            if !ValidationError.validateEmail(email: textEmail) {
-                throw ValidationError(atIndex: 1, type: .invalidEmail)
-            }
-            
-            // Number of chars
-            
-            if textPassword.count < 8 {
-                throw ValidationError(atIndex: 2, type: .shortPassword)
-            }
-            
-            // Mismatched Passwords
-            
-            if textPassword != textPasswordConfirm {
-                throw ValidationError(atIndex: 3, type: .mismatchedPasswords)
-            }
-            
-            // Check if email available
-            
-            try presenter.checkAvailableEmail(email: textEmail)
-            
-            params.append(contentsOf: [textName, textEmail, textPassword])
-            
-        } catch let error as ValidationError {
-            
-            setupLayout(validationError: error)
-            return (false, params)
-        }
-        
-        setupLayout()
-        return (true, params)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
