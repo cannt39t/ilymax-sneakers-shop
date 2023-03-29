@@ -59,13 +59,13 @@ class SignUpPresenter {
                     throw ValidationError(atIndex: 3, type: .mismatchedPasswords)
                 }
                 
-                checkAvailableEmail(email: textEmail) { [self] exists in
+                checkAvailableEmail(email: textEmail) { [weak self] exists in
                     print(exists)
                     if exists {
-                        self.didGetNotAvailableEmail(ValidationError(atIndex: 1, type: .emailAlreadyInUse))
+                        self?.didGetNotAvailableEmail(ValidationError(atIndex: 1, type: .emailAlreadyInUse))
                         return
                     } else {
-                        self.didGetAvailableEmail(name: textName, email: textEmail, password: textPassword)
+                        self?.didGetAvailableEmail(name: textName, email: textEmail, password: textPassword)
                     }
                 }
             } catch {

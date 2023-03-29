@@ -28,6 +28,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         nameTextField.delegate = self
         setupDesign()
         setupLayout()
+        
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     public func setupLayout(validationError: ValidationError? = nil) {

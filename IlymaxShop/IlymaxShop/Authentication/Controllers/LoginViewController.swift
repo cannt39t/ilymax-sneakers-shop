@@ -24,6 +24,8 @@ class LoginViewController: UIViewController {
         
         setupDesign()
         setupLayout()
+        
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     private func setupLayout(validationError: ValidationError? = nil) {
