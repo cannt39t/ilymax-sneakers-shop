@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class TabBarCoordinator {
     
@@ -44,15 +45,28 @@ class TabBarCoordinator {
     }
     
     func profile() -> UIViewController {
-//        if authorized then profile else signincorrdinator
-//        let profileCoordinator = ProfileCoordinator()
-//        return profileCoordinator.start()
+        try? FirebaseAuth.Auth.auth().signOut()
+        
+//        DatabaseManager.shared.test()
+        
         let image = UIImage(systemName: "person")?.withTintColor(.gray)
         let selectedImage = UIImage(systemName: "person")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let authCoordinator = AuthenticationCoordinator()
-        let controller = authCoordinator.start()
+        
+        let controller = validateAuth()
         controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
         return controller
+    }
+    
+    private func validateAuth() -> UIViewController {
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let authCoordinator = AuthenticationCoordinator()
+            let controller = authCoordinator.start()
+            return controller
+        } else {
+            let profileCoordinator = ProfileCoordinator()
+            let controller = profileCoordinator.start()
+            return controller
+        }
     }
     
 }

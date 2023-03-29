@@ -140,7 +140,7 @@ class LoginViewController: UIViewController {
     @objc private func tapedOnLoginButton() throws {
         let (validationSuccess, params) = try validation()
         if validationSuccess {
-            presenter.login(email: params[0])
+            presenter.login(email: params[0], password: params[1])
         }
         // Start ProfileCoordinator
     }
@@ -176,11 +176,11 @@ class LoginViewController: UIViewController {
             
             // Check if email exist in database
             
-            try presenter.emailExists(email: textEmail)
+//            try presenter.emailExists(email: textEmail)
             
             // Check if password is correct
             
-            try presenter.validPassword(email: textEmail, password: textPassword)
+//            try presenter.validPassword(email: textEmail, password: textPassword)
             
             params.append(contentsOf: [textEmail, textPassword])
         } catch let error as ValidationError {

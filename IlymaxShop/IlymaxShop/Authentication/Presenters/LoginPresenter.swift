@@ -10,31 +10,33 @@ import Foundation
 class LoginPresenter {
     
     private weak var view: LoginViewController?
-    private var authenticationService: AuthenticationService = MockAuthenticationService.shared
+    private var authenticationService: AuthenticationService = FirebaseAuthenticationService()
     private var userService: UserService = MockUserService.shared
     weak var coordinator: AuthenticationCoordinator!
     
-    public func emailExists(email: String) throws {
-        if (userService.getUserByEmail(email: email)) == nil {
-            throw ValidationError.init(atIndex: 0, type: .cannotFindEmail)
-        }
-    }
-    
-    public func validPassword(email: String, password: String) throws {
-        if let user = userService.getUserByEmail(email: email) {
-            if user.password != password {
-                throw ValidationError.init(atIndex: 1, type: .invalidPassword)
-            }
-        }
-    }
+//    public func emailExists(email: String) throws {
+//        if (userService.getUserByEmail(email: email)) == nil {
+//            throw ValidationError.init(atIndex: 0, type: .cannotFindEmail)
+//        }
+//    }
+//    
+//    public func validPassword(email: String, password: String) throws {
+//        if let user = userService.getUserByEmail(email: email) {
+//            if user.password != password {
+//                throw ValidationError.init(atIndex: 1, type: .invalidPassword)
+//            }
+//        }
+//    }
     
     func switchToSignUpPage() {
         coordinator.changeToSignup()
     }
     
-    func login(email: String) {
-        if let user = userService.getUserByEmail(email: email) {
-            authenticationService.login(user: user)
+    func login(email: String, password: String) {
+        authenticationService.login(email: email, password: password) { error in
+            if let e = error {
+                fatalError()
+            }
         }
         coordinator.startProfile()
     }

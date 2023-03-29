@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
     }
     
     func setupDesign() {
-        label.text = "Hello, \(String(describing: MockAuthenticationService.shared.getUser()!.name))"
+//        label.text = "Hello, \(String(describing: MockAuthenticationService.shared.getUser()!.name))"
     }
 
 }

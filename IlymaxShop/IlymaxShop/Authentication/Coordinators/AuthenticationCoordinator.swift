@@ -58,9 +58,4 @@ class AuthenticationCoordinator {
         navigationController.pushViewController(controller, animated: false)
     }
     
-//    func changeToLogin() {
-//        let controller = startLogin()
-//        setController(controller: controller)
-//    }
-    
 }

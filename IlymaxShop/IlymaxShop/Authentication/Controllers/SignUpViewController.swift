@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         setupLayout()
     }
     
-    private func setupLayout(validationError: ValidationError? = nil) {
+    public func setupLayout(validationError: ValidationError? = nil) {
         let stackSignIn = UIStackView(arrangedSubviews: [alreadyHaveAccountLabel, signInButton])
         
         var arrangedSubviews = [
@@ -168,6 +168,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     private func validation() throws -> (Bool, [String]) {
         var params: [String] = []
+        
         do {
             
             // Empty
@@ -208,10 +209,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             try presenter.checkAvailableEmail(email: textEmail)
             
             params.append(contentsOf: [textName, textEmail, textPassword])
+            
         } catch let error as ValidationError {
+            
             setupLayout(validationError: error)
             return (false, params)
-        } 
+        }
+        
         setupLayout()
         return (true, params)
     }

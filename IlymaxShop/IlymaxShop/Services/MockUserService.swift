@@ -14,7 +14,7 @@ class MockUserService: UserService {
     private var users: [User] = []
     
     public func getUserByEmail(email: String) -> User? {
-        return users.first { $0.email == email }
+        return users.first { $0.emailAddress == email }
     }
     
     public func addUser(user: User) {

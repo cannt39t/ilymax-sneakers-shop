@@ -7,16 +7,16 @@
 
 import Foundation
 
-class User {
+struct User {
     
-    public var name: String
-    public var email: String
-    public var password: String
+    let name: String
+    let emailAddress: String
+//    let profilePictureUrl: String
     
-    init(name: String, email: String, password: String) {
-        self.name = name
-        self.email = email
-        self.password = password
+    var safeEmail: String {
+        return Security.getSafeEmail(email: emailAddress)
     }
+    
+
     
 }
