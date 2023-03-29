@@ -17,19 +17,9 @@ class SignUpPresenter {
     func checkAvailableEmail(email: String, completion: @escaping (Bool) -> Void) {
         let safeEmail = Security.getSafeEmail(email: email)
         
-        var exists = true
-
-        let group = DispatchGroup()
-        group.enter()
-
         DatabaseManager.shared.userExists(with: safeEmail) { value in
-            exists = value
-            group.leave()
+            completion(value)
         }
-
-        group.wait()
-        
-        print(exists)
     }
     
     func validation(_ name: String?, _ email: String?, _ password: String?, _ confirmPassword: String?) {
@@ -69,11 +59,15 @@ class SignUpPresenter {
                     throw ValidationError(atIndex: 3, type: .mismatchedPasswords)
                 }
                 
-                checkAvailableEmail(email: textEmail) { exists in
-                    
+                checkAvailableEmail(email: textEmail) { [self] exists in
+                    print(exists)
+                    if exists {
+                        self.didGetNotAvailableEmail(ValidationError(atIndex: 1, type: .emailAlreadyInUse))
+                        return
+                    } else {
+                        self.didGetAvailableEmail(name: textName, email: textEmail, password: textPassword)
+                    }
                 }
-                
-//                didGetAvailableEmail(name: textName, email: textEmail, password: textPassword)
             } catch {
                 didGetNotAvailableEmail(error)
             }
