@@ -10,6 +10,9 @@ import FirebaseAuth
 
 class FirebaseAuthenticationService: AuthenticationService {
     
+    public static var user: User? {
+        return FirebaseAuth.Auth.auth().currentUser
+    }
     
     func register(name: String, email: String, password: String, completion:  @escaping ((Error?) -> Void)) {
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { result, error in
@@ -18,7 +21,7 @@ class FirebaseAuthenticationService: AuthenticationService {
                 return
             }
             completion(nil)
-            DatabaseManager.shared.insertUser(with: User(name: name, emailAddress: email))
+            DatabaseManager.shared.insertUser(with: IlymaxUser(name: name, emailAddress: email))
         }
     }
 

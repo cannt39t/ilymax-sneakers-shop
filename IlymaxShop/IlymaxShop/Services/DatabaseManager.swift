@@ -31,7 +31,7 @@ extension DatabaseManager {
     }
     
     /// Insert new user to database
-    public func insertUser(with user: User) {
+    public func insertUser(with user: IlymaxUser) {
         database.child(user.safeEmail).setValue([
             "name": user.name,
             "email": user.emailAddress

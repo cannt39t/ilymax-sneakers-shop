@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User {
+struct IlymaxUser {
     
     let name: String
     let emailAddress: String

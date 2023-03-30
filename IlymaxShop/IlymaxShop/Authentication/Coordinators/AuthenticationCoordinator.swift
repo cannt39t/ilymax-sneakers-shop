@@ -10,6 +10,7 @@ import UIKit
 class AuthenticationCoordinator {
     
     private weak var navigationController: UINavigationController!
+    public var startProfile: (() -> ()) = {}
     
     func startLogin() -> UIViewController {
         let loginController = LoginViewController()
@@ -50,10 +51,5 @@ class AuthenticationCoordinator {
         let controller = startSignup()
         navigationController.viewControllers = [controller]
     }
-    
-    func startProfile() {
-        let controller = ProfileCoordinator().start()
-        navigationController.viewControllers = [controller]
-    }
-    
+
 }

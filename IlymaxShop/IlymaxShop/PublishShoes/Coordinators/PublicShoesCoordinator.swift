@@ -11,9 +11,6 @@ class PublicShoesCoordinator {
     
     func start() -> UIViewController {
         let publicShoesController = PublicShoesViewController()
-        let image = UIImage(systemName: "plus.app")?.withTintColor(.gray)
-        let selectedImage = UIImage(systemName: "plus.app")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        publicShoesController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
         return publicShoesController
     }
     

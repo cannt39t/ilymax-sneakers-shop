@@ -13,6 +13,9 @@ class TabBarCoordinator {
     weak var tabBarController: UITabBarController?
     
     func start() -> UIViewController {
+        
+//        try? FirebaseAuth.Auth.auth().signOut()
+        
         let tabBarController = UITabBarController()
         self.tabBarController = tabBarController
         tabBarController.viewControllers = [catalog(), cart(), publicShoes(), chat(), profile()]
@@ -30,43 +33,88 @@ class TabBarCoordinator {
     }
     
     func cart() -> UIViewController {
-        let cartCoordinator = CartCoordinator()
-        return cartCoordinator.start()
+        let image = UIImage(systemName: "cart")?.withTintColor(.gray)
+        let selectedImage = UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let controller = NoAuthViewController()
+            controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            
+            return controller
+        } else {
+            let cartCoordinator = CartCoordinator()
+            let cartController = cartCoordinator.start()
+            cartController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            
+            return cartController
+        }
     }
     
     func publicShoes() -> UIViewController {
-        let publicShoesCoordinator = PublicShoesCoordinator()
-        return publicShoesCoordinator.start()
+        let image = UIImage(systemName: "plus.app")?.withTintColor(.gray)
+        let selectedImage = UIImage(systemName: "plus.app")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let controller = NoAuthViewController()
+            controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            
+            return controller
+        } else {
+            let publicShoesCoordinator = PublicShoesCoordinator()
+            let publicShoesController = publicShoesCoordinator.start()
+            publicShoesController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            
+            return publicShoesController
+        }
     }
     
     func chat() -> UIViewController {
-        let chatCoordinator = ChatCoordinator()
-        return chatCoordinator.start()
+        let image = UIImage(systemName: "message.badge")?.withTintColor(.gray)
+        let selectedImage = UIImage(systemName: "message.badge")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let controller = NoAuthViewController()
+            controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            
+            return controller
+        } else {
+            let chatCoordinator = ChatCoordinator()
+            let chatController = chatCoordinator.start()
+            chatController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            
+            return chatController
+        }
     }
     
     func profile() -> UIViewController {
-        try? FirebaseAuth.Auth.auth().signOut()
-        
-//        DatabaseManager.shared.test()
-        
         let image = UIImage(systemName: "person")?.withTintColor(.gray)
         let selectedImage = UIImage(systemName: "person")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        
+    
         let controller = validateAuth()
         controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+        
         return controller
     }
     
     private func validateAuth() -> UIViewController {
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let authCoordinator = AuthenticationCoordinator()
+            authCoordinator.startProfile = replaceAuthByProfile
             let controller = authCoordinator.start()
             return controller
         } else {
             let profileCoordinator = ProfileCoordinator()
-            let controller = profileCoordinator.start()
+            let controller = profileCoordinator.startProfile()
             return controller
         }
     }
     
+    func replaceAuthByProfile() {
+        var arrayOfControllers = tabBarController?.viewControllers
+        arrayOfControllers?[1] = cart()
+        arrayOfControllers?[2] = publicShoes()
+        arrayOfControllers?[3] = chat()
+        arrayOfControllers?[4] = profile()
+        tabBarController?.viewControllers = arrayOfControllers
+    }
 }

@@ -11,7 +11,6 @@ class SignUpPresenter {
     
     var view: SignUpViewController?
     private var authenticationService: AuthenticationService = FirebaseAuthenticationService()
-    private var userService: UserService = MockUserService.shared
     var coordinator: AuthenticationCoordinator!
 
     func checkAvailableEmail(email: String, completion: @escaping (Bool) -> Void) {

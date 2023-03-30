@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
@@ -18,7 +19,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     private var signUpButton: UIButton = .init()
     private var alreadyHaveAccountLabel: UILabel = .init()
     private var signInButton: UIButton = .init()
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private let hud = JGProgressHUD()
     
     private var lastRedIndex: Int?
     var presenter: SignUpPresenter!
@@ -33,22 +34,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         navigationItem.setHidesBackButton(true, animated: false)
     }
     
-    func setupActivityIndicator() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(activityIndicator)
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
     func showLoader() {
-        activityIndicator.startAnimating()
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view, animated: true)
     }
     
     func hideLoader() {
-        activityIndicator.stopAnimating()
+        hud.dismiss(animated: true)
     }
     
     public func setupLayout(validationError: ValidationError? = nil) {
@@ -107,7 +99,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(frame)
         view.addSubview(mainStack)
         view.addSubview(welcomeLabel)
-        setupActivityIndicator()
 
         NSLayoutConstraint.activate([
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),

@@ -11,7 +11,6 @@ class LoginPresenter {
     
     weak var view: LoginViewController?
     private var authenticationService: AuthenticationService = FirebaseAuthenticationService()
-    private var userService: UserService = MockUserService.shared
     weak var coordinator: AuthenticationCoordinator!
     
     public func validation(_ email: String?, _ password: String?) {
