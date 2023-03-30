@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     private var loginButton: UIButton = .init()
     private var dontHaveAccountLabel: UILabel = .init()
     private var signUpButton: UIButton = .init()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var lastRedIndex: Int?
     var presenter: LoginPresenter!
@@ -28,7 +29,25 @@ class LoginViewController: UIViewController {
         navigationItem.setHidesBackButton(true, animated: false)
     }
     
-    private func setupLayout(validationError: ValidationError? = nil) {
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    func showLoader() {
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoader() {
+        activityIndicator.stopAnimating()
+    }
+    
+    public func setupLayout(validationError: ValidationError? = nil) {
         let stackSignIn = UIStackView(arrangedSubviews: [dontHaveAccountLabel, signUpButton])
         
         var arrangedSubviews = [
@@ -80,6 +99,7 @@ class LoginViewController: UIViewController {
         view.addSubview(frame)
         view.addSubview(mainStack)
         view.addSubview(welcomeLabel)
+        setupActivityIndicator()
 
         NSLayoutConstraint.activate([
             loginButton.heightAnchor.constraint(equalToConstant: 48),
@@ -140,58 +160,11 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func tapedOnLoginButton() throws {
-        let (validationSuccess, params) = try validation()
-        if validationSuccess {
-            presenter.login(email: params[0], password: params[1])
-        }
-        // Start ProfileCoordinator
+        presenter.validation(emailTextField.text, passwordTextField.text)
     }
     
     @objc private func tapedOnSignUpButton() {
         presenter.switchToSignUpPage()
-    }
-    
-    private func validation() throws -> (Bool, [String]) {
-        var params: [String] = []
-        do {
-            
-            // Empty
-            
-            guard let textEmail = emailTextField.text, !textEmail.isEmpty else {
-                throw ValidationError(atIndex: 0, type: .emptyField)
-            }
-            guard let textPassword = passwordTextField.text, !textPassword.isEmpty else {
-                throw ValidationError(atIndex: 1, type: .emptyField)
-            }
-            
-            // Email
-            
-            if !ValidationError.validateEmail(email: textEmail) {
-                throw ValidationError(atIndex: 0, type: .invalidEmail)
-            }
-            
-            // Number of chars
-            
-            if textPassword.count < 8 {
-                throw ValidationError(atIndex: 1, type: .shortPassword)
-            }
-            
-            // Check if email exist in database
-            
-//            try presenter.emailExists(email: textEmail)
-            
-            // Check if password is correct
-            
-//            try presenter.validPassword(email: textEmail, password: textPassword)
-            
-            params.append(contentsOf: [textEmail, textPassword])
-        } catch let error as ValidationError {
-            setupLayout(validationError: error)
-            return (false, params)
-        }
-        setupLayout()
-        return (true, params)
-        
     }
     
     private func highlightTextField(_ textField: UITextField) {
@@ -204,6 +177,14 @@ class LoginViewController: UIViewController {
         textField.layer.borderWidth = 0.0
         textField.layer.borderColor = nil
         textField.layer.cornerRadius = 0.0
+    }
+    
+    
+    public func showAlert(_ error: Error) {
+        print(error)
+        let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
 }

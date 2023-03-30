@@ -339,8 +339,8 @@
 			children = (
 				05EC2D1529D080D500962420 /* Coordinators */,
 				05EC2D1129D0803900962420 /* Controllers */,
-				05EC2D1229D0803F00962420 /* Services */,
 				05EC2D1429D0805100962420 /* Presenters */,
+				05EC2D1229D0803F00962420 /* Services */,
 				05EC2D1329D0804600962420 /* Helpers */,
 			);
 			path = Authentication;

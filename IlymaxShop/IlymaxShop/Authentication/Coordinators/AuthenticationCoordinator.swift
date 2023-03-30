@@ -15,6 +15,7 @@ class AuthenticationCoordinator {
         let loginController = LoginViewController()
         let loginPresenter = LoginPresenter()
         loginController.presenter = loginPresenter
+        loginPresenter.view = loginController
         loginPresenter.coordinator = self
         return loginController
     }
@@ -53,13 +54,6 @@ class AuthenticationCoordinator {
     func startProfile() {
         let controller = ProfileCoordinator().start()
         navigationController.viewControllers = [controller]
-        
-        
-        
-        
-        
-        
-        
     }
     
 }

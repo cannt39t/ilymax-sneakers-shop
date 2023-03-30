@@ -17,6 +17,7 @@ class FirebaseAuthenticationService: AuthenticationService {
                 completion(error)
                 return
             }
+            completion(nil)
             DatabaseManager.shared.insertUser(with: User(name: name, emailAddress: email))
         }
     }
@@ -30,7 +31,7 @@ class FirebaseAuthenticationService: AuthenticationService {
             }
             let user = result.user
             print("Login with: \(user)")
-
+            completion(nil)
         }
     }
     

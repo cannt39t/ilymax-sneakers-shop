@@ -60,28 +60,28 @@ class SignUpPresenter {
                 }
                 
                 checkAvailableEmail(email: textEmail) { [weak self] exists in
-                    print(exists)
                     if exists {
-                        self?.didGetNotAvailableEmail(ValidationError(atIndex: 1, type: .emailAlreadyInUse))
+                        self?.notValid(ValidationError(atIndex: 1, type: .emailAlreadyInUse))
                         return
                     } else {
-                        self?.didGetAvailableEmail(name: textName, email: textEmail, password: textPassword)
+                        self?.valid(name: textName, email: textEmail, password: textPassword)
                     }
                 }
             } catch {
-                didGetNotAvailableEmail(error)
+                notValid(error)
             }
         }
     }
     
-    func didGetAvailableEmail(name: String, email: String, password: String) {
+    func valid(name: String, email: String, password: String) {
         DispatchQueue.main.async { [weak self] in
             self?.view?.setupLayout()
+            self?.view?.showLoader()
             self?.register(name: name, email: email, password: password)
         }
     }
     
-    func didGetNotAvailableEmail(_ error: Error) {
+    func notValid(_ error: Error) {
         DispatchQueue.main.async { [weak self] in
             self?.view?.setupLayout(validationError: (error as? ValidationError))
         }
@@ -89,12 +89,19 @@ class SignUpPresenter {
 
     
     func register(name: String, email: String, password: String) {
-        authenticationService.register(name: name, email: email, password: password) { error in
-            if let e = error {
-                fatalError()
+        authenticationService.register(name: name, email: email, password: password) { [weak self] error in
+            if let error {
+                DispatchQueue.main.async {
+                    self?.view?.hideLoader()
+                    self?.view?.showAlert(error)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self?.view?.hideLoader()
+                self?.coordinator.startProfile()
             }
         }
-        coordinator.startProfile()
     }
     
     func switchToLoginPage() {

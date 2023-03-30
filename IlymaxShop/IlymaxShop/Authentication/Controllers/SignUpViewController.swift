@@ -18,6 +18,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     private var signUpButton: UIButton = .init()
     private var alreadyHaveAccountLabel: UILabel = .init()
     private var signInButton: UIButton = .init()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var lastRedIndex: Int?
     var presenter: SignUpPresenter!
@@ -30,6 +31,24 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         setupLayout()
         
         navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    func showLoader() {
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoader() {
+        activityIndicator.stopAnimating()
     }
     
     public func setupLayout(validationError: ValidationError? = nil) {
@@ -88,6 +107,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(frame)
         view.addSubview(mainStack)
         view.addSubview(welcomeLabel)
+        setupActivityIndicator()
 
         NSLayoutConstraint.activate([
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -186,6 +206,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         textField.layer.borderWidth = 0.0
         textField.layer.borderColor = nil
         textField.layer.cornerRadius = 0.0
+    }
+    
+    public func showAlert(_ error: Error) {
+        let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        present(alert, animated: true, completion: nil)
     }
     
 }
