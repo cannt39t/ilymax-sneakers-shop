@@ -14,7 +14,7 @@ class TabBarCoordinator {
     
     func start() -> UIViewController {
         
-//        try? FirebaseAuth.Auth.auth().signOut()
+        try? FirebaseAuth.Auth.auth().signOut()
         
         let tabBarController = UITabBarController()
         self.tabBarController = tabBarController

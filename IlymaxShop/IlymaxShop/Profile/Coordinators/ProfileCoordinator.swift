@@ -27,4 +27,24 @@ class ProfileCoordinator {
         return navigationController
     }
     
+    func goToSeetings() {
+        let settingsController = UIViewController()
+        navigationController.pushViewController(settingsController, animated: true)
+    }
+    
+    func goToSellingsList() {
+        let settingsController = UIViewController()
+        navigationController.pushViewController(settingsController, animated: true)
+    }
+    
+    func goToOrdersList() {
+        let settingsController = UIViewController()
+        navigationController.pushViewController(settingsController, animated: true)
+    }
+    
+    func goToShippingAddressesList() {
+        let settingsController = UIViewController()
+        navigationController.pushViewController(settingsController, animated: true)
+    }
+    
 }
