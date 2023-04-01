@@ -14,12 +14,16 @@ class HeaderView: UICollectionReusableView {
  
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         showButton.setTitleColor(.black, for: .normal)
+        let image = UIImage(systemName: "chevron.right")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        showButton.setImage(image, for: .normal)
+        
          
         // Customize the header view
         backgroundColor = .white
         let stack = UIStackView(arrangedSubviews: [label, showButton])
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stack)
@@ -35,12 +39,6 @@ class HeaderView: UICollectionReusableView {
     var title: String? {
         didSet {
             label.text = title
-        }
-    }
-    
-    var buttonTitle: String? {
-        didSet {
-            showButton.setTitle(buttonTitle, for: .normal)
         }
     }
     

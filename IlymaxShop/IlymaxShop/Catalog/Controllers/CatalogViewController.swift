@@ -185,7 +185,6 @@ extension CatalogViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
                 }
                 view.title = "Most popular"
-                view.buttonTitle = ">"
                 view.didTapOnHeader = {} // вызвать презентер
                 return view
             default:
