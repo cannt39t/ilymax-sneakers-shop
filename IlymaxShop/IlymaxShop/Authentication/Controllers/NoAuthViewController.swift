@@ -39,17 +39,25 @@ class NoAuthViewController: UIViewController {
     private func setupLayout() {
         let stack = UIStackView(arrangedSubviews:  [textLabel, authButton])
         stack.axis = .vertical
-        stack.spacing = 12
+        stack.spacing = 24
         stack.alignment = .center
         stack.distribution = .equalCentering
         
         stack.translatesAutoresizingMaskIntoConstraints = false
+        sneakersImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(sneakersImage)
         view.addSubview(stack)
         
         NSLayoutConstraint.activate([
+            sneakersImage.widthAnchor.constraint(equalToConstant: 300),
+            sneakersImage.heightAnchor.constraint(equalToConstant: 300),
+            sneakersImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sneakersImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            
+            stack.topAnchor.constraint(equalTo: sneakersImage.bottomAnchor, constant: -60),
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             authButton.heightAnchor.constraint(equalToConstant: 48),

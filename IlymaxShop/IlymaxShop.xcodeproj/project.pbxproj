@@ -35,6 +35,7 @@
 		0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */; };
 		0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AF29CDDAAB008F41B4 /* CartCell.swift */; };
 		0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */; };
+		05A4380129D8171C00AADDB9 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */; };
 		05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 05BA97D229D613FA002B7568 /* JGProgressHUD */; };
 		05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA97D429D62151002B7568 /* NoAuthViewController.swift */; };
 		05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */; };
@@ -103,6 +104,7 @@
 		0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
+		05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		05BA97D429D62151002B7568 /* NoAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuthViewController.swift; sourceTree = "<group>"; };
 		05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -276,6 +278,14 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		05A437FF29D816BB00AADDB9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		05D26CF729CB4E4300EFC040 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +336,7 @@
 		05EC2D0C29D07FA200962420 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				05A437FF29D816BB00AADDB9 /* Views */,
 				05EC2D1729D0812200962420 /* Coordinators */,
 				05EC2D1629D0811700962420 /* Controllers */,
 			);
@@ -650,6 +661,7 @@
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
 				05D26CEF29CB2BB900EFC040 /* SignUpPresenter.swift in Sources */,
 				05D0673B29C9E16A00A6BBD7 /* LoginViewController.swift in Sources */,
+				05A4380129D8171C00AADDB9 /* UserCollectionViewCell.swift in Sources */,
 				05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */,
 				05D26CE929CB246400EFC040 /* AuthenticationService.swift in Sources */,
 			);
