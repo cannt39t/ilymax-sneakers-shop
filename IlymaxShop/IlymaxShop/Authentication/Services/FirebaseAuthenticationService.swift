@@ -21,7 +21,7 @@ class FirebaseAuthenticationService: AuthenticationService {
                 return
             }
             completion(nil)
-            DatabaseManager.shared.insertUser(with: IlymaxUser(name: name, emailAddress: email))
+            FirestoreManager.shared.insertUser(with: IlymaxUser(name: name, emailAddress: email))
         }
     }
 

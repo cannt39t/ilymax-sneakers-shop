@@ -36,13 +36,15 @@
 		0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AF29CDDAAB008F41B4 /* CartCell.swift */; };
 		0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */; };
 		05A4380129D8171C00AADDB9 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */; };
+		05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 05A4381D29D8522C00AADDB9 /* FirebaseFirestore */; };
+		05A4382029D8564400AADDB9 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4381F29D8564400AADDB9 /* FirestoreManager.swift */; };
 		05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 05BA97D229D613FA002B7568 /* JGProgressHUD */; };
 		05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA97D429D62151002B7568 /* NoAuthViewController.swift */; };
 		05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */; };
 		05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */; };
 		05D0673B29C9E16A00A6BBD7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */; };
 		05D26CE929CB246400EFC040 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CE829CB246400EFC040 /* AuthenticationService.swift */; };
-		05D26CED29CB24EF00EFC040 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CEC29CB24EF00EFC040 /* User.swift */; };
+		05D26CED29CB24EF00EFC040 /* IlymaxUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CEC29CB24EF00EFC040 /* IlymaxUser.swift */; };
 		05D26CEF29CB2BB900EFC040 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CEE29CB2BB900EFC040 /* SignUpPresenter.swift */; };
 		05D26CF529CB43A200EFC040 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CF429CB43A200EFC040 /* LoginPresenter.swift */; };
 		05D26CF929CB4E6300EFC040 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CF829CB4E6300EFC040 /* ValidationError.swift */; };
@@ -105,12 +107,13 @@
 		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
 		05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		05A4381F29D8564400AADDB9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		05BA97D429D62151002B7568 /* NoAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuthViewController.swift; sourceTree = "<group>"; };
 		05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		05D26CE829CB246400EFC040 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
-		05D26CEC29CB24EF00EFC040 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		05D26CEC29CB24EF00EFC040 /* IlymaxUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxUser.swift; sourceTree = "<group>"; };
 		05D26CEE29CB2BB900EFC040 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
 		05D26CF429CB43A200EFC040 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		05D26CF829CB4E6300EFC040 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */,
+				05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */,
 				05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */,
 				05D3C4B029D3489C00D76EED /* FirebaseAuth in Frameworks */,
 			);
@@ -155,6 +159,7 @@
 				05188DAD29C4FF23004E1D7B /* IlymaxShopTests */,
 				05188DB729C4FF23004E1D7B /* IlymaxShopUITests */,
 				05188D9229C4FF21004E1D7B /* Products */,
+				05A4381C29D8522C00AADDB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -214,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				0539C3A629CDDA82008F41B4 /* Product.swift */,
-				05D26CEC29CB24EF00EFC040 /* User.swift */,
+				05D26CEC29CB24EF00EFC040 /* IlymaxUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */,
 				05D3C4B729D35C7E00D76EED /* DatabaseManager.swift */,
 				05D3C4B929D367F100D76EED /* Security.swift */,
+				05A4381F29D8564400AADDB9 /* FirestoreManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -284,6 +290,13 @@
 				05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		05A4381C29D8522C00AADDB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		05D26CF729CB4E4300EFC040 /* Errors */ = {
@@ -508,6 +521,7 @@
 				05D3C4AF29D3489C00D76EED /* FirebaseAuth */,
 				05D3C4B129D3489C00D76EED /* FirebaseDatabase */,
 				05BA97D229D613FA002B7568 /* JGProgressHUD */,
+				05A4381D29D8522C00AADDB9 /* FirebaseFirestore */,
 			);
 			productName = IlymaxShop;
 			productReference = 05188D9129C4FF21004E1D7B /* IlymaxShop.app */;
@@ -631,6 +645,7 @@
 				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
 				051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */,
+				05A4382029D8564400AADDB9 /* FirestoreManager.swift in Sources */,
 				051F101529C8E99D00877947 /* CatalogViewController.swift in Sources */,
 				0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */,
 				05D3C4BA29D367F100D76EED /* Security.swift in Sources */,
@@ -645,7 +660,7 @@
 				0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */,
 				05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */,
 				05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */,
-				05D26CED29CB24EF00EFC040 /* User.swift in Sources */,
+				05D26CED29CB24EF00EFC040 /* IlymaxUser.swift in Sources */,
 				051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
@@ -1016,6 +1031,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		05A4381D29D8522C00AADDB9 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		05BA97D229D613FA002B7568 /* JGProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;

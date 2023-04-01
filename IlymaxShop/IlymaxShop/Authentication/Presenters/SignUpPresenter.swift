@@ -14,9 +14,7 @@ class SignUpPresenter {
     var coordinator: AuthenticationCoordinator!
 
     func checkAvailableEmail(email: String, completion: @escaping (Bool) -> Void) {
-        let safeEmail = Security.getSafeEmail(email: email)
-        
-        DatabaseManager.shared.userExists(with: safeEmail) { value in
+        FirestoreManager.shared.userExists(with: email) { value in
             completion(value)
         }
     }

@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  IlymaxUser.swift
 //  IlymaxShop
 //
 //  Created by Илья Казначеев on 22.03.2023.
