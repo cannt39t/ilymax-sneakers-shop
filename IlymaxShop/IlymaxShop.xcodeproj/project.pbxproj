@@ -15,6 +15,7 @@
 		05188DAF29C4FF23004E1D7B /* IlymaxShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188DAE29C4FF23004E1D7B /* IlymaxShopTests.swift */; };
 		05188DB929C4FF23004E1D7B /* IlymaxShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188DB829C4FF23004E1D7B /* IlymaxShopUITests.swift */; };
 		05188DBB29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188DBA29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift */; };
+		0519A9C529D99EB600AE1553 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0519A9C429D99EB600AE1553 /* HeaderView.swift */; };
 		051F100729C8E39400877947 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100629C8E39400877947 /* AppCoordinator.swift */; };
 		051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100829C8E3A700877947 /* ProfileCoordinator.swift */; };
 		051F100B29C8E3BD00877947 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F100A29C8E3BD00877947 /* ChatCoordinator.swift */; };
@@ -83,6 +84,10 @@
 		05188DAE29C4FF23004E1D7B /* IlymaxShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopTests.swift; sourceTree = "<group>"; };
 		05188DB829C4FF23004E1D7B /* IlymaxShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopUITests.swift; sourceTree = "<group>"; };
 		05188DBA29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0519A9BF29D99C2600AE1553 /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IlymaxShop.app; path = "/Users/ilakaznaceev/Documents/IOS_Education/agona/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShop.app"; sourceTree = "<absolute>"; };
+		0519A9C029D99C2600AE1553 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/agona/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
+		0519A9C129D99C2600AE1553 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/agona/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
+		0519A9C429D99EB600AE1553 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		051F100629C8E39400877947 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		051F100829C8E3A700877947 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		051F100A29C8E3BD00877947 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
@@ -97,9 +102,6 @@
 		051F101C29C8EA1900877947 /* PublicShoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesViewController.swift; sourceTree = "<group>"; };
 		051F101E29C8EA4D00877947 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		05218D3D29D9944A00887040 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		05363C7C29D999D000A3BC93 /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IlymaxShop.app; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShop.app"; sourceTree = "<absolute>"; };
-		05363C7D29D999D000A3BC93 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
-		05363C7E29D999D000A3BC93 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 		0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		0539C3A629CDDA82008F41B4 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		0539C3A829CDDA9A008F41B4 /* MockCartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCartService.swift; sourceTree = "<group>"; };
@@ -256,6 +258,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0519A9C229D99E9300AE1553 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0519A9C329D99E9D00AE1553 /* Headers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0519A9C329D99E9D00AE1553 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				0519A9C429D99EB600AE1553 /* HeaderView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		0539C3AE29CDDAAB008F41B4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +309,7 @@
 		05EC2D0829D07F6F00962420 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				0519A9C229D99E9300AE1553 /* Views */,
 				05188DE129C50146004E1D7B /* Coordinators */,
 				05188DDF29C5010D004E1D7B /* Controllers */,
 			);
@@ -505,7 +524,7 @@
 				05A4381D29D8522C00AADDB9 /* FirebaseFirestore */,
 			);
 			productName = IlymaxShop;
-			productReference = 05363C7C29D999D000A3BC93 /* IlymaxShop.app */;
+			productReference = 0519A9BF29D99C2600AE1553 /* IlymaxShop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05188DA929C4FF23004E1D7B /* IlymaxShopTests */ = {
@@ -523,7 +542,7 @@
 			);
 			name = IlymaxShopTests;
 			productName = IlymaxShopTests;
-			productReference = 05363C7D29D999D000A3BC93 /* IlymaxShopTests.xctest */;
+			productReference = 0519A9C029D99C2600AE1553 /* IlymaxShopTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		05188DB329C4FF23004E1D7B /* IlymaxShopUITests */ = {
@@ -541,7 +560,7 @@
 			);
 			name = IlymaxShopUITests;
 			productName = IlymaxShopUITests;
-			productReference = 05363C7E29D999D000A3BC93 /* IlymaxShopUITests.xctest */;
+			productReference = 0519A9C129D99C2600AE1553 /* IlymaxShopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -648,6 +667,7 @@
 				05D26CF929CB4E6300EFC040 /* ValidationError.swift in Sources */,
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
+				0519A9C529D99EB600AE1553 /* HeaderView.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
 				0539C3AB29CDDA9A008F41B4 /* MockCartService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ChatViewController.swift in Sources */,
