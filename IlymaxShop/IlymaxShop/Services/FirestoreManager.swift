@@ -30,11 +30,11 @@ extension FirestoreManager {
                     print("Error getting documents: \(err)")
                 } else {
                     if querySnapshot!.documents.count == 0 {
-                        print("User with email \(email) exists")
+                        print("User with email \(email) does't exists")
                         completion(false)
                     } else {
+                        print("User with email \(email) exists")
                         completion(true)
-                        print("User with email \(email) does't exists")
                     }
                 }
         }
