@@ -84,9 +84,6 @@
 		05188DAE29C4FF23004E1D7B /* IlymaxShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopTests.swift; sourceTree = "<group>"; };
 		05188DB829C4FF23004E1D7B /* IlymaxShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopUITests.swift; sourceTree = "<group>"; };
 		05188DBA29C4FF23004E1D7B /* IlymaxShopUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxShopUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0519A9BF29D99C2600AE1553 /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IlymaxShop.app; path = "/Users/ilakaznaceev/Documents/IOS_Education/agona/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShop.app"; sourceTree = "<absolute>"; };
-		0519A9C029D99C2600AE1553 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/agona/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
-		0519A9C129D99C2600AE1553 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/agona/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 		0519A9C429D99EB600AE1553 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		051F100629C8E39400877947 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		051F100829C8E3A700877947 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -109,6 +106,9 @@
 		0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
+		059223A129D9A01100E91B57 /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IlymaxShop.app; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShop.app"; sourceTree = "<absolute>"; };
+		059223A229D9A01100E91B57 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
+		059223A329D9A01100E91B57 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 		05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		05A4381F29D8564400AADDB9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		05BA97D429D62151002B7568 /* NoAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuthViewController.swift; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 				05A4381D29D8522C00AADDB9 /* FirebaseFirestore */,
 			);
 			productName = IlymaxShop;
-			productReference = 0519A9BF29D99C2600AE1553 /* IlymaxShop.app */;
+			productReference = 059223A129D9A01100E91B57 /* IlymaxShop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05188DA929C4FF23004E1D7B /* IlymaxShopTests */ = {
@@ -542,7 +542,7 @@
 			);
 			name = IlymaxShopTests;
 			productName = IlymaxShopTests;
-			productReference = 0519A9C029D99C2600AE1553 /* IlymaxShopTests.xctest */;
+			productReference = 059223A229D9A01100E91B57 /* IlymaxShopTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		05188DB329C4FF23004E1D7B /* IlymaxShopUITests */ = {
@@ -560,7 +560,7 @@
 			);
 			name = IlymaxShopUITests;
 			productName = IlymaxShopUITests;
-			productReference = 0519A9C129D99C2600AE1553 /* IlymaxShopUITests.xctest */;
+			productReference = 059223A329D9A01100E91B57 /* IlymaxShopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
