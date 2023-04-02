@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - Shoes model
+
 struct Shoes {
     let name: String
     let description: String
