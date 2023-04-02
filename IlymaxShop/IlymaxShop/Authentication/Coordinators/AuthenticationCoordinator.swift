@@ -10,11 +10,13 @@ import UIKit
 class AuthenticationCoordinator {
     
     private weak var navigationController: UINavigationController!
+    public var startProfile: (() -> ()) = {}
     
     func startLogin() -> UIViewController {
         let loginController = LoginViewController()
         let loginPresenter = LoginPresenter()
         loginController.presenter = loginPresenter
+        loginPresenter.view = loginController
         loginPresenter.coordinator = self
         return loginController
     }
@@ -32,35 +34,22 @@ class AuthenticationCoordinator {
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.navigationBar.isHidden = true
         self.navigationController = navigationController
-        
     }
     
     func start() -> UIViewController {
         let controller = startSignup()
-        controller.navigationItem.setHidesBackButton(true, animated: false)
         setController(controller: controller)
         return navigationController
     }
     
     func changeToLogin() {
-        navigationController.popViewController(animated: false)
-        navigationController.pushViewController(startLogin(), animated: false)
+        let controller = startLogin()
+        navigationController.viewControllers = [controller]
     }
     
     func changeToSignup() {
-        navigationController.popViewController(animated: false)
-        navigationController.pushViewController(startSignup(), animated: false)
+        let controller = startSignup()
+        navigationController.viewControllers = [controller]
     }
-    
-    func startProfile() {
-        navigationController.popViewController(animated: false)
-        let controller = ProfileCoordinator().start()
-        navigationController.pushViewController(controller, animated: false)
-    }
-    
-//    func changeToLogin() {
-//        let controller = startLogin()
-//        setController(controller: controller)
-//    }
-    
+
 }

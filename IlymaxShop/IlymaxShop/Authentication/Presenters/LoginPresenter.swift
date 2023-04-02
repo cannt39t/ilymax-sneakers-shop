@@ -9,22 +9,54 @@ import Foundation
 
 class LoginPresenter {
     
-    private weak var view: LoginViewController?
-    private var authenticationService: AuthenticationService = MockAuthenticationService.shared
-    private var userService: UserService = MockUserService.shared
+    weak var view: LoginViewController?
+    private var authenticationService: AuthenticationService = FirebaseAuthenticationService()
     weak var coordinator: AuthenticationCoordinator!
     
-    public func emailExists(email: String) throws {
-        if (userService.getUserByEmail(email: email)) == nil {
-            throw ValidationError.init(atIndex: 0, type: .cannotFindEmail)
+    public func validation(_ email: String?, _ password: String?) {
+        DispatchQueue.global().sync {
+            do {
+                
+                // Empty
+                
+                guard let textEmail = email, !textEmail.isEmpty else {
+                    throw ValidationError(atIndex: 0, type: .emptyField)
+                }
+                guard let textPassword = password, !textPassword.isEmpty else {
+                    throw ValidationError(atIndex: 1, type: .emptyField)
+                }
+                
+                // Email
+                
+                if !ValidationError.validateEmail(email: textEmail) {
+                    throw ValidationError(atIndex: 0, type: .invalidEmail)
+                }
+                
+                // Number of chars
+                
+                if textPassword.count < 8 {
+                    throw ValidationError(atIndex: 1, type: .shortPassword)
+                }
+                
+                valid(textEmail, textPassword)
+                
+            } catch {
+                notValid(error)
+            }
         }
     }
     
-    public func validPassword(email: String, password: String) throws {
-        if let user = userService.getUserByEmail(email: email) {
-            if user.password != password {
-                throw ValidationError.init(atIndex: 1, type: .invalidPassword)
-            }
+    func valid(_ email: String, _ password: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.setupLayout()
+            self?.view?.showLoader()
+            self?.login(email: email, password: password)
+        }
+    }
+    
+    func notValid(_ error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.setupLayout(validationError: error as? ValidationError)
         }
     }
     
@@ -32,11 +64,20 @@ class LoginPresenter {
         coordinator.changeToSignup()
     }
     
-    func login(email: String) {
-        if let user = userService.getUserByEmail(email: email) {
-            authenticationService.login(user: user)
+    func login(email: String, password: String) {
+        authenticationService.login(email: email, password: password) { [weak self] error in
+            if let error {
+                DispatchQueue.main.async {
+                    self?.view?.hideLoader()
+                    self?.view?.showAlert(error)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self?.view?.hideLoader()
+                self?.coordinator.startProfile()
+            }
         }
-        coordinator.startProfile()
     }
     
 }
