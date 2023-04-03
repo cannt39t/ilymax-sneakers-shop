@@ -12,9 +12,9 @@ class CatalogViewController: UIViewController {
     private var collectionView: UICollectionView!
     private let searchBar = UISearchBar()
     
-    private var promotions: [Promotion] = []
-    private var popular: [Shoes] = []
-    private var categories: [IlymaxCategory] = []
+    public var promotions: [Promotion] = []
+    public var popular: [Shoes] = []
+    public var categories: [IlymaxCategory] = []
     
     var cur = 0
     

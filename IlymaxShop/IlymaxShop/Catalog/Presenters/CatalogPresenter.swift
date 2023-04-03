@@ -14,7 +14,9 @@ class CatalogPresenter {
     
     public func loadPromotions() {
         catalogService.getAllPromotions { promotions in
-            
+            catalogService.getAllCategories { categories in
+                view?.c
+            }
         }
     }
     

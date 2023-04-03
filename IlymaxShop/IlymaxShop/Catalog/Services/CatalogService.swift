@@ -15,4 +15,21 @@ class CatalogService {
         }
     }
     
+    public func getAllCategories(completion: @escaping (([IlymaxCategory]) -> Void)) {
+        FirestoreManager.shared.getAllCategories { categories in
+            completion(categories)
+        }
+    }
+    
+    public func getPopularShoes(completion: @escaping (([Shoes]) -> Void)) {
+        FirestoreManager.shared.getAllShoes { shoes, error in
+            if let error {
+                print(error)
+                completion([])
+                return
+            }
+            completion(shoes!)
+        }
+    }
+    
 }

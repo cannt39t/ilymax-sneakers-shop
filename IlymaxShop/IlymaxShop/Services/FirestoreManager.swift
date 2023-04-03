@@ -16,7 +16,6 @@ final class FirestoreManager {
     
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-    
 }
 
 
@@ -123,7 +122,8 @@ extension FirestoreManager {
             "data": shoes.data.map { ["size": $0.size, "price": $0.price, "quantity": $0.quantity] },
             "owner_id": shoes.ownerId,
             "company": shoes.company,
-            "category": shoes.category
+            "category": shoes.category,
+            "lowest_price": shoes.lowestPrice
         ]) { [weak self] err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -248,6 +248,33 @@ extension FirestoreManager {
             completion(shoes, nil)
         }
     }
+}
+
+// MARK: - Category managment
+
+extension FirestoreManager {
+    
+    /// Get all categories
+    public func getAllCategories(completion: @escaping ([IlymaxCategory]) -> Void) {
+        db.collection("categories").getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion([])
+                return
+            }
+            var categories: [IlymaxCategory] = []
+            for doc in querySnapshot!.documents {
+                if let name = doc.data()["name"] as? String,
+                    let imageUrl = doc.data()["image_url"] as? String {
+                    let category = IlymaxCategory(name: name, imageUrl: imageUrl)
+                    categories.append(category)
+                }
+            }
+            completion(categories)
+        }
+    }
 
     
 }
+
+
