@@ -14,7 +14,7 @@ class TabBarCoordinator {
     
     func start() -> UIViewController {
         
-//        try? FirebaseAuth.Auth.auth().signOut()
+        test()
         
         let tabBarController = UITabBarController()
         self.tabBarController = tabBarController
@@ -116,5 +116,12 @@ class TabBarCoordinator {
         arrayOfControllers?[3] = chat()
         arrayOfControllers?[4] = profile()
         tabBarController?.viewControllers = arrayOfControllers
+    }
+    
+    private func test() {
+        let image = UIImage(named: "Welcome")!
+        let shoes = Shoes(name: "Sneakers", description: "Comfortable sneakers", color: "White", gender: "Unisex", imageUrl: nil, data: [ShoesDetail(size: "US 7", price: 99.99, quantity: 10), ShoesDetail(size: "US 8", price: 99.99, quantity: 5)], ownerId: "123", company: "Nike", category: "Athletic")
+
+        FirestoreManager.shared.insertShoes(with: shoes, image: image)
     }
 }

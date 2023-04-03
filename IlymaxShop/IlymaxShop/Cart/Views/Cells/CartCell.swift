@@ -42,13 +42,15 @@ class CartCell: UICollectionViewCell {
        // imgImageView.image = UIImage(named: "Welcome")
         let imageLoader = ImageLoader()
         
-        imageLoader.loadImage(from: URL(string: "\(product.description)")!) { [self] image in
+        imageLoader.loadImage(from: URL(string: "\(product.description)")!) { [weak self] image in
             guard let image = image else {
-                imgImageView.image = UIImage(systemName: "photo")
+                DispatchQueue.main.async { [weak self] in
+                    self?.imgImageView.image = UIImage(systemName: "photo")
+                }
                 return
             }
             
-            imgImageView.image = image
+            self?.imgImageView.image = image
         }
         
         deleteButton.setImage(UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
