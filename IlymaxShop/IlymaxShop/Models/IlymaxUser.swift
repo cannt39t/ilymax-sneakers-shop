@@ -16,7 +16,4 @@ struct IlymaxUser {
     var safeEmail: String {
         return Security.getSafeEmail(email: emailAddress)
     }
-    
-
-    
 }

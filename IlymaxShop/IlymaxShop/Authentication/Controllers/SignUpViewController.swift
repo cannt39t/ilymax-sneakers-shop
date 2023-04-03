@@ -28,6 +28,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         nameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        
+        
         setupDesign()
         setupLayout()
         
@@ -205,6 +210,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
         present(alert, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        confirmPasswordTextField.resignFirstResponder()
+        return true
     }
     
 }

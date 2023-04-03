@@ -12,6 +12,10 @@ class CatalogViewController: UIViewController {
     private var collectionView: UICollectionView!
     private let searchBar = UISearchBar()
     
+    private var promotions: [Promotion] = []
+    private var popular: [Shoes] = []
+    private var categories: [IlymaxCategory] = []
+    
     var cur = 0
     
     var timer: Timer?
@@ -19,6 +23,12 @@ class CatalogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        /*
+         presenter.loadPromotions()
+         presenter.loadPopular()
+         presenter.loadCategories()
+        */
         
         setupSearchBar()
         setupCollectionView()
@@ -44,7 +54,7 @@ class CatalogViewController: UIViewController {
     }
     
     @objc func slideToNext() {
-        if cur < 4 {
+        if cur < promotions.count {
             cur += 1
         } else {
             cur = 0
@@ -164,7 +174,16 @@ class CatalogViewController: UIViewController {
 
 extension CatalogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 2 ? 15 : 5
+        switch section {
+            case 0:
+                return 3
+            case 1:
+                return 10
+            case 2:
+                return 15
+            default:
+                return 0
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -184,14 +203,14 @@ extension CatalogViewController: UICollectionViewDataSource {
                 guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: "HeaderView", for: indexPath) as? HeaderView else {
                     return UICollectionReusableView()
                 }
-                view.title = "Most popular"
+                view.setTitle(with: "Most popular")
                 view.didTapOnHeader = {} // вызвать презентер
                 return view
             default:
                 guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: "HeaderView", for: indexPath) as? HeaderView else {
                     return UICollectionReusableView()
                 }
-                view.title = "Browse by category"
+                view.setTitle(with: "Browse by category")
                 return view
         }
     }

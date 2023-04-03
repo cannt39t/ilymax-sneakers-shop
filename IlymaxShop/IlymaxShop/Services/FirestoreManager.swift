@@ -81,7 +81,6 @@ extension FirestoreManager {
                     let promotion = Promotion(name: name, imageUrl: imageUrl, shoesIds: shoesIds)
                     promotions.append(promotion)
                 }
-                print(doc)
             }
             completion(promotions)
         }
@@ -98,7 +97,7 @@ extension FirestoreManager {
             if let error = error {
                 completion(error, nil)
             } else {
-                // Data for "images/island.jpg" is returned
+                // Data for "images/promotionId.jpg" is returned
                 let image = UIImage(data: data!)
                 completion(nil, image)
             }
