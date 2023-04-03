@@ -76,11 +76,12 @@ extension FirestoreManager {
             var promotions: [Promotion] = []
             for doc in querySnapshot!.documents {
                 if let name = doc.data()["name"] as? String,
-                    let imageUrl = doc.data()["imageUrl"] as? String,
-                    let shoesIds = doc.data()["shoesIds"] as? [String] {
+                    let imageUrl = doc.data()["image_url"] as? String,
+                    let shoesIds = doc.data()["shoes_ids"] as? [String] {
                     let promotion = Promotion(name: name, imageUrl: imageUrl, shoesIds: shoesIds)
                     promotions.append(promotion)
                 }
+                print(doc)
             }
             completion(promotions)
         }
@@ -119,9 +120,9 @@ extension FirestoreManager {
             "description": shoes.description,
             "color": shoes.color,
             "gender": shoes.gender,
-            "imageUrl": shoes.imageUrl ?? "",
+            "image_url": shoes.imageUrl ?? "",
             "data": shoes.data.map { ["size": $0.size, "price": $0.price, "quantity": $0.quantity] },
-            "ownerId": shoes.ownerId,
+            "owner_id": shoes.ownerId,
             "company": shoes.company,
             "category": shoes.category
         ]) { [weak self] err in
@@ -169,7 +170,7 @@ extension FirestoreManager {
     private func updateImageUrl(for documentID: String, imageUrl: String) {
         let shoesRef = db.collection("shoes").document(documentID)
         shoesRef.updateData([
-            "imageUrl": imageUrl
+            "image_url": imageUrl
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
@@ -198,5 +199,56 @@ extension FirestoreManager {
             }
         }
     }
+    
+    /// Get all shoes from Database
+    public func getAllShoes(completion: @escaping ([Shoes]?, Error?) -> Void) {
+        db.collection("shoes").getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let snapshot = snapshot else {
+                completion(nil, nil)
+                return
+            }
+            
+            var shoes: [Shoes] = []
+            
+            for document in snapshot.documents {
+                let data = document.data()
+                let name = data["name"] as? String ?? ""
+                let description = data["description"] as? String ?? ""
+                let color = data["color"] as? String ?? ""
+                let gender = data["gender"] as? String ?? ""
+                let imageUrl = data["image_url"] as? String ?? ""
+                let ownerId = data["owner_id"] as? String ?? ""
+                let company = data["company"] as? String ?? ""
+                let category = data["category"] as? String ?? ""
+                
+                guard let dataArr = data["data"] as? [[String: Any]] else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                var shoeData: [ShoesDetail] = []
+                
+                for dict in dataArr {
+                    let size = dict["size"] as? String ?? ""
+                    let price = dict["price"] as? Double ?? 0
+                    let quantity = dict["quantity"] as? Int ?? 0
+                    
+                    let shoe = ShoesDetail(size: size, price: Float(price), quantity: quantity)
+                    shoeData.append(shoe)
+                }
+                
+                let shoe = Shoes(name: name, description: description, color: color, gender: gender, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                shoes.append(shoe)
+            }
+            
+            completion(shoes, nil)
+        }
+    }
+
     
 }

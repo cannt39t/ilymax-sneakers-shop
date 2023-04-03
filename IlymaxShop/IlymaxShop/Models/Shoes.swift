@@ -20,7 +20,11 @@ struct Shoes {
     let category: String
     
     var sizes: [String] {
-        return data.map { String($0.size) }.sorted()
+        data.map { String($0.size) }.sorted()
+    }
+    
+    var lowestPrice: Float {
+        data.map { Float($0.price) }.sorted()[0]
     }
 }
 
