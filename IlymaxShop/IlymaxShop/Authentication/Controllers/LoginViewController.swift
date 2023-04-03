@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     private var welcomeLabel: UILabel = .init()
     private var emailTextField: UITextField = .init()
@@ -23,6 +23,9 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         setupDesign()
         setupLayout()
@@ -176,6 +179,13 @@ class LoginViewController: UIViewController {
         let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        return true
     }
     
 }

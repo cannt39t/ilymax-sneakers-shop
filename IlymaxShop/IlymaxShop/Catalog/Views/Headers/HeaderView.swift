@@ -36,13 +36,10 @@ class HeaderView: UICollectionReusableView {
         ])
     }
     
-    var title: String? {
-        didSet {
-            label.text = title
-        }
+    public func setTitle(with title: String) {
+        label.text = title
     }
     
-     
     required init?(coder Decoder: NSCoder) {
         super.init(coder: Decoder)
     }
