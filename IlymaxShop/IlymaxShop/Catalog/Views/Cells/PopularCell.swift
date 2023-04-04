@@ -28,6 +28,8 @@ class PopularCell: UICollectionViewCell {
     }
     
     private func setup() {
+        contentView.backgroundColor = .white
+        
         contentView.addSubview(shoeImage)
         shoeImage.contentMode = .scaleAspectFill
         shoeImage.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +47,7 @@ class PopularCell: UICollectionViewCell {
         nameLabel.text = shoes.name
         fromPriceLabel.text = "from \(shoes.lowestPrice)$"
         FirestoreManager.shared.getImageShoes(shoes.imageUrl!) { [weak self] error, image in
+            print(error)
             self?.shoeImage.image = image
         }
     }
