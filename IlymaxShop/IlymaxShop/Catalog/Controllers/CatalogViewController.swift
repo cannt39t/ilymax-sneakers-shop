@@ -9,31 +9,32 @@ import UIKit
 
 class CatalogViewController: UIViewController {
     
-    private var collectionView: UICollectionView!
+    public var collectionView: UICollectionView!
     private let searchBar = UISearchBar()
     
     public var promotions: [Promotion] = []
     public var popular: [Shoes] = []
     public var categories: [IlymaxCategory] = []
     
-    var cur = 0
+    public var presenter: CatalogPresenter!
     
-    var timer: Timer?
+    private var cur = 0
+    private var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        /*
-         presenter.loadPromotions()
-         presenter.loadPopular()
-         presenter.loadCategories()
-        */
+        presenter.loadPromotions()
+        presenter.loadPopular()
+        presenter.loadCategories()
         
         setupSearchBar()
         setupCollectionView()
         setupTimer()
     }
+    
+//    public
     
     private func setupSearchBar() {
         searchBar.delegate = self
@@ -165,6 +166,9 @@ class CatalogViewController: UIViewController {
         ])
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(PromotionCell.self, forCellWithReuseIdentifier: PromotionCell.indertifier)
+        collectionView.register(PopularCell.self, forCellWithReuseIdentifier: PopularCell.indertifier)
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.indertifier)
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: "HeaderView", withReuseIdentifier: "HeaderView")
         
         collectionView.dataSource = self
@@ -176,7 +180,7 @@ extension CatalogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
             case 0:
-                return 3
+                return promotions.count
             case 1:
                 return 10
             case 2:
@@ -191,9 +195,16 @@ extension CatalogViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor(hue: CGFloat(drand48()), saturation: 1, brightness: 1, alpha: 1)
-        return cell
+        switch indexPath.section {
+            case 0:
+                let promotionCell = collectionView.dequeueReusableCell(withReuseIdentifier: PromotionCell.indertifier, for: indexPath) as! PromotionCell
+                promotionCell.setPromotion(promotion: promotions[indexPath.item])
+                return promotionCell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                cell.backgroundColor = UIColor(hue: CGFloat(drand48()), saturation: 1, brightness: 1, alpha: 1)
+                return cell
+        }
     }
     
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CatalogPresenter {
     
@@ -13,10 +14,29 @@ class CatalogPresenter {
     private let catalogService = CatalogService()
     
     public func loadPromotions() {
-        catalogService.getAllPromotions { promotions in
-            catalogService.getAllCategories { categories in
-                view?.c
-            }
+        catalogService.getAllPromotions { [weak self] promotions in
+            self?.view?.promotions = promotions
+            self?.view?.collectionView.reloadData()
+            print(Thread.current)
+            print(promotions)
+        }
+    }
+    
+    public func loadPopular() {
+        catalogService.getPopularShoes { [weak self] shoes in
+            self?.view?.popular = shoes
+            self?.view?.collectionView.reloadData()
+            print(Thread.current)
+            print(shoes)
+        }
+    }
+    
+    public func loadCategories() {
+        catalogService.getAllCategories { [weak self] categories in
+            self?.view?.categories = categories
+            self?.view?.collectionView.reloadData()
+            print(Thread.current)
+            print(categories)
         }
     }
     

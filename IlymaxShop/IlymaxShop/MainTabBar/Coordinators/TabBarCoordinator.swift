@@ -128,7 +128,7 @@ class TabBarCoordinator {
     private func test() {
         FirestoreManager.shared.getAllCategories { promotions in
             for promotion in promotions {
-                print(promotion)
+//                print(promotion)
             }
         }
     }
