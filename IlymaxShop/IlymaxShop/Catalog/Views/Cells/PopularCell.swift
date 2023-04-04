@@ -29,7 +29,7 @@ class PopularCell: UICollectionViewCell {
     
     private func setup() {
         contentView.addSubview(shoeImage)
-        shoeImage.contentMode = .scaleAspectFit
+        shoeImage.contentMode = .scaleAspectFill
         shoeImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
