@@ -34,8 +34,6 @@ class CatalogViewController: UIViewController {
         setupTimer()
     }
     
-//    public
-    
     private func setupSearchBar() {
         searchBar.delegate = self
         searchBar.placeholder = "Whar are u looking for?"
@@ -129,7 +127,7 @@ class CatalogViewController: UIViewController {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 30, bottom: 0, trailing: 10)
         
         //layout
         let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
@@ -153,7 +151,7 @@ class CatalogViewController: UIViewController {
     
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -182,9 +180,9 @@ extension CatalogViewController: UICollectionViewDataSource {
             case 0:
                 return promotions.count
             case 1:
-                return 10
+                return popular.count
             case 2:
-                return 15
+                return categories.count
             default:
                 return 0
         }
@@ -200,6 +198,14 @@ extension CatalogViewController: UICollectionViewDataSource {
                 let promotionCell = collectionView.dequeueReusableCell(withReuseIdentifier: PromotionCell.indertifier, for: indexPath) as! PromotionCell
                 promotionCell.setPromotion(promotion: promotions[indexPath.item])
                 return promotionCell
+            case 1:
+                let popularCell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.indertifier, for: indexPath) as! PopularCell
+                popularCell.setCategory(shoes: popular[indexPath.item])
+                return popularCell
+            case 2:
+                let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.indertifier, for: indexPath) as! CategoryCell
+                categoryCell.setCategory(category: categories[indexPath.item])
+                return categoryCell
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
                 cell.backgroundColor = UIColor(hue: CGFloat(drand48()), saturation: 1, brightness: 1, alpha: 1)
