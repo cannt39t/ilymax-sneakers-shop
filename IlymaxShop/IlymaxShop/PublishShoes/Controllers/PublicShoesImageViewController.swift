@@ -133,6 +133,14 @@ class PublicShoesImageViewController: UIViewController {
     }
 
     @objc private func uploadButtonTapped() {
+        if imageView.image != UIImage(systemName: "shoeprints.fill") {
+            presenter.addToDB(with: presenter.product, image: imageView.image!)
+        } else {
+            let alertController = UIAlertController(title: "The upload is not available", message: "Please add image", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(dismissAction)
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     @objc private func tapOnImage(_ sender: UITapGestureRecognizer) {

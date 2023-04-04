@@ -12,11 +12,11 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
 
     let genders = ["MAN", "WOMAN", "UNISEX"]
     var genderActions = [UIAction]()
-    let companies = ["ILYMAX", "Nike", "Adidas", "Vans", "Timberland", "Puma", "Crocs", "Reebok", "Converse", "Lacoste", "Jordan", "Barbour", "TODS", "Brioni", "Gucci", "Diesel", "NB", "Diadora", "DrMartens", "Asics", "Boss", "Salomon", "UGG"]
+    let companies = ["ILYMAX", "Nike", "Adidas", "Vans", "Timberland", "Puma", "Crocs", "Reebok", "Converse", "Lacoste", "Jordan", "Barbour", "TODS", "Brioni", "Gucci", "Diesel", "New Balance", "Ocai", "Diadora", "DrMartens", "Asics", "Boss", "Salomon", "UGG"]
     var companyActions = [UIAction]()
     let colors = [ "Black", "Blue", "Brown", "Gold", "Green", "Grey", "Multi", "Navy", "Neutral", "Orange", "Pink", "Purple", "Red", "Silver", "White", "Yellow"]
     var colorActions = [UIAction]()
-    let categories = ["Boat_Shoes","Boots", "Clogs", "Espadrilles", "Flip_Flops", "Sandals", "Shoes", "Slippers", "Sneakers", "Accessories"]
+    let categories = ["Boat Shoes","Boots", "Clogs", "Espadrilles", "Flip Flops", "Sandals", "Shoes", "Slippers", "Sneakers", "Accessories"]
     var categoryActions = [UIAction]()
     let conditions = ["NEW", "PiU"]
     var conditionActions = [UIAction]()

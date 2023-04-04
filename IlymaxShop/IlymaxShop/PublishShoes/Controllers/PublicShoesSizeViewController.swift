@@ -141,7 +141,7 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
                 numberOfRows -= 1
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .automatic)
-                if (presenter.product.data.count >= indexPath.row){
+                if (presenter.product.data.count > indexPath.row){
                     presenter.product.data.remove(at: indexPath.row)
                 }
                 tableView.endUpdates()
