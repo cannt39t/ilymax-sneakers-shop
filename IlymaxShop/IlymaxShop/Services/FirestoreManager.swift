@@ -273,6 +273,43 @@ extension FirestoreManager {
             completion(categories)
         }
     }
+    
+    /// Get all categories like array of names
+    public func getAllCategoriesStrings(completion: @escaping ([String]) -> Void) {
+        db.collection("categories").getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion([])
+                return
+            }
+            var categories: [String] = []
+            for doc in querySnapshot!.documents {
+                if let name = doc.data()["name"] as? String {
+                    categories.append(name)
+                }
+            }
+            completion(categories)
+        }
+    }
+    
+    
+    /// Get image from url shoes
+    public func getImageCategory(_ imageUrl: String, completion: @escaping (Error?, UIImage?) -> Void) {
+        let storageRef = storage.reference()
+        
+        let islandRef = storageRef.child(imageUrl)
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                completion(error, nil)
+            } else {
+                // Data for "images/island.jpg" is returned
+                let image = UIImage(data: data!)
+                completion(nil, image)
+            }
+        }
+    }
 
     
 }

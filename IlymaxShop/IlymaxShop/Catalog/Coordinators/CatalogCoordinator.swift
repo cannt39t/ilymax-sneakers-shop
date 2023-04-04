@@ -10,8 +10,11 @@ import UIKit
 class CatalogCoordinator {
     
     func start() -> UIViewController {
-        let cartController = CatalogViewController()
-        return cartController
+        let catalogController = CatalogViewController()
+        let catalogPresenter = CatalogPresenter()
+        catalogPresenter.view = catalogController
+        catalogController.presenter = catalogPresenter
+        return catalogController
     }
     
 }
