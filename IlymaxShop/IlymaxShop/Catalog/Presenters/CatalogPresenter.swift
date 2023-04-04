@@ -17,8 +17,6 @@ class CatalogPresenter {
         catalogService.getAllPromotions { [weak self] promotions in
             self?.view?.promotions = promotions
             self?.view?.collectionView.reloadData()
-            print(Thread.current)
-            print(promotions)
         }
     }
     
@@ -26,8 +24,6 @@ class CatalogPresenter {
         catalogService.getPopularShoes { [weak self] shoes in
             self?.view?.popular = shoes
             self?.view?.collectionView.reloadData()
-            print(Thread.current)
-            print(shoes)
         }
     }
     
@@ -35,8 +31,6 @@ class CatalogPresenter {
         catalogService.getAllCategories { [weak self] categories in
             self?.view?.categories = categories
             self?.view?.collectionView.reloadData()
-            print(Thread.current)
-            print(categories)
         }
     }
     
