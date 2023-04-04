@@ -118,6 +118,7 @@ extension FirestoreManager {
             "description": shoes.description,
             "color": shoes.color,
             "gender": shoes.gender,
+            "condition": shoes.condition,
             "image_url": shoes.imageUrl ?? "",
             "data": shoes.data.map { ["size": $0.size, "price": $0.price, "quantity": $0.quantity] },
             "owner_id": shoes.ownerId,
@@ -224,6 +225,7 @@ extension FirestoreManager {
                 let ownerId = data["owner_id"] as? String ?? ""
                 let company = data["company"] as? String ?? ""
                 let category = data["category"] as? String ?? ""
+                let condition = data["condition"] as? String ?? ""
                 
                 guard let dataArr = data["data"] as? [[String: Any]] else {
                     completion(nil, nil)
@@ -241,7 +243,7 @@ extension FirestoreManager {
                     shoeData.append(shoe)
                 }
                 
-                let shoe = Shoes(name: name, description: description, color: color, gender: gender, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                let shoe = Shoes(name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
                 shoes.append(shoe)
             }
             
