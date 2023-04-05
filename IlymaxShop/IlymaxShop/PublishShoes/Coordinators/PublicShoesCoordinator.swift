@@ -17,6 +17,9 @@ class PublicShoesCoordinator {
         publicShoesController.presenter = publicShoesPresenter
         publicShoesPresenter.view = publicShoesController
         publicShoesPresenter.coordinator = self
+        FirestoreManager.shared.getAllCategoriesStrings{categories in
+            publicShoesPresenter.categories = categories
+        }
         let navigationController = UINavigationController(rootViewController: publicShoesController)
         self.navigationController = navigationController
         return navigationController
