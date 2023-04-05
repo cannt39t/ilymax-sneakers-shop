@@ -116,7 +116,7 @@ class CatalogViewController: UIViewController {
         section.orthogonalScrollingBehavior = .continuous
         
         //supplementary
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
         section.boundarySupplementaryItems = [header]
         
@@ -141,7 +141,7 @@ class CatalogViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         
         //supplementary
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
         section.boundarySupplementaryItems = [header]
         

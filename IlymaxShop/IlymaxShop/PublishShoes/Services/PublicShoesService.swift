@@ -12,4 +12,6 @@ protocol PublicShoesService {
     
     func insertShoes(with shoes: Shoes, image: UIImage)
     
+    func getCategiriesString(completion: @escaping (([String]) -> Void))
+    
 }
