@@ -31,7 +31,7 @@ class CategoryCell: UICollectionViewCell {
     }
     
     private func setup() {
-        contentView.backgroundColor = .white
+//        contentView.backgroundColor = .white
         
         let stack = UIStackView(arrangedSubviews: [categoryImage, nameLabel])
         stack.alignment = .leading
@@ -56,7 +56,6 @@ class CategoryCell: UICollectionViewCell {
         self.category = category
         nameLabel.text = category.name
         FirestoreManager.shared.getImageCategory(category.imageUrl) { [weak self] error, image in
-            print(error)
             self?.categoryImage.image = image
         }
     }

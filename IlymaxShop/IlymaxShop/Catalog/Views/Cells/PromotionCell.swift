@@ -43,7 +43,6 @@ class PromotionCell: UICollectionViewCell {
     public func setPromotion(promotion: Promotion) {
         shoesIds = promotion.shoesIds
         FirestoreManager.shared.getImagePromotion(promotion.imageUrl) { [weak self] error, image in
-            print(error)
             self?.promotionImage.image = image
         }
     }
