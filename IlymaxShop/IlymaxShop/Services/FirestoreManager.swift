@@ -150,7 +150,7 @@ extension FirestoreManager {
         let shoesRef = storageRef.child(imageRef)
 
         // Upload the file to the path "shoes/images/custom_id.jpg"
-        let uploadTask = shoesRef.putData(image, metadata: nil) { (metadata, error) in
+        shoesRef.putData(image, metadata: nil) { (metadata, error) in
             guard metadata != nil else {
                 completion(nil)
                 return
