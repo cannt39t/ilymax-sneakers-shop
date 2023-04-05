@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PublicShoesViewController: UIViewController, UITextFieldDelegate {
+class PublicShoesViewController: UIViewController, UITextViewDelegate {
     var presenter: PublicShoesPresenter!
 
     let genders = ["MAN", "WOMAN", "UNISEX"]
@@ -16,15 +16,14 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
     var companyActions = [UIAction]()
     let colors = [ "Black", "Blue", "Brown", "Gold", "Green", "Grey", "Multi", "Navy", "Neutral", "Orange", "Pink", "Purple", "Red", "Silver", "White", "Yellow"]
     var colorActions = [UIAction]()
-    let categories = ["Boat Shoes","Boots", "Clogs", "Espadrilles", "Flip Flops", "Sandals", "Shoes", "Slippers", "Sneakers", "Accessories"]
     var categoryActions = [UIAction]()
     let conditions = ["NEW", "PiU"]
     var conditionActions = [UIAction]()
 
     private let nameLabel = UILabel()
-    private let nameTextField = UITextField()
+    private let nameTextView = UITextView()
     private let descriptionLabel = UILabel()
-    private let descriptionTextField = UITextField()
+    private let descriptionTextView = UITextView()
     
     private let genderLabel = UILabel()
     private let genderButton = UIButton()
@@ -57,21 +56,21 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
         nameLabel.font = UIFont.systemFont(ofSize: 30)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        nameTextField.placeholder = "Name"
-        nameTextField.text = presenter.product.name
-        nameTextField.borderStyle = .roundedRect
-        nameTextField.delegate = self
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
-
+        nameTextView.text = presenter.product.name
+        nameTextView.delegate = self
+        nameTextView.translatesAutoresizingMaskIntoConstraints = false
+        nameTextView.isScrollEnabled = false
+        nameTextView.font = UIFont.systemFont(ofSize: 16)
+        
         descriptionLabel.text = "Description"
         descriptionLabel.font = UIFont.systemFont(ofSize: 30)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        descriptionTextField.placeholder = "Description"
-        descriptionTextField.text = presenter.product.description
-        descriptionTextField.borderStyle = .roundedRect
-        descriptionTextField.delegate = self
-        descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.text = presenter.product.description
+        descriptionTextView.delegate = self
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.isScrollEnabled = false
+        descriptionTextView.font = UIFont.systemFont(ofSize: 16)
 
         genderLabel.text = "Gender"
         genderLabel.font = UIFont.systemFont(ofSize: 30)
@@ -158,7 +157,7 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
 
         categoryButton.setTitleColor(.black, for: .normal)
         categoryButton.layer.borderColor = UIColor.black.cgColor
-        for category in categories {
+        for category in presenter.categories {
             let categoryAction = UIAction(title: category) {  [weak self] action in
                 self?.categoryButton.setTitle(category, for: .normal)
             }
@@ -196,7 +195,7 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
         conditionButton.showsMenuAsPrimaryAction = true
         conditionButton.translatesAutoresizingMaskIntoConstraints = false
 
-        let textStackView = UIStackView(arrangedSubviews: [nameLabel, nameTextField, descriptionLabel, descriptionTextField])
+        let textStackView = UIStackView(arrangedSubviews: [nameLabel, nameTextView, descriptionLabel, descriptionTextView])
         textStackView.axis = .vertical
         textStackView.spacing = 16
         textStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -242,9 +241,9 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
         let category = categoryButton.title(for: .normal)
         let condition = conditionButton.title(for: .normal)
         
-        if nameTextField.text != "" && descriptionTextField.text != "" && gender != "Select Gender" && company != "Select Company" && color != "Select Color" && category != "Select Category" && condition != "Select Condition" {
-            presenter.product.name = nameTextField.text ?? ""
-            presenter.product.description = descriptionTextField.text ?? ""
+        if nameTextView.text != "" && descriptionTextView.text != "" && gender != "Select Gender" && company != "Select Company" && color != "Select Color" && category != "Select Category" && condition != "Select Condition" {
+            presenter.product.name = nameTextView.text ?? ""
+            presenter.product.description = descriptionTextView.text ?? ""
             presenter.product.gender = gender ?? ""
             presenter.product.company = company ?? ""
             presenter.product.color = color ?? ""
@@ -262,10 +261,14 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+    // MARK: - Если по нажатию на "Return" нужно скрыть клавиатуру
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if text == "\n" {
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)

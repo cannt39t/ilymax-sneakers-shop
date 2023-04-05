@@ -18,4 +18,6 @@ class PublicShoesPresenter {
     func addToDB(with shoes: Shoes, image: UIImage){
         publicShoesService.insertShoes(with: shoes, image: image)
     }
+    
+    var categories: [String] = [""]
 }
