@@ -45,4 +45,9 @@ class PromotionCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        promotionImage.image = nil
+    }
+    
 }
