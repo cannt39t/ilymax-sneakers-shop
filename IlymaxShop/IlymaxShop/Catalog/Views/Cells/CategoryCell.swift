@@ -13,8 +13,10 @@ import UIKit
 class CategoryCell: UICollectionViewCell {
     
     public static let indertifier = "CategoryCell"
-    private var promotionImage: UIImageView = .init()
-    public var shoesIds: [String] = []
+    private var categoryImage: UIImageView = .init()
+    private var nameLabel: UILabel = .init()
+    
+    public var category: IlymaxCategory?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -29,6 +31,30 @@ class CategoryCell: UICollectionViewCell {
     }
     
     private func setup() {
+        let stack = UIStackView(arrangedSubviews: [categoryImage, nameLabel])
+        stack.alignment = .leading
+        stack.spacing = 24
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fillProportionally
         
+        contentView.addSubview(stack)
+        
+        NSLayoutConstraint.activate([
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor),
+            
+            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            categoryImage.widthAnchor.constraint(equalTo: categoryImage.heightAnchor)
+        ])
+    }
+    
+    public func setCategory(category: IlymaxCategory) {
+        self.category = category
+        nameLabel.text = category.name
+        FirestoreManager.shared.getImageCategory(category.imageUrl) { [weak self] error, image in
+            self?.categoryImage.image = image
+        }
     }
 }

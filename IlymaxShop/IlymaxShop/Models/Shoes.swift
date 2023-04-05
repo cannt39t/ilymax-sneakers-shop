@@ -8,16 +8,17 @@
 import Foundation
 
 struct Shoes {
-    let name: String
-    let description: String
-    let color: String
-    let gender: String
-    let imageUrl: String?
-    let data: [ShoesDetail]
+    var name: String
+    var description: String
+    var color: String
+    var gender: String
+    var condition: String
+    var imageUrl: String?
+    var data: [ShoesDetail]
     
-    let ownerId: String
-    let company: String
-    let category: String
+    var ownerId: String
+    var company: String
+    var category: String
     
     var sizes: [String] {
         data.map { String($0.size) }.sorted()
@@ -29,7 +30,7 @@ struct Shoes {
 }
 
 struct ShoesDetail {
-    let size: String
-    let price: Float
-    let quantity: Int
+    var size: String
+    var price: Float
+    var quantity: Int
 }

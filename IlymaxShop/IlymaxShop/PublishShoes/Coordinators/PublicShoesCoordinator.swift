@@ -9,9 +9,17 @@ import UIKit
 
 class PublicShoesCoordinator {
     
+    private weak var navigationController: UINavigationController!
+    
     func start() -> UIViewController {
         let publicShoesController = PublicShoesViewController()
-        return publicShoesController
+        let publicShoesPresenter = PublicShoesPresenter()
+        publicShoesController.presenter = publicShoesPresenter
+        publicShoesPresenter.view = publicShoesController
+        publicShoesPresenter.coordinator = self
+        let navigationController = UINavigationController(rootViewController: publicShoesController)
+        self.navigationController = navigationController
+        return navigationController
     }
     
 }
