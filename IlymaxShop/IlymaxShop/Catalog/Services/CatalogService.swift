@@ -28,7 +28,7 @@ class CatalogService {
                 completion([])
                 return
             }
-            completion(shoes!)
+            completion(shoes ?? [])
         }
     }
     

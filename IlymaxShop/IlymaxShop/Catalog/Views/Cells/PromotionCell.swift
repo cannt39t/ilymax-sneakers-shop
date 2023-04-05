@@ -26,6 +26,8 @@ class PromotionCell: UICollectionViewCell {
     }
     
     private func setup() {
+        contentView.backgroundColor = .white
+        
         contentView.addSubview(promotionImage)
         promotionImage.contentMode = .scaleToFill
         promotionImage.translatesAutoresizingMaskIntoConstraints = false
