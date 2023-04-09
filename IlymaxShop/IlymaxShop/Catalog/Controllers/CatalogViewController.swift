@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CatalogViewController: UIViewController {
+class CatalogViewController: UIViewController, UICollectionViewDelegate {
     
     public var collectionView: UICollectionView!
     private let searchBar = UISearchBar()
@@ -151,6 +151,7 @@ class CatalogViewController: UIViewController {
     
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        collectionView.delegate = self
         collectionView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -172,9 +173,23 @@ class CatalogViewController: UIViewController {
         collectionView.dataSource = self
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+            case 0:
+                print(promotions[indexPath.item])
+            case 1:
+                print(popular[indexPath.item])
+            case 2:
+                print(categories[indexPath.item])
+            default:
+                print(indexPath)
+        }
+    }
+    
 }
 
 extension CatalogViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
             case 0:

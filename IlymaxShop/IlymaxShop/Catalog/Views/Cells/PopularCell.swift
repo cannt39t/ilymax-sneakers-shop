@@ -29,6 +29,8 @@ class PopularCell: UICollectionViewCell {
     }
     
     private func setup() {
+        contentView.backgroundColor = .white
+        
         contentView.addSubview(shoeImage)
         shoeImage.contentMode = .scaleAspectFit
         shoeImage.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +48,7 @@ class PopularCell: UICollectionViewCell {
         self.shoe = shoes
         nameLabel.text = shoes.name
         fromPriceLabel.text = "from \(shoes.lowestPrice)$"
+
         
         guard let imageUrl = shoes.imageUrl else {
             // Show error message to user if image URL is nil

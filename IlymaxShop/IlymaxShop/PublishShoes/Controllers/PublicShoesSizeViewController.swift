@@ -86,7 +86,7 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
                 let buttonTitle = sizeCell.sizeButton.currentTitle ?? ""
                 let textFieldValue = sizeCell.countTextField.text ?? ""
                 let price = sizeCell.priceTextField.text ?? ""
-                if(buttonTitle != "" && textFieldValue != "" && price != ""){
+                if(buttonTitle != "Select Size" && textFieldValue != "" && price != ""){
                     let shoeDetail: ShoesDetail = ShoesDetail(size: buttonTitle, price: Float(price) ?? 1, quantity: Int(textFieldValue) ?? 1)
                     presenter.product.data.append(shoeDetail)
                 }
