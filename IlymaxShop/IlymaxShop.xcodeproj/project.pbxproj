@@ -151,8 +151,8 @@
 		7E1DAD0D29DC9D68005B716B /* PublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesService.swift; sourceTree = "<group>"; };
 		7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePublicShoesService.swift; sourceTree = "<group>"; };
 		7E4927A929DDC0F1000129FF /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E4927AA29DDC0F1000129FF /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E4927AB29DDC0F1000129FF /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E4927AA29DDC0F1000129FF /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
+		7E4927AB29DDC0F1000129FF /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,8 +193,6 @@
 				05188DAD29C4FF23004E1D7B /* IlymaxShopTests */,
 				05188DB729C4FF23004E1D7B /* IlymaxShopUITests */,
 				7E4927A929DDC0F1000129FF /* IlymaxShop.app */,
-				7E4927AA29DDC0F1000129FF /* IlymaxShopTests.xctest */,
-				7E4927AB29DDC0F1000129FF /* IlymaxShopUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
