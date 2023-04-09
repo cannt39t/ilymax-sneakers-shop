@@ -29,6 +29,8 @@ class PopularCell: UICollectionViewCell {
     }
     
     private func setup() {
+        contentView.backgroundColor = .white
+        
         contentView.addSubview(shoeImage)
         shoeImage.contentMode = .scaleAspectFit
         shoeImage.translatesAutoresizingMaskIntoConstraints = false

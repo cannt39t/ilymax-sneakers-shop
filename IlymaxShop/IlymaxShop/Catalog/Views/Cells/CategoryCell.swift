@@ -31,6 +31,8 @@ class CategoryCell: UICollectionViewCell {
     }
     
     private func setup() {
+//        contentView.backgroundColor = .white
+        
         let stack = UIStackView(arrangedSubviews: [categoryImage, nameLabel])
         stack.alignment = .leading
         stack.spacing = 24
