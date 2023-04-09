@@ -150,7 +150,7 @@ extension FirestoreManager {
         let shoesRef = storageRef.child(imageRef)
 
         // Upload the file to the path "shoes/images/custom_id.jpg"
-        let uploadTask = shoesRef.putData(image, metadata: nil) { (metadata, error) in
+        shoesRef.putData(image, metadata: nil) { (metadata, error) in
             guard metadata != nil else {
                 completion(nil)
                 return
@@ -170,7 +170,8 @@ extension FirestoreManager {
     private func updateImageUrl(for documentID: String, imageUrl: String) {
         let shoesRef = db.collection("shoes").document(documentID)
         shoesRef.updateData([
-            "image_url": imageUrl
+            "image_url": imageUrl,
+            "id": documentID
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
@@ -217,6 +218,7 @@ extension FirestoreManager {
             
             for document in snapshot.documents {
                 let data = document.data()
+                let id = data["id"] as? String ?? ""
                 let name = data["name"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
                 let color = data["color"] as? String ?? ""
@@ -243,7 +245,7 @@ extension FirestoreManager {
                     shoeData.append(shoe)
                 }
                 
-                let shoe = Shoes(name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                let shoe = Shoes(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
                 shoes.append(shoe)
             }
             
@@ -312,7 +314,27 @@ extension FirestoreManager {
             }
         }
     }
+}
 
+// MARK: - Storage managment
+
+extension FirestoreManager {
+    
+    /// Get image url from localStorage
+    public func getImageUrlFromStorageUrl(_ imageUrl: String, completion: @escaping (Error?, URL?) -> Void) {
+        let storageRef = storage.reference()
+        
+        let imageRef = storageRef.child(imageUrl)
+        
+        // Fetch the download URL
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                completion(error, nil)
+            } else {
+                completion(nil, url)
+            }
+        }
+    }
     
 }
 

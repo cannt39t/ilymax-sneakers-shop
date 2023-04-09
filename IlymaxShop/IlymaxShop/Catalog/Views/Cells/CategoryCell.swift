@@ -55,8 +55,27 @@ class CategoryCell: UICollectionViewCell {
     public func setCategory(category: IlymaxCategory) {
         self.category = category
         nameLabel.text = category.name
-        FirestoreManager.shared.getImageCategory(category.imageUrl) { [weak self] error, image in
-            self?.categoryImage.image = image
+        FirestoreManager.shared.getImageUrlFromStorageUrl(category.imageUrl) { [weak self] error, url in
+            if let error {
+                print(error)
+                return
+            }
+            if let url {
+                self?.configure(with: url)
+            }
         }
+    }
+    
+    private func configure(with url: URL) {
+        categoryImage.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        categoryImage.image = nil
     }
 }

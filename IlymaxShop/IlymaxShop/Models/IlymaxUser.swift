@@ -11,7 +11,7 @@ struct IlymaxUser {
     
     let name: String
     let emailAddress: String
-//    let profilePictureUrl: String
+    let profilePictureUrl: String?
     
     var safeEmail: String {
         return Security.getSafeEmail(email: emailAddress)

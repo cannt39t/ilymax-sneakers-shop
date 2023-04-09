@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 050C580829E2D83B00A27A30 /* SDWebImage */; };
 		05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9429C4FF21004E1D7B /* AppDelegate.swift */; };
 		05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9629C4FF21004E1D7B /* SceneDelegate.swift */; };
 		05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9D29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld */; };
@@ -159,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */,
 				05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */,
 				05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */,
 				05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */,
@@ -626,6 +628,7 @@
 				05BA97D229D613FA002B7568 /* JGProgressHUD */,
 				05A4381D29D8522C00AADDB9 /* FirebaseFirestore */,
 				052D97F029D9CBE8008CA67C /* FirebaseStorage */,
+				050C580829E2D83B00A27A30 /* SDWebImage */,
 			);
 			productName = IlymaxShop;
 			productReference = 7E4927A929DDC0F1000129FF /* IlymaxShop.app */;
@@ -702,6 +705,7 @@
 			packageReferences = (
 				05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 05188D8829C4FF21004E1D7B;
 			projectDirPath = "";
@@ -966,10 +970,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q5F7MPX4BB;
+				DEVELOPMENT_TEAM = 94Y6332Y3J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -980,7 +985,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.itis.IlymaxShop-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -995,10 +1000,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q5F7MPX4BB;
+				DEVELOPMENT_TEAM = 94Y6332Y3J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1009,7 +1015,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.itis.IlymaxShop-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1135,6 +1141,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
@@ -1154,6 +1168,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		050C580829E2D83B00A27A30 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		052D97F029D9CBE8008CA67C /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
