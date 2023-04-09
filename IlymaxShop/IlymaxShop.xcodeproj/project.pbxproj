@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 050C580829E2D83B00A27A30 /* SDWebImage */; };
 		05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9429C4FF21004E1D7B /* AppDelegate.swift */; };
 		05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9629C4FF21004E1D7B /* SceneDelegate.swift */; };
 		05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9D29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld */; };
@@ -90,6 +91,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		050C580429E2CFA600A27A30 /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		050C580529E2CFA600A27A30 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
+		050C580629E2CFA600A27A30 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 		05188D9429C4FF21004E1D7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05188D9629C4FF21004E1D7B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		05188D9E29C4FF21004E1D7B /* IlymaxShop.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IlymaxShop.xcdatamodel; sourceTree = "<group>"; };
@@ -116,9 +120,6 @@
 		05218D3D29D9944A00887040 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		052D97E829D9C8D6008CA67C /* Shoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shoes.swift; sourceTree = "<group>"; };
 		052D97ED29D9C962008CA67C /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
-		052F861229DD7212005F81B5 /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IlymaxShop.app; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShop.app"; sourceTree = "<absolute>"; };
-		052F861329DD7212005F81B5 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
-		052F861429DD7212005F81B5 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 		0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		0539C3A629CDDA82008F41B4 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		0539C3A829CDDA9A008F41B4 /* MockCartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCartService.swift; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */,
 				05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */,
 				05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */,
 				05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */,
@@ -190,6 +192,7 @@
 				05188D9329C4FF21004E1D7B /* IlymaxShop */,
 				05188DAD29C4FF23004E1D7B /* IlymaxShopTests */,
 				05188DB729C4FF23004E1D7B /* IlymaxShopUITests */,
+				050C580429E2CFA600A27A30 /* IlymaxShop.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -623,9 +626,10 @@
 				05BA97D229D613FA002B7568 /* JGProgressHUD */,
 				05A4381D29D8522C00AADDB9 /* FirebaseFirestore */,
 				052D97F029D9CBE8008CA67C /* FirebaseStorage */,
+				050C580829E2D83B00A27A30 /* SDWebImage */,
 			);
 			productName = IlymaxShop;
-			productReference = 052F861229DD7212005F81B5 /* IlymaxShop.app */;
+			productReference = 050C580429E2CFA600A27A30 /* IlymaxShop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05188DA929C4FF23004E1D7B /* IlymaxShopTests */ = {
@@ -643,7 +647,7 @@
 			);
 			name = IlymaxShopTests;
 			productName = IlymaxShopTests;
-			productReference = 052F861329DD7212005F81B5 /* IlymaxShopTests.xctest */;
+			productReference = 050C580529E2CFA600A27A30 /* IlymaxShopTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		05188DB329C4FF23004E1D7B /* IlymaxShopUITests */ = {
@@ -661,7 +665,7 @@
 			);
 			name = IlymaxShopUITests;
 			productName = IlymaxShopUITests;
-			productReference = 052F861429DD7212005F81B5 /* IlymaxShopUITests.xctest */;
+			productReference = 050C580629E2CFA600A27A30 /* IlymaxShopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -699,6 +703,7 @@
 			packageReferences = (
 				05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 05188D8829C4FF21004E1D7B;
 			projectDirPath = "";
@@ -1128,6 +1133,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
@@ -1147,6 +1160,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		050C580829E2D83B00A27A30 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		052D97F029D9CBE8008CA67C /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

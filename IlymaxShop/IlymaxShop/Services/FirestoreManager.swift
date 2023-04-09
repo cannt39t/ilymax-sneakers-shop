@@ -314,7 +314,27 @@ extension FirestoreManager {
             }
         }
     }
+}
 
+// MARK: - Storage managment
+
+extension FirestoreManager {
+    
+    /// Get image url from localStorage
+    public func getImageUrlFromStorageUrl(_ imageUrl: String, completion: @escaping (Error?, URL?) -> Void) {
+        let storageRef = storage.reference()
+        
+        let imageRef = storageRef.child(imageUrl)
+        
+        // Fetch the download URL
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                completion(error, nil)
+            } else {
+                completion(nil, url)
+            }
+        }
+    }
     
 }
 

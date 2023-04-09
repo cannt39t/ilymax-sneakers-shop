@@ -200,7 +200,7 @@ extension CatalogViewController: UICollectionViewDataSource {
                 return promotionCell
             case 1:
                 let popularCell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.indertifier, for: indexPath) as! PopularCell
-                popularCell.setCategory(shoes: popular[indexPath.item])
+                popularCell.configure(with: popular[indexPath.item])
                 return popularCell
             case 2:
                 let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.indertifier, for: indexPath) as! CategoryCell

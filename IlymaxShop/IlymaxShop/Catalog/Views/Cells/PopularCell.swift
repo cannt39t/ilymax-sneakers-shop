@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PopularCell: UICollectionViewCell {
     
@@ -40,12 +41,53 @@ class PopularCell: UICollectionViewCell {
         ])
     }
     
-    public func setCategory(shoes: Shoes) {
+    public func configure(with shoes: Shoes) {
+        shoeImage.image = UIImage(systemName: "photo")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
         self.shoe = shoes
         nameLabel.text = shoes.name
         fromPriceLabel.text = "from \(shoes.lowestPrice)$"
-        FirestoreManager.shared.getImageShoes(shoes.imageUrl!) { [weak self] error, image in
-            self?.shoeImage.image = image
+        
+        guard let imageUrl = shoes.imageUrl else {
+            // Show error message to user if image URL is nil
+            return
+        }
+        
+        FirestoreManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
+            guard let self = self else { return } // Make sure self is not nil
+            
+            if let error = error {
+                // Show error message to user
+                print("Error loading image: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let url = url else {
+                // Show error message to user if URL is nil
+                return
+            }
+            
+            self.loadImage(with: url)
         }
     }
+
+    private func loadImage(with url: URL) {
+        shoeImage.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                // Show error message to user
+                print("Error loading image: \(error.localizedDescription)")
+            } else {
+//                if cacheType == .memory || cacheType == .disk {
+//                    print("Image loaded from cache")
+//                } else {
+//                    print("Image loaded from network")
+//                }
+            }
+        }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        shoeImage.image = nil
+    }
+
 }
