@@ -10,10 +10,10 @@ import UIKit
 
 class ProfileCell: UICollectionViewCell {
     
-    public static let indertifier = "ProfileCell"
+    public static let identifier = "ProfileCell"
     private let titleLabel: UILabel = .init()
     private let informationLabel: UILabel = .init()
-    private let forwardImage: UIImageView =  .init(image: UIImage(systemName: "chevron.forward")!)
+    private let forwardImage: UIImageView =  .init(image: UIImage(systemName: "chevron.forward")!.withTintColor(.black, renderingMode: .alwaysOriginal))
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -30,9 +30,12 @@ class ProfileCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        
         backgroundColor = .white
         
-        titleLabel.font = titleLabel.font.withSize(30)
+        titleLabel.font = titleLabel.font.withSize(20)
         titleLabel.textColor = .black
         
         informationLabel.font = informationLabel.font.withSize(15)
@@ -46,18 +49,27 @@ class ProfileCell: UICollectionViewCell {
         mainStack.alignment = .leading
         mainStack.spacing = 12
         mainStack.axis = .vertical
+    
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        forwardImage.translatesAutoresizingMaskIntoConstraints = false
         
-        let stack = UIStackView(arrangedSubviews: [mainStack, forwardImage])
-        
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stack)
+        contentView.addSubview(mainStack)
+        contentView.addSubview(forwardImage)
         
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            mainStack.trailingAnchor.constraint(equalTo: forwardImage.leadingAnchor, constant: -12),
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            
+            forwardImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            forwardImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
+    }
+    
+    public func configure(with title: String, _ info: String) {
+        titleLabel.text = title
+        informationLabel.text = info
     }
     
 }

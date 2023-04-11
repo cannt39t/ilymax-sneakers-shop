@@ -9,14 +9,14 @@ import UIKit
 
 class UserCell: UICollectionViewCell {
     
-    public static let indertifier = "UserCell"
-    private var userImage: UIButton = .init()
+    public static let identifier = "UserCell"
+    public var userImage: UIButton = .init()
     private let nameLabel: UILabel = .init()
     private let emailLabel: UILabel = .init()
-    private var promotion: IlymaxUser?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
         
         setup()
     }
@@ -24,15 +24,23 @@ class UserCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
         setup()
     }
     
     private func setupDesign() {
+        nameLabel.font = nameLabel.font.withSize(20)
+        
         emailLabel.textColor = .gray
         
-        userImage.contentMode = .scaleAspectFit
-        userImage.layer.cornerRadius = 10
+        userImage.layer.cornerRadius = 20
         userImage.clipsToBounds = true
+        userImage.contentHorizontalAlignment = .fill
+        userImage.contentVerticalAlignment = .fill
+        
+        let profileImage = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.darkGray, renderingMode: .alwaysOriginal)
+        userImage.setImage(profileImage, for: .normal)
+        userImage.imageView?.contentMode = .scaleAspectFill
     }
     
     private func setup() {
@@ -40,8 +48,9 @@ class UserCell: UICollectionViewCell {
         
         let stack = UIStackView(arrangedSubviews: [nameLabel, emailLabel])
         stack.axis = .vertical
-        stack.spacing = 12
+        stack.spacing = 6
         stack.alignment = .leading
+        stack.distribution = .fillEqually
         
         contentView.addSubview(userImage)
         contentView.addSubview(stack)
@@ -50,17 +59,19 @@ class UserCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
             userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            userImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             userImage.widthAnchor.constraint(equalTo: userImage.heightAnchor),
             
-            stack.leadingAnchor.constraint(equalTo: userImage.leadingAnchor, constant: 12),
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            stack.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 12),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
     }
+
     
     func setUser(user: IlymaxUser) {
         nameLabel.text = user.name
@@ -69,4 +80,8 @@ class UserCell: UICollectionViewCell {
         // load image from firebase
     }
     
+    
+    func setImage(_ image: UIImage) {
+        userImage.setImage(image, for: .normal)
+    }
 }

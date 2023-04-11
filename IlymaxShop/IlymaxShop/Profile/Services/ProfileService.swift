@@ -11,9 +11,15 @@ import FirebaseAuth
 
 class ProfileService {
     
-    func getCurrentUser() -> IlymaxUser {
+    func getCurrentUser(completion: @escaping (IlymaxUser?) -> Void) {
         let currentUserId = FirebaseAuth.Auth.auth().currentUser!.uid
-        return FirestoreManager.shared.getUserByID(with: currentUserId)
+        FirestoreManager.shared.getUser(with: currentUserId) { user in
+            if let user {
+                completion(user)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
 }

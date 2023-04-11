@@ -98,9 +98,9 @@ class PublicShoesImageViewController: UIViewController {
         var dataString = ""
 
         for shoeDetail in presenter.product.data {
-          dataString += "Size: \(shoeDetail.size)\n"
-          dataString += "Price: \(shoeDetail.price)$\n"
-          dataString += "Quantity: \(shoeDetail.quantity)\n\n"
+            dataString += "Size: \(shoeDetail.size)\n"
+            dataString += "Price: \(shoeDetail.price)$\n"
+            dataString += "Quantity: \(shoeDetail.quantity)\n\n"
         }
         dataLabel.text = dataString
         
@@ -166,8 +166,8 @@ class PublicShoesImageViewController: UIViewController {
 }
 
 extension PublicShoesImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]){
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = pickedImage
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true

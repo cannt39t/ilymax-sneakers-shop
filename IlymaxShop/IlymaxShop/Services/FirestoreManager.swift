@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
 
 
 final class FirestoreManager {
@@ -43,24 +44,29 @@ extension FirestoreManager {
     
     /// Insert new user to database
     public func insertUser(with user: IlymaxUser) {
-        var ref: DocumentReference? = nil
-        ref = db.collection("users").addDocument(data: [
+        let usersRef = db.collection("users")
+        
+        usersRef.document(FirebaseAuth.Auth.auth().currentUser!.uid).setData([
             "name": user.name,
             "email": user.emailAddress,
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
+        ])
+    }
+    
+    public func getUser(with id: String, completion: @escaping (IlymaxUser?) -> Void) {
+        let docRef = db.collection("users").document(id)
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()!
+                let user = IlymaxUser(name: data["name"] as! String, emailAddress: data["email"] as! String, profilePictureUrl: data["profilePictureUrl"] as? String)
+                completion(user)
             } else {
-                print("Document added with ID: \(ref!.documentID)")
+                print("Document does not exist")
+                completion(nil)
             }
         }
     }
-    
-    
-    public func getUserByID(with id: String) -> IlymaxUser {
-        return 
-    }
-    
+
 }
 
 
@@ -340,7 +346,6 @@ extension FirestoreManager {
             }
         }
     }
-    
 }
 
 
