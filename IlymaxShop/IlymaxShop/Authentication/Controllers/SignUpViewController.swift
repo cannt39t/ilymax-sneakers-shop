@@ -28,10 +28,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         nameTextField.delegate = self
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        confirmPasswordTextField.delegate = self
         
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         
         setupDesign()
         setupLayout()
