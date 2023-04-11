@@ -53,6 +53,7 @@ class CategoryCell: UICollectionViewCell {
     }
     
     public func setCategory(category: IlymaxCategory) {
+        categoryImage.image = nil
         self.category = category
         nameLabel.text = category.name
         FirestoreManager.shared.getImageUrlFromStorageUrl(category.imageUrl) { [weak self] error, url in

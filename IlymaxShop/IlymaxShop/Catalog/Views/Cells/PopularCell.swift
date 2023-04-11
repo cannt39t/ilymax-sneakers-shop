@@ -44,7 +44,7 @@ class PopularCell: UICollectionViewCell {
     }
     
     public func configure(with shoes: Shoes) {
-        shoeImage.image = UIImage(systemName: "photo")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+        shoeImage.image = nil
         self.shoe = shoes
         nameLabel.text = shoes.name
         fromPriceLabel.text = "from \(shoes.lowestPrice)$"

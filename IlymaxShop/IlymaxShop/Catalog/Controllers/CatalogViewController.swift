@@ -25,9 +25,11 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        presenter.loadPromotions()
-        presenter.loadPopular()
-        presenter.loadCategories()
+        DispatchQueue.global().async { [weak self] in
+            self?.presenter.loadPromotions()
+            self?.presenter.loadPopular()
+            self?.presenter.loadCategories()
+        }
         
         setupSearchBar()
         setupCollectionView()

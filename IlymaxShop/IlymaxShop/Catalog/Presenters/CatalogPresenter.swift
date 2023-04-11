@@ -15,22 +15,28 @@ class CatalogPresenter {
     
     public func loadPromotions() {
         catalogService.getAllPromotions { [weak self] promotions in
-            self?.view?.promotions = promotions
-            self?.view?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.view?.promotions = promotions
+                self?.view?.collectionView.reloadData()
+            }
         }
     }
     
     public func loadPopular() {
         catalogService.getPopularShoes { [weak self] shoes in
-            self?.view?.popular = shoes
-            self?.view?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.view?.popular = shoes
+                self?.view?.collectionView.reloadData()
+            }
         }
     }
     
     public func loadCategories() {
         catalogService.getAllCategories { [weak self] categories in
-            self?.view?.categories = categories
-            self?.view?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.view?.categories = categories
+                self?.view?.collectionView.reloadData()
+            }
         }
     }
     
