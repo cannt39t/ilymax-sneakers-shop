@@ -56,6 +56,11 @@ extension FirestoreManager {
         }
     }
     
+    
+    public func getUserByID(with id: String) -> IlymaxUser {
+        return 
+    }
+    
 }
 
 

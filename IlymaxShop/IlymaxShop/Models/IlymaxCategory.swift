@@ -8,7 +8,9 @@
 import Foundation
 
 
-struct IlymaxCategory {
+struct IlymaxCategory: FirestoreCollectionProtocol {
+    
+    static var collectionName: String = "categories"
     
     let name: String
     let imageUrl: String
