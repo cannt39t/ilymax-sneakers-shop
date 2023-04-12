@@ -46,7 +46,7 @@ class UserCell: UICollectionViewCell {
         
         let stack = UIStackView(arrangedSubviews: [nameLabel, emailLabel])
         stack.axis = .vertical
-        stack.spacing = 2
+        stack.spacing = 3
         stack.alignment = .leading
         stack.distribution = .fillEqually
         
@@ -57,15 +57,15 @@ class UserCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -0),
             userImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             userImage.widthAnchor.constraint(equalTo: userImage.heightAnchor),
             
             stack.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 12),
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
     }
