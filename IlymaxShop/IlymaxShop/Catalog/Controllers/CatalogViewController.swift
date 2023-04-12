@@ -67,7 +67,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     }
     
     @objc func slideToNext() {
-        if cur < promotions.count {
+        if cur < promotions.count - 1 {
             cur += 1
         } else {
             cur = 0

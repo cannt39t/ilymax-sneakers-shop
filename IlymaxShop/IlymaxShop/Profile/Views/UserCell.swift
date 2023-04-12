@@ -29,12 +29,10 @@ class UserCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        nameLabel.font = nameLabel.font.withSize(20)
+        nameLabel.font = nameLabel.font.withSize(24)
         
         emailLabel.textColor = .gray
         
-        userImage.layer.cornerRadius = 20
-        userImage.clipsToBounds = true
         userImage.contentHorizontalAlignment = .fill
         userImage.contentVerticalAlignment = .fill
         
@@ -48,7 +46,7 @@ class UserCell: UICollectionViewCell {
         
         let stack = UIStackView(arrangedSubviews: [nameLabel, emailLabel])
         stack.axis = .vertical
-        stack.spacing = 6
+        stack.spacing = 2
         stack.alignment = .leading
         stack.distribution = .fillEqually
         
@@ -59,7 +57,7 @@ class UserCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             userImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -77,11 +75,33 @@ class UserCell: UICollectionViewCell {
         nameLabel.text = user.name
         emailLabel.text = user.emailAddress
         
-        // load image from firebase
+        if let url = user.profilePictureUrl {
+            FirestoreManager.shared.getImageUrlFromStorageUrl(url) { [weak self] error, imageUrl in
+                if let error {
+                    print(error.localizedDescription)
+                    return
+                }
+                
+                if let imageUrl {
+                    self?.configure(with: imageUrl)
+                }
+            }
+        }
+    }
+    
+    private func configure(with url: URL) {
+        userImage.sd_setImage(with: url, for: .normal, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+            }
+        }
+        userImage.imageView!.layer.cornerRadius = userImage.imageView!.frame.size.height / 2
     }
     
     
-    func setImage(_ image: UIImage) {
+    func setImageProfile(_ image: UIImage) {
         userImage.setImage(image, for: .normal)
+        userImage.imageView!.layer.cornerRadius = userImage.imageView!.frame.size.height / 2
     }
+    
 }

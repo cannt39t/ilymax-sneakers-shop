@@ -35,6 +35,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource {
     
     public func somethingWentWrong() {
         print("Something went wrong")
+        hideLoader()
         
         //TODO: Show view that somwthing went wrong
     }
@@ -70,6 +71,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource {
                 let userCell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCell.identifier, for: indexPath) as! UserCell
                 userCell.setUser(user: currentUser!)
                 userCell.userImage.addTarget(self, action: #selector(tapOnImage), for: .touchUpInside)
+                
                 return userCell
             case 1:
                 let profileCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
@@ -180,7 +182,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     @objc private func tapOnImage() {
-        let alert = UIAlertController(title: "Image", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Choose profile image", message: nil, preferredStyle: .actionSheet)
         let actionPhoto = UIAlertAction(title: "Library", style: .default) { _ in
             self.imagePicker.sourceType = .photoLibrary
             self.imagePicker.allowsEditing = true
@@ -206,7 +208,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let indexPath = IndexPath(row: 0, section: 0) // Change row and section according to your requirement
             let userCell = collectionView.cellForItem(at: indexPath) as! UserCell
-            userCell.setImage(pickedImage)
+            userCell.setImageProfile(pickedImage)
+            presenter.uploadProfileImage(pickedImage)
         }
         dismiss(animated: true)
     }
