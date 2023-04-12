@@ -13,6 +13,10 @@ class ProfileCoordinator {
     
     private func getProfileController() -> UIViewController {
         let profileController = ProfileViewController()
+        let profilePresenter = ProfilePresenter()
+        profilePresenter.view = profileController
+        profileController.presenter = profilePresenter
+        
         return profileController
     }
     
@@ -26,6 +30,8 @@ class ProfileCoordinator {
         setController(controller: getProfileController())
         return navigationController
     }
+    
+    //TODO: Change UIViewController by current implementation
     
     func goToSeetings() {
         let settingsController = UIViewController()

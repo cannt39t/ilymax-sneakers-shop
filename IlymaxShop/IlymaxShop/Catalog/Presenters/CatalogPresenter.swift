@@ -13,25 +13,50 @@ class CatalogPresenter {
     weak var view: CatalogViewController?
     private let catalogService = CatalogService()
     
-    public func loadPromotions() {
+    
+    public func fetchData() {
+        let group = DispatchGroup()
+        
+        group.enter()
+        loadPromotions(group: group)
+        
+        group.enter()
+        loadPopular(group: group)
+        
+        group.enter()
+        loadCategories(group: group)
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.view?.showCollectionView()
+        }
+    }
+
+    private func loadPromotions(group: DispatchGroup) {
         catalogService.getAllPromotions { [weak self] promotions in
-            self?.view?.promotions = promotions
-            self?.view?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.view?.promotions = promotions
+                group.leave()
+            }
         }
     }
-    
-    public func loadPopular() {
+
+    private func loadPopular(group: DispatchGroup) {
         catalogService.getPopularShoes { [weak self] shoes in
-            self?.view?.popular = shoes
-            self?.view?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.view?.popular = shoes
+                group.leave()
+            }
         }
     }
-    
-    public func loadCategories() {
+
+    private func loadCategories(group: DispatchGroup) {
         catalogService.getAllCategories { [weak self] categories in
-            self?.view?.categories = categories
-            self?.view?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.view?.categories = categories
+                group.leave()
+            }
         }
     }
+
     
 }

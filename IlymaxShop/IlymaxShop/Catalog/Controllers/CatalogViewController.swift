@@ -6,17 +6,19 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class CatalogViewController: UIViewController, UICollectionViewDelegate {
     
+    public var presenter: CatalogPresenter!
+    
     public var collectionView: UICollectionView!
     private let searchBar = UISearchBar()
+    private let hud = JGProgressHUD()
     
     public var promotions: [Promotion] = []
     public var popular: [Shoes] = []
     public var categories: [IlymaxCategory] = []
-    
-    public var presenter: CatalogPresenter!
     
     private var cur = 0
     private var timer: Timer?
@@ -25,13 +27,25 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        presenter.loadPromotions()
-        presenter.loadPopular()
-        presenter.loadCategories()
-        
+        showLoader()
+        presenter.fetchData()
+    }
+    
+    
+    private func showLoader() {
+        hud.show(in: self.view, animated: true)
+    }
+    
+    private func hideLoader() {
+        hud.dismiss(animated: true)
+    }
+    
+    
+    public func showCollectionView() {
         setupSearchBar()
         setupCollectionView()
         setupTimer()
+        hideLoader()
     }
     
     private func setupSearchBar() {
