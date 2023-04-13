@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class ProfilePresenter {
@@ -25,6 +26,10 @@ class ProfilePresenter {
                 }
             }
         }
+    }
+    
+    func uploadProfileImage(_ image: UIImage) {
+        profileService.uploadProfileImage(with: image)
     }
     
     // TODO: Replace these functions on real ones from servies

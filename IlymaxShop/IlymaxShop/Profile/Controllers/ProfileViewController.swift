@@ -10,7 +10,7 @@ import JGProgressHUD
 
 
 
-class ProfileViewController: UIViewController, UICollectionViewDataSource {
+class ProfileViewController: UIViewController {
     
     public var collectionView: UICollectionView!
     public var presenter: ProfilePresenter!
@@ -35,6 +35,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource {
     
     public func somethingWentWrong() {
         print("Something went wrong")
+        hideLoader()
         
         //TODO: Show view that somwthing went wrong
     }
@@ -47,6 +48,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource {
     func hideLoader() {
         hud.dismiss(animated: true)
     }
+    
+}
+    
+extension ProfileViewController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -70,6 +75,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource {
                 let userCell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCell.identifier, for: indexPath) as! UserCell
                 userCell.setUser(user: currentUser!)
                 userCell.userImage.addTarget(self, action: #selector(tapOnImage), for: .touchUpInside)
+                
                 return userCell
             case 1:
                 let profileCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
@@ -117,6 +123,7 @@ extension ProfileViewController: UICollectionViewDelegate {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 0)
         
         //group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
@@ -180,7 +187,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     @objc private func tapOnImage() {
-        let alert = UIAlertController(title: "Image", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Choose profile image", message: nil, preferredStyle: .actionSheet)
         let actionPhoto = UIAlertAction(title: "Library", style: .default) { _ in
             self.imagePicker.sourceType = .photoLibrary
             self.imagePicker.allowsEditing = true
@@ -206,7 +213,14 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let indexPath = IndexPath(row: 0, section: 0) // Change row and section according to your requirement
             let userCell = collectionView.cellForItem(at: indexPath) as! UserCell
-            userCell.setImage(pickedImage)
+            if let image = pickedImage.fixedOrientation() {
+                print("Fixed image orientation")
+                userCell.setImageProfile(image)
+                presenter.uploadProfileImage(image)
+            } else {
+                userCell.setImageProfile(pickedImage)
+                presenter.uploadProfileImage(pickedImage)
+            }
         }
         dismiss(animated: true)
     }

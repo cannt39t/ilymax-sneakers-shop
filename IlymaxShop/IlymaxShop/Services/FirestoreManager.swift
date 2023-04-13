@@ -66,6 +66,46 @@ extension FirestoreManager {
             }
         }
     }
+    
+    
+    /// Add image of user profile to database
+    public func insertImageUser(_ userId: String, _ image: Data, completion: @escaping (String?) -> Void) {
+        let storageRef = storage.reference()
+        let imageRef = "users/images/\(userId).jpg"
+        
+        
+        let userRef = storageRef.child(imageRef)
+
+        // Upload the file to the path "users/images/custom_id.jpg"
+        userRef.putData(image, metadata: nil) { (metadata, error) in
+            guard metadata != nil else {
+                completion(nil)
+                return
+            }
+            userRef.downloadURL { [weak self] (url, error) in
+                guard url != nil else {
+                    completion(nil)
+                    return
+                }
+                completion(imageRef)
+                self?.updateImageProfileUrl(for: userId, imageUrl: imageRef)
+            }
+        }
+    }
+    
+    /// Update "imageUrl" of entity User
+    private func updateImageProfileUrl(for documentID: String, imageUrl: String) {
+        let shoesRef = db.collection("users").document(documentID)
+        shoesRef.updateData([
+            "profilePictureUrl": imageUrl,
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document updated with new image URL")
+            }
+        }
+    }
 
 }
 
@@ -93,24 +133,6 @@ extension FirestoreManager {
                 }
             }
             completion(promotions)
-        }
-    }
-
-    
-    public func getImagePromotion(_ imageUrl: String, completion: @escaping (Error?, UIImage?) -> Void) {
-        let storageRef = storage.reference()
-
-        let islandRef = storageRef.child(imageUrl)
-
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        islandRef.getData(maxSize: 1 * 1024 * 700) { data, error in
-            if let error = error {
-                completion(error, nil)
-            } else {
-                // Data for "images/promotionId.jpg" is returned
-                let image = UIImage(data: data!)
-                completion(nil, image)
-            }
         }
     }
     
@@ -193,25 +215,6 @@ extension FirestoreManager {
     }
     
 
-    
-    /// Get image from url shoes
-    public func getImageShoes(_ imageUrl: String, completion: @escaping (Error?, UIImage?) -> Void) {
-        let storageRef = storage.reference()
-        
-        let islandRef = storageRef.child(imageUrl)
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                completion(error, nil)
-            } else {
-                // Data for "images/island.jpg" is returned
-                let image = UIImage(data: data!)
-                completion(nil, image)
-            }
-        }
-    }
-    
     /// Get all shoes from Database
     public func getAllShoes(completion: @escaping ([Shoes]?, Error?) -> Void) {
         db.collection("shoes").getDocuments { (snapshot, error) in
@@ -307,24 +310,6 @@ extension FirestoreManager {
         }
     }
     
-    
-    /// Get image from url shoes
-    public func getImageCategory(_ imageUrl: String, completion: @escaping (Error?, UIImage?) -> Void) {
-        let storageRef = storage.reference()
-        
-        let islandRef = storageRef.child(imageUrl)
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                completion(error, nil)
-            } else {
-                // Data for "images/island.jpg" is returned
-                let image = UIImage(data: data!)
-                completion(nil, image)
-            }
-        }
-    }
 }
 
 // MARK: - Storage managment
