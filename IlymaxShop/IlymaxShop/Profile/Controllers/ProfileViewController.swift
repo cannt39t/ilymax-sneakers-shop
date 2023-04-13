@@ -10,7 +10,7 @@ import JGProgressHUD
 
 
 
-class ProfileViewController: UIViewController, UICollectionViewDataSource {
+class ProfileViewController: UIViewController {
     
     public var collectionView: UICollectionView!
     public var presenter: ProfilePresenter!
@@ -48,6 +48,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource {
     func hideLoader() {
         hud.dismiss(animated: true)
     }
+    
+}
+    
+extension ProfileViewController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -209,8 +213,14 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let indexPath = IndexPath(row: 0, section: 0) // Change row and section according to your requirement
             let userCell = collectionView.cellForItem(at: indexPath) as! UserCell
-            userCell.setImageProfile(pickedImage)
-            presenter.uploadProfileImage(pickedImage)
+            if let image = pickedImage.fixedOrientation() {
+                print("Fixed image orientation")
+                userCell.setImageProfile(image)
+                presenter.uploadProfileImage(image)
+            } else {
+                userCell.setImageProfile(pickedImage)
+                presenter.uploadProfileImage(pickedImage)
+            }
         }
         dismiss(animated: true)
     }
