@@ -28,15 +28,16 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         view.backgroundColor = .white
         
         showLoader()
+        showCollectionView()
         presenter.fetchData()
     }
     
     
-    private func showLoader() {
+    public func showLoader() {
         hud.show(in: self.view, animated: true)
     }
     
-    private func hideLoader() {
+    public func hideLoader() {
         hud.dismiss(animated: true)
     }
     
@@ -45,7 +46,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         setupSearchBar()
         setupCollectionView()
         setupTimer()
-        hideLoader()
+    }
+    
+    public func reloadData() {
+        collectionView.reloadData()
     }
     
     private func setupSearchBar() {
