@@ -27,7 +27,8 @@ class CatalogPresenter {
         loadCategories(group: group)
         
         group.notify(queue: .main) { [weak self] in
-            self?.view?.showCollectionView()
+            self?.view?.reloadData()
+            self?.view?.hideLoader()
         }
     }
 
