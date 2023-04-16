@@ -168,12 +168,7 @@ class PublicShoesImageViewController: UIViewController {
 extension PublicShoesImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            if let image = pickedImage.fixedOrientation() {
-                print("Fixed image orientation")
-                imageView.image = image
-            } else {
-                imageView.image = pickedImage
-            }
+            imageView.image = pickedImage
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
         }
