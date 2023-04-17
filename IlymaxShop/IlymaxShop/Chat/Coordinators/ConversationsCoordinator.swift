@@ -14,7 +14,10 @@ class ConversationsCoordinator {
     func start() -> UIViewController {
         let conversationPresenter = ConversationsPresenter()
         conversationPresenter.open = openChat
+        conversationPresenter.createNewConversation = newConversation
+        
         let conversationsController = ConversationsViewController()
+        
         conversationPresenter.view = conversationsController
         conversationsController.presenter = conversationPresenter
         navigationController = UINavigationController(rootViewController: conversationsController)
@@ -24,6 +27,17 @@ class ConversationsCoordinator {
     func openChat() {
         let chatController = ChatViewController()
         navigationController.pushViewController(chatController, animated: true)
+    }
+    
+    func newConversation() {
+        let newConversationControler = NewConversationViewController()
+        let newConversationPresenter = NewConversationPresenter()
+        
+        newConversationControler.presenter = newConversationPresenter
+        newConversationPresenter.view = newConversationControler
+        
+        let navController = UINavigationController(rootViewController: newConversationControler)
+        navigationController.present(navController, animated: true)
     }
     
 }

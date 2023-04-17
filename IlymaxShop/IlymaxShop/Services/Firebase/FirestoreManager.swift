@@ -18,7 +18,7 @@ final class FirestoreManager {
 }
 
 
-// MARK: - Account managment
+// MARK: - Users managment
 
 extension FirestoreManager {
     
@@ -78,6 +78,33 @@ extension FirestoreManager {
                 completion(nil)
             }
         }
+    }
+    
+    /// Search users with search query
+    public func getUsersExceptCurrent(completion: @escaping ([IlymaxUser]) -> Void) {
+        guard let currentUserID = FirebaseAuth.Auth.auth().currentUser?.uid else {
+            completion([])
+            return
+        }
+        
+        let usersRef = db.collection("users")
+        
+        usersRef
+            .whereField(FieldPath.documentID(), isNotEqualTo: currentUserID)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion([])
+                } else {
+                    var users: [IlymaxUser] = []
+                    for document in querySnapshot!.documents {
+                        let data = document.data()
+                        let user = IlymaxUser(name: data["name"] as! String, emailAddress: data["email"] as! String, profilePictureUrl: data["profilePictureUrl"] as? String)
+                        users.append(user)
+                    }
+                    completion(users)
+                }
+            }
     }
 
 }

@@ -64,9 +64,7 @@ class ConversationsViewController: UIViewController {
     }
     
     @objc func didTapComposeButon() {
-        let newConversationControler = NewConversationViewController()
-        let navController = UINavigationController(rootViewController: newConversationControler)
-        present(navController, animated: true)
+        presenter.createNewConversation()
     }
 
 }

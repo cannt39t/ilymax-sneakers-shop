@@ -31,6 +31,9 @@
 		051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101C29C8EA1900877947 /* PublicShoesViewController.swift */; };
 		051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051F101E29C8EA4D00877947 /* WelcomeViewController.swift */; };
 		05218D3E29D9944A00887040 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 05218D3D29D9944A00887040 /* GoogleService-Info.plist */; };
+		05278EEC29EDC9BD00E9FC8C /* ConversationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */; };
+		05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */; };
+		05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */; };
 		052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97E829D9C8D6008CA67C /* Shoes.swift */; };
 		052D97EE29D9C962008CA67C /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97ED29D9C962008CA67C /* Promotion.swift */; };
 		052D97F129D9CBE8008CA67C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 052D97F029D9CBE8008CA67C /* FirebaseStorage */; };
@@ -72,7 +75,7 @@
 		05D91E8929ED2D6B00C7FBB7 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8829ED2D6B00C7FBB7 /* MessageKit */; };
 		05D91E8C29ED2EB600C7FBB7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8B29ED2EB600C7FBB7 /* Realm */; };
 		05D91E8E29ED2EB600C7FBB7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8D29ED2EB600C7FBB7 /* RealmSwift */; };
-		05D91E9129ED316600C7FBB7 /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9029ED316600C7FBB7 /* ChatPresenter.swift */; };
+		05D91E9129ED316600C7FBB7 /* ConversationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9029ED316600C7FBB7 /* ConversationsPresenter.swift */; };
 		05D91E9329ED33FD00C7FBB7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9229ED33FD00C7FBB7 /* ChatViewController.swift */; };
 		05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9729ED3C0500C7FBB7 /* Message.swift */; };
 		05D91E9A29ED3C6A00C7FBB7 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9929ED3C6A00C7FBB7 /* Sender.swift */; };
@@ -129,6 +132,9 @@
 		051F101C29C8EA1900877947 /* PublicShoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesViewController.swift; sourceTree = "<group>"; };
 		051F101E29C8EA4D00877947 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		05218D3D29D9944A00887040 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsService.swift; sourceTree = "<group>"; };
+		05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationPresenter.swift; sourceTree = "<group>"; };
+		05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationService.swift; sourceTree = "<group>"; };
 		052D97E829D9C8D6008CA67C /* Shoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shoes.swift; sourceTree = "<group>"; };
 		052D97ED29D9C962008CA67C /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
 		0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
@@ -138,8 +144,8 @@
 		0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
-		0565D05829E86633008CB4B7 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0565D05929E86633008CB4B7 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0565D05829E86633008CB4B7 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopTests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopTests.xctest"; sourceTree = "<absolute>"; };
+		0565D05929E86633008CB4B7 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IlymaxShopUITests.xctest; path = "/Users/ilakaznaceev/Documents/IOS_Education/ilymax-sneakers-shop/IlymaxShop/build/Debug-iphoneos/IlymaxShopUITests.xctest"; sourceTree = "<absolute>"; };
 		0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		05A4380029D8171C00AADDB9 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		05A4381F29D8564400AADDB9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -164,7 +170,7 @@
 		05D26CF829CB4E6300EFC040 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		05D3C4B729D35C7E00D76EED /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		05D3C4B929D367F100D76EED /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
-		05D91E9029ED316600C7FBB7 /* ChatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
+		05D91E9029ED316600C7FBB7 /* ConversationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsPresenter.swift; sourceTree = "<group>"; };
 		05D91E9229ED33FD00C7FBB7 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		05D91E9729ED3C0500C7FBB7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		05D91E9929ED3C6A00C7FBB7 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
@@ -221,8 +227,6 @@
 				05188DAD29C4FF23004E1D7B /* IlymaxShopTests */,
 				05188DB729C4FF23004E1D7B /* IlymaxShopUITests */,
 				7E4927A929DDC0F1000129FF /* IlymaxShop.app */,
-				0565D05829E86633008CB4B7 /* IlymaxShopTests.xctest */,
-				0565D05929E86633008CB4B7 /* IlymaxShopUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -342,6 +346,15 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		05278EEA29EDC9A800E9FC8C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */,
+				05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		0539C3AE29CDDAAB008F41B4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,7 +449,8 @@
 		05D91E8F29ED315A00C7FBB7 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				05D91E9029ED316600C7FBB7 /* ChatPresenter.swift */,
+				05D91E9029ED316600C7FBB7 /* ConversationsPresenter.swift */,
+				05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -514,6 +528,7 @@
 		05EC2D0B29D07F9B00962420 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				05278EEA29EDC9A800E9FC8C /* Services */,
 				05D91E9629ED3BFC00C7FBB7 /* Models */,
 				05D91E9429ED3B5D00C7FBB7 /* Views */,
 				05D91E8F29ED315A00C7FBB7 /* Presenters */,
@@ -875,6 +890,7 @@
 				051F101529C8E99D00877947 /* CatalogViewController.swift in Sources */,
 				0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */,
 				05D3C4BA29D367F100D76EED /* Security.swift in Sources */,
+				05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */,
 				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
 				05A5CDA529DB56DA00564CC3 /* CatalogPresenter.swift in Sources */,
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
@@ -896,6 +912,7 @@
 				05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */,
 				05D26CED29CB24EF00EFC040 /* IlymaxUser.swift in Sources */,
 				051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */,
+				05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
@@ -918,6 +935,7 @@
 				05D26CEF29CB2BB900EFC040 /* SignUpPresenter.swift in Sources */,
 				7E1DAD0E29DC9D68005B716B /* PublicShoesService.swift in Sources */,
 				05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */,
+				05278EEC29EDC9BD00E9FC8C /* ConversationsService.swift in Sources */,
 				05D0673B29C9E16A00A6BBD7 /* LoginViewController.swift in Sources */,
 				05A4380129D8171C00AADDB9 /* UserCell.swift in Sources */,
 				05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */,
@@ -927,7 +945,7 @@
 				05A5CDA229DB54B300564CC3 /* IlymaxCategory.swift in Sources */,
 				7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */,
 				05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */,
-				05D91E9129ED316600C7FBB7 /* ChatPresenter.swift in Sources */,
+				05D91E9129ED316600C7FBB7 /* ConversationsPresenter.swift in Sources */,
 				05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

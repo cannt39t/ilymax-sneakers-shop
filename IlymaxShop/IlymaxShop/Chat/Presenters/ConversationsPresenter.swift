@@ -1,5 +1,5 @@
 //
-//  ChatPresenter.swift
+//  ConversationsPresenter.swift
 //  IlymaxShop
 //
 //  Created by Илья Казначеев on 17.04.2023.
@@ -11,10 +11,12 @@ import UIKit
 class ConversationsPresenter {
     
     var view: ConversationsViewController?
+    let conversationsService: ConversationsService = ConversationsService()
     var open: (() -> ()) = {}
+    var createNewConversation: (() -> ()) = {}
     
-    
-    // let chatService: ChatService = ChatService()
+    private var users: [IlymaxUser] = []
+    private var hasFetch = false
     
     func fetchConversations() {
         
@@ -23,6 +25,8 @@ class ConversationsPresenter {
     func openChat() {
         open()
     }
+    
+
     
     
 }
