@@ -312,6 +312,52 @@ extension FirestoreManager {
             }
         }
     }
+}
+
+// MARK: - Review managment
+
+extension FirestoreManager {
+    
+    func addReview(_ review: IlymaxReview, completion: @escaping (Result<Void, Error>) -> Void) {
+        db.collection("reviews").addDocument(data: [
+            "text": review.text,
+            "rate": review.rate,
+            "date": review.date,
+            "authorId": review.authorId,
+            "shoeId": review.shoeId
+        ], completion: { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        })
+    }
+    
+    func getReviews(for shoeId: String, completion: @escaping (Result<[IlymaxReview], Error>) -> Void) {
+        let query = db.collection("reviews").whereField("shoeId", isEqualTo: shoeId)
+        
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                var reviews = [IlymaxReview]()
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    let review = IlymaxReview(
+                        text: data["text"] as! String,
+                        rate: data["rate"] as! Int,
+                        date: data["date"] as! String,
+                        authorId: data["authorId"] as! String,
+                        shoeId: data["shoeId"] as! String
+                    )
+                    reviews.append(review)
+                }
+                completion(.success(reviews))
+            }
+        }
+    }
+
 
     
 }
