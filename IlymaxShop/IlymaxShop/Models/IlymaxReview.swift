@@ -11,7 +11,7 @@ struct IlymaxReview {
     
     let text: String
     let rate: Int
-    let date: String
+    let date: Date
     let authorId: String
     let shoeId: String
     

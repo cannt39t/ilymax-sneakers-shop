@@ -319,10 +319,14 @@ extension FirestoreManager {
 extension FirestoreManager {
     
     func addReview(_ review: IlymaxReview, completion: @escaping (Result<Void, Error>) -> Void) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: review.date)
+
         db.collection("reviews").addDocument(data: [
             "text": review.text,
             "rate": review.rate,
-            "date": review.date,
+            "date": dateString,
             "authorId": review.authorId,
             "shoeId": review.shoeId
         ], completion: { error in
@@ -342,12 +346,14 @@ extension FirestoreManager {
                 completion(.failure(error))
             } else {
                 var reviews = [IlymaxReview]()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     let review = IlymaxReview(
                         text: data["text"] as! String,
                         rate: data["rate"] as! Int,
-                        date: data["date"] as! String,
+                        date: formatter.date(from: data["date"] as! String)!,
                         authorId: data["authorId"] as! String,
                         shoeId: data["shoeId"] as! String
                     )
@@ -357,9 +363,6 @@ extension FirestoreManager {
             }
         }
     }
-
-
-    
 }
 
 
