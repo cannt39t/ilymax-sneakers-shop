@@ -29,7 +29,19 @@ class ProfilePresenter {
     }
     
     func uploadProfileImage(_ image: UIImage) {
-        profileService.uploadProfileImage(with: image)
+        view?.showLoader()
+        profileService.uploadProfileImage(with: image) { [weak self] result in
+            switch result {
+                case .success(let url):
+                    print("Succesfly upload \(url)")
+                    UserDefaults.standard.set(url, forKey: "profile_picture")
+                    self?.view?.hideLoader()
+                case .failure(let error):
+                    print("Error \(error.localizedDescription)")
+                    self?.view?.hideLoader()
+                    self?.view?.showError(error)
+            }
+        }
     }
     
     // TODO: Replace these functions on real ones from servies

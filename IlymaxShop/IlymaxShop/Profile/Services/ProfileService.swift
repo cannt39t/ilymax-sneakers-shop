@@ -23,15 +23,10 @@ class ProfileService {
         }
     }
     
-    func uploadProfileImage(with image: UIImage) {
+    func uploadProfileImage(with image: UIImage, competion: @escaping StorageManager.UploadPictureCompletion) {
         let currentUserId = FirebaseAuth.Auth.auth().currentUser!.uid
-        FirestoreManager.shared.insertImageUser(currentUserId, image.pngData()!) { urlImage in
-            print("here")
-            if let urlImage {
-                print(urlImage)
-            } else {
-                print("Could not upload image")
-            }
+        StorageManager.shared.insertImageUser2(currentUserId, image.pngData()!) { result in
+            competion(result)
         }
     }
     

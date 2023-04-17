@@ -7,7 +7,6 @@
 
 import UIKit
 import FirebaseFirestore
-import FirebaseStorage
 import FirebaseAuth
 
 
@@ -16,7 +15,6 @@ final class FirestoreManager {
     static let shared = FirestoreManager()
     
     private let db = Firestore.firestore()
-    private let storage = Storage.storage()
 }
 
 
@@ -67,42 +65,17 @@ extension FirestoreManager {
         }
     }
     
-    
-    /// Add image of user profile to database
-    public func insertImageUser(_ userId: String, _ image: Data, completion: @escaping (String?) -> Void) {
-        let storageRef = storage.reference()
-        let imageRef = "users/images/\(userId).jpg"
-        
-        
-        let userRef = storageRef.child(imageRef)
-
-        // Upload the file to the path "users/images/custom_id.jpg"
-        userRef.putData(image, metadata: nil) { (metadata, error) in
-            guard metadata != nil else {
-                completion(nil)
-                return
-            }
-            userRef.downloadURL { [weak self] (url, error) in
-                guard url != nil else {
-                    completion(nil)
-                    return
-                }
-                completion(imageRef)
-                self?.updateImageProfileUrl(for: userId, imageUrl: imageRef)
-            }
-        }
-    }
-    
     /// Update "imageUrl" of entity User
-    private func updateImageProfileUrl(for documentID: String, imageUrl: String) {
+    public func updateImageProfileUrl(for documentID: String, imageUrl: String, completion: @escaping ((Error?) -> Void)) {
         let shoesRef = db.collection("users").document(documentID)
         shoesRef.updateData([
             "profilePictureUrl": imageUrl,
         ]) { err in
             if let err = err {
-                print("Error updating document: \(err)")
+                print(err)
+                completion(err)
             } else {
-                print("Document updated with new image URL")
+                completion(nil)
             }
         }
     }
@@ -163,7 +136,7 @@ extension FirestoreManager {
                 print("Error adding document: \(err)")
             } else {
                 print("Document added with ID: \(ref!.documentID)")
-                self?.insertImageShoes(ref!.documentID, image.pngData()!) { url in
+                StorageManager.shared.insertImageShoes(ref!.documentID, image.pngData()!) { url in
                     if let url {
                         print("Added image of shoes with URL: \(url)")
                         self?.updateImageUrl(for: ref!.documentID, imageUrl: url)
@@ -175,32 +148,9 @@ extension FirestoreManager {
         }
     }
     
-    /// Add image of shoes to database
-    private func insertImageShoes(_ shoesId: String, _ image: Data, completion: @escaping (String?) -> Void) {
-        let storageRef = storage.reference()
-        
-        let imageRef = "shoes/images/\(shoesId).jpg"
-        let shoesRef = storageRef.child(imageRef)
-
-        // Upload the file to the path "shoes/images/custom_id.jpg"
-        shoesRef.putData(image, metadata: nil) { (metadata, error) in
-            guard metadata != nil else {
-                completion(nil)
-                return
-            }
-            shoesRef.downloadURL { (url, error) in
-                guard url != nil else {
-                    completion(nil)
-                    return
-                }
-                completion(imageRef)
-            }
-        }
-    }
-    
     
     /// Update "imageUrl" of entity Shoes
-    private func updateImageUrl(for documentID: String, imageUrl: String) {
+    public func updateImageUrl(for documentID: String, imageUrl: String) {
         let shoesRef = db.collection("shoes").document(documentID)
         shoesRef.updateData([
             "image_url": imageUrl,
@@ -310,27 +260,6 @@ extension FirestoreManager {
         }
     }
     
-}
-
-// MARK: - Storage managment
-
-extension FirestoreManager {
-    
-    /// Get image url from localStorage
-    public func getImageUrlFromStorageUrl(_ imageUrl: String, completion: @escaping (Error?, URL?) -> Void) {
-        let storageRef = storage.reference()
-        
-        let imageRef = storageRef.child(imageUrl)
-        
-        // Fetch the download URL
-        imageRef.downloadURL { url, error in
-            if let error = error {
-                completion(error, nil)
-            } else {
-                completion(nil, url)
-            }
-        }
-    }
 }
 
 
