@@ -78,11 +78,11 @@ class TabBarCoordinator {
             
             return controller
         } else {
-            let chatCoordinator = ChatCoordinator()
-            let chatController = chatCoordinator.start()
-            chatController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
+            let conversationsCoordinator = ConversationsCoordinator()
+            let conversationsController = conversationsCoordinator.start()
+            conversationsController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
             
-            return chatController
+            return conversationsController
         }
     }
     
