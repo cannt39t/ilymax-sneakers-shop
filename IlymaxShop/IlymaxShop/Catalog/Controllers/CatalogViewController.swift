@@ -273,3 +273,6 @@ extension CatalogViewController: UISearchBarDelegate {
         print(searchBar.text)
     }
 }
+
+
+// Implement search bat todo Maksim
