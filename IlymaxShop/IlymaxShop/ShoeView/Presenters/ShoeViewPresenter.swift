@@ -9,8 +9,7 @@ import UIKit
 
 class ShoeViewPresenter {
     weak var view: ShoeViewController?
-    var coordinator: ShoeViewCoordinator!
     
-    var product: Shoes? = nil
+    var product: Shoes?
 
 }
