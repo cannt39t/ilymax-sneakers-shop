@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 050C580829E2D83B00A27A30 /* SDWebImage */; };
 		05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9429C4FF21004E1D7B /* AppDelegate.swift */; };
 		05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9629C4FF21004E1D7B /* SceneDelegate.swift */; };
 		05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9D29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld */; };
@@ -42,6 +43,8 @@
 		0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */; };
 		05A42DF829EDE7E600F059C9 /* IlymaxReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A42DF729EDE7E600F059C9 /* IlymaxReview.swift */; };
 		05A4380129D8171C00AADDB9 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */; };
+		0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */; };
+		05A4380129D8171C00AADDB9 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4380029D8171C00AADDB9 /* UserCell.swift */; };
 		05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 05A4381D29D8522C00AADDB9 /* FirebaseFirestore */; };
 		05A4382029D8564400AADDB9 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4381F29D8564400AADDB9 /* FirestoreManager.swift */; };
 		05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5CD9929DAE4E000564CC3 /* PromotionCell.swift */; };
@@ -52,6 +55,10 @@
 		05A5CDA829DB65D700564CC3 /* CatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5CDA729DB65D700564CC3 /* CatalogService.swift */; };
 		05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 05BA97D229D613FA002B7568 /* JGProgressHUD */; };
 		05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA97D429D62151002B7568 /* NoAuthViewController.swift */; };
+		05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */; };
+		05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */; };
+		05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7229E554D900573EF3 /* ProfileService.swift */; };
+		05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7529E5563100573EF3 /* FirestoreCollectionProtocol.swift */; };
 		05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */; };
 		05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */; };
 		05D0673B29C9E16A00A6BBD7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */; };
@@ -130,6 +137,10 @@
 		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
 		05A42DF729EDE7E600F059C9 /* IlymaxReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxReview.swift; sourceTree = "<group>"; };
 		05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		0565D05829E86633008CB4B7 /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0565D05929E86633008CB4B7 /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		05A4380029D8171C00AADDB9 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		05A4381F29D8564400AADDB9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		05A5CD9929DAE4E000564CC3 /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
 		05A5CD9B29DB529B00564CC3 /* PopularCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCell.swift; sourceTree = "<group>"; };
@@ -138,6 +149,10 @@
 		05A5CDA429DB56DA00564CC3 /* CatalogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogPresenter.swift; sourceTree = "<group>"; };
 		05A5CDA729DB65D700564CC3 /* CatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogService.swift; sourceTree = "<group>"; };
 		05BA97D429D62151002B7568 /* NoAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuthViewController.swift; sourceTree = "<group>"; };
+		05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		05CDCA7229E554D900573EF3 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		05CDCA7529E5563100573EF3 /* FirestoreCollectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollectionProtocol.swift; sourceTree = "<group>"; };
 		05D0673629C9DF2800A6BBD7 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		05D0673829C9E11400A6BBD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		05D0673A29C9E16A00A6BBD7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +177,7 @@
 		7EC58EBD29EDEF100056EB9F /* ShoeViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewCoordinator.swift; sourceTree = "<group>"; };
 		7EC58EBF29EDEFCA0056EB9F /* ShoeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewPresenter.swift; sourceTree = "<group>"; };
 		7EC58EC129EDEFEB0056EB9F /* ShoeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewService.swift; sourceTree = "<group>"; };
+		7E4927A929DDC0F1000129FF /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */,
 				05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */,
 				05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */,
 				05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */,
@@ -203,6 +220,9 @@
 				7EC58EB329EDE6FE0056EB9F /* IlymaxShop.app */,
 				7EC58EB429EDE6FE0056EB9F /* IlymaxShopTests.xctest */,
 				7EC58EB529EDE6FE0056EB9F /* IlymaxShopUITests.xctest */,
+				7E4927A929DDC0F1000129FF /* IlymaxShop.app */,
+				0565D05829E86633008CB4B7 /* IlymaxShopTests.xctest */,
+				0565D05929E86633008CB4B7 /* IlymaxShopUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,6 +238,7 @@
 				05EC2D0929D07F7D00962420 /* Cart */,
 				05EC2D0829D07F6F00962420 /* Catalog */,
 				05188DDD29C500F0004E1D7B /* Services */,
+				0565D05A29E86838008CB4B7 /* Extensions */,
 				05188DDC29C500EA004E1D7B /* Models */,
 				05188D9429C4FF21004E1D7B /* AppDelegate.swift */,
 				051F100629C8E39400877947 /* AppCoordinator.swift */,
@@ -252,6 +273,7 @@
 		05188DDC29C500EA004E1D7B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				05CDCA7429E5560F00573EF3 /* Protocols */,
 				0539C3A629CDDA82008F41B4 /* Product.swift */,
 				05D26CEC29CB24EF00EFC040 /* IlymaxUser.swift */,
 				052D97E829D9C8D6008CA67C /* Shoes.swift */,
@@ -339,10 +361,19 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		0565D05A29E86838008CB4B7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		05A437FF29D816BB00AADDB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				05A4380029D8171C00AADDB9 /* UserCollectionViewCell.swift */,
+				05A4380029D8171C00AADDB9 /* UserCell.swift */,
+				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -371,6 +402,30 @@
 				05A5CDA729DB65D700564CC3 /* CatalogService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		05CDCA6E29E5545000573EF3 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		05CDCA7129E554CE00573EF3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				05CDCA7229E554D900573EF3 /* ProfileService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		05CDCA7429E5560F00573EF3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				05CDCA7529E5563100573EF3 /* FirestoreCollectionProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		05D26CF729CB4E4300EFC040 /* Errors */ = {
@@ -429,6 +484,8 @@
 		05EC2D0C29D07FA200962420 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				05CDCA7129E554CE00573EF3 /* Services */,
+				05CDCA6E29E5545000573EF3 /* Presenters */,
 				05A437FF29D816BB00AADDB9 /* Views */,
 				05EC2D1729D0812200962420 /* Coordinators */,
 				05EC2D1629D0811700962420 /* Controllers */,
@@ -681,9 +738,11 @@
 				05BA97D229D613FA002B7568 /* JGProgressHUD */,
 				05A4381D29D8522C00AADDB9 /* FirebaseFirestore */,
 				052D97F029D9CBE8008CA67C /* FirebaseStorage */,
+				050C580829E2D83B00A27A30 /* SDWebImage */,
 			);
 			productName = IlymaxShop;
 			productReference = 7EC58EB329EDE6FE0056EB9F /* IlymaxShop.app */;
+			productReference = 7E4927A929DDC0F1000129FF /* IlymaxShop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05188DA929C4FF23004E1D7B /* IlymaxShopTests */ = {
@@ -702,6 +761,7 @@
 			name = IlymaxShopTests;
 			productName = IlymaxShopTests;
 			productReference = 7EC58EB429EDE6FE0056EB9F /* IlymaxShopTests.xctest */;
+			productReference = 0565D05829E86633008CB4B7 /* IlymaxShopTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		05188DB329C4FF23004E1D7B /* IlymaxShopUITests */ = {
@@ -720,6 +780,7 @@
 			name = IlymaxShopUITests;
 			productName = IlymaxShopUITests;
 			productReference = 7EC58EB529EDE6FE0056EB9F /* IlymaxShopUITests.xctest */;
+			productReference = 0565D05929E86633008CB4B7 /* IlymaxShopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -757,6 +818,7 @@
 			packageReferences = (
 				05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 05188D8829C4FF21004E1D7B;
 			projectDirPath = "";
@@ -818,6 +880,7 @@
 				05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */,
 				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
+				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
 				052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
@@ -835,6 +898,7 @@
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
 				05D26CF929CB4E6300EFC040 /* ValidationError.swift in Sources */,
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
+				0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */,
 				05A5CD9E29DB52A700564CC3 /* CategoryCell.swift in Sources */,
 				05A5CD9C29DB529B00564CC3 /* PopularCell.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
@@ -851,13 +915,16 @@
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
 				05D26CEF29CB2BB900EFC040 /* SignUpPresenter.swift in Sources */,
 				7E1DAD0E29DC9D68005B716B /* PublicShoesService.swift in Sources */,
+				05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */,
 				05D0673B29C9E16A00A6BBD7 /* LoginViewController.swift in Sources */,
-				05A4380129D8171C00AADDB9 /* UserCollectionViewCell.swift in Sources */,
+				05A4380129D8171C00AADDB9 /* UserCell.swift in Sources */,
 				05188D9729C4FF21004E1D7B /* SceneDelegate.swift in Sources */,
 				7EC58EC029EDEFCA0056EB9F /* ShoeViewPresenter.swift in Sources */,
+				05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */,
 				05D26CE929CB246400EFC040 /* AuthenticationService.swift in Sources */,
 				05A5CDA229DB54B300564CC3 /* IlymaxCategory.swift in Sources */,
 				7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */,
+				05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,10 +1096,13 @@
 				DEVELOPMENT_TEAM = 94Y6332Y3J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1056,10 +1126,13 @@
 				DEVELOPMENT_TEAM = 94Y6332Y3J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1191,6 +1264,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		05BA97D129D613FA002B7568 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
@@ -1210,6 +1291,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		050C580829E2D83B00A27A30 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 050C580729E2D83A00A27A30 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		052D97F029D9CBE8008CA67C /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 05D3C4AE29D3489C00D76EED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

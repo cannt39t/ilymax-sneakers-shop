@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct Promotion {
+struct Promotion: FirestoreCollectionProtocol {
+    
+    static var collectionName: String = "promotions"
+    
     
     let name: String
     let imageUrl: String

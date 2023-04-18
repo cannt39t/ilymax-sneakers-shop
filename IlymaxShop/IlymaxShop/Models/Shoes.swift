@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Shoes {
+struct Shoes: FirestoreCollectionProtocol {
+    
+    static var collectionName: String = "shoes"
+    
+    var id: String?
     var name: String
     var description: String
     var color: String

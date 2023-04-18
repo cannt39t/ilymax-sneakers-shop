@@ -6,17 +6,19 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class CatalogViewController: UIViewController, UICollectionViewDelegate {
     
+    public var presenter: CatalogPresenter!
+    
     public var collectionView: UICollectionView!
     private let searchBar = UISearchBar()
+    private let hud = JGProgressHUD()
     
     public var promotions: [Promotion] = []
     public var popular: [Shoes] = []
     public var categories: [IlymaxCategory] = []
-    
-    public var presenter: CatalogPresenter!
     
     private var cur = 0
     private var timer: Timer?
@@ -25,13 +27,29 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        presenter.loadPromotions()
-        presenter.loadPopular()
-        presenter.loadCategories()
-        
+        showLoader()
+        showCollectionView()
+        presenter.fetchData()
+    }
+    
+    
+    public func showLoader() {
+        hud.show(in: self.view, animated: true)
+    }
+    
+    public func hideLoader() {
+        hud.dismiss(animated: true)
+    }
+    
+    
+    public func showCollectionView() {
         setupSearchBar()
         setupCollectionView()
         setupTimer()
+    }
+    
+    public func reloadData() {
+        collectionView.reloadData()
     }
     
     private func setupSearchBar() {
@@ -53,7 +71,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     }
     
     @objc func slideToNext() {
-        if cur < promotions.count {
+        if cur < promotions.count - 1 {
             cur += 1
         } else {
             cur = 0
@@ -215,7 +233,7 @@ extension CatalogViewController: UICollectionViewDataSource {
                 return promotionCell
             case 1:
                 let popularCell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.indertifier, for: indexPath) as! PopularCell
-                popularCell.setCategory(shoes: popular[indexPath.item])
+                popularCell.configure(with: popular[indexPath.item])
                 return popularCell
             case 2:
                 let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.indertifier, for: indexPath) as! CategoryCell

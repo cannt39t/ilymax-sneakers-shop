@@ -11,7 +11,7 @@ class PromotionCell: UICollectionViewCell {
     
     public static let indertifier = "PromotionCell"
     private var promotionImage: UIImageView = .init()
-    public var shoesIds: [String] = []
+    private var promotion: Promotion?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -41,10 +41,31 @@ class PromotionCell: UICollectionViewCell {
     }
     
     public func setPromotion(promotion: Promotion) {
-        shoesIds = promotion.shoesIds
-        FirestoreManager.shared.getImagePromotion(promotion.imageUrl) { [weak self] error, image in
-            self?.promotionImage.image = image
+        promotionImage.image = nil
+        self.promotion = promotion
+        
+        FirestoreManager.shared.getImageUrlFromStorageUrl(promotion.imageUrl) { [weak self] error, url in
+            if let error {
+                print(error)
+                return
+            }
+            if let url {
+                self?.configure(with: url)
+            }
         }
+    }
+    
+    private func configure(with url: URL) {
+        promotionImage.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        promotionImage.image = nil
     }
     
 }

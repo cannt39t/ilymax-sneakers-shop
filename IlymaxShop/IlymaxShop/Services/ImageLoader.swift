@@ -14,7 +14,7 @@ class ImageLoader {
         dataTask?.cancel()
         let urlRequest = URLRequest(
             url: url,
-            cachePolicy: .reloadIgnoringLocalAndRemoteCacheData
+            cachePolicy: .returnCacheDataElseLoad
         )
         dataTask = URLSession.shared
             .dataTask(with: urlRequest) { data, _, _ in
