@@ -9,15 +9,18 @@ import UIKit
 
 class CatalogCoordinator {
     
+    private weak var navigationController: UINavigationController!
+    
     func start() -> UIViewController {
         let catalogController = CatalogViewController()
         let catalogPresenter = CatalogPresenter()
+        catalogPresenter.pushShoe = pushShoeView
         catalogPresenter.view = catalogController
         catalogController.presenter = catalogPresenter
-        return catalogController
+        let navigationController = UINavigationController(rootViewController: catalogController)
+        self.navigationController = navigationController
+        return navigationController
     }
-    
-    private weak var navigationController: UINavigationController!
         
     func pushShoeView(shoe: Shoes) {
         let shoeViewController = ShoeViewController()
@@ -25,8 +28,6 @@ class CatalogCoordinator {
         shoeViewController.presenter = presenter
         presenter.view = shoeViewController
         presenter.product = shoe
-        let navigationController = UINavigationController(rootViewController: shoeViewController)
-        self.navigationController = navigationController
-        return navigationController
+        navigationController.pushViewController(shoeViewController, animated: true)
     }
 }

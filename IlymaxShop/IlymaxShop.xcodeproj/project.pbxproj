@@ -78,6 +78,7 @@
 		7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */; };
 		7E36E4BF29EEE5F9003D0A7B /* ShoeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */; };
 		7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */; };
+		7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,7 @@
 		7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePublicShoesService.swift; sourceTree = "<group>"; };
 		7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewPresenter.swift; sourceTree = "<group>"; };
 		7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewController.swift; sourceTree = "<group>"; };
+		7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewService.swift; sourceTree = "<group>"; };
 		7E4927A929DDC0F1000129FF /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -671,6 +673,7 @@
 		7E36E4BB29EEE591003D0A7B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				05A5CD9C29DB529B00564CC3 /* PopularCell.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
 				0519A9C529D99EB600AE1553 /* HeaderView.swift in Sources */,
+				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
 				0539C3AB29CDDA9A008F41B4 /* MockCartService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ChatViewController.swift in Sources */,

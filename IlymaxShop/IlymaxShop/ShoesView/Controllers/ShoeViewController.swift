@@ -10,8 +10,6 @@ import UIKit
 class ShoeViewController: UIViewController {
     
     var presenter: ShoeViewPresenter!
-    
-    var product = Product(id: 1, name: "First", description: "https://myreact.ru/wp-content/uploads/2023/02/duramo_10_shoes_black_gw8336_01_standard.jpg", company: .Adidas, gender: .MAN, color: .Black, category: .Sneakers, condition: .NEW, size: 35, price: 120)
         
     private let imageView = UIImageView()
     private let nameLabel = UILabel()
@@ -43,9 +41,14 @@ class ShoeViewController: UIViewController {
        
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.loadImage()
         setupUI()
    }
    
+    func updateImage(with image: UIImage?) {
+        imageView.image = image
+    }
+    
     private func setupUI() {
         
         navigationController?.navigationBar.tintColor = .black
@@ -62,18 +65,6 @@ class ShoeViewController: UIViewController {
         
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let imageLoader = ImageLoader()
-
-        imageLoader.loadImage(from: URL(string: product.description)!) { [self] image in
-            guard let image = image else {
-                imageView.image = UIImage(systemName: "photo")
-                return
-
-            }
-
-            imageView.image = image
-        }
         imageView.clipsToBounds = true
         
         
@@ -282,5 +273,9 @@ class ShoeViewController: UIViewController {
         
         let title = isHidden ? "Hide Details" : "Show Details"
         detailButton.setTitle(title, for: .normal)
+    }
+    
+    func setImage(_ image: UIImage?) {
+        imageView.image = image
     }
 }
