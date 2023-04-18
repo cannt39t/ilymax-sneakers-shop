@@ -12,7 +12,7 @@ class CatalogPresenter {
     
     weak var view: CatalogViewController?
     private let catalogService = CatalogService()
-    
+    public var pushShoe: (Shoes) -> Void = {}
     
     public func fetchData() {
         let group = DispatchGroup()
@@ -58,6 +58,9 @@ class CatalogPresenter {
             }
         }
     }
-
+    
+    func pushShoeView(shoe: Shoes) {
+        pushShoe(shoe: shoe)
+    }
     
 }

@@ -266,6 +266,51 @@ extension FirestoreManager {
             completion(shoes, nil)
         }
     }
+    
+    public func getShoe(withId id: String, completion: @escaping (Shoes?, Error?) -> Void) {
+            db.collection("shoes")
+                .whereField("id", isEqualTo: id)
+                .getDocuments { (snapshot, error) in
+                    if let error = error {
+                        completion(nil, error)
+                        return
+                    }
+
+                    guard let snapshot = snapshot, let document = snapshot.documents.first else {
+                        completion(nil, nil)
+                        return
+                    }
+
+                    let data = document.data()
+                    let name = data["name"] as? String ?? ""
+                    let description = data["description"] as? String ?? ""
+                    let color = data["color"] as? String ?? ""
+                    let gender = data["gender"] as? String ?? ""
+                    let imageUrl = data["image_url"] as? String ?? ""
+                    let ownerId = data["owner_id"] as? String ?? ""
+                    let company = data["company"] as? String ?? ""
+                    let category = data["category"] as? String ?? ""
+                    let condition = data["condition"] as? String ?? ""
+
+                    guard let dataArr = data["data"] as? [[String: Any]] else {
+                        completion(nil, nil)
+                        return
+                    }
+
+                    var shoeData: [ShoesDetail] = []
+
+                    for dict in dataArr {
+                        let size = dict["size"] as? String ?? ""
+                        let price = dict["price"] as? Double ?? 0
+                        let quantity = dict["quantity"] as? Int ?? 0
+
+                        let shoe = ShoesDetail(size: size, price: Float(price), quantity: quantity)
+                        shoeData.append(shoe)
+                    }
+                    let shoe = Shoes(name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                    completion(shoe, nil)
+                }
+        }
 }
 
 // MARK: - Category managment

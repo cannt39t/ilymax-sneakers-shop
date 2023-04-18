@@ -17,4 +17,16 @@ class CatalogCoordinator {
         return catalogController
     }
     
+    private weak var navigationController: UINavigationController!
+        
+    func pushShoeView(shoe: Shoes) {
+        let shoeViewController = ShoeViewController()
+        let presenter = ShoeViewPresenter()
+        shoeViewController.presenter = presenter
+        presenter.view = shoeViewController
+        presenter.product = shoe
+        let navigationController = UINavigationController(rootViewController: shoeViewController)
+        self.navigationController = navigationController
+        return navigationController
+    }
 }
