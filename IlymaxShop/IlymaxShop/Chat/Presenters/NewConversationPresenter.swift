@@ -9,8 +9,9 @@ import Foundation
 
 class NewConversationPresenter {
     
-    var view: NewConversationViewController?
+    weak var view: NewConversationViewController?
     let newConversationService: NewConversationService = NewConversationService()
+    var startNewConversation: (IlymaxUser) -> Void = {_ in }
     
     private var users: [IlymaxUser] = []
     private var hasFetch = false
@@ -26,7 +27,7 @@ class NewConversationPresenter {
                 self?.filterUsers(with: query)
             }
         }
-    }
+    } 
     
     func filterUsers(with term: String) {
         guard hasFetch else {

@@ -26,6 +26,11 @@ class ConversationsCoordinator {
     
     func openChat() {
         let chatController = ChatViewController()
+        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: "Sanek", emailAddress: "d", profilePictureUrl: nil))
+        
+        chatController.presenter = chatPresenter
+        chatPresenter.view = chatController
+        
         navigationController.pushViewController(chatController, animated: true)
     }
     
@@ -33,11 +38,30 @@ class ConversationsCoordinator {
         let newConversationControler = NewConversationViewController()
         let newConversationPresenter = NewConversationPresenter()
         
+        
+        newConversationPresenter.startNewConversation = { [weak self] result in
+            self?.navigationController.dismiss(animated: false)
+            print(result)
+            self?.createNewConvesation(with: result)
+        }
+        
         newConversationControler.presenter = newConversationPresenter
         newConversationPresenter.view = newConversationControler
         
         let navController = UINavigationController(rootViewController: newConversationControler)
         navigationController.present(navController, animated: true)
+    }
+    
+    private func createNewConvesation(with user: IlymaxUser) {
+        let chatController = ChatViewController()
+        let chatPresenter = ChatPresenter(otherUser: user)
+        
+        chatController.presenter = chatPresenter
+        chatPresenter.view = chatController
+        
+        
+        chatController.isNewConversation = true
+        navigationController.pushViewController(chatController, animated: true)
     }
     
 }

@@ -16,6 +16,8 @@ class ProfileService {
         let currentUserId = FirebaseAuth.Auth.auth().currentUser!.uid
         FirestoreManager.shared.getUser(with: currentUserId) { user in
             if let user {
+                UserDefaults.standard.set(user.name, forKey: "currentUserName")
+                UserDefaults.standard.set(user.emailAddress, forKey: "currentUserEmail")
                 completion(user)
             } else {
                 completion(nil)

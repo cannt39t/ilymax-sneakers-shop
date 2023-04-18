@@ -10,8 +10,9 @@ import MessageKit
 
 struct Message: MessageType {
     
-    var sender: MessageKit.SenderType
-    var messageId: String
-    var sentDate: Date
-    var kind: MessageKit.MessageKind
+    public var sender: MessageKit.SenderType
+    public var messageId: String
+    public var sentDate: Date
+    public var kind: MessageKit.MessageKind
+    
 }

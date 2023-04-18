@@ -13,12 +13,14 @@ class ProfilePresenter {
     
     weak var view: ProfileViewController?
     private let profileService = ProfileService()
+    public static var currentUser: IlymaxUser?
     
     func fetchUser() {
         profileService.getCurrentUser { [weak self] user in
             if let user {
                 DispatchQueue.main.async {
                     self?.view?.showUserProfile(with: user)
+                    ProfilePresenter.currentUser = user
                 }
             } else {
                 DispatchQueue.main.async {

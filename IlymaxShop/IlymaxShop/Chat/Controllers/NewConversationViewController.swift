@@ -16,8 +16,6 @@ class NewConversationViewController: UIViewController {
         return searchBar
     }()
     
-    var results: [IlymaxUser] = []
-    
     public let tableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -38,6 +36,7 @@ class NewConversationViewController: UIViewController {
     }()
     
     var presenter: NewConversationPresenter!
+    var results: [IlymaxUser] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,15 +69,20 @@ class NewConversationViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        noResultsLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            noResultsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noResultsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noResultsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noResultsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
 }
 
 extension NewConversationViewController: UISearchBarDelegate {
@@ -88,7 +92,7 @@ extension NewConversationViewController: UISearchBarDelegate {
              return
         }
         
-        print(text)
+        searchBar.resignFirstResponder()
         
         spinner.show(in: view)
         presenter.searchUsers(query: text)
@@ -110,5 +114,7 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // start conversation (push chatViewController???)
+        let targetUser = results[indexPath.item]
+        presenter.startNewConversation(targetUser)
     }
 }

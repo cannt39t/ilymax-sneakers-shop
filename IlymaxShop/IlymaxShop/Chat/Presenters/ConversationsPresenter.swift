@@ -10,7 +10,7 @@ import UIKit
 
 class ConversationsPresenter {
     
-    var view: ConversationsViewController?
+    weak var view: ConversationsViewController?
     let conversationsService: ConversationsService = ConversationsService()
     var open: (() -> ()) = {}
     var createNewConversation: (() -> ()) = {}

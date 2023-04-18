@@ -289,4 +289,15 @@ extension FirestoreManager {
     
 }
 
+// MARK: - Messanger
+
+extension FirestoreManager {
+    
+    func createNewConversation(name: String, participants: [String]) {
+        
+    }
+
+    
+}
+
 
