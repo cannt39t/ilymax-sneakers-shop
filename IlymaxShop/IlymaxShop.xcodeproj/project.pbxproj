@@ -286,9 +286,9 @@
 			children = (
 				05CDCA7429E5560F00573EF3 /* Protocols */,
 				0539C3A629CDDA82008F41B4 /* Product.swift */,
-				05D26CEC29CB24EF00EFC040 /* IlymaxUser.swift */,
 				052D97E829D9C8D6008CA67C /* Shoes.swift */,
 				052D97ED29D9C962008CA67C /* Promotion.swift */,
+				05D26CEC29CB24EF00EFC040 /* IlymaxUser.swift */,
 				05A5CDA129DB54B300564CC3 /* IlymaxCategory.swift */,
 			);
 			path = Models;

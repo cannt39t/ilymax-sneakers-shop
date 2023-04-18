@@ -74,17 +74,13 @@ class UserCell: UICollectionViewCell {
     func setUser(user: IlymaxUser) {
         nameLabel.text = user.name
         emailLabel.text = user.emailAddress
-        print("here")
         
         if let profileUrlImage = UserDefaults.standard.string(forKey: "profile_picture") {
-            print(profileUrlImage)
             if let imageUrl = URL(string: profileUrlImage) {
                 configure(with: imageUrl)
                 return
             }
         }
-        
-        print("here")
         
         if let url = user.profilePictureUrl {
             StorageManager.shared.getImageUrlFromStorageUrl(url) { [weak self] error, imageUrl in

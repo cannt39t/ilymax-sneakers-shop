@@ -36,7 +36,6 @@ class NewConversationPresenter {
         
         let results: [IlymaxUser] = users.filter({
             let name = $0.name.lowercased()
-            print(name)
             return name.hasPrefix(term.lowercased())
         })
         
@@ -47,7 +46,6 @@ class NewConversationPresenter {
     private func updateUI(_ results: [IlymaxUser]) {
         view?.spinner.dismiss()
         view?.results = results
-        print(results)
         if results.isEmpty {
             view?.tableView.isHidden = true
             view?.noResultsLabel.isHidden = false

@@ -10,8 +10,8 @@ import Foundation
 class ChatService {
     
     
-    func createNewConveration(with: String, fisrtMessage: Message, comletion: @escaping (Bool) -> Void) {
-        DatabaseManager.shared.createNewConveration(with: with, fisrtMessage: fisrtMessage) { result in
+    func createNewConveration(with: String, name: String, fisrtMessage: Message, comletion: @escaping (Bool) -> Void) {
+        FirestoreManager.shared.createNewConveration(with: with, name: name, fisrtMessage: fisrtMessage) { result in
             comletion(result)
         }
     }

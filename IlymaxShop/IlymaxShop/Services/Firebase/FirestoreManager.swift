@@ -293,11 +293,169 @@ extension FirestoreManager {
 
 extension FirestoreManager {
     
-    func createNewConversation(name: String, participants: [String]) {
+    /// Creates a new converstion with target user email and first message sent
+    public func createNewConveration(with otherUserEmail: String, name: String, fisrtMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
+
+        let docRef = db.collection("conversations").document(currentEmail)
+        docRef.getDocument { (document, error) in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+
+            let messageDate = fisrtMessage.sentDate
+            let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+
+            var message = ""
+
+            switch fisrtMessage.kind {
+                case .text(let messageText):
+                    message = messageText
+                case .attributedText(_):
+                    break
+                case .photo(_):
+                    break
+                case .video(_):
+                    break
+                case .location(_):
+                    break
+                case .emoji(_):
+                    break
+                case .audio(_):
+                    break
+                case .contact(_):
+                    break
+                case .linkPreview(_):
+                    break
+                case .custom(_):
+                    break
+            }
+            
+            let conversationID = "conversation_\(fisrtMessage.messageId)"
+
+            let newConversationData: [String: Any] = [
+                "id": conversationID,
+                "name": name,
+                "other_user_email": otherUserEmail,
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_read": false
+                ]
+            ]
+
+            guard let document = document, document.exists else {
+                // Create an array with the new conversation object
+                let newConversationArray: [[String: Any]] = [newConversationData]
+
+                docRef.setData(["conversations": newConversationArray], merge: true) { [weak self] error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    self?.finishCreatingConversation(converationID: conversationID, name: name, firstMessage: fisrtMessage, completion: completion)
+                }
+                return
+            }
+
+            guard let data = document.data(), var conversations = data["conversations"] as? [[String: Any]] else {
+                completion(false)
+                return
+            }
+
+            conversations.append(newConversationData)
+
+            docRef.setData(["conversations": conversations], merge: true) { [weak self] error in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                
+                self?.finishCreatingConversation(converationID: conversationID, name: name, firstMessage: fisrtMessage, completion: completion)
+            }
+        }
+    }
+    
+    private func finishCreatingConversation(converationID: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
         
+        let messageDate = firstMessage.sentDate
+        let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+        
+        var content = ""
+
+        switch firstMessage.kind {
+            case .text(let messageText):
+                content = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+        }
+        
+        let message: [String: Any] = [
+            "id": firstMessage.messageId,
+            "type": firstMessage.kind.messageKindString,
+            "content": content,
+            "date": dateString,
+            "sender_email": currentEmail,
+            "name": name,
+            "is_read": false
+        ]
+        
+        let value: [String: Any] = [
+            "messages": [
+                message
+            ]
+        ]
+        
+        let docRef = db.collection("messages").document(converationID)
+        docRef.setData(value) { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
     }
 
+
     
+    /// Fethes and returns all converations for the user with passed in email
+    public func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+    }
+    
+    /// Get all messages for converstion by id
+    public func getAllMessagesForConversation(with id: String, completion: (Result<String, Error>) -> Void) {
+        
+    }
+    
+    /// Send message to current conversation
+    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void) {
+        
+    }
 }
 
 

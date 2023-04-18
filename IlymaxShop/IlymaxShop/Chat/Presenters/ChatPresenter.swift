@@ -35,7 +35,7 @@ class ChatPresenter {
     }
     
     func sendFirstMessage(message: Message) {
-        chatService.createNewConveration(with: otherUser.emailAddress, fisrtMessage: message) { sent in
+        chatService.createNewConveration(with: otherUser.emailAddress, name: otherUser.name, fisrtMessage: message) { sent in
             if sent {
                 print(sent)
             } else {
