@@ -77,6 +77,7 @@
 		7E1DAD0E29DC9D68005B716B /* PublicShoesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0D29DC9D68005B716B /* PublicShoesService.swift */; };
 		7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */; };
 		7E36E4BF29EEE5F9003D0A7B /* ShoeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */; };
+		7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		7E1DAD0D29DC9D68005B716B /* PublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesService.swift; sourceTree = "<group>"; };
 		7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePublicShoesService.swift; sourceTree = "<group>"; };
 		7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewPresenter.swift; sourceTree = "<group>"; };
+		7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewController.swift; sourceTree = "<group>"; };
 		7E4927A929DDC0F1000129FF /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -684,6 +686,7 @@
 		7E36E4BD29EEE5A0003D0A7B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -846,6 +849,7 @@
 				7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */,
 				05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */,
 				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
+				7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */,
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
 				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
