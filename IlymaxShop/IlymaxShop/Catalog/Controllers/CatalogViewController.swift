@@ -199,6 +199,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
                 presenter.pushShoeView(shoe: popular[indexPath.item])
                 print(popular[indexPath.item])
             case 2:
+                presenter.pushListShoes(popular)
                 print(categories[indexPath.item])
             default:
                 print(indexPath)
