@@ -41,7 +41,6 @@ class ConversationsCoordinator {
         
         newConversationPresenter.startNewConversation = { [weak self] result in
             self?.navigationController.dismiss(animated: false)
-            print(result)
             self?.createNewConvesation(with: result)
         }
         
@@ -59,8 +58,7 @@ class ConversationsCoordinator {
         chatController.presenter = chatPresenter
         chatPresenter.view = chatController
         
-        
-        chatController.isNewConversation = true
+        chatPresenter.isNewConversation = true
         navigationController.pushViewController(chatController, animated: true)
     }
     

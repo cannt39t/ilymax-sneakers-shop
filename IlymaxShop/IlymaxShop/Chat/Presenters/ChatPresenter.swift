@@ -13,7 +13,13 @@ class ChatPresenter {
     let chatService: ChatService = ChatService()
     var otherUser: IlymaxUser
     
+    public var selfSender: Sender? {
+        return Sender(photoURL: "", senderId: currentUserEmailAddress, displayName: "Me")
+    }
+    
     private var conversationID: String?
+    public var messages = [Message]()
+    public var isNewConversation = false
     
     var currentUserEmailAddress: String = {
         guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
@@ -35,23 +41,39 @@ class ChatPresenter {
         self.view = view
         self.otherUser = otherUser
         self.conversationID = conversationID
-        if conversationID != nil {
-            listenForMessages()
+        if let id = conversationID {
+            listenForMessages(id: id)
         }
     }
     
     func sendFirstMessage(message: Message) {
-        chatService.createNewConveration(with: otherUser.emailAddress, name: otherUser.name, fisrtMessage: message) { sent in
+        conversationID = "conversation_\(message.messageId)"
+        listenForMessages(id: conversationID!)
+        chatService.createNewConveration(with: otherUser.emailAddress, name: otherUser.name, fisrtMessage: message) { [weak self] sent in
             if sent {
                 print(sent)
+                self?.isNewConversation = false
             } else {
                 print(sent)
             }
         }
     }
     
-    func listenForMessages() {
-        chatService.listenForMessages()
+    func listenForMessages(id: String) {
+        chatService.listenForMessages(for: conversationID!) { [weak self] result in
+            switch result {
+                case .success(let messages):
+                    guard !messages.isEmpty else {
+                        return
+                    }
+                    self?.messages = messages
+                    DispatchQueue.main.async { [weak self] in
+                        self?.view?.messagesCollectionView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
     
     func getCurrentDate() -> String? {
@@ -60,8 +82,20 @@ class ChatPresenter {
     
     func createMessageID() -> String? {
         let newID = "\(otherUser.emailAddress)_\(currentUserEmailAddress)_\(getCurrentDate()!)"
-        print(newID)
         return newID
+    }
+    
+    func sendMessage(_ message: Message) {
+        guard let id = conversationID else {
+            return
+        }
+        chatService.sendMessage(to: id, email: otherUser.emailAddress, message: message) { sent in
+            if sent {
+                print("New message sent")
+            } else {
+                print("New message no sent")
+            }
+        }
     }
 
 }

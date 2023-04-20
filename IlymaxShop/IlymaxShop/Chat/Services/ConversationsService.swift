@@ -10,7 +10,7 @@ import Foundation
 class ConversationsService {
     
     func startListeningForConversations(completion: @escaping (Result<[Conversation], Error>) -> Void) {
-        guard let email = UserDefaults.standard.string(forKey: "email") else {
+        guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             return
         }
         

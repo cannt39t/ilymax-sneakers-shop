@@ -31,12 +31,12 @@ extension DateFormatter {
     }()
     
     func conversationListFormattedString(from dateString: String) -> String? {
+        print(dateString)
         guard let date = self.date(from: dateString) else {
             return nil
         }
         
         if Calendar.current.isDateInToday(date) {
-            // Today's date, so return just the time
             self.dateFormat = "h:mm a"
             return self.string(from: date)
         } else if Calendar.current.isDateInYesterday(date) {

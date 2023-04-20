@@ -20,7 +20,6 @@ class FirebaseAuthenticationService: AuthenticationService {
                 completion(error)
                 return
             }
-            UserDefaults.standard.set(email, forKey: "email")
             completion(nil)
             FirestoreManager.shared.insertUser(with: IlymaxUser(name: name, emailAddress: email, profilePictureUrl: nil))
         }
@@ -34,7 +33,6 @@ class FirebaseAuthenticationService: AuthenticationService {
                 return
             }
             print(result)
-            UserDefaults.standard.set(email, forKey: "email")
             completion(nil)
         }
     }
