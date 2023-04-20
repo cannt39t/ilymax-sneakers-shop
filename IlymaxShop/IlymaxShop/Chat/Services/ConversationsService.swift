@@ -9,6 +9,14 @@ import Foundation
 
 class ConversationsService {
     
-    
+    func startListeningForConversations(completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        guard let email = UserDefaults.standard.string(forKey: "email") else {
+            return
+        }
+        
+        FirestoreManager.shared.getAllConversations(for: email) {  result in
+            completion(result)
+        }
+    }
     
 }

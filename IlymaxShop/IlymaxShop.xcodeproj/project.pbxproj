@@ -48,6 +48,8 @@
 		055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8029EE8B09008E4C4C /* ChatService.swift */; };
 		055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */; };
 		0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */; };
+		0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */; };
+		0579DCAF29F138EB009A620E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAE29F138EB009A620E /* Conversation.swift */; };
 		05A4380129D8171C00AADDB9 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4380029D8171C00AADDB9 /* UserCell.swift */; };
 		05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 05A4381D29D8522C00AADDB9 /* FirebaseFirestore */; };
 		05A4382029D8564400AADDB9 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4381F29D8564400AADDB9 /* FirestoreManager.swift */; };
@@ -153,6 +155,8 @@
 		055CFB8029EE8B09008E4C4C /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		0579DCAE29F138EB009A620E /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		05A4380029D8171C00AADDB9 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		05A4381F29D8564400AADDB9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		05A5CD9929DAE4E000564CC3 /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
@@ -477,6 +481,7 @@
 		05D91E9529ED3B7400C7FBB7 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 			children = (
 				05D91E9729ED3C0500C7FBB7 /* Message.swift */,
 				05D91E9929ED3C6A00C7FBB7 /* Sender.swift */,
+				0579DCAE29F138EB009A620E /* Conversation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -911,11 +917,13 @@
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
 				05D91E9329ED33FD00C7FBB7 /* ChatViewController.swift in Sources */,
 				055CFB7D29EE8AE6008E4C4C /* ChatPresenter.swift in Sources */,
+				0579DCAF29F138EB009A620E /* Conversation.swift in Sources */,
 				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
 				052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
 				05D26CF529CB43A200EFC040 /* LoginPresenter.swift in Sources */,
+				0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */,
 				051F100B29C8E3BD00877947 /* ConversationsCoordinator.swift in Sources */,
 				0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */,
 				052D97EE29D9C962008CA67C /* Promotion.swift in Sources */,

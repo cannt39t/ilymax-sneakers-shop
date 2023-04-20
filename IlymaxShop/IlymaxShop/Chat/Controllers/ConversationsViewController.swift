@@ -10,10 +10,11 @@ import JGProgressHUD
 
 class ConversationsViewController: UIViewController {
     
-    private let tableView: UITableView = {
+    public let tableView: UITableView = {
         let table = UITableView()
         //        table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(ConversationTableViewCell.self, forCellReuseIdentifier: ConversationTableViewCell.identifier)
         return table
     }()
     
@@ -44,11 +45,16 @@ class ConversationsViewController: UIViewController {
         setupTableView()
         
         presenter.fetchConversations()
+        startListeningForConversations()
     }
     
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    private func startListeningForConversations() {
+        presenter.startListeningForConversations()
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,7 +78,7 @@ class ConversationsViewController: UIViewController {
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        presenter.conversations.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,16 +86,23 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Hello World!"
-        cell.accessoryType = .disclosureIndicator
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
+        
+        
+        let conversation = presenter.conversations[indexPath.item]
+        cell.configure(with: conversation)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        presenter.openChat()
+        let conversation = presenter.conversations[indexPath.item]
+        presenter.openChat(conversation: conversation)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
     }
     
 }

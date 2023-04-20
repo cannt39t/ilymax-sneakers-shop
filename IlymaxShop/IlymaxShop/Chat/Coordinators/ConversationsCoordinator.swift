@@ -24,9 +24,9 @@ class ConversationsCoordinator {
         return navigationController
     }
     
-    func openChat() {
+    func openChat(conversation: Conversation) {
         let chatController = ChatViewController()
-        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: "Sanek", emailAddress: "d", profilePictureUrl: nil))
+        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: conversation.name, emailAddress: conversation.otherUserEmail, profilePictureUrl: nil), conversationID: conversation.id )
         
         chatController.presenter = chatPresenter
         chatPresenter.view = chatController

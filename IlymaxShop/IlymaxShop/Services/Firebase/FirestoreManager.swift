@@ -106,6 +106,31 @@ extension FirestoreManager {
                 }
             }
     }
+    
+    
+    public func getUserByEmail(with email: String, completion: @escaping (IlymaxUser?) -> Void) {
+        let usersRef = db.collection("users")
+        
+        usersRef.whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            guard let userDoc = documents.first else {
+                completion(nil)
+                return
+            }
+            
+            let userData = userDoc.data()
+            let name = userData["name"] as! String
+            let emailAddress = userData["email"] as! String
+            let profilePictureUrl = userData["profilePictureUrl"] as? String ?? ""
+            let user = IlymaxUser(name: name, emailAddress: emailAddress, profilePictureUrl: profilePictureUrl)
+            
+            completion(user)
+        }
+    }
 
 }
 
@@ -442,10 +467,85 @@ extension FirestoreManager {
 
 
     
-    /// Fethes and returns all converations for the user with passed in email
-    public func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
-        
+    public func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        let conversationRef = db.collection("conversations").document(email.lowercased())
+        conversationRef.getDocument { (document, error) in
+            guard let document = document, document.exists else {
+                completion(.success([]))
+                return
+            }
+            
+            guard let data = document.data(), let conversations = data["conversations"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            var allConversations: [Conversation] = []
+            
+            for conversation in conversations {
+                guard let id = conversation["id"] as? String,
+                      let name = conversation["name"] as? String,
+                      let otherUserEmail = conversation["other_user_email"] as? String,
+                      let latestMessageDict = conversation["latest_message"] as? [String: Any],
+                      let latestMessageDate = latestMessageDict["date"] as? String,
+                      let latestMessageText = latestMessageDict["message"] as? String,
+                      let latestMessageIsRead = latestMessageDict["is_read"] as? Bool else {
+                          continue
+                      }
+                
+                let latestMessage = LatestMessage(date: latestMessageDate, text: latestMessageText, isRead: latestMessageIsRead)
+                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
+                
+                allConversations.append(conversation)
+            }
+            
+            completion(.success(allConversations))
+        }
     }
+
+
+
+    
+    public func getAllConversationsListener(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) -> ListenerRegistration {
+        let userRef = db.collection("conversations").document(email)
+        let conversationsRef = userRef.collection("conversations")
+        
+        return conversationsRef.addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            var conversations: [Conversation] = []
+            for document in snapshot!.documents {
+                let data = document.data()
+                
+                let id = document.documentID
+                let name = data["name"] as! String
+                let otherUserEmail = data["other_user_email"] as! String
+                
+                let latestMessageData = data["latest_message"] as! [String: Any]
+                let latestMessage = LatestMessage(
+                    date: latestMessageData["date"] as! String,
+                    text: latestMessageData["text"] as! String,
+                    isRead: latestMessageData["is_read"] as! Bool
+                )
+                
+                let conversation = Conversation(
+                    id: id,
+                    name: name,
+                    otherUserEmail: otherUserEmail,
+                    latestMessage: latestMessage
+                )
+                conversations.append(conversation)
+            }
+            
+            completion(.success(conversations))
+        }
+    }
+
+
+
     
     /// Get all messages for converstion by id
     public func getAllMessagesForConversation(with id: String, completion: (Result<String, Error>) -> Void) {

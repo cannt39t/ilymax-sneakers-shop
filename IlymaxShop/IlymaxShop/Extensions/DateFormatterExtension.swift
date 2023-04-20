@@ -18,3 +18,35 @@ extension DateFormatter {
     }()
     
 }
+
+extension DateFormatter {
+    
+    static let conversationListFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "dd MMM. yyyy г., h:mm:ss a zzz"
+        return formatter
+    }()
+    
+    func conversationListFormattedString(from dateString: String) -> String? {
+        guard let date = self.date(from: dateString) else {
+            return nil
+        }
+        
+        if Calendar.current.isDateInToday(date) {
+            // Today's date, so return just the time
+            self.dateFormat = "h:mm a"
+            return self.string(from: date)
+        } else if Calendar.current.isDateInYesterday(date) {
+            // Yesterday's date, so return "Yesterday"
+            return "Yesterday"
+        } else {
+            // Older date, return the date in the format "dd MMM yyyy"
+            self.dateFormat = "dd MMM yyyy"
+            return self.string(from: date)
+        }
+    }
+}
+

@@ -15,4 +15,10 @@ class ChatService {
             comletion(result)
         }
     }
+    
+    func listenForMessages(for id: String, completion: @escaping ()) {
+        FirestoreManager.shared.getAllMessagesForConversation(with: id) { result in
+            <#code#>
+        }
+    }
 }

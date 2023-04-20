@@ -13,6 +13,8 @@ class ChatPresenter {
     let chatService: ChatService = ChatService()
     var otherUser: IlymaxUser
     
+    private var conversationID: String?
+    
     var currentUserEmailAddress: String = {
         guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             fatalError("User should have email here")
@@ -29,9 +31,13 @@ class ChatPresenter {
         return email
     }()
     
-    init(view: ChatViewController? = nil, otherUser: IlymaxUser) {
+    init(view: ChatViewController? = nil, otherUser: IlymaxUser, conversationID: String? = nil) {
         self.view = view
         self.otherUser = otherUser
+        self.conversationID = conversationID
+        if conversationID != nil {
+            listenForMessages()
+        }
     }
     
     func sendFirstMessage(message: Message) {
@@ -42,6 +48,10 @@ class ChatPresenter {
                 print(sent)
             }
         }
+    }
+    
+    func listenForMessages() {
+        chatService.listenForMessages()
     }
     
     func getCurrentDate() -> String? {

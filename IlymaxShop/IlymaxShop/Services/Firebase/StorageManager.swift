@@ -123,4 +123,32 @@ final class StorageManager {
         }
     }
     
+    public func getImageUrlFromStorageUrlProfileByEmail(email: String, completion: @escaping (URL?) -> Void) {
+        FirestoreManager.shared.getUserByEmail(with: email) { [weak self] user in
+            guard let user = user else {
+                completion(nil)
+                return
+            }
+            
+            guard let profilePictureUrl = user.profilePictureUrl else {
+                completion(nil)
+                return
+            }
+            
+            self?.getImageUrlFromStorageUrl(profilePictureUrl) { error, urlString in
+                guard error == nil else {
+                    completion(nil)
+                    return
+                }
+                
+                guard let profilePictureUrl = urlString else {
+                    completion(nil)
+                    return
+                }
+                
+                completion(profilePictureUrl)
+            }
+        }
+    }
+    
 }
