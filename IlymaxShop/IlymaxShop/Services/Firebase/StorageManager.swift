@@ -87,7 +87,6 @@ final class StorageManager {
                     return
                 }
                 let urlString = url.absoluteString
-                print("Download url \(urlString)")
                 
                 FirestoreManager.shared.updateImageProfileUrl(for: userId, imageUrl: imageRef) { error in
                     if error != nil {
@@ -150,5 +149,31 @@ final class StorageManager {
             }
         }
     }
+    
+    
+    /// Upload image that will be sent in a conversation message
+    public func uploadMessagePhoto(with data: Data, filename: String, completion: @escaping UploadPictureCompletion) {
+        let storageRef = storage.reference()
+        let imageRef = "message_images/\(filename)"
+        let userRef = storageRef.child(imageRef)
+        userRef.putData(data, metadata: nil) { (metadata, error) in
+            guard error == nil else {
+                print("failed to upload")
+                completion(.failure(StorageErrors.failedToUpload))
+                return
+            }
+            
+            userRef.downloadURL { (url, error) in
+                guard let url = url else {
+                    print("Failed to get URL")
+                    completion(.failure(StorageErrors.failedToGetURL))
+                    return
+                }
+                let urlString = url.absoluteString
+                completion(.success(urlString))
+            }
+        }
+    }
+    
     
 }

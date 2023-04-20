@@ -126,7 +126,7 @@ class TabBarCoordinator {
 //    }
     
     private func test() {
-//        try? FirebaseAuth.Auth.auth().signOut()
+        try? FirebaseAuth.Auth.auth().signOut()
 //        FirestoreManager.shared.getUser(with: FirebaseAuth.Auth.auth().currentUser!.uid) { user in
 //            if let user {
 //                print(user)

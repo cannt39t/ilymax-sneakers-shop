@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import MessageKit
 
 
 final class FirestoreManager {
@@ -324,11 +325,6 @@ extension FirestoreManager {
             completion(false)
             return
         }
-        
-        guard let currentUserName = UserDefaults.standard.string(forKey: "currentUserName") else {
-            completion(false)
-            return
-        }
 
         let docRef = db.collection("conversations").document(currentEmail)
         docRef.getDocument { [weak self] (document, error) in
@@ -472,7 +468,10 @@ extension FirestoreManager {
                 content = messageText
             case .attributedText(_):
                 break
-            case .photo(_):
+            case .photo(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
                 break
             case .video(_):
                 break
@@ -582,10 +581,23 @@ extension FirestoreManager {
                     let date = DateFormatter.dateFormatter.date(from: dateString) else {
                         continue
                 }
+                
+                var kind: MessageKind = .text(content)
+                
+                switch type {
+                    case "photo":
+                        guard let imageUrl = URL(string: content) else {
+                            return
+                        }
+                        let media = Media(url: imageUrl, placeholderImage: UIImage(systemName: "photo")!, size: CGSize(width: 300, height: 300))
+                        kind = .photo(media)
+                    default:
+                        break
+                }
 
                 let sender = Sender(photoURL: "", senderId: senderEmail, displayName: name)
 
-                let message = Message(sender: sender, messageId: id, sentDate: date, kind: .text(content))
+                let message = Message(sender: sender, messageId: id, sentDate: date, kind: kind)
 
                 allMessages.append(message)
             }
@@ -617,7 +629,10 @@ extension FirestoreManager {
                 content = messageText
             case .attributedText(_):
                 break
-            case .photo(_):
+            case .photo(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
                 break
             case .video(_):
                 break

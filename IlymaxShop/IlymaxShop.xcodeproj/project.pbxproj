@@ -50,6 +50,8 @@
 		0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */; };
 		0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */; };
 		0579DCAF29F138EB009A620E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAE29F138EB009A620E /* Conversation.swift */; };
+		05975AC429F1C58800DAD37F /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05975AC329F1C58800DAD37F /* Media.swift */; };
+		05975AC629F1E43000DAD37F /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05975AC529F1E43000DAD37F /* PhotoViewerViewController.swift */; };
 		05A4380129D8171C00AADDB9 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4380029D8171C00AADDB9 /* UserCell.swift */; };
 		05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 05A4381D29D8522C00AADDB9 /* FirebaseFirestore */; };
 		05A4382029D8564400AADDB9 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A4381F29D8564400AADDB9 /* FirestoreManager.swift */; };
@@ -157,6 +159,8 @@
 		0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		0579DCAE29F138EB009A620E /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		05975AC329F1C58800DAD37F /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		05975AC529F1E43000DAD37F /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
 		05A4380029D8171C00AADDB9 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		05A4381F29D8564400AADDB9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		05A5CD9929DAE4E000564CC3 /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
@@ -492,6 +496,7 @@
 				05D91E9729ED3C0500C7FBB7 /* Message.swift */,
 				05D91E9929ED3C6A00C7FBB7 /* Sender.swift */,
 				0579DCAE29F138EB009A620E /* Conversation.swift */,
+				05975AC329F1C58800DAD37F /* Media.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -661,6 +666,7 @@
 				051F101829C8E9BA00877947 /* ConversationsViewController.swift */,
 				05D91E9229ED33FD00C7FBB7 /* ChatViewController.swift */,
 				05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */,
+				05975AC529F1E43000DAD37F /* PhotoViewerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -912,6 +918,7 @@
 				05A5CDA529DB56DA00564CC3 /* CatalogPresenter.swift in Sources */,
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
 				7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */,
+				05975AC429F1C58800DAD37F /* Media.swift in Sources */,
 				05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */,
 				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
@@ -968,6 +975,7 @@
 				7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */,
 				05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */,
 				05D91E9129ED316600C7FBB7 /* ConversationsPresenter.swift in Sources */,
+				05975AC629F1E43000DAD37F /* PhotoViewerViewController.swift in Sources */,
 				05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

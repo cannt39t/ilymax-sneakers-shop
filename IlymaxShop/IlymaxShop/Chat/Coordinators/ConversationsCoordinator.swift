@@ -29,6 +29,7 @@ class ConversationsCoordinator {
         let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: conversation.name, emailAddress: conversation.otherUserEmail, profilePictureUrl: nil), conversationID: conversation.id )
         
         chatController.presenter = chatPresenter
+        chatPresenter.openImageCoordinator = openImage
         chatPresenter.view = chatController
         
         navigationController.pushViewController(chatController, animated: true)
@@ -57,9 +58,15 @@ class ConversationsCoordinator {
         
         chatController.presenter = chatPresenter
         chatPresenter.view = chatController
+        chatPresenter.openImageCoordinator = openImage
         
         chatPresenter.isNewConversation = true
         navigationController.pushViewController(chatController, animated: true)
+    }
+    
+    func openImage(with url: URL) {
+        let viewer = PhotoViewerViewController(with: url)
+        navigationController.pushViewController(viewer, animated: true)
     }
     
 }

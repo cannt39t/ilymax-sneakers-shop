@@ -27,4 +27,10 @@ class ChatService {
             completion(result)
         }
     }
+    
+    func uploadImageDataMessage(imageData: Data, filename: String, completion: @escaping StorageManager.UploadPictureCompletion) {
+        StorageManager.shared.uploadMessagePhoto(with: imageData, filename: filename) { result in
+            completion(result)
+        }
+    }
 }
