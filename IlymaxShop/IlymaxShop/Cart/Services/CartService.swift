@@ -8,7 +8,19 @@
 import Foundation
 import Combine
 
-protocol CartService {
-    func getProducts() throws -> [Product]
-    func deleteByID(id: Int)
+class CartService {
+    public func getProducts(completion: @escaping (([Shoes]) -> Void)) {
+        FirestoreManager.shared.getAllShoes { shoes, error in
+            if let error {
+                print(error)
+                completion([])
+                return
+            }
+            completion(shoes ?? [])
+        }
+    }
+    
+    func deleteByID(id: String){
+        
+    }
 }

@@ -8,8 +8,10 @@
 import UIKit
 
 class CartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    // MARK: - делаем CompositionLayout
+
     var presenter: CartPresenter!
+    
+    public var products: [Shoes] = []
     
     private var totalPrice: Double = 0
     
@@ -19,7 +21,7 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let buyButton = UIButton()
     private var cartCollectionView: UICollectionView!
     
-    private func setup() {
+    func setup() {
         view.backgroundColor = .systemBackground
         
         let layout = UICollectionViewFlowLayout()
@@ -34,7 +36,7 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cartCollectionView.delegate = self
         
         view.addSubview(cartCollectionView)
-
+        cartCollectionView.isHidden = true
         cartCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cartCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -50,19 +52,19 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter!.getProducts()
+        presenter.fetchData()
         setupView()
         setup()
-        start()
     }
     
-    private func setupView() {
+    func setupView() {
         
         buyButton.setTitle("Buy", for: .normal)
         buyButton.setTitleColor(.white, for: .normal)
         buyButton.backgroundColor = .black
         buyButton.layer.cornerRadius = 10
         buyButton.addTarget(self, action: #selector(didTapBuyButton), for: .touchUpInside)
+        buyButton.isHidden = true
         buyButton.translatesAutoresizingMaskIntoConstraints = false
         
         emptyCartLabel.text = "Cart empty"
@@ -76,6 +78,7 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
         emptyCartCatalogButton.backgroundColor = .black
         emptyCartCatalogButton.layer.cornerRadius = 10
         emptyCartCatalogButton.addTarget(self, action: #selector(didTapCatalogButton), for: .touchUpInside)
+        emptyCartCatalogButton.isHidden = true
         emptyCartCatalogButton.translatesAutoresizingMaskIntoConstraints = false
         
         totalPriceLabel.textAlignment = .left
@@ -109,14 +112,13 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func start() {
-        if presenter?.products.count ?? 0 == 0 {
+        if products.count == 0 {
             buyButton.isHidden = true
             emptyCartLabel.isHidden = false
             totalPriceLabel.isHidden = true
             emptyCartCatalogButton.isHidden = false
             cartCollectionView.isHidden = true
         } else {
-            updateTotalPrice()
             buyButton.isHidden = false
             emptyCartLabel.isHidden = true
             totalPriceLabel.isHidden = false
@@ -127,8 +129,8 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func updateTotalPrice(){
-        totalPrice = presenter?.products.reduce(0.0) { $0 + $1.price } ?? 0
-        totalPriceLabel.text = "Items in the cart: \(presenter?.products.count ?? 0). Total Price: $\(totalPrice)"
+        let totalPrice = products.reduce(0.0) { $0 + $1.data[0].price }
+        totalPriceLabel.text = "Items in the cart: \(products.count). Total Price: $\(totalPrice)"
     }
     
     // MARK: - Переадресация на платежку
@@ -143,13 +145,13 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.products.count ?? 0
+        return products.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCell.indertifier, for: indexPath) as! CartCell
-        let product = presenter?.products[indexPath.item]
-        cell.setProduct(product: product!, cartPresenterDelegate: presenter)
+        let product = products[indexPath.item]
+        cell.setProduct(product: product, cartPresenterDelegate: presenter)
         return cell
     }
     
@@ -174,6 +176,6 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.didTapOnSection(productId: (presenter?.products[indexPath.item].id)!)
+        presenter?.didTapOnSection(product: products[indexPath.item])
     }
 }

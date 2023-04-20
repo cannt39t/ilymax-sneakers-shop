@@ -28,29 +28,37 @@ class CartCell: UICollectionViewCell {
     private var sizeLabel: UILabel = .init()
     private var priceLabel: UILabel = .init()
     private var deleteButton: UIButton = .init()
-    private var productID: Int = .init()
+    private var productID: String = .init()
     private var cartPresenterDelegate: CartPresenterDelegate?
     
-    func setProduct (product: Product, cartPresenterDelegate: CartPresenterDelegate) {
-        productID = product.id
-        nameLabel.text = "\(product.name)"
+    func setProduct (product: Shoes, cartPresenterDelegate: CartPresenterDelegate) {
+        productID = product.id!
+        nameLabel.text = "\(product.company) \(product.name)"
         nameLabel.textColor = .black
-        sizeLabel.text = "Size: \(product.size) US"
+        sizeLabel.text = "Size: \(product.data[0].size)"
         sizeLabel.textColor = .black
-        priceLabel.text = "$\(product.price)"
+        priceLabel.text = "\(product.data[0].price) $"
         priceLabel.textColor = .black
-       // imgImageView.image = UIImage(named: "Welcome")
-        let imageLoader = ImageLoader()
+        guard let imageUrl = product.imageUrl else {
+            // Show error message to user if image URL is nil
+            return
+        }
         
-        imageLoader.loadImage(from: URL(string: "\(product.description)")!) { [weak self] image in
-            guard let image = image else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.imgImageView.image = UIImage(systemName: "photo")
-                }
+        FirestoreManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
+            guard let self = self else { return } // Make sure self is not nil
+            
+            if let error = error {
+                // Show error message to user
+                print("Error loading image: \(error.localizedDescription)")
                 return
             }
             
-            self?.imgImageView.image = image
+            guard let url = url else {
+                // Show error message to user if URL is nil
+                return
+            }
+            
+            self.loadImage(with: url)
         }
         
         deleteButton.setImage(UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
@@ -58,6 +66,23 @@ class CartCell: UICollectionViewCell {
         deleteButton.tintColor = .black
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         self.cartPresenterDelegate = cartPresenterDelegate
+    }
+    
+
+
+    private func loadImage(with url: URL) {
+        imgImageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                // Show error message to user
+                print("Error loading image: \(error.localizedDescription)")
+            } else {
+//                if cacheType == .memory || cacheType == .disk {
+//                    print("Image loaded from cache")
+//                } else {
+//                    print("Image loaded from network")
+//                }
+            }
+        }
     }
     
     // MARK: - Удаление
