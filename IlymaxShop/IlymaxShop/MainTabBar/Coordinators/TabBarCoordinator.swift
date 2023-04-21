@@ -51,22 +51,26 @@ class TabBarCoordinator {
     }
     
     func publicShoes() -> UIViewController {
-        let image = UIImage(systemName: "plus.app")?.withTintColor(.gray)
-        let selectedImage = UIImage(systemName: "plus.app")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let originalImage = UIImage(systemName: "plus.circle.fill")
+        let imageSize = CGSize(width: 50, height: 50)
+        let resizedImage = originalImage?.resizedImage(targetSize: imageSize)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+
+        let tabBarItem = UITabBarItem(title: "", image: resizedImage, selectedImage: resizedImage)
+        tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 7, right: 0)
         
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let controller = NoAuthViewController()
-            controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
-            
+            controller.tabBarItem = tabBarItem
             return controller
         } else {
             let publicShoesCoordinator = PublicShoesCoordinator()
             let publicShoesController = publicShoesCoordinator.start()
-            publicShoesController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
-            
+            publicShoesController.tabBarItem = tabBarItem
             return publicShoesController
         }
     }
+
+
     
     func chat() -> UIViewController {
         let image = UIImage(systemName: "message.badge")?.withTintColor(.gray)
@@ -126,7 +130,7 @@ class TabBarCoordinator {
 //    }
     
     private func test() {
-        try? FirebaseAuth.Auth.auth().signOut()
+//        try? FirebaseAuth.Auth.auth().signOut()
 //        FirestoreManager.shared.getUser(with: FirebaseAuth.Auth.auth().currentUser!.uid) { user in
 //            if let user {
 //                print(user)
