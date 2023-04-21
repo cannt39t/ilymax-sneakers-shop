@@ -31,7 +31,14 @@ class CartCell: UICollectionViewCell {
     private var productID: String = .init()
     private var cartPresenterDelegate: CartPresenterDelegate?
     
-    func setProduct (product: Shoes, cartPresenterDelegate: CartPresenterDelegate) {
+    private var index = 0
+    
+    func setIndex(_ index: Int) {
+        self.index -= 1
+    }
+
+    func setProduct (product: Shoes, cartPresenterDelegate: CartPresenterDelegate, index: Int) {
+        self.index = index
         productID = product.id!
         nameLabel.text = "\(product.company) \(product.name)"
         nameLabel.textColor = .black

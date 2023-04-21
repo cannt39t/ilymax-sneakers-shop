@@ -151,7 +151,7 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCell.indertifier, for: indexPath) as! CartCell
         let product = products[indexPath.item]
-        cell.setProduct(product: product, cartPresenterDelegate: presenter)
+        cell.setProduct(product: product, cartPresenterDelegate: presenter, index: indexPath.item)
         return cell
     }
     
@@ -170,7 +170,7 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
-    func updateView(){
+    func updateView() {
         start()
         cartCollectionView.reloadData()
     }
@@ -178,4 +178,27 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.didTapOnSection(product: products[indexPath.item])
     }
+    
+    func delete(Id: String){
+        let index = Int(products.firstIndex(where: { $0.id == Id })!)
+        print(products[index].name)
+        print(index)
+        products.remove(at: index)
+        start()
+        if !products.isEmpty {
+            let updatedIndex = index
+            let indexPathToDelete = IndexPath(item: updatedIndex, section: 0)
+            cartCollectionView.performBatchUpdates({
+                cartCollectionView.deleteItems(at: [indexPathToDelete])
+                
+                for i in index..<products.count {
+                    let updatedIndexPath = IndexPath(item: i, section: 0)
+                    if let cell = cartCollectionView.cellForItem(at: updatedIndexPath) as? CartCell {
+                        cell.setIndex(i)
+                    }
+                }
+            }, completion: nil)
+        }
+    }
+
 }

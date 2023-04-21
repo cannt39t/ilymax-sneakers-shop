@@ -55,6 +55,6 @@ extension CartPresenter: CartPresenterDelegate {
     // MARK: - Удаление
     func deleteByID(productId: String){
         cartService.deleteByID(id: productId)
-        fetchData()
+        self.view?.delete(Id: productId)
     }
 }
