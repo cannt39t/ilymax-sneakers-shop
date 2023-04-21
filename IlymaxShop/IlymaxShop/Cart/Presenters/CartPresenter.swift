@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol CartPresenterDelegate: AnyObject {
-    func deleteByID(productId: String)
-}
-
 class CartPresenter {
     
     weak var view: CartViewController?
@@ -49,12 +45,8 @@ class CartPresenter {
         pushShoe(product)
     }
     
-}
-
-extension CartPresenter: CartPresenterDelegate {
     // MARK: - Удаление
     func deleteByID(productId: String){
         cartService.deleteByID(id: productId)
-        self.view?.delete(Id: productId)
     }
 }

@@ -7,38 +7,26 @@
 
 import UIKit
 
-class CartCell: UICollectionViewCell {
+class CartCell: UITableViewCell {
         
     public static let indertifier = "CartCell"
         
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setup()
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var imgImageView: UIImageView = .init()
     private var nameLabel: UILabel = .init()
     private var sizeLabel: UILabel = .init()
     private var priceLabel: UILabel = .init()
-    private var deleteButton: UIButton = .init()
     private var productID: String = .init()
-    private var cartPresenterDelegate: CartPresenterDelegate?
-    
-    private var index = 0
-    
-    func setIndex(_ index: Int) {
-        self.index -= 1
-    }
 
-    func setProduct (product: Shoes, cartPresenterDelegate: CartPresenterDelegate, index: Int) {
-        self.index = index
+    func setProduct (product: Shoes) {
         productID = product.id!
         nameLabel.text = "\(product.company) \(product.name)"
         nameLabel.textColor = .black
@@ -67,12 +55,6 @@ class CartCell: UICollectionViewCell {
             
             self.loadImage(with: url)
         }
-        
-        deleteButton.setImage(UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
-        
-        deleteButton.tintColor = .black
-        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        self.cartPresenterDelegate = cartPresenterDelegate
     }
     
 
@@ -92,17 +74,11 @@ class CartCell: UICollectionViewCell {
         }
     }
     
-    // MARK: - Удаление
-    @objc private func deleteButtonTapped() {
-        cartPresenterDelegate?.deleteByID(productId: productID)
-    }
-    
     private func setup() {
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.backgroundColor = .white
         
-        contentView.addSubview(deleteButton)
         contentView.addSubview(imgImageView)
         
         let stackView = UIStackView()
@@ -116,7 +92,6 @@ class CartCell: UICollectionViewCell {
         stackView.addArrangedSubview(priceLabel)
         
         imgImageView.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             imgImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -128,8 +103,6 @@ class CartCell: UICollectionViewCell {
             stackView.leadingAnchor.constraint(equalTo: imgImageView.trailingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
             
-            deleteButton.centerXAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
         ])
     }
     

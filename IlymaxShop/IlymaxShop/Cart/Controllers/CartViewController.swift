@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var presenter: CartPresenter!
     
@@ -19,35 +19,28 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let emptyCartCatalogButton = UIButton()
     private let totalPriceLabel = UILabel()
     private let buyButton = UIButton()
-    private var cartCollectionView: UICollectionView!
+    private var cartTableView: UITableView!
     
     func setup() {
         view.backgroundColor = .systemBackground
         
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: view.frame.width / 1, height: view.frame.height / 5)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 50)
-        cartCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cartCollectionView.backgroundColor = .white
-        cartCollectionView.delegate = self
+        cartTableView = UITableView()
+        cartTableView.backgroundColor = .white
+        cartTableView.delegate = self
+        cartTableView.dataSource = self
         
-        view.addSubview(cartCollectionView)
-        cartCollectionView.isHidden = true
-        cartCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(cartTableView)
+        cartTableView.isHidden = true
+        cartTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cartCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cartCollectionView.bottomAnchor.constraint(equalTo: totalPriceLabel.topAnchor, constant: -16),
-            cartCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            cartCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cartTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            cartTableView.bottomAnchor.constraint(equalTo: totalPriceLabel.topAnchor, constant: -16),
+            cartTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cartTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-
-        cartCollectionView.register(CartCell.self, forCellWithReuseIdentifier: CartCell.indertifier)
-        cartCollectionView.register(CartHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CartHeaderView.identifier)
-        cartCollectionView.dataSource = self
+        
+        cartTableView.register(CartCell.self, forCellReuseIdentifier: CartCell.indertifier)
+        cartTableView.register(CartHeaderView.self, forHeaderFooterViewReuseIdentifier: CartHeaderView.identifier)
     }
     
     override func viewDidLoad() {
@@ -117,13 +110,13 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
             emptyCartLabel.isHidden = false
             totalPriceLabel.isHidden = true
             emptyCartCatalogButton.isHidden = false
-            cartCollectionView.isHidden = true
+            cartTableView.isHidden = true
         } else {
             buyButton.isHidden = false
             emptyCartLabel.isHidden = true
             totalPriceLabel.isHidden = false
             emptyCartCatalogButton.isHidden = true
-            cartCollectionView.isHidden = false
+            cartTableView.isHidden = false
             updateTotalPrice()
         }
     }
@@ -144,61 +137,47 @@ class CartViewController: UIViewController, UICollectionViewDelegate, UICollecti
      }
     
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return products.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCell.indertifier, for: indexPath) as! CartCell
-        let product = products[indexPath.item]
-        cell.setProduct(product: product, cartPresenterDelegate: presenter, index: indexPath.item)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CartCell.indertifier, for: indexPath) as! CartCell
+        let product = products[indexPath.row]
+        cell.setProduct(product: product)
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 50)
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CartHeaderView.identifier) as! CartHeaderView
+        headerView.configure(title: "Your cart")
+        return headerView
     }
-        
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CartHeaderView.identifier, for: indexPath) as! CartHeaderView
-            headerView.configure(title: "Your cart")
-            return headerView
-        } else {
-            return UICollectionReusableView()
-        }
-    }
-    
-    
+
     func updateView() {
         start()
-        cartCollectionView.reloadData()
+        cartTableView.reloadData()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.didTapOnSection(product: products[indexPath.item])
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didTapOnSection(product: products[indexPath.row])
     }
-    
-    func delete(Id: String){
-        let index = Int(products.firstIndex(where: { $0.id == Id })!)
-        print(products[index].name)
-        print(index)
-        products.remove(at: index)
-        start()
-        if !products.isEmpty {
-            let updatedIndex = index
-            let indexPathToDelete = IndexPath(item: updatedIndex, section: 0)
-            cartCollectionView.performBatchUpdates({
-                cartCollectionView.deleteItems(at: [indexPathToDelete])
-                
-                for i in index..<products.count {
-                    let updatedIndexPath = IndexPath(item: i, section: 0)
-                    if let cell = cartCollectionView.cellForItem(at: updatedIndexPath) as? CartCell {
-                        cell.setIndex(i)
-                    }
-                }
-            }, completion: nil)
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let myDel = UIContextualAction(style: .destructive, title: nil){ [self]
+            (_, _, complitionHand) in
+            self.presenter.deleteByID(productId: products[indexPath.row].id!)
+            self.products.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            start()
         }
+        myDel.image = UIImage(systemName: "trash")
+        myDel.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [myDel])
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
 
 }
