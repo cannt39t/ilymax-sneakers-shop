@@ -7,22 +7,29 @@
 
 import UIKit
 
-protocol CartPresenterDelegate: AnyObject {
-    func deleteByID(productId: Int)
-}
-
 class CartPresenter {
     
     weak var view: CartViewController?
-    var products: [Product] = []
-        
-    private let cartService = MockCartService.shared
+    private let cartService = CartService()
+    public var pushShoe: (Shoes) -> Void = {_ in }
     
-    func getProducts() {
-        do{
-            products = try cartService.getProducts()
-        }catch{
-            print(error)
+    public func fetchData() {
+        let group = DispatchGroup()
+
+        group.enter()
+        loadProducts(group: group)
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.view?.updateView()
+        }
+    }
+    
+    func loadProducts(group: DispatchGroup) {
+        cartService.getProducts { [weak self] products in
+            DispatchQueue.main.async {
+                self?.view?.products = products
+                group.leave()
+            }
         }
     }
     
@@ -34,18 +41,12 @@ class CartPresenter {
     }
     
     // MARK: - Открытие экрана товара
-    func didTapOnSection(productId: Int){
-        
+    func didTapOnSection(product: Shoes){
+        pushShoe(product)
     }
     
-}
-
-extension CartPresenter: CartPresenterDelegate {
     // MARK: - Удаление
-    func deleteByID(productId: Int){
-        let id = products.firstIndex(where: { $0.id == productId })
-        cartService.deleteByID(id: id!)
-        getProducts()
-        view?.updateView()
+    func deleteByID(productId: String){
+        cartService.deleteByID(id: productId)
     }
 }
