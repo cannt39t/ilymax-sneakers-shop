@@ -196,8 +196,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
             case 0:
                 print(promotions[indexPath.item])
             case 1:
+                presenter.pushShoeView(shoe: popular[indexPath.item])
                 print(popular[indexPath.item])
             case 2:
+                presenter.pushListShoes(popular)
                 print(categories[indexPath.item])
             default:
                 print(indexPath)
@@ -272,3 +274,6 @@ extension CatalogViewController: UISearchBarDelegate {
         print(searchBar.text)
     }
 }
+
+
+// Implement search bat todo Maksim

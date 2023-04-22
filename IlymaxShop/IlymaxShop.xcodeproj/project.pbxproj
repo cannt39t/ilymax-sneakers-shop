@@ -39,7 +39,6 @@
 		052D97F129D9CBE8008CA67C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 052D97F029D9CBE8008CA67C /* FirebaseStorage */; };
 		0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */; };
 		0539C3A729CDDA82008F41B4 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A629CDDA82008F41B4 /* Product.swift */; };
-		0539C3AB29CDDA9A008F41B4 /* MockCartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A829CDDA9A008F41B4 /* MockCartService.swift */; };
 		0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3A929CDDA9A008F41B4 /* CartService.swift */; };
 		0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */; };
 		0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AF29CDDAAB008F41B4 /* CartCell.swift */; };
@@ -94,6 +93,17 @@
 		7E1DAD0B29DC8F8D005B716B /* PublicShoesImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0A29DC8F8D005B716B /* PublicShoesImageViewController.swift */; };
 		7E1DAD0E29DC9D68005B716B /* PublicShoesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0D29DC9D68005B716B /* PublicShoesService.swift */; };
 		7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */; };
+		7E36E4BF29EEE5F9003D0A7B /* ShoeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */; };
+		7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */; };
+		7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */; };
+		7ED14AAD29EF37A200FD7BED /* ProductListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AAC29EF37A200FD7BED /* ProductListCollectionViewCell.swift */; };
+		7ED14AAF29EF38D800FD7BED /* ProductListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AAE29EF38D800FD7BED /* ProductListPresenter.swift */; };
+		7ED14AB229EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB129EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift */; };
+		7ED14AB429EF396200FD7BED /* TabledContentCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB329EF396200FD7BED /* TabledContentCollectionViewDelegate.swift */; };
+		7ED14AB629EF397900FD7BED /* DefaultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB529EF397900FD7BED /* DefaultCollectionViewDelegate.swift */; };
+		7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB729EF39A100FD7BED /* ModalFilterViewController.swift */; };
+		7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB929EF39B900FD7BED /* ModalAddingViewController.swift */; };
+		7ED14ABC29EF39D300FD7BED /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14ABB29EF39D300FD7BED /* ProductListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +155,6 @@
 		052D97ED29D9C962008CA67C /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
 		0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		0539C3A629CDDA82008F41B4 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		0539C3A829CDDA9A008F41B4 /* MockCartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCartService.swift; sourceTree = "<group>"; };
 		0539C3A929CDDA9A008F41B4 /* CartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartService.swift; sourceTree = "<group>"; };
 		0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
@@ -195,7 +204,18 @@
 		7E1DAD0A29DC8F8D005B716B /* PublicShoesImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesImageViewController.swift; sourceTree = "<group>"; };
 		7E1DAD0D29DC9D68005B716B /* PublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesService.swift; sourceTree = "<group>"; };
 		7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePublicShoesService.swift; sourceTree = "<group>"; };
+		7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewPresenter.swift; sourceTree = "<group>"; };
+		7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewController.swift; sourceTree = "<group>"; };
+		7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewService.swift; sourceTree = "<group>"; };
 		7E4927A929DDC0F1000129FF /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ED14AAC29EF37A200FD7BED /* ProductListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCollectionViewCell.swift; sourceTree = "<group>"; };
+		7ED14AAE29EF38D800FD7BED /* ProductListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListPresenter.swift; sourceTree = "<group>"; };
+		7ED14AB129EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGriddedContentCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		7ED14AB329EF396200FD7BED /* TabledContentCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabledContentCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		7ED14AB529EF397900FD7BED /* DefaultCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		7ED14AB729EF39A100FD7BED /* ModalFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFilterViewController.swift; sourceTree = "<group>"; };
+		7ED14AB929EF39B900FD7BED /* ModalAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddingViewController.swift; sourceTree = "<group>"; };
+		7ED14ABB29EF39D300FD7BED /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +267,8 @@
 		05188D9329C4FF21004E1D7B /* IlymaxShop */ = {
 			isa = PBXGroup;
 			children = (
+				7ED14AA629EF371100FD7BED /* ListOfProducts */,
+				7E36E4BA29EEE57E003D0A7B /* ShoesView */,
 				05EC2D0E29D07FBC00962420 /* MainTabBar */,
 				05EC2D0D29D07FA800962420 /* Authentication */,
 				05EC2D0C29D07FA200962420 /* Profile */,
@@ -706,7 +728,6 @@
 			isa = PBXGroup;
 			children = (
 				0539C3A929CDDA9A008F41B4 /* CartService.swift */,
-				0539C3A829CDDA9A008F41B4 /* MockCartService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -742,6 +763,103 @@
 				7E1DAD1129DC9E09005B716B /* FirebasePublicShoesService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		7E36E4BA29EEE57E003D0A7B /* ShoesView */ = {
+			isa = PBXGroup;
+			children = (
+				7E36E4BD29EEE5A0003D0A7B /* Controllers */,
+				7E36E4BC29EEE598003D0A7B /* Presenters */,
+				7E36E4BB29EEE591003D0A7B /* Services */,
+			);
+			path = ShoesView;
+			sourceTree = "<group>";
+		};
+		7E36E4BB29EEE591003D0A7B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7E36E4BC29EEE598003D0A7B /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		7E36E4BD29EEE5A0003D0A7B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7ED14AA629EF371100FD7BED /* ListOfProducts */ = {
+			isa = PBXGroup;
+			children = (
+				7ED14AAA29EF375B00FD7BED /* Views */,
+				7ED14AA929EF373D00FD7BED /* Services */,
+				7ED14AA829EF372900FD7BED /* Presenters */,
+				7ED14AA729EF371E00FD7BED /* Controllers */,
+			);
+			path = ListOfProducts;
+			sourceTree = "<group>";
+		};
+		7ED14AA729EF371E00FD7BED /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7ED14AB029EF393100FD7BED /* Collection FlowLayouts */,
+				7ED14AB729EF39A100FD7BED /* ModalFilterViewController.swift */,
+				7ED14AB929EF39B900FD7BED /* ModalAddingViewController.swift */,
+				7ED14ABB29EF39D300FD7BED /* ProductListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7ED14AA829EF372900FD7BED /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				7ED14AAE29EF38D800FD7BED /* ProductListPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		7ED14AA929EF373D00FD7BED /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7ED14AAA29EF375B00FD7BED /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7ED14AAB29EF378200FD7BED /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7ED14AAB29EF378200FD7BED /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7ED14AAC29EF37A200FD7BED /* ProductListCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7ED14AB029EF393100FD7BED /* Collection FlowLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				7ED14AB129EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift */,
+				7ED14AB329EF396200FD7BED /* TabledContentCollectionViewDelegate.swift */,
+				7ED14AB529EF397900FD7BED /* DefaultCollectionViewDelegate.swift */,
+			);
+			path = "Collection FlowLayouts";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -893,6 +1011,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */,
 				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
 				051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */,
@@ -910,13 +1029,16 @@
 				05975AC429F1C58800DAD37F /* Media.swift in Sources */,
 				05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */,
 				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
+				7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */,
 				051F100D29C8E3E400877947 /* PublicShoesCoordinator.swift in Sources */,
 				05D91E9329ED33FD00C7FBB7 /* ChatViewController.swift in Sources */,
 				055CFB7D29EE8AE6008E4C4C /* ChatPresenter.swift in Sources */,
 				0579DCAF29F138EB009A620E /* Conversation.swift in Sources */,
 				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
+				7ED14ABC29EF39D300FD7BED /* ProductListViewController.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
 				052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */,
+				7E36E4BF29EEE5F9003D0A7B /* ShoeViewPresenter.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
 				05D26CF529CB43A200EFC040 /* LoginPresenter.swift in Sources */,
 				0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */,
@@ -941,14 +1063,19 @@
 				055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
 				0519A9C529D99EB600AE1553 /* HeaderView.swift in Sources */,
+				7ED14AAD29EF37A200FD7BED /* ProductListCollectionViewCell.swift in Sources */,
+				7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */,
+				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
-				0539C3AB29CDDA9A008F41B4 /* MockCartService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ConversationsViewController.swift in Sources */,
+				7ED14AB229EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift in Sources */,
+				7ED14AB429EF396200FD7BED /* TabledContentCollectionViewDelegate.swift in Sources */,
 				05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */,
 				7E1DAD0B29DC8F8D005B716B /* PublicShoesImageViewController.swift in Sources */,
 				05A5CDA829DB65D700564CC3 /* CatalogService.swift in Sources */,
 				051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */,
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
+				7ED14AAF29EF38D800FD7BED /* ProductListPresenter.swift in Sources */,
 				05D26CEF29CB2BB900EFC040 /* SignUpPresenter.swift in Sources */,
 				7E1DAD0E29DC9D68005B716B /* PublicShoesService.swift in Sources */,
 				05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */,
@@ -959,6 +1086,7 @@
 				05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */,
 				05D26CE929CB246400EFC040 /* AuthenticationService.swift in Sources */,
 				05D91E9A29ED3C6A00C7FBB7 /* Sender.swift in Sources */,
+				7ED14AB629EF397900FD7BED /* DefaultCollectionViewDelegate.swift in Sources */,
 				05A5CDA229DB54B300564CC3 /* IlymaxCategory.swift in Sources */,
 				7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */,
 				05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */,

@@ -7,62 +7,71 @@
 
 import UIKit
 
-class CartCell: UICollectionViewCell {
+class CartCell: UITableViewCell {
         
     public static let indertifier = "CartCell"
         
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setup()
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var imgImageView: UIImageView = .init()
     private var nameLabel: UILabel = .init()
     private var sizeLabel: UILabel = .init()
     private var priceLabel: UILabel = .init()
-    private var deleteButton: UIButton = .init()
-    private var productID: Int = .init()
-    private var cartPresenterDelegate: CartPresenterDelegate?
-    
-    func setProduct (product: Product, cartPresenterDelegate: CartPresenterDelegate) {
-        productID = product.id
-        nameLabel.text = "\(product.name)"
+    private var productID: String = .init()
+
+    func setProduct (product: Shoes) {
+        productID = product.id!
+        nameLabel.text = "\(product.company) \(product.name)"
         nameLabel.textColor = .black
-        sizeLabel.text = "Size: \(product.size) US"
+        sizeLabel.text = "Size: \(product.data[0].size)"
         sizeLabel.textColor = .black
-        priceLabel.text = "$\(product.price)"
+        priceLabel.text = "\(product.data[0].price) $"
         priceLabel.textColor = .black
-       // imgImageView.image = UIImage(named: "Welcome")
-        let imageLoader = ImageLoader()
+        guard let imageUrl = product.imageUrl else {
+            // Show error message to user if image URL is nil
+            return
+        }
         
-        imageLoader.loadImage(from: URL(string: "\(product.description)")!) { [weak self] image in
-            guard let image = image else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.imgImageView.image = UIImage(systemName: "photo")
-                }
+        FirestoreManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
+            guard let self = self else { return } // Make sure self is not nil
+            
+            if let error = error {
+                // Show error message to user
+                print("Error loading image: \(error.localizedDescription)")
                 return
             }
             
-            self?.imgImageView.image = image
+            guard let url = url else {
+                // Show error message to user if URL is nil
+                return
+            }
+            
+            self.loadImage(with: url)
         }
-        
-        deleteButton.setImage(UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
-        
-        deleteButton.tintColor = .black
-        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        self.cartPresenterDelegate = cartPresenterDelegate
     }
     
-    // MARK: - Удаление
-    @objc private func deleteButtonTapped() {
-        cartPresenterDelegate?.deleteByID(productId: productID)
+
+
+    private func loadImage(with url: URL) {
+        imgImageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                // Show error message to user
+                print("Error loading image: \(error.localizedDescription)")
+            } else {
+//                if cacheType == .memory || cacheType == .disk {
+//                    print("Image loaded from cache")
+//                } else {
+//                    print("Image loaded from network")
+//                }
+            }
+        }
     }
     
     private func setup() {
@@ -70,7 +79,6 @@ class CartCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.backgroundColor = .white
         
-        contentView.addSubview(deleteButton)
         contentView.addSubview(imgImageView)
         
         let stackView = UIStackView()
@@ -84,7 +92,6 @@ class CartCell: UICollectionViewCell {
         stackView.addArrangedSubview(priceLabel)
         
         imgImageView.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             imgImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -96,8 +103,6 @@ class CartCell: UICollectionViewCell {
             stackView.leadingAnchor.constraint(equalTo: imgImageView.trailingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
             
-            deleteButton.centerXAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
         ])
     }
     
