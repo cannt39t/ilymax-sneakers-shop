@@ -31,7 +31,7 @@ class ProfileCoordinator {
         return navigationController
     }
     
-    //TODO: Change UIViewController by current implementation
+    //TODO: Replace UIViewController by current implementation
     
     func goToSeetings() {
         let settingsController = UIViewController()

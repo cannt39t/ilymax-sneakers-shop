@@ -7,8 +7,8 @@
 
 import UIKit
 import FirebaseFirestore
-import FirebaseStorage
 import FirebaseAuth
+import MessageKit
 
 
 final class FirestoreManager {
@@ -16,11 +16,10 @@ final class FirestoreManager {
     static let shared = FirestoreManager()
     
     private let db = Firestore.firestore()
-    private let storage = Storage.storage()
 }
 
 
-// MARK: - Account managment
+// MARK: - Users managment
 
 extension FirestoreManager {
     
@@ -67,43 +66,70 @@ extension FirestoreManager {
         }
     }
     
-    
-    /// Add image of user profile to database
-    public func insertImageUser(_ userId: String, _ image: Data, completion: @escaping (String?) -> Void) {
-        let storageRef = storage.reference()
-        let imageRef = "users/images/\(userId).jpg"
-        
-        
-        let userRef = storageRef.child(imageRef)
-
-        // Upload the file to the path "users/images/custom_id.jpg"
-        userRef.putData(image, metadata: nil) { (metadata, error) in
-            guard metadata != nil else {
-                completion(nil)
-                return
-            }
-            userRef.downloadURL { [weak self] (url, error) in
-                guard url != nil else {
-                    completion(nil)
-                    return
-                }
-                completion(imageRef)
-                self?.updateImageProfileUrl(for: userId, imageUrl: imageRef)
-            }
-        }
-    }
-    
     /// Update "imageUrl" of entity User
-    private func updateImageProfileUrl(for documentID: String, imageUrl: String) {
+    public func updateImageProfileUrl(for documentID: String, imageUrl: String, completion: @escaping ((Error?) -> Void)) {
         let shoesRef = db.collection("users").document(documentID)
         shoesRef.updateData([
             "profilePictureUrl": imageUrl,
         ]) { err in
             if let err = err {
-                print("Error updating document: \(err)")
+                print(err)
+                completion(err)
             } else {
-                print("Document updated with new image URL")
+                completion(nil)
             }
+        }
+    }
+    
+    /// Search users with search query
+    public func getUsersExceptCurrent(completion: @escaping ([IlymaxUser]) -> Void) {
+        guard let currentUserID = FirebaseAuth.Auth.auth().currentUser?.uid else {
+            completion([])
+            return
+        }
+        
+        let usersRef = db.collection("users")
+        
+        usersRef
+            .whereField(FieldPath.documentID(), isNotEqualTo: currentUserID)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion([])
+                } else {
+                    var users: [IlymaxUser] = []
+                    for document in querySnapshot!.documents {
+                        let data = document.data()
+                        let user = IlymaxUser(name: data["name"] as! String, emailAddress: data["email"] as! String, profilePictureUrl: data["profilePictureUrl"] as? String)
+                        users.append(user)
+                    }
+                    completion(users)
+                }
+            }
+    }
+    
+    
+    public func getUserByEmail(with email: String, completion: @escaping (IlymaxUser?) -> Void) {
+        let usersRef = db.collection("users")
+        
+        usersRef.whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            guard let userDoc = documents.first else {
+                completion(nil)
+                return
+            }
+            
+            let userData = userDoc.data()
+            let name = userData["name"] as! String
+            let emailAddress = userData["email"] as! String
+            let profilePictureUrl = userData["profilePictureUrl"] as? String ?? ""
+            let user = IlymaxUser(name: name, emailAddress: emailAddress, profilePictureUrl: profilePictureUrl)
+            
+            completion(user)
         }
     }
 
@@ -163,7 +189,7 @@ extension FirestoreManager {
                 print("Error adding document: \(err)")
             } else {
                 print("Document added with ID: \(ref!.documentID)")
-                self?.insertImageShoes(ref!.documentID, image.pngData()!) { url in
+                StorageManager.shared.insertImageShoes(ref!.documentID, image.pngData()!) { url in
                     if let url {
                         print("Added image of shoes with URL: \(url)")
                         self?.updateImageUrl(for: ref!.documentID, imageUrl: url)
@@ -175,32 +201,9 @@ extension FirestoreManager {
         }
     }
     
-    /// Add image of shoes to database
-    private func insertImageShoes(_ shoesId: String, _ image: Data, completion: @escaping (String?) -> Void) {
-        let storageRef = storage.reference()
-        
-        let imageRef = "shoes/images/\(shoesId).jpg"
-        let shoesRef = storageRef.child(imageRef)
-
-        // Upload the file to the path "shoes/images/custom_id.jpg"
-        shoesRef.putData(image, metadata: nil) { (metadata, error) in
-            guard metadata != nil else {
-                completion(nil)
-                return
-            }
-            shoesRef.downloadURL { (url, error) in
-                guard url != nil else {
-                    completion(nil)
-                    return
-                }
-                completion(imageRef)
-            }
-        }
-    }
-    
     
     /// Update "imageUrl" of entity Shoes
-    private func updateImageUrl(for documentID: String, imageUrl: String) {
+    public func updateImageUrl(for documentID: String, imageUrl: String) {
         let shoesRef = db.collection("shoes").document(documentID)
         shoesRef.updateData([
             "image_url": imageUrl,
@@ -357,25 +360,415 @@ extension FirestoreManager {
     
 }
 
-// MARK: - Storage managment
+// MARK: - Messanger
 
 extension FirestoreManager {
     
-    /// Get image url from localStorage
-    public func getImageUrlFromStorageUrl(_ imageUrl: String, completion: @escaping (Error?, URL?) -> Void) {
-        let storageRef = storage.reference()
-        
-        let imageRef = storageRef.child(imageUrl)
-        
-        // Fetch the download URL
-        imageRef.downloadURL { url, error in
-            if let error = error {
-                completion(error, nil)
-            } else {
-                completion(nil, url)
+    /// Creates a new converstion with target user email and first message sent
+    public func createNewConveration(with otherUserEmail: String, name: String, fisrtMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
+
+        let docRef = db.collection("conversations").document(currentEmail)
+        docRef.getDocument { [weak self] (document, error) in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+
+            let messageDate = fisrtMessage.sentDate
+            let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+
+            var message = ""
+
+            switch fisrtMessage.kind {
+                case .text(let messageText):
+                    message = messageText
+                case .attributedText(_):
+                    break
+                case .photo(_):
+                    break
+                case .video(_):
+                    break
+                case .location(_):
+                    break
+                case .emoji(_):
+                    break
+                case .audio(_):
+                    break
+                case .contact(_):
+                    break
+                case .linkPreview(_):
+                    break
+                case .custom(_):
+                    break
+            }
+            
+            let conversationID = "conversation_\(fisrtMessage.messageId)"
+
+            let newConversationData: [String: Any] = [
+                "id": conversationID,
+                "name": name,
+                "other_user_email": otherUserEmail,
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_read": false
+                ]
+            ]
+            
+            guard let currentUserName = UserDefaults.standard.string(forKey: "currentUserName") else {
+                completion(false)
+                return
+            }
+            
+            let recipient_newConversationData: [String: Any] = [
+                "id": conversationID,
+                "name": currentUserName,
+                "other_user_email": currentEmail,
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_read": false
+                ]
+            ]
+            // Update recipient user conversation
+            
+            let recipientRef = self?.db.collection("conversations").document(otherUserEmail)
+            recipientRef?.getDocument { (document, error) in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+
+                var recipientConversations: [[String: Any]]
+
+                if let recipientData = document?.data(),
+                    let existingConversations = recipientData["conversations"] as? [[String: Any]] {
+                    recipientConversations = existingConversations
+                } else {
+                    recipientConversations = []
+                }
+
+                recipientConversations.append(recipient_newConversationData)
+
+                recipientRef?.setData(["conversations": recipientConversations], merge: true) { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                }
+            }
+
+
+
+            // Update current user conversation
+            guard let document = document, document.exists else {
+                // Create an array with the new conversation object
+                let newConversationArray: [[String: Any]] = [newConversationData]
+
+                docRef.setData(["conversations": newConversationArray], merge: true) { [weak self] error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    self?.finishCreatingConversation(converationID: conversationID, name: currentUserName, firstMessage: fisrtMessage, completion: completion)
+                }
+                return
+            }
+
+            guard let data = document.data(), var conversations = data["conversations"] as? [[String: Any]] else {
+                completion(false)
+                return
+            }
+
+            conversations.append(newConversationData)
+
+            docRef.setData(["conversations": conversations], merge: true) { [weak self] error in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                
+                self?.finishCreatingConversation(converationID: conversationID, name: currentUserName, firstMessage: fisrtMessage, completion: completion)
             }
         }
     }
+    
+    private func finishCreatingConversation(converationID: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
+        
+        let messageDate = firstMessage.sentDate
+        let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+        
+        var content = ""
+
+        switch firstMessage.kind {
+            case .text(let messageText):
+                content = messageText
+            case .attributedText(_):
+                break
+            case .photo(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+        }
+        
+        let message: [String: Any] = [
+            "id": firstMessage.messageId,
+            "type": firstMessage.kind.messageKindString,
+            "content": content,
+            "date": dateString,
+            "sender_email": currentEmail,
+            "name": name,
+            "is_read": false
+        ]
+        
+        let value: [String: Any] = [
+            "messages": [
+                message
+            ]
+        ]
+        
+        let docRef = db.collection("messages").document(converationID)
+        docRef.setData(value) { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+
+
+    
+    public func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        let conversationRef = db.collection("conversations").document(email.lowercased())
+        conversationRef.addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success([]))
+                return
+            }
+
+            guard let data = snapshot.data(), let conversations = data["conversations"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+
+            var allConversations: [Conversation] = []
+
+            for conversation in conversations {
+                guard let id = conversation["id"] as? String,
+                    let name = conversation["name"] as? String,
+                    let otherUserEmail = conversation["other_user_email"] as? String,
+                    let latestMessageDict = conversation["latest_message"] as? [String: Any],
+                    let latestMessageDate = latestMessageDict["date"] as? String,
+                    let latestMessageText = latestMessageDict["message"] as? String,
+                    let latestMessageIsRead = latestMessageDict["is_read"] as? Bool else {
+                        continue
+                }
+
+                let latestMessage = LatestMessage(date: latestMessageDate, text: latestMessageText, isRead: latestMessageIsRead)
+                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
+
+                allConversations.append(conversation)
+            }
+
+            completion(.success(allConversations))
+        }
+    }
+
+    
+    /// Get all messages for converstion by id
+    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<[Message], Error>) -> Void) {
+        let messagesRef = db.collection("messages").document(id)
+        messagesRef.addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success([]))
+                return
+            }
+
+            guard let data = snapshot.data(), let messages = data["messages"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+
+            var allMessages: [Message] = []
+
+            for message in messages {
+                guard let name = message["name"] as? String,
+                    let isRead = message["is_read"] as? Bool,
+                    let id = message["id"] as? String,
+                    let content = message["content"] as? String,
+                    let senderEmail = message["sender_email"] as? String,
+                    let type = message["type"] as? String,
+                    let dateString = message["date"] as? String,
+                    let date = DateFormatter.dateFormatter.date(from: dateString) else {
+                        continue
+                }
+                
+                var kind: MessageKind = .text(content)
+                
+                switch type {
+                    case "photo":
+                        guard let imageUrl = URL(string: content) else {
+                            return
+                        }
+                        let media = Media(url: imageUrl, placeholderImage: UIImage(systemName: "photo")!, size: CGSize(width: 300, height: 300))
+                        kind = .photo(media)
+                    default:
+                        break
+                }
+
+                let sender = Sender(photoURL: "", senderId: senderEmail, displayName: name)
+
+                let message = Message(sender: sender, messageId: id, sentDate: date, kind: kind)
+
+                allMessages.append(message)
+            }
+
+            completion(.success(allMessages))
+        }
+    }
+
+    
+    /// Send message to current conversation
+    public func sendMessage(conversationID: String, email: String, message: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
+        
+        guard let currentUserName = UserDefaults.standard.string(forKey: "currentUserName") else {
+            completion(false)
+            return
+        }
+        
+        let messageDate = message.sentDate
+        let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+        
+        var content = ""
+        
+        switch message.kind {
+            case .text(let messageText):
+                content = messageText
+            case .attributedText(_):
+                break
+            case .photo(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+        }
+        
+        let message: [String: Any] = [
+            "id": message.messageId,
+            "type": message.kind.messageKindString,
+            "content": content,
+            "date": dateString,
+            "sender_email": currentEmail,
+            "name": currentUserName,
+            "is_read": false
+        ]
+        
+        let docRef = db.collection("messages").document(conversationID)
+        docRef.updateData([
+            "messages": FieldValue.arrayUnion([message])
+        ]) { [weak self] error in
+            if error != nil {
+                completion(false)
+            } else {
+                self?.updateConversationLatestMessage(conversationId: conversationID, email: currentEmail, latestMessage: message) { updated in
+                    if updated {
+                        self?.updateConversationLatestMessage(conversationId: conversationID, email: email, latestMessage: message) { updated in
+                            if updated {
+                                completion(true)
+                            } else {
+                                completion(false)
+                            }
+                        }
+                    } else {
+                        completion(false)
+                    }
+                }
+            }
+        }
+    }
+    
+    public func updateConversationLatestMessage(conversationId: String, email: String, latestMessage: [String: Any], completion: @escaping (Bool) -> Void) {
+        guard let dateString = latestMessage["date"], let content = latestMessage["content"] else {
+            completion(false)
+            return
+        }
+        
+        let latestMessageData: [String: Any] = [
+            "date": dateString,
+            "message": content,
+            "is_read": false
+        ]
+        
+        let conversationRef = db.collection("conversations").document(email)
+        conversationRef.getDocument { (document, error) in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            if let conversationData = document?.data(),
+                var existingConversations = conversationData["conversations"] as? [[String: Any]] {
+                for (index, conversation) in existingConversations.enumerated() {
+                    if let id = conversation["id"] as? String,
+                        id == conversationId {
+                        existingConversations[index]["latest_message"] = latestMessageData
+                        conversationRef.setData(["conversations": existingConversations], merge: true) { error in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            completion(true)
+                        }
+                        return
+                    }
+                }
+            }
+            completion(false)
+        }
+    }
+
+
 }
 
 

@@ -15,7 +15,7 @@ class ShoeViewService {
            return
        }
        
-       FirestoreManager.shared.getImageUrlFromStorageUrl(imageUrl) { error, url in
+        StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { error, url in
            if let error = error {
                // Show error message to user
                print("Error loading image: \(error.localizedDescription)")

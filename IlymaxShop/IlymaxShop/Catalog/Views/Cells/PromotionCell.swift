@@ -44,7 +44,7 @@ class PromotionCell: UICollectionViewCell {
         promotionImage.image = nil
         self.promotion = promotion
         
-        FirestoreManager.shared.getImageUrlFromStorageUrl(promotion.imageUrl) { [weak self] error, url in
+        StorageManager.shared.getImageUrlFromStorageUrl(promotion.imageUrl) { [weak self] error, url in
             if let error {
                 print(error)
                 return

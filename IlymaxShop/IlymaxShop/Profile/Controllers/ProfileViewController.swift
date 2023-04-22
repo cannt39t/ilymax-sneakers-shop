@@ -49,6 +49,14 @@ class ProfileViewController: UIViewController {
         hud.dismiss(animated: true)
     }
     
+    
+    func showError(_ error: Error) {
+        let alertController = UIAlertController(title: error.localizedDescription, message: "Something went wrong, Please wat for some time", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Okay, i'll try it later", style: .default, handler: nil)
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
     
 extension ProfileViewController: UICollectionViewDataSource {
@@ -73,6 +81,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         switch indexPath.section {
             case 0:
                 let userCell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCell.identifier, for: indexPath) as! UserCell
+                
                 userCell.setUser(user: currentUser!)
                 userCell.userImage.addTarget(self, action: #selector(tapOnImage), for: .touchUpInside)
                 

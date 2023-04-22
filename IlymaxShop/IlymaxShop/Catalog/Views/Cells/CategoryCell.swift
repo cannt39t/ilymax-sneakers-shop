@@ -56,7 +56,7 @@ class CategoryCell: UICollectionViewCell {
         categoryImage.image = nil
         self.category = category
         nameLabel.text = category.name
-        FirestoreManager.shared.getImageUrlFromStorageUrl(category.imageUrl) { [weak self] error, url in
+        StorageManager.shared.getImageUrlFromStorageUrl(category.imageUrl) { [weak self] error, url in
             if let error {
                 print(error)
                 return

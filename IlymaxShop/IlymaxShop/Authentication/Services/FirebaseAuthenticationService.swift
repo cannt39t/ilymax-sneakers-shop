@@ -32,8 +32,7 @@ class FirebaseAuthenticationService: AuthenticationService {
                 completion(error)
                 return
             }
-            let user = result.user
-            print("Login with: \(user)")
+            print(result)
             completion(nil)
         }
     }
