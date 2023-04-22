@@ -39,7 +39,7 @@ class CartCell: UITableViewCell {
             return
         }
         
-        FirestoreManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
+        StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
             guard let self = self else { return } // Make sure self is not nil
             
             if let error = error {
