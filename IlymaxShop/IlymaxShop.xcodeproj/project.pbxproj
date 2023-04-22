@@ -77,7 +77,6 @@
 		05D26CF929CB4E6300EFC040 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D26CF829CB4E6300EFC040 /* ValidationError.swift */; };
 		05D3C4B029D3489C00D76EED /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 05D3C4AF29D3489C00D76EED /* FirebaseAuth */; };
 		05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 05D3C4B129D3489C00D76EED /* FirebaseDatabase */; };
-		05D3C4B829D35C7E00D76EED /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D3C4B729D35C7E00D76EED /* DatabaseManager.swift */; };
 		05D3C4BA29D367F100D76EED /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D3C4B929D367F100D76EED /* Security.swift */; };
 		05D91E8929ED2D6B00C7FBB7 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8829ED2D6B00C7FBB7 /* MessageKit */; };
 		05D91E8C29ED2EB600C7FBB7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8B29ED2EB600C7FBB7 /* Realm */; };
@@ -182,7 +181,6 @@
 		05D26CEE29CB2BB900EFC040 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
 		05D26CF429CB43A200EFC040 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		05D26CF829CB4E6300EFC040 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
-		05D3C4B729D35C7E00D76EED /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		05D3C4B929D367F100D76EED /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 		05D91E9029ED316600C7FBB7 /* ConversationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsPresenter.swift; sourceTree = "<group>"; };
 		05D91E9229ED33FD00C7FBB7 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -305,7 +303,8 @@
 		05188DDD29C500F0004E1D7B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				05D91E9D29ED4FEC00C7FBB7 /* Firebase */,
+				05A4381F29D8564400AADDB9 /* FirestoreManager.swift */,
+				05D91E9E29ED500400C7FBB7 /* StorageManager.swift */,
 				0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */,
 				05D3C4B929D367F100D76EED /* Security.swift */,
 			);
@@ -499,16 +498,6 @@
 				05975AC329F1C58800DAD37F /* Media.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		05D91E9D29ED4FEC00C7FBB7 /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				05D3C4B729D35C7E00D76EED /* DatabaseManager.swift */,
-				05A4381F29D8564400AADDB9 /* FirestoreManager.swift */,
-				05D91E9E29ED500400C7FBB7 /* StorageManager.swift */,
-			);
-			path = Firebase;
 			sourceTree = "<group>";
 		};
 		05EC2D0829D07F6F00962420 /* Catalog */ = {
@@ -957,7 +946,6 @@
 				051F101929C8E9BA00877947 /* ConversationsViewController.swift in Sources */,
 				05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */,
 				7E1DAD0B29DC8F8D005B716B /* PublicShoesImageViewController.swift in Sources */,
-				05D3C4B829D35C7E00D76EED /* DatabaseManager.swift in Sources */,
 				05A5CDA829DB65D700564CC3 /* CatalogService.swift in Sources */,
 				051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */,
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
