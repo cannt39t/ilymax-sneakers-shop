@@ -19,5 +19,10 @@ class PublicShoesPresenter {
         publicShoesService.insertShoes(with: shoes, image: image)
     }
     
+    func restart() {
+        product = Shoes(name: "", description: "", color: "", gender: "", condition: "", imageUrl: "", data: [], ownerId: FirebaseAuth.Auth.auth().currentUser!.uid, company: "", category: "")
+        self.view?.updateData()
+    }
+    
     var categories: [String] = [""]
 }
