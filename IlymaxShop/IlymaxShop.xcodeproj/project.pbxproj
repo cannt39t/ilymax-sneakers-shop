@@ -267,9 +267,9 @@
 		05188D9329C4FF21004E1D7B /* IlymaxShop */ = {
 			isa = PBXGroup;
 			children = (
+				05EC2D0E29D07FBC00962420 /* MainTabBar */,
 				7ED14AA629EF371100FD7BED /* ListOfProducts */,
 				7E36E4BA29EEE57E003D0A7B /* ShoesView */,
-				05EC2D0E29D07FBC00962420 /* MainTabBar */,
 				05EC2D0D29D07FA800962420 /* Authentication */,
 				05EC2D0C29D07FA200962420 /* Profile */,
 				05EC2D0B29D07F9B00962420 /* Chat */,
