@@ -232,7 +232,16 @@ class PublicShoesViewController: UIViewController, UITextViewDelegate {
 
     }
 
-
+    func updateData() {
+        nameTextView.text = presenter.product.name
+        descriptionTextView.text = presenter.product.name
+        genderButton.setTitle("Select Gender", for: .normal)
+        companyButton.setTitle("Select Company", for: .normal)
+        colorButton.setTitle("Select Color", for: .normal)
+        categoryButton.setTitle("Select Category", for: .normal)
+        conditionButton.setTitle("Select Condition", for: .normal)
+    }
+    
     @objc private func moveForward() {
         let gender = genderButton.title(for: .normal)
         let company = companyButton.title(for: .normal)

@@ -42,7 +42,7 @@ class PublicShoesImageViewController: UIViewController {
     private func setupUI() {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Adding"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Upload", style: .plain, target: self, action: #selector(uploadButtonTapped))
         
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
@@ -135,6 +135,8 @@ class PublicShoesImageViewController: UIViewController {
     @objc private func uploadButtonTapped() {
         if imageView.image != UIImage(systemName: "shoeprints.fill") {
             presenter.addToDB(with: presenter.product, image: imageView.image!)
+            presenter.restart()
+            self.navigationController?.popToRootViewController(animated: true)
         } else {
             let alertController = UIAlertController(title: "The upload is not available", message: "Please add image", preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
