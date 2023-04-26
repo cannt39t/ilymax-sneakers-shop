@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class ShoeViewController: UIViewController {
     
     var presenter: ShoeViewPresenter!
-        
+    
+    private let hud = JGProgressHUD()
     private let imageView = UIImageView()
     private let nameLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -20,7 +22,7 @@ class ShoeViewController: UIViewController {
     private let conditionLabel = UILabel()
     private let reviewScoreButton = UIButton()
     private let sellerNameButton = UIButton()
-    private let reviewCountLabel = UILabel()
+    private let reviewCountButton = UIButton()
     private let addToCartButton = UIButton()
     private let detailButton = UIButton()
     private let chatButton = UIButton()
@@ -41,15 +43,25 @@ class ShoeViewController: UIViewController {
        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        showLoader()
         presenter.loadImage()
-        setupUI()
-   }
+        presenter.loadReviews()
+    }
    
+    func showLoader() {
+        hud.show(in: self.view, animated: true)
+    }
+    
+    func hideLoader() {
+        hud.dismiss(animated: true)
+    }
+    
     func updateImage(with image: UIImage?) {
         imageView.image = image
     }
     
-    private func setupUI() {
+    func setupUI() {
         
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "\(presenter.product!.name)"
@@ -72,7 +84,7 @@ class ShoeViewController: UIViewController {
         nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        reviewScoreButton.setTitle("4.5", for: .normal)
+        reviewScoreButton.setTitle("\(presenter.average)", for: .normal)
         reviewScoreButton.setTitleColor(.black, for: .normal)
         reviewScoreButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         let symbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
@@ -82,9 +94,10 @@ class ShoeViewController: UIViewController {
         reviewScoreButton.addTarget(self, action: #selector(reviewScoreButtonTapped), for: .touchUpInside)
         reviewScoreButton.translatesAutoresizingMaskIntoConstraints = false
         
-        reviewCountLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        reviewCountLabel.textColor = .gray
-        reviewCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        reviewCountButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        reviewCountButton.setTitleColor(.gray, for: .normal)
+        reviewCountButton.addTarget(self, action: #selector(reviewScoreButtonTapped), for: .touchUpInside)
+        reviewCountButton.translatesAutoresizingMaskIntoConstraints = false
         
         sellerNameButton.setTitle("Seller", for: .normal)
         sellerNameButton.setTitleColor(.black, for: .normal)
@@ -143,8 +156,8 @@ class ShoeViewController: UIViewController {
             button.backgroundColor = .gray
             button.translatesAutoresizingMaskIntoConstraints = false
             
-            let availableWidth = sizeStackView.frame.width - (CGFloat(presenter.product!.data.count - 1) * sizeStackView.spacing)
-            let buttonWidth = (availableWidth / CGFloat(presenter.product!.data.count))
+//            let availableWidth = sizeStackView.frame.width - (CGFloat(presenter.product!.data.count - 1) * sizeStackView.spacing)
+//            let buttonWidth = (availableWidth / CGFloat(presenter.product!.data.count))
             
             button.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
             button.heightAnchor.constraint(equalToConstant: buttonSize).isActive = true
@@ -168,14 +181,18 @@ class ShoeViewController: UIViewController {
         genderLabel.text = "Gender: \(presenter.product!.gender)"
         categoryLabel.text = "Category: \(presenter.product!.category)"
         conditionLabel.text = "Condition: \(presenter.product!.condition)"
-        reviewCountLabel.text = "(20 reviews)"
+        if presenter.reviews.count == 1 {
+            reviewCountButton.setTitle("(\(presenter.reviews.count) review)", for: .normal)
+        } else {
+            reviewCountButton.setTitle("(\(presenter.reviews.count) reviews)", for: .normal)
+        }
 
         let reviewStackView = UIStackView()
         reviewStackView.axis = .horizontal
         reviewStackView.spacing = 10
         reviewStackView.translatesAutoresizingMaskIntoConstraints = false
         reviewStackView.addArrangedSubview(reviewScoreButton)
-        reviewStackView.addArrangedSubview(reviewCountLabel)
+        reviewStackView.addArrangedSubview(reviewCountButton)
         reviewStackView.addArrangedSubview(sellerNameButton)
         reviewStackView.addArrangedSubview(chatButton)
         
@@ -222,9 +239,7 @@ class ShoeViewController: UIViewController {
     }
     
     @objc private func reviewScoreButtonTapped() {
-//        let VC = ReviewViewController()
-//        self.navigationController?.pushViewController(VC, animated: true)
-        print("Review")
+        presenter.pushReviews()
     }
     
     @objc private func sellerNameButtonTapped() {

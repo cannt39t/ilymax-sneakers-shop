@@ -33,4 +33,11 @@ class ShoeViewService {
            }
        }
    }
+    
+    func getReviewsByShoesId(_ shoesId: String, completion: @escaping (Result<[IlymaxReview], Error>) -> Void) {
+        FirestoreManager.shared.getReviewsByShoesId(shoesId) { result in
+            completion(result)
+        }
+    }
+    
 }
