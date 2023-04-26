@@ -255,6 +255,9 @@ class ShoeViewController: UIViewController {
             reviewCountButton.centerYAnchor.constraint(equalTo: reviewScoreButton.centerYAnchor),
             sellerNameButton.centerYAnchor.constraint(equalTo: reviewScoreButton.centerYAnchor),
             chatButton.centerYAnchor.constraint(equalTo: reviewScoreButton.centerYAnchor),
+            chatButton.trailingAnchor.constraint(equalTo: reviewStackView.trailingAnchor),
+            sellerNameButton.trailingAnchor.constraint(equalTo: chatButton.leadingAnchor, constant: -5),
+            sellerNameButton.leadingAnchor.constraint(equalTo: reviewStackView.centerXAnchor)
         ])
     }
     
@@ -308,6 +311,9 @@ class ShoeViewController: UIViewController {
         
         let title = isHidden ? "Hide Details" : "Show Details"
         detailButton.setTitle(title, for: .normal)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.size.height), animated: true)
+        }
     }
     
     func setImage(_ image: UIImage?) {

@@ -41,8 +41,7 @@ class ReviewTableViewCell: UITableViewCell {
 
         reviewImageView.translatesAutoresizingMaskIntoConstraints = false
         reviewImageView.contentMode = .scaleAspectFit
-        reviewImageView.layer.cornerRadius = 10
-        reviewImageView.clipsToBounds = true
+        
 
         let imageAndNameStackView = UIStackView(arrangedSubviews: [reviewImageView, nameLabel])
         imageAndNameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +74,11 @@ class ReviewTableViewCell: UITableViewCell {
        ])
         
     }
-
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        reviewImageView.layer.cornerRadius = reviewImageView.frame.width / 2
+        reviewImageView.clipsToBounds = true
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
