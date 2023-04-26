@@ -13,7 +13,7 @@ class ConversationTableViewCell: UITableViewCell {
     
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .gray
+        imageView.image = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.darkGray, renderingMode: .alwaysOriginal)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
