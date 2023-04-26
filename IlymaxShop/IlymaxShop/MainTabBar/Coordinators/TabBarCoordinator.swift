@@ -122,19 +122,16 @@ class TabBarCoordinator {
         tabBarController?.viewControllers = arrayOfControllers
     }
     
-//    private func test() {
-//        let image = UIImage(named: "Welcome")!
-//        let shoes = Shoes(name: "Sneakers", description: "Comfortable sneakers", color: "White", gender: "Unisex", imageUrl: nil, data: [ShoesDetail(size: "US 7", price: 99.99, quantity: 10), ShoesDetail(size: "US 8", price: 89, quantity: 5)], ownerId: "123", company: "Nike", category: "Athletic")
-//
-//        print(shoes.lowestPrice)
-//    }
-    
     private func test() {
-//        try? FirebaseAuth.Auth.auth().signOut()
-//        FirestoreManager.shared.getUser(with: FirebaseAuth.Auth.auth().currentUser!.uid) { user in
-//            if let user {
-//                print(user)
+//        let review = IlymaxReview(text: "norm", rate: 5, authorId: "12", shoesId: "12", date: Date())
+//        FirestoreManager.shared.insertReview(review) { result in
+//            switch result {
+//                case .success(let id):
+//                    print(id)
+//                case .failure(let error):
+//                    print(error.localizedDescription)
 //            }
 //        }
+        
     }
 }

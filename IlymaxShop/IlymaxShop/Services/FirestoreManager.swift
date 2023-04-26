@@ -767,8 +767,99 @@ extension FirestoreManager {
             completion(false)
         }
     }
+}
 
 
+// MARK: - Reviews managment
+
+extension FirestoreManager {
+    
+    
+    /// Insert new review
+    func insertReview(_ review: IlymaxReview, completion: @escaping (Result<String, Error>) -> Void) {
+        var ref: DocumentReference? = nil
+        
+        let data: [String: Any] = [
+            "text": review.text,
+            "rate": review.rate,
+            "author_id": review.authorId,
+            "shoes_id": review.shoesId,
+            "date": DateFormatter.dateFormatter.string(from: review.date)
+        ]
+        
+        ref = db.collection(IlymaxReview.collectionName).addDocument(data: data) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(ref!.documentID))
+            }
+        }
+    }
+    
+    
+    /// Get reviews by shoesId
+    func getReviewsByShoesId(_ shoesId: String, completion: @escaping (Result<[IlymaxReview], Error>) -> Void) {
+        db.collection(IlymaxReview.collectionName)
+            .whereField("shoes_id", isEqualTo: shoesId)
+            .getDocuments { (querySnapshot, error) in
+                guard let querySnapshot = querySnapshot else {
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.failure(NSError(domain: "Firestore", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve reviews."])))
+                    }
+                    return
+                }
+                var reviews: [IlymaxReview] = []
+                for document in querySnapshot.documents {
+                    let data = document.data()
+                    guard let text = data["text"] as? String,
+                          let rate = data["rate"] as? Int,
+                          let authorId = data["author_id"] as? String,
+                          let shoesId = data["shoes_id"] as? String,
+                          let dateString = data["date"] as? String,
+                          let date = DateFormatter.dateFormatter.date(from: dateString) else {
+                        continue
+                    }
+                    let review = IlymaxReview(text: text, rate: rate, authorId: authorId, shoesId: shoesId, date: date)
+                    reviews.append(review)
+                }
+                completion(.success(reviews))
+        }
+    }
+    
+    
+    /// Count mean rate of reviews for shoesId
+    func countMeanRateOfReviewsForShoesId(_ shoesId: String, completion: @escaping (Result<Double, Error>) -> Void) {
+        db.collection(IlymaxReview.collectionName)
+            .whereField("shoes_id", isEqualTo: shoesId)
+            .getDocuments { (querySnapshot, error) in
+                guard let querySnapshot = querySnapshot else {
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.failure(NSError(domain: "Firestore", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve reviews."])))
+                    }
+                    return
+                }
+                var totalRate = 0
+                var count = 0
+                for document in querySnapshot.documents {
+                    let data = document.data()
+                    guard let rate = data["rate"] as? Int else {
+                        continue
+                    }
+                    totalRate += rate
+                    count += 1
+                }
+                if count > 0 {
+                    let meanRate = Double(totalRate) / Double(count)
+                    completion(.success(meanRate))
+                } else {
+                    completion(.success(0))
+                }
+        }
+    }
 }
 
 

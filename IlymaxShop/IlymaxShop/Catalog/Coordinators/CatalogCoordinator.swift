@@ -24,12 +24,8 @@ class CatalogCoordinator {
     }
         
     func pushShoeView(shoe: Shoes) {
-        let shoeViewController = ShoeViewController()
-        let presenter = ShoeViewPresenter()
-        shoeViewController.presenter = presenter
-        presenter.view = shoeViewController
-        presenter.product = shoe
-        navigationController.pushViewController(shoeViewController, animated: true)
+        let shoeViewCoordinator = ShoeViewCoordinator(navigationController: navigationController)
+        shoeViewCoordinator.start(product: shoe)
     }
     
     func pushListOfShoes(shoes: [Shoes]) {

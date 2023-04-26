@@ -265,7 +265,6 @@ class PublicShoesViewController: UIViewController, UITextViewDelegate {
             let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(dismissAction)
             present(alertController, animated: true, completion: nil)
-
         }
     }
     
