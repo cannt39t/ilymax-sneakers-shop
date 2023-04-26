@@ -11,6 +11,7 @@ class ShoeViewPresenter {
     weak var view: ShoeViewController?
     private let shoeViewService = ShoeViewService()
     var product: Shoes?
+    var sellerName = ""
     public var pushReview: ([IlymaxReview], String) -> Void = {_,_  in }
     
     var reviews: [IlymaxReview] = []
@@ -37,12 +38,19 @@ class ShoeViewPresenter {
                     let totalRate = reviews.reduce(0, { $0 + $1.rate })
                     self?.average = (Double(totalRate) / Double(reviews.count) * 100).rounded(.toNearestOrEven) / 100
                 }
-                DispatchQueue.main.async { [weak self] in
-                    self?.view?.setupUI()
-                    self?.view?.hideLoader()
-                }
             case .failure(let error):
                 print(error )
+            }
+        }
+        
+        shoeViewService.getUser(userID: (product?.ownerId)!) { [weak self] user in
+            guard let self = self else { return }
+            
+            self.sellerName = user?.name ?? ""
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.view?.setupUI()
+                self?.view?.hideLoader()
             }
         }
     }

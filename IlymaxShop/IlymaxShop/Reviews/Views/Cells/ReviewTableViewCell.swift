@@ -41,6 +41,7 @@ class ReviewTableViewCell: UITableViewCell {
 
         reviewImageView.translatesAutoresizingMaskIntoConstraints = false
         reviewImageView.contentMode = .scaleAspectFit
+        reviewImageView.layer.cornerRadius = 10
         reviewImageView.clipsToBounds = true
 
         let imageAndNameStackView = UIStackView(arrangedSubviews: [reviewImageView, nameLabel])

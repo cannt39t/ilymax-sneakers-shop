@@ -84,7 +84,7 @@ class ShoeViewController: UIViewController {
         nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        reviewScoreButton.setTitle("\(presenter.average)", for: .normal)
+        reviewScoreButton.setTitle(" \(presenter.average)", for: .normal)
         reviewScoreButton.setTitleColor(.black, for: .normal)
         reviewScoreButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         let symbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
@@ -99,7 +99,7 @@ class ShoeViewController: UIViewController {
         reviewCountButton.addTarget(self, action: #selector(reviewScoreButtonTapped), for: .touchUpInside)
         reviewCountButton.translatesAutoresizingMaskIntoConstraints = false
         
-        sellerNameButton.setTitle("Seller", for: .normal)
+        sellerNameButton.setTitle("\(presenter.sellerName)", for: .normal)
         sellerNameButton.setTitleColor(.black, for: .normal)
         sellerNameButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         sellerNameButton.addTarget(self, action: #selector(sellerNameButtonTapped), for: .touchUpInside)
@@ -186,15 +186,33 @@ class ShoeViewController: UIViewController {
         } else {
             reviewCountButton.setTitle("(\(presenter.reviews.count) reviews)", for: .normal)
         }
-
+        
+        let starStackView = UIStackView()
+        starStackView.axis = .horizontal
+        starStackView.spacing = 5
+        starStackView.translatesAutoresizingMaskIntoConstraints = false
+        starStackView.addArrangedSubview(reviewScoreButton)
+        starStackView.addArrangedSubview(reviewCountButton)
+        starStackView.alignment = .leading
+        starStackView.distribution = .equalCentering
+        
+        let sellerStackView = UIStackView()
+        sellerStackView.axis = .horizontal
+        sellerStackView.spacing = 5
+        sellerStackView.translatesAutoresizingMaskIntoConstraints = false
+        sellerStackView.addArrangedSubview(sellerNameButton)
+        sellerStackView.addArrangedSubview(chatButton)
+        sellerStackView.alignment = .leading
+        sellerStackView.distribution = .equalCentering
+        
         let reviewStackView = UIStackView()
         reviewStackView.axis = .horizontal
-        reviewStackView.spacing = 10
+        reviewStackView.spacing = 1
         reviewStackView.translatesAutoresizingMaskIntoConstraints = false
-        reviewStackView.addArrangedSubview(reviewScoreButton)
-        reviewStackView.addArrangedSubview(reviewCountButton)
-        reviewStackView.addArrangedSubview(sellerNameButton)
-        reviewStackView.addArrangedSubview(chatButton)
+        reviewStackView.alignment = .leading
+        reviewStackView.distribution = .equalCentering
+        reviewStackView.addArrangedSubview(starStackView)
+        reviewStackView.addArrangedSubview(sellerStackView)
         
         view.addSubview(addToCartButton)
         view.addSubview(scrollView)
@@ -234,8 +252,10 @@ class ShoeViewController: UIViewController {
             
             reviewStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             reviewStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            reviewScoreButton.widthAnchor.constraint(equalTo: sellerNameButton.widthAnchor),
-            ])
+            reviewCountButton.centerYAnchor.constraint(equalTo: reviewScoreButton.centerYAnchor),
+            sellerNameButton.centerYAnchor.constraint(equalTo: reviewScoreButton.centerYAnchor),
+            chatButton.centerYAnchor.constraint(equalTo: reviewScoreButton.centerYAnchor),
+        ])
     }
     
     @objc private func reviewScoreButtonTapped() {

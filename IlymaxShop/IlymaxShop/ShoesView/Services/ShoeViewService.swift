@@ -40,4 +40,13 @@ class ShoeViewService {
         }
     }
     
+    func getUser(userID: String, completion: @escaping (IlymaxUser?) -> Void) {
+        FirestoreManager.shared.getUser(with: userID) { user in
+            if let user = user {
+                completion(user)
+            } else {
+                completion(nil)
+            }
+        }
+    }
 }
