@@ -26,7 +26,9 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         showLoader()
         showCollectionView()
         presenter.fetchData()
@@ -54,7 +56,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     
     private func setupSearchBar() {
         searchBar.delegate = self
-        searchBar.placeholder = "Whar are u looking for?"
+        searchBar.placeholder = "What are u looking for?"
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(searchBar)
@@ -199,7 +201,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
                 presenter.pushShoeView(shoe: popular[indexPath.item])
                 print(popular[indexPath.item])
             case 2:
-                presenter.pushListShoes(popular)
+            presenter.pushListShoes(popular, categories[indexPath.item].name)
                 print(categories[indexPath.item])
             default:
                 print(indexPath)
@@ -271,9 +273,16 @@ extension CatalogViewController: UICollectionViewDataSource {
 extension CatalogViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print(searchBar.text)
+        let searchStr = searchBar.text ?? ""
+        if searchStr.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            let alertController = UIAlertController(title: "Search error", message: "The string is empty", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            showLoader()
+            presenter.pushSearchShoeList(searchStr: searchStr)
+        }
     }
+
 }
-
-
-// Implement search bat todo Maksim

@@ -51,17 +51,32 @@ class ProductListViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        isEmpty()
         self.collectionView.register(ProductListCollectionViewCell.self,
                                       forCellWithReuseIdentifier: ProductListCollectionViewCell.reuseID)
         collectionView.contentInset = .zero
         collectionView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
         updatePresentationStyle()
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.title = "\(presenter?.products[0].category ?? "Category")"
+        navigationItem.title = "\(presenter.name)"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveBack))
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: selectedStyle.buttonImage, style: .plain, target: self, action: #selector(changeContentLayout)), UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(filter))]
         }
+    
+    private func isEmpty() {
+        if presenter.products.count == 0 {
+            let label = UILabel()
+            label.text = "Sorry, nothing was found"
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.textAlignment = .center
+            label.font = UIFont.boldSystemFont(ofSize: 17)
+            view.addSubview(label)
+            
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        }
+    }
     
     @objc private func filter() {
         let modalFilterViewController = ModalFilterViewController()

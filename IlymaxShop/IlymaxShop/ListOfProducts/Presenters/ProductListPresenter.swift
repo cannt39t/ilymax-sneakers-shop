@@ -18,6 +18,7 @@ class ProductListPresenter {
     var navigationController: UINavigationController?
     weak var view: ProductListViewController?
     var products: [Shoes] = []
+    var name: String = ""
     public var pushShoe: (Shoes) -> Void = {_ in }
     public var presentMoodal: (Shoes) -> Void = {_ in }
 }
