@@ -70,7 +70,6 @@ class ChatPresenter {
                         return
                     }
                     self?.messages = messages
-                    print(messages)
                     DispatchQueue.main.async { [weak self] in
                         self?.view?.messagesCollectionView.reloadData()
                     }
@@ -113,12 +112,41 @@ class ChatPresenter {
             }
             switch result {
                 case .success(let urlString):
-                    // send message
                     guard let url = URL(string: urlString) else {
                         return
                     }
                     let media = Media(url: url, placeholderImage: UIImage(systemName: "photo")!, size: .zero)
                     let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .photo(media))
+                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, message: message) { sent in
+                        if sent {
+                            
+                        } else {
+                            
+                        }
+                    }
+                case .failure(let error):
+                    print("message could not upload")
+            }
+        }
+    }
+    
+    func uploadVideoMessage(with videoUrl: URL) {
+        guard let messageID = createMessageID(), let conID = conversationID, let sender = selfSender else {
+            return
+        }
+        let cleanedMessageID = messageID.replacingOccurrences(of: " ", with: "-")
+        let filename = "video_message_" + cleanedMessageID + ".mp4"
+        chatService.uploadMessageVideoUrl(videoUrl: videoUrl, filename: filename) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            switch result {
+                case .success(let urlString):
+                    guard let url = URL(string: urlString) else {
+                        return
+                    }
+                    let media = Media(url: url, placeholderImage: UIImage(systemName: "photo")!, size: .zero)
+                    let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .video(media))
                     self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, message: message) { sent in
                         if sent {
                             

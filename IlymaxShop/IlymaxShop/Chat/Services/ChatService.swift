@@ -28,8 +28,14 @@ class ChatService {
         }
     }
     
-    func uploadImageDataMessage(imageData: Data, filename: String, completion: @escaping StorageManager.UploadPictureCompletion) {
+    func uploadImageDataMessage(imageData: Data, filename: String, completion: @escaping StorageManager.UploadContentResult) {
         StorageManager.shared.uploadMessagePhoto(with: imageData, filename: filename) { result in
+            completion(result)
+        }
+    }
+    
+    func uploadMessageVideoUrl(videoUrl: URL, filename: String, completion: @escaping StorageManager.UploadContentResult) {
+        StorageManager.shared.uploadMessageVideo(file: videoUrl, filename: filename) { result in
             completion(result)
         }
     }

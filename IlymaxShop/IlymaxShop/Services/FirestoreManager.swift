@@ -379,7 +379,7 @@ extension FirestoreManager {
             }
 
             let messageDate = fisrtMessage.sentDate
-            let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+            let dateString = fisrtMessage.sentDate.ISO8601Format()
 
             var message = ""
 
@@ -389,9 +389,9 @@ extension FirestoreManager {
                 case .attributedText(_):
                     break
                 case .photo(_):
-                    break
+                    message = "Photo"
                 case .video(_):
-                    break
+                    message = "Video"
                 case .location(_):
                     break
                 case .emoji(_):
@@ -504,7 +504,7 @@ extension FirestoreManager {
         }
         
         let messageDate = firstMessage.sentDate
-        let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+        let dateString = messageDate.ISO8601Format()
         
         var content = ""
 
@@ -518,7 +518,10 @@ extension FirestoreManager {
                     content = urlImage
                 }
                 break
-            case .video(_):
+            case .video(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
                 break
             case .location(_):
                 break
@@ -624,6 +627,7 @@ extension FirestoreManager {
                     let type = message["type"] as? String,
                     let dateString = message["date"] as? String,
                     let date = DateFormatter.dateFormatter.date(from: dateString) else {
+                        print("Could not parse message")
                         continue
                 }
                 
@@ -643,7 +647,7 @@ extension FirestoreManager {
                 let sender = Sender(photoURL: "", senderId: senderEmail, displayName: name)
 
                 let message = Message(sender: sender, messageId: id, sentDate: date, kind: kind)
-
+                
                 allMessages.append(message)
             }
 
@@ -679,7 +683,10 @@ extension FirestoreManager {
                     content = urlImage
                 }
                 break
-            case .video(_):
+            case .video(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
                 break
             case .location(_):
                 break

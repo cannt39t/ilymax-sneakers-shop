@@ -18,10 +18,6 @@ class ConversationsPresenter {
     public var conversations = [Conversation]()
     private var hasFetch = false
     
-    func fetchConversations() {
-        
-    }
-    
     func openChat(conversation: Conversation) {
         open(conversation)
     }
@@ -33,7 +29,6 @@ class ConversationsPresenter {
                 case .failure(let error):
                     print(error)
                 case.success(let conversations):
-                    print(conversations)
                     self.conversations = conversations
                     DispatchQueue.main.async { [weak self] in
                         self?.view?.tableView.reloadData()

@@ -44,7 +44,6 @@ class ConversationsViewController: UIViewController {
         
         setupTableView()
         
-        presenter.fetchConversations()
         startListeningForConversations()
     }
     
