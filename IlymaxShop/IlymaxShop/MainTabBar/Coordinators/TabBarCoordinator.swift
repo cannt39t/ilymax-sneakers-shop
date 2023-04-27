@@ -123,6 +123,13 @@ class TabBarCoordinator {
     }
     
     private func test() {
+        let dateString = "Apr 27, 2023 at 9:33:53 PM GMT+3"
+        guard let date = DateFormatter.dateFormatter.date(from: dateString) else {
+            print("no")
+            return
+        }
+        print(date)
+//        try? FirebaseAuth.Auth.auth().signOut()
 //        let review = IlymaxReview(text: "norm", rate: 5, authorId: "12", shoesId: "12", date: Date())
 //        FirestoreManager.shared.insertReview(review) { result in
 //            switch result {
