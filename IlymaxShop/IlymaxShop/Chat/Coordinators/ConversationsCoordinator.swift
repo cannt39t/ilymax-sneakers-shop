@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class ConversationsCoordinator {
     
@@ -30,6 +32,7 @@ class ConversationsCoordinator {
         
         chatController.presenter = chatPresenter
         chatPresenter.openImageCoordinator = openImage
+        chatPresenter.openVideoCoordinator = openVideo
         chatPresenter.view = chatController
         
         navigationController.pushViewController(chatController, animated: true)
@@ -59,6 +62,7 @@ class ConversationsCoordinator {
         chatController.presenter = chatPresenter
         chatPresenter.view = chatController
         chatPresenter.openImageCoordinator = openImage
+        chatPresenter.openVideoCoordinator = openVideo
         
         chatPresenter.isNewConversation = true
         navigationController.pushViewController(chatController, animated: true)
@@ -67,6 +71,12 @@ class ConversationsCoordinator {
     func openImage(with url: URL) {
         let viewer = PhotoViewerViewController(with: url)
         navigationController.pushViewController(viewer, animated: true)
+    }
+    
+    func openVideo(with url: URL) {
+        let viewer = VideoViewerViewController()
+        viewer.player = AVPlayer(url: url)
+        navigationController.present(viewer, animated: true)
     }
     
 }

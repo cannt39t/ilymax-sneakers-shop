@@ -35,6 +35,7 @@
 		05278EEC29EDC9BD00E9FC8C /* ConversationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */; };
 		05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */; };
 		05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */; };
+		052D4B9029FB11960011507A /* VideoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D4B8F29FB11960011507A /* VideoViewerViewController.swift */; };
 		052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97E829D9C8D6008CA67C /* Shoes.swift */; };
 		052D97EE29D9C962008CA67C /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97ED29D9C962008CA67C /* Promotion.swift */; };
 		052D97F129D9CBE8008CA67C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 052D97F029D9CBE8008CA67C /* FirebaseStorage */; };
@@ -160,6 +161,7 @@
 		05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsService.swift; sourceTree = "<group>"; };
 		05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationPresenter.swift; sourceTree = "<group>"; };
 		05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationService.swift; sourceTree = "<group>"; };
+		052D4B8F29FB11960011507A /* VideoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewerViewController.swift; sourceTree = "<group>"; };
 		052D97E829D9C8D6008CA67C /* Shoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shoes.swift; sourceTree = "<group>"; };
 		052D97ED29D9C962008CA67C /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
 		0539C3A429CDDA6E008F41B4 /* CartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 				05D91E9229ED33FD00C7FBB7 /* ChatViewController.swift */,
 				05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */,
 				05975AC529F1E43000DAD37F /* PhotoViewerViewController.swift */,
+				052D4B8F29FB11960011507A /* VideoViewerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
 				7ED14ABC29EF39D300FD7BED /* ProductListViewController.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
+				052D4B9029FB11960011507A /* VideoViewerViewController.swift in Sources */,
 				052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */,
 				7E36E4BF29EEE5F9003D0A7B /* ShoeViewPresenter.swift in Sources */,
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,

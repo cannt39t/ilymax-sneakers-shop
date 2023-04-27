@@ -137,7 +137,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         if presenter.isNewConversation {
             presenter.sendFirstMessage(message: message)
         } else {
-            // append to existing conversation data
             presenter.sendMessage(message)
         }
         inputBar.inputTextView.text = ""
@@ -193,6 +192,11 @@ extension ChatViewController: MessageCellDelegate {
                     return
                 }
                 presenter.openImage(with: imageUrl)
+            case .video(let media):
+                guard let videoUrl = media.url else {
+                    return
+                }
+                presenter.openVideo(with: videoUrl)
             default:
                 break
         }

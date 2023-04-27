@@ -638,8 +638,14 @@ extension FirestoreManager {
                         guard let imageUrl = URL(string: content) else {
                             return
                         }
-                        let media = Media(url: imageUrl, placeholderImage: UIImage(systemName: "photo")!, size: CGSize(width: 300, height: 300))
+                        let media = Media(url: imageUrl, placeholderImage: UIImage(systemName: "photo")!.withTintColor(.gray, renderingMode: .alwaysOriginal), size: CGSize(width: 300, height: 300))
                         kind = .photo(media)
+                    case "video":
+                        guard let videoUrl = URL(string: content) else {
+                            return
+                        }
+                        let media = Media(url: videoUrl, placeholderImage: UIImage(systemName: "video.fill")!.withTintColor(.gray, renderingMode: .alwaysOriginal), size: CGSize(width: 300, height: 300))
+                        kind = .video(media)
                     default:
                         break
                 }

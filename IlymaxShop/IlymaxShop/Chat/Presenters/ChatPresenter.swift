@@ -23,6 +23,7 @@ class ChatPresenter {
     public var isNewConversation = false
     
     public var openImageCoordinator: (URL) -> () = { _ in }
+    public var openVideoCoordinator: (URL) -> () = { _ in }
     
     var currentUserEmailAddress: String = {
         guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
@@ -162,6 +163,10 @@ class ChatPresenter {
     
     func openImage(with url: URL) {
         openImageCoordinator(url)
+    }
+    
+    func openVideo(with url: URL) {
+        openVideoCoordinator(url)
     }
 
 }
