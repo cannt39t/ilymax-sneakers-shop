@@ -89,7 +89,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         
         
-        let conversation = presenter.conversations[indexPath.item]
+        let conversation = presenter.conversations[indexPath.section]
         cell.configure(with: conversation)
         
         return cell
@@ -97,7 +97,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let conversation = presenter.conversations[indexPath.item]
+        let conversation = presenter.conversations[indexPath.section]
         presenter.openChat(conversation: conversation)
     }
     

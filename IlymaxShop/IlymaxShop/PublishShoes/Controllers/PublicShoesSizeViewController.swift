@@ -32,7 +32,7 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
     private func setupUI() {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Adding"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(moveBack))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(moveForward))
 
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
@@ -134,7 +134,6 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if numberOfRows != 1{
             if editingStyle == .delete {
@@ -148,7 +147,6 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
             }
         }
     }
-    
     
     @objc func dismissKeyboard() {
         view.endEditing(true)

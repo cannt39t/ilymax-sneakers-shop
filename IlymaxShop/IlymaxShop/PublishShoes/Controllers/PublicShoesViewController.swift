@@ -218,22 +218,30 @@ class PublicShoesViewController: UIViewController, UITextViewDelegate {
         scrollView.addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
         ])
 
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
-        ])
     }
 
-
+    func updateData() {
+        nameTextView.text = presenter.product.name
+        descriptionTextView.text = presenter.product.name
+        genderButton.setTitle("Select Gender", for: .normal)
+        companyButton.setTitle("Select Company", for: .normal)
+        colorButton.setTitle("Select Color", for: .normal)
+        categoryButton.setTitle("Select Category", for: .normal)
+        conditionButton.setTitle("Select Condition", for: .normal)
+    }
+    
     @objc private func moveForward() {
         let gender = genderButton.title(for: .normal)
         let company = companyButton.title(for: .normal)
@@ -257,7 +265,6 @@ class PublicShoesViewController: UIViewController, UITextViewDelegate {
             let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(dismissAction)
             present(alertController, animated: true, completion: nil)
-
         }
     }
     
