@@ -20,7 +20,7 @@ class ConversationTableViewCell: UITableViewCell {
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 19, weight: .medium)
         return label
     }()
     
@@ -99,7 +99,8 @@ class ConversationTableViewCell: UITableViewCell {
             }
         }
         
-        let formattedString = DateFormatter.conversationListFormatter.conversationListFormattedString(from: conversation.latestMessage.date)
+        let dateConversation = DateFormatter.dateFormatter.date(from: conversation.latestMessage.date)!
+        let formattedString = DateFormatter.conversationListFormattedString(from: dateConversation)
         userMessageLabel.text = conversation.latestMessage.text
         userNameLabel.text = conversation.name
         dateLabel.text = formattedString
