@@ -12,8 +12,8 @@ class ConversationsPresenter {
     
     weak var view: ConversationsViewController?
     let conversationsService: ConversationsService = ConversationsService()
-    var open: ((Conversation) -> ()) = { _ in }
-    var createNewConversation: (() -> ()) = {}
+    var open: (Conversation) -> Void = { _ in }
+    var searchUserForConversation: ([Conversation]) -> Void = { _ in }
     
     public var conversations = [Conversation]()
     private var hasFetch = false

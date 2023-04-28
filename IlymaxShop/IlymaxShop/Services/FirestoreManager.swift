@@ -869,7 +869,12 @@ extension FirestoreManager {
     }
     
     
-    
+    public func conversation(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(.failure(NSError()))
+            return
+        }
+    }
 
 
 }

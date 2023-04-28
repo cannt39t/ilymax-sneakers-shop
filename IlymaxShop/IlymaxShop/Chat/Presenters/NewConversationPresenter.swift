@@ -12,8 +12,11 @@ class NewConversationPresenter {
     weak var view: NewConversationViewController?
     let newConversationService: NewConversationService = NewConversationService()
     var startNewConversation: (IlymaxUser) -> Void = {_ in }
+    var openExistingConversation: (Conversation) -> Void = { _ in }
+    var dismissSearchController: () -> () = {}
     
     private var users: [IlymaxUser] = []
+    public var existingConversations: [Conversation] = []
     private var hasFetch = false
     
     func searchUsers(query: String) {
@@ -57,10 +60,14 @@ class NewConversationPresenter {
     }
     
     public func startConversation(with targetUser: IlymaxUser) {
-        
-        
-        
-        startNewConversation(targetUser)
+        dismissSearchController()
+        if let targetConveration = existingConversations.first(where: {
+            $0.otherUserEmail == targetUser.emailAddress
+        }) {
+            openExistingConversation(targetConveration)
+        } else {
+            startNewConversation(targetUser)
+        }
     }
     
 }

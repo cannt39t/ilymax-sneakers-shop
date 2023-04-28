@@ -16,7 +16,7 @@ class ConversationsCoordinator {
     func start() -> UIViewController {
         let conversationPresenter = ConversationsPresenter()
         conversationPresenter.open = openChat
-        conversationPresenter.createNewConversation = newConversation
+        conversationPresenter.searchUserForConversation = newConversation
         
         let conversationsController = ConversationsViewController()
         
@@ -38,14 +38,15 @@ class ConversationsCoordinator {
         navigationController.pushViewController(chatController, animated: true)
     }
     
-    func newConversation() {
+    func newConversation(existingConversations: [Conversation]) {
         let newConversationControler = NewConversationViewController()
         let newConversationPresenter = NewConversationPresenter()
         
-        
-        newConversationPresenter.startNewConversation = { [weak self] result in
+        newConversationPresenter.existingConversations = existingConversations
+        newConversationPresenter.openExistingConversation = openChat
+        newConversationPresenter.startNewConversation = createNewConvesation
+        newConversationPresenter.dismissSearchController = { [weak self] in
             self?.navigationController.dismiss(animated: false)
-            self?.createNewConvesation(with: result)
         }
         
         newConversationControler.presenter = newConversationPresenter
