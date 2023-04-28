@@ -19,4 +19,10 @@ class ConversationsService {
         }
     }
     
+    func deleteConversation(coversationId: String, completion: @escaping (Bool) -> Void) {
+        FirestoreManager.shared.deleteConversation(conversationId: coversationId) { result in
+            completion(result)
+        }
+    }
+    
 }

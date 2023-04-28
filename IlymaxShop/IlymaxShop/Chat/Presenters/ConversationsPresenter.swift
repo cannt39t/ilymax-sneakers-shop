@@ -24,16 +24,32 @@ class ConversationsPresenter {
     
 
     func startListeningForConversations() {
-        conversationsService.startListeningForConversations { result in
+        conversationsService.startListeningForConversations { [weak self] result in
             switch result {
                 case .failure(let error):
                     print(error)
                 case.success(let conversations):
-                    self.conversations = conversations
-                    DispatchQueue.main.async { [weak self] in
-                        self?.view?.tableView.reloadData()
+                    self?.conversations = conversations
+                    print(conversations.count)
+                    if conversations.count != 0 {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.view?.tableView.isHidden = false
+                            self?.view?.noConversationsLabel.isHidden = true
+                            self?.view?.tableView.reloadData()
+                        }
+                    } else {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.view?.noConversationsLabel.isHidden = false
+                            self?.view?.tableView.isHidden = true
+                        }
                     }
             }
+        }
+    }
+    
+    func deleteConversation(conversationId: String, indexPath: IndexPath) {
+        conversationsService.deleteConversation(coversationId: conversationId) { [weak self] result in
+            
         }
     }
     

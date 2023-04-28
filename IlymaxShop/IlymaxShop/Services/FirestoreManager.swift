@@ -780,6 +780,95 @@ extension FirestoreManager {
             completion(false)
         }
     }
+    
+    private func getConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        let conversationRef = db.collection("conversations").document(email.lowercased())
+        
+        conversationRef.getDocument { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success([]))
+                return
+            }
+            
+            guard let data = snapshot.data(), let conversations = data["conversations"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            var allConversations: [Conversation] = []
+            
+            for conversation in conversations {
+                guard let id = conversation["id"] as? String,
+                      let name = conversation["name"] as? String,
+                      let otherUserEmail = conversation["other_user_email"] as? String,
+                      let latestMessageDict = conversation["latest_message"] as? [String: Any],
+                      let latestMessageDate = latestMessageDict["date"] as? String,
+                      let latestMessageText = latestMessageDict["message"] as? String,
+                      let latestMessageIsRead = latestMessageDict["is_read"] as? Bool else {
+                    continue
+                }
+                
+                let latestMessage = LatestMessage(date: latestMessageDate, text: latestMessageText, isRead: latestMessageIsRead)
+                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
+                
+                allConversations.append(conversation)
+            }
+            
+            completion(.success(allConversations))
+        }
+    }
+
+    
+    public func deleteConversation(conversationId: String, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
+        
+        getConversations(for: currentEmail) { [weak self] result in
+            switch result {
+                case .success(var conversations):
+                    conversations.removeAll(where: { $0.id == conversationId })
+                    self?.updateConversations(for: currentEmail, with: conversations) { updated in
+                        completion(updated)
+                    }
+                case .failure(_):
+                    completion(false)
+            }
+        }
+    }
+
+    
+    public func updateConversations(for email: String, with conversations: [Conversation], completion: @escaping (Bool) -> Void) {
+        let conversationRef = db.collection("conversations").document(email.lowercased())
+        
+        // Convert the array of conversations to an array of dictionaries
+        let conversationsData = conversations.map { conversation -> [String: Any] in
+            let latestMessage = conversation.latestMessage
+            let conversationData: [String: Any] = [
+                "id": conversation.id,
+                "name": conversation.name,
+                "other_user_email": conversation.otherUserEmail,
+                "latest_message": [
+                    "date": latestMessage.date,
+                    "message": latestMessage.text,
+                    "is_read": latestMessage.isRead
+                ] as [String : Any]
+            ]
+            return conversationData
+        }
+        
+        conversationRef.setData(["conversations": conversationsData]) { error in
+            if let error = error {
+                print("Error updating conversations: \(error)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+
+
 }
 
 

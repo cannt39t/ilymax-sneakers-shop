@@ -12,18 +12,18 @@ class ConversationsViewController: UIViewController {
     
     public let tableView: UITableView = {
         let table = UITableView()
-        //        table.isHidden = true
+        table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         table.register(ConversationTableViewCell.self, forCellReuseIdentifier: ConversationTableViewCell.identifier)
         return table
     }()
     
-    private let noConversationsLabel: UILabel = {
+    public let noConversationsLabel: UILabel = {
         let label = UILabel()
         label.text = "No conversations"
         label.textAlignment = .center
         label.textColor = .gray
-        label.font = .systemFont(ofSize: 21, weight: .medium)
+        label.font = .systemFont(ofSize: 17, weight: .medium)
         label.isHidden = true
         return label
     }()
@@ -64,7 +64,10 @@ class ConversationsViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            noConversationsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noConversationsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -77,11 +80,11 @@ class ConversationsViewController: UIViewController {
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter.conversations.count
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        return presenter.conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,6 +107,18 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         80
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            presenter.conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            tableView.endUpdates()
+        }
+    }
     
     
 }
