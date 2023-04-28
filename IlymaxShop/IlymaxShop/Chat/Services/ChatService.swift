@@ -22,8 +22,8 @@ class ChatService {
         }
     }
     
-    func sendMessage(to: String, email: String, message: Message, completion: @escaping (Bool) -> Void)  {
-        FirestoreManager.shared.sendMessage(conversationID: to, email: email, message: message) { result in
+    func sendMessage(to: String, email: String, otherUser: IlymaxUser, message: Message, completion: @escaping (Bool) -> Void)  {
+        FirestoreManager.shared.sendMessage(conversationID: to, email: email, otherUser: otherUser, message: message) { result in
             completion(result)
         }
     }

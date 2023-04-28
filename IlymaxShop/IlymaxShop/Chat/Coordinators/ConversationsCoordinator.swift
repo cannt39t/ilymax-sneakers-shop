@@ -28,7 +28,7 @@ class ConversationsCoordinator {
     
     func openChat(conversation: Conversation) {
         let chatController = ChatViewController()
-        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: conversation.name, emailAddress: conversation.otherUserEmail, profilePictureUrl: nil), conversationID: conversation.id )
+        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: conversation.name, emailAddress: conversation.otherUserEmail, profilePictureUrl: nil), conversationID: conversation.id)
         
         chatController.presenter = chatPresenter
         chatPresenter.openImageCoordinator = openImage
@@ -45,6 +45,7 @@ class ConversationsCoordinator {
         newConversationPresenter.existingConversations = existingConversations
         newConversationPresenter.openExistingConversation = openChat
         newConversationPresenter.startNewConversation = createNewConvesation
+        newConversationPresenter.openExistingDeletedConversation = openExistingDeletedConversation
         newConversationPresenter.dismissSearchController = { [weak self] in
             self?.navigationController.dismiss(animated: false)
         }
@@ -56,12 +57,26 @@ class ConversationsCoordinator {
         navigationController.present(navController, animated: true)
     }
     
+    private func openExistingDeletedConversation(with user: IlymaxUser, conversationId: String) {
+        let chatController = ChatViewController()
+        let chatPresenter = ChatPresenter(otherUser: user, conversationID: conversationId)
+        
+        chatPresenter.view = chatController
+        chatController.presenter = chatPresenter
+        
+        chatPresenter.openImageCoordinator = openImage
+        chatPresenter.openVideoCoordinator = openVideo
+        
+        navigationController.pushViewController(chatController, animated: true)
+    }
+    
     private func createNewConvesation(with user: IlymaxUser) {
         let chatController = ChatViewController()
         let chatPresenter = ChatPresenter(otherUser: user)
         
         chatController.presenter = chatPresenter
         chatPresenter.view = chatController
+        
         chatPresenter.openImageCoordinator = openImage
         chatPresenter.openVideoCoordinator = openVideo
         

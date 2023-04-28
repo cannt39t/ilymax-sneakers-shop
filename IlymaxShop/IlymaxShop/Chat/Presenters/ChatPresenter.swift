@@ -93,7 +93,7 @@ class ChatPresenter {
         guard let id = conversationID else {
             return
         }
-        chatService.sendMessage(to: id, email: otherUser.emailAddress, message: message) { sent in
+        chatService.sendMessage(to: id, email: otherUser.emailAddress, otherUser: otherUser, message: message) { sent in
             if sent {
                 print("New message sent")
             } else {
@@ -118,7 +118,7 @@ class ChatPresenter {
                     }
                     let media = Media(url: url, placeholderImage: UIImage(systemName: "photo")!, size: .zero)
                     let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .photo(media))
-                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, message: message) { sent in
+                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, otherUser: strongSelf.otherUser, message: message) { sent in
                         if sent {
                             
                         } else {
@@ -148,7 +148,7 @@ class ChatPresenter {
                     }
                     let media = Media(url: url, placeholderImage: UIImage(systemName: "photo")!, size: .zero)
                     let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .video(media))
-                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, message: message) { sent in
+                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, otherUser: strongSelf.otherUser, message: message) { sent in
                         if sent {
                             
                         } else {

@@ -663,7 +663,7 @@ extension FirestoreManager {
 
     
     /// Send message to current conversation
-    public func sendMessage(conversationID: String, email: String, message: Message, completion: @escaping (Bool) -> Void) {
+    public func sendMessage(conversationID: String, email: String, otherUser: IlymaxUser, message: Message, completion: @escaping (Bool) -> Void) {
         guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             completion(false)
             return
@@ -673,6 +673,11 @@ extension FirestoreManager {
             completion(false)
             return
         }
+        
+        
+        let currentUser = IlymaxUser(name: currentUserName, emailAddress: currentEmail, profilePictureUrl: nil)
+        print(otherUser)
+        print(currentUser)
         
         let messageDate = message.sentDate
         let dateString = DateFormatter.dateFormatter.string(from: messageDate)
@@ -725,9 +730,9 @@ extension FirestoreManager {
             if error != nil {
                 completion(false)
             } else {
-                self?.updateConversationLatestMessage(conversationId: conversationID, email: currentEmail, latestMessage: message) { updated in
+                self?.updateConversationLatestMessage(conversationId: conversationID, email: currentEmail, otherUser: otherUser, latestMessage: message) { updated in
                     if updated {
-                        self?.updateConversationLatestMessage(conversationId: conversationID, email: email, latestMessage: message) { updated in
+                        self?.updateConversationLatestMessage(conversationId: conversationID, email: email, otherUser: currentUser, latestMessage: message) { updated in
                             if updated {
                                 completion(true)
                             } else {
@@ -742,7 +747,7 @@ extension FirestoreManager {
         }
     }
     
-    public func updateConversationLatestMessage(conversationId: String, email: String, latestMessage: [String: Any], completion: @escaping (Bool) -> Void) {
+    public func updateConversationLatestMessage(conversationId: String, email: String, otherUser: IlymaxUser, latestMessage: [String: Any], completion: @escaping (Bool) -> Void) {
         guard let dateString = latestMessage["date"], let content = latestMessage["content"] else {
             completion(false)
             return
@@ -761,10 +766,10 @@ extension FirestoreManager {
                 return
             }
             if let conversationData = document?.data(),
-                var existingConversations = conversationData["conversations"] as? [[String: Any]] {
+               var existingConversations = conversationData["conversations"] as? [[String: Any]] {
                 for (index, conversation) in existingConversations.enumerated() {
                     if let id = conversation["id"] as? String,
-                        id == conversationId {
+                       id == conversationId {
                         existingConversations[index]["latest_message"] = latestMessageData
                         conversationRef.setData(["conversations": existingConversations], merge: true) { error in
                             guard error == nil else {
@@ -776,10 +781,40 @@ extension FirestoreManager {
                         return
                     }
                 }
+                // Conversation with the given ID not found, so create a new one and append to existing conversations
+                let newConversation: [String: Any] = [
+                    "id": conversationId,
+                    "latest_message": latestMessageData,
+                    "name": otherUser.name,
+                    "other_user_email": otherUser.emailAddress
+                ]
+                existingConversations.append(newConversation)
+                conversationRef.setData(["conversations": existingConversations], merge: true) { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
+            } else {
+                // User has no existing conversations, so create a new one
+                let newConversation: [String: Any] = [
+                    "id": conversationId,
+                    "latest_message": latestMessageData,
+                    "name": otherUser.name,
+                    "other_user_email": otherUser.emailAddress
+                ]
+                conversationRef.setData(["conversations": [newConversation]], merge: true) { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
             }
-            completion(false)
         }
     }
+
     
     private func getConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         let conversationRef = db.collection("conversations").document(email.lowercased())
@@ -869,7 +904,7 @@ extension FirestoreManager {
     }
     
     
-    public func getConversation(with targetRecipientEmail: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
+    public func getConversation(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void) {
         guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             completion(.failure(NSError()))
             return
@@ -883,7 +918,7 @@ extension FirestoreManager {
                     if let conversationBetween2Users = conversations.first(where: {
                         $0.otherUserEmail == currentEmail
                     }) {
-                        completion(.success(conversationBetween2Users))
+                        completion(.success(conversationBetween2Users.id))
                     } else {
                         completion(.failure(NSError()))
                     }
