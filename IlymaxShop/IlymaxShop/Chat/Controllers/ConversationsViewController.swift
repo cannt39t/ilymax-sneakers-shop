@@ -114,8 +114,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            presenter.conversations.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
+            let conversationId = presenter.conversations[indexPath.row].id
+            presenter.deleteConversation(conversationId: conversationId, indexPath: indexPath)
             tableView.endUpdates()
         }
     }

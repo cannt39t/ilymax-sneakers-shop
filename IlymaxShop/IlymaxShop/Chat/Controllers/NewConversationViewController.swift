@@ -115,6 +115,6 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
         tableView.deselectRow(at: indexPath, animated: true)
         // start conversation (push chatViewController???)
         let targetUser = results[indexPath.item]
-        presenter.startNewConversation(targetUser)
+        presenter.startConversation(with: targetUser)
     }
 }

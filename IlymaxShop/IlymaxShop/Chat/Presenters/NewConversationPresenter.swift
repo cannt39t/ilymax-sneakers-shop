@@ -56,4 +56,11 @@ class NewConversationPresenter {
         }
     }
     
+    public func startConversation(with targetUser: IlymaxUser) {
+        
+        
+        
+        startNewConversation(targetUser)
+    }
+    
 }

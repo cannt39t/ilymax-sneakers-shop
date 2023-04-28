@@ -49,7 +49,9 @@ class ConversationsPresenter {
     
     func deleteConversation(conversationId: String, indexPath: IndexPath) {
         conversationsService.deleteConversation(coversationId: conversationId) { [weak self] result in
-            
+            if result {
+                self?.view?.tableView.deleteRows(at: [indexPath], with: .left)
+            }
         }
     }
     
