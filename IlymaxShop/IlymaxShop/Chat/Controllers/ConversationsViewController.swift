@@ -72,7 +72,7 @@ class ConversationsViewController: UIViewController {
     }
     
     @objc func didTapComposeButon() {
-        presenter.createNewConversation()
+        presenter.searchUserForConversation(presenter.conversations)
     }
 
 }
@@ -91,7 +91,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         
         
-        let conversation = presenter.conversations[indexPath.section]
+        let conversation = presenter.conversations[indexPath.row]
         cell.configure(with: conversation)
         
         return cell
@@ -99,7 +99,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let conversation = presenter.conversations[indexPath.section]
+        let conversation = presenter.conversations[indexPath.row]
         presenter.openChat(conversation: conversation)
     }
     
