@@ -869,10 +869,25 @@ extension FirestoreManager {
     }
     
     
-    public func conversation(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void) {
+    public func getConversation(with targetRecipientEmail: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
         guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             completion(.failure(NSError()))
             return
+        }
+        
+        getConversations(for: targetRecipientEmail) { result in
+            switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let conversations):
+                    if let conversationBetween2Users = conversations.first(where: {
+                        $0.otherUserEmail == currentEmail
+                    }) {
+                        completion(.success(conversationBetween2Users))
+                    } else {
+                        completion(.failure(NSError()))
+                    }
+            }
         }
     }
 

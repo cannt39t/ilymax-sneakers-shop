@@ -15,4 +15,10 @@ class NewConversationService {
         }
     }
     
+    func getConversationForUser(with email: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
+        FirestoreManager.shared.getConversation(with: email) { result in
+            completion(result)
+        }
+    }
+    
 }

@@ -23,8 +23,6 @@ class NewConversationViewController: UIViewController {
         return table
     }()
     
-    let spinner = JGProgressHUD(style: .dark)
-    
     public let noResultsLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
@@ -34,6 +32,8 @@ class NewConversationViewController: UIViewController {
         label.font = .systemFont(ofSize: 21, weight: .medium)
         return label
     }()
+    
+    let spinner = JGProgressHUD(style: .dark)
     
     var presenter: NewConversationPresenter!
     var results: [IlymaxUser] = []
@@ -113,7 +113,6 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // start conversation (push chatViewController???)
         let targetUser = results[indexPath.item]
         presenter.startConversation(with: targetUser)
     }

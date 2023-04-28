@@ -66,7 +66,18 @@ class NewConversationPresenter {
         }) {
             openExistingConversation(targetConveration)
         } else {
-            startNewConversation(targetUser)
+            newConversationService.getConversationForUser(with: targetUser.emailAddress) { [weak self] result in
+                switch result {
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            self?.startNewConversation(targetUser)
+                        }
+                    case .success(let conversation):
+                        DispatchQueue.main.async {
+                            self?.openExistingConversation(conversation)
+                        }
+                }
+            }
         }
     }
     
