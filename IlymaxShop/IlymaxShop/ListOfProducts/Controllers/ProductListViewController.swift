@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class ProductListViewController: UICollectionViewController {
 
     var presenter: ProductListPresenter!
-
+    private let hud = JGProgressHUD()
+    private let label = UILabel()
+    
     private enum PresentationStyle: String, CaseIterable {
         case table
         case defaultGrid
@@ -62,24 +65,37 @@ class ProductListViewController: UICollectionViewController {
         navigationItem.title = "\(presenter.name)"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveBack))
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: selectedStyle.buttonImage, style: .plain, target: self, action: #selector(changeContentLayout)), UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(filter))]
-        }
+    }
     
-    private func isEmpty() {
+    func showLoader() {
+        hud.show(in: self.view, animated: true)
+        isEmpty()
+    }
+    
+    func hideLoader() {
+        hud.dismiss(animated: true)
+    }
+    
+    func isEmpty() {
+        label.text = "Sorry, nothing was found"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        view.addSubview(label)
+        
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
         if presenter.products.count == 0 {
-            let label = UILabel()
-            label.text = "Sorry, nothing was found"
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.textAlignment = .center
-            label.font = UIFont.boldSystemFont(ofSize: 17)
-            view.addSubview(label)
-            
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            label.isHidden = false
+        } else {
+            label.isHidden = true
         }
     }
     
     @objc private func filter() {
         let modalFilterViewController = ModalFilterViewController()
+        modalFilterViewController.presenter = presenter
         navigationController?.present(modalFilterViewController, animated: true)
     }
     
