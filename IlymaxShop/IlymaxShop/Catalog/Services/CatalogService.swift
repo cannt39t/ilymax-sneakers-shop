@@ -32,14 +32,14 @@ class CatalogService {
         }
     }
     
-    public func getSearchShoes(searchStr: String, completion: @escaping (([Shoes]) -> Void)) {
-        FirestoreManager.shared.getSearchShoes(withNameContaining: searchStr) { shoes, error in
+    func getAllFilterShoes(searchStr: String, selectedGender: String, selectedColor: String, selectedBrand: String, selectedCondition: String, selectedCategory: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
+        FirestoreManager.shared.getAllFilterShoes(searchStr: searchStr, selectedGender: selectedGender, selectedColor: selectedColor, selectedBrand: selectedBrand, selectedCondition: selectedCondition, selectedCategory: selectedCategory){ shoes, error in
             if let error {
                 print(error)
-                completion([])
+                completion([], error)
                 return
             }
-            completion(shoes ?? [])
+            completion(shoes ?? [], error)
         }
     }
     

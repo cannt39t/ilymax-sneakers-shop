@@ -8,8 +8,8 @@
 import Foundation
 
 class ListOfProductsService {
-    func getAllFilterShoes(selectedGender: String, selectedColor: String, selectedBrand: String, selectedCondition: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
-        FirestoreManager.shared.getAllFilterShoes(selectedGender: selectedGender, selectedColor: selectedColor, selectedBrand: selectedBrand, selectedCondition: selectedCondition){ shoes, error in
+    func getAllFilterShoes(searchStr: String, selectedGender: String, selectedColor: String, selectedBrand: String, selectedCondition: String, selectedCategory: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
+        FirestoreManager.shared.getAllFilterShoes(searchStr: searchStr, selectedGender: selectedGender, selectedColor: selectedColor, selectedBrand: selectedBrand, selectedCondition: selectedCondition, selectedCategory: selectedCategory){ shoes, error in
             if let error {
                 print(error)
                 completion([], error)

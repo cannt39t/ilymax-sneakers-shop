@@ -270,7 +270,7 @@ extension FirestoreManager {
         }
     }
     
-    public func getAllFilterShoes(selectedGender: String, selectedColor: String, selectedBrand: String, selectedCondition: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
+    public func getAllFilterShoes(searchStr: String, selectedGender: String, selectedColor: String, selectedBrand: String, selectedCondition: String, selectedCategory: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
         
         var query: Query = db.collection("shoes")
         
@@ -288,6 +288,10 @@ extension FirestoreManager {
         
         if selectedCondition != "None" {
             query = query.whereField("condition", isEqualTo: selectedCondition)
+        }
+        
+        if selectedCategory != "None" {
+            query = query.whereField("category", isEqualTo: selectedCategory)
         }
         
         query.getDocuments { (snapshot, error) in
@@ -333,7 +337,13 @@ extension FirestoreManager {
                 }
                 
                 let shoe = Shoes(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
-                shoes.append(shoe)
+                if searchStr != "None" {
+                    if name.lowercased().contains(searchStr.lowercased()) || company.lowercased() ==  searchStr.lowercased() {
+                        shoes.append(shoe)
+                    }
+                } else {
+                    shoes.append(shoe)
+                }
             }
             
             completion(shoes, nil)
@@ -385,61 +395,6 @@ extension FirestoreManager {
                     completion(shoe, nil)
                 }
         }
-    
-    public func getSearchShoes(withNameContaining searchString: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
-        db.collection("shoes")
-//            .whereField("name", isGreaterThanOrEqualTo: searchString.uppercased())
-            .getDocuments { (snapshot, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            guard let snapshot = snapshot else {
-                completion(nil, nil)
-                return
-            }
-            
-            var shoes: [Shoes] = []
-            
-            for document in snapshot.documents {
-                let data = document.data()
-                let id = data["id"] as? String ?? ""
-                let name = data["name"] as? String ?? ""
-                let description = data["description"] as? String ?? ""
-                let color = data["color"] as? String ?? ""
-                let gender = data["gender"] as? String ?? ""
-                let imageUrl = data["image_url"] as? String ?? ""
-                let ownerId = data["owner_id"] as? String ?? ""
-                let company = data["company"] as? String ?? ""
-                let category = data["category"] as? String ?? ""
-                let condition = data["condition"] as? String ?? ""
-                if name.lowercased().contains(searchString.lowercased()) || company.lowercased() ==  searchString.lowercased(){
-                    guard let dataArr = data["data"] as? [[String: Any]] else {
-                        completion(nil, nil)
-                        return
-                    }
-                    
-                    var shoeData: [ShoesDetail] = []
-                    
-                    for dict in dataArr {
-                        let size = dict["size"] as? String ?? ""
-                        let price = dict["price"] as? Double ?? 0
-                        let quantity = dict["quantity"] as? Int ?? 0
-                        
-                        let shoe = ShoesDetail(size: size, price: Float(price), quantity: quantity)
-                        shoeData.append(shoe)
-                    }
-                    
-                    let shoe = Shoes(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
-                    
-                    shoes.append(shoe)
-                }
-            }
-            
-            completion(shoes, nil)
-        }
-    }
     
     public func getCategoryShoes(withCategory categoryString: String, completion: @escaping ([Shoes]?, Error?) -> Void) {
         db.collection("shoes")

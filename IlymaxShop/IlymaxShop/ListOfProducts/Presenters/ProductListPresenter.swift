@@ -20,6 +20,7 @@ class ProductListPresenter {
     weak var view: ProductListViewController?
     var products: [Shoes] = []
     var name: String = ""
+    var searchStr: String = ""
     public var pushShoe: (Shoes) -> Void = {_ in }
     public var presentMoodal: (Shoes) -> Void = {_ in }
 }
@@ -50,8 +51,11 @@ extension ProductListPresenter: ProductListPresenterDelegate {
 //        print("Selected Color: \(selectedColor )")
 //        print("Selected Brand: \(selectedBrand )")
 //        print("Selected Condition: \(selectedCondition )")
-        
-        service.getAllFilterShoes(selectedGender: selectedGender.uppercased(), selectedColor: selectedColor, selectedBrand: selectedBrand, selectedCondition: selectedCondition) { [weak self] products, error  in
+        var category = "None"
+        if searchStr == "None" {
+            category = name
+        }
+        service.getAllFilterShoes(searchStr: searchStr, selectedGender: selectedGender.uppercased(), selectedColor: selectedColor, selectedBrand: selectedBrand, selectedCondition: selectedCondition, selectedCategory : category) { [weak self] products, error  in
             var resultShoes = products
             if selectedSize != "None" {
                 var index = -1
