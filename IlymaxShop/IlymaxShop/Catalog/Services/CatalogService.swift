@@ -42,4 +42,15 @@ class CatalogService {
             completion(shoes ?? [])
         }
     }
+    
+    public func getCategoryShoes(categoryStr: String, completion: @escaping (([Shoes]) -> Void)) {
+        FirestoreManager.shared.getCategoryShoes(withCategory: categoryStr) { shoes, error in
+            if let error {
+                print(error)
+                completion([])
+                return
+            }
+            completion(shoes ?? [])
+        }
+    }
 }

@@ -64,8 +64,13 @@ class CatalogPresenter {
         pushShoe(shoe)
     }
     
-    func pushShoeList(shoes: [Shoes], category: String) {
-        pushListShoes(shoes, category)
+    func pushShoeList(category: String) {
+        catalogService.getCategoryShoes(categoryStr: category) { [weak self] shoes in
+            DispatchQueue.main.async {
+                self?.view?.hideLoader()
+                self?.pushListShoes(shoes, category)
+            }
+        }
     }
     
     func pushSearchShoeList(searchStr: String) {
