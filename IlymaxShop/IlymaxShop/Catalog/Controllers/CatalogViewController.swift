@@ -276,10 +276,6 @@ extension CatalogViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchStr = searchBar.text ?? ""
         if searchStr.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            let alertController = UIAlertController(title: "Search error", message: "The string is empty", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
         } else {
             showLoader()
             presenter.pushSearchShoeList(searchStr: searchStr)
