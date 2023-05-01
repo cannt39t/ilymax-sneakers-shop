@@ -13,7 +13,7 @@ class ProfileCell: UICollectionViewCell {
     public static let identifier = "ProfileCell"
     private let titleLabel: UILabel = .init()
     private let informationLabel: UILabel = .init()
-    private let forwardImage: UIImageView =  .init(image: UIImage(systemName: "chevron.forward")!.withTintColor(.black, renderingMode: .alwaysOriginal))
+    private let forwardImage: UIImageView =  .init(image: UIImage(systemName: "chevron.forward")!.withTintColor(.label, renderingMode: .alwaysOriginal))
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

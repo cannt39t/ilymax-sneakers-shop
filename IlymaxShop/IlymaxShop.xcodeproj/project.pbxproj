@@ -49,6 +49,8 @@
 		055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8029EE8B09008E4C4C /* ChatService.swift */; };
 		055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */; };
 		0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */; };
+		0579046829FFBF4000AD3C81 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579046729FFBF4000AD3C81 /* Location.swift */; };
+		0579046A29FFC0C300AD3C81 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579046929FFC0C300AD3C81 /* LocationPickerViewController.swift */; };
 		0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */; };
 		0579DCAF29F138EB009A620E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAE29F138EB009A620E /* Conversation.swift */; };
 		05975AC429F1C58800DAD37F /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05975AC329F1C58800DAD37F /* Media.swift */; };
@@ -176,6 +178,8 @@
 		055CFB8029EE8B09008E4C4C /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		0579046729FFBF4000AD3C81 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		0579046929FFC0C300AD3C81 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		0579DCAE29F138EB009A620E /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		05975AC329F1C58800DAD37F /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 				05D91E9929ED3C6A00C7FBB7 /* Sender.swift */,
 				0579DCAE29F138EB009A620E /* Conversation.swift */,
 				05975AC329F1C58800DAD37F /* Media.swift */,
+				0579046729FFBF4000AD3C81 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -699,6 +704,7 @@
 				05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */,
 				05975AC529F1E43000DAD37F /* PhotoViewerViewController.swift */,
 				052D4B8F29FB11960011507A /* VideoViewerViewController.swift */,
+				0579046929FFC0C300AD3C81 /* LocationPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1095,6 +1101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */,
+				0579046A29FFC0C300AD3C81 /* LocationPickerViewController.swift in Sources */,
 				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				7EA2176729F7096900D0573F /* ReviewViewController.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
@@ -1108,6 +1115,7 @@
 				0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */,
 				05D3C4BA29D367F100D76EED /* Security.swift in Sources */,
 				05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */,
+				0579046829FFBF4000AD3C81 /* Location.swift in Sources */,
 				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
 				05A5CDA529DB56DA00564CC3 /* CatalogPresenter.swift in Sources */,
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,

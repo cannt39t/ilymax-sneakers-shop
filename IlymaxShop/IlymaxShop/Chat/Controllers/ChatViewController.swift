@@ -31,7 +31,7 @@ class ChatViewController: MessagesViewController {
     private func setupInputButton() {
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 35, height: 35), animated: false)
-        button.setImage(UIImage(systemName: "paperclip")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        button.setImage(UIImage(systemName: "paperclip")?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
         button.onTouchUpInside { [weak self] _ in
             self?.presentInputActionSheet()
         }
@@ -47,11 +47,23 @@ class ChatViewController: MessagesViewController {
         actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self] _ in
             self?.presentVideoInputActionsheet()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
-            
+        actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self] _ in
+            self?.presentLocationPicker()
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(actionSheet, animated: true)
+    }
+    
+    private func presentLocationPicker() {
+        let vc = LocationPickerViewController()
+        vc.completion = { [weak self] selectedCoordinates in
+            let longitude = selectedCoordinates.longitude
+            let latitude = selectedCoordinates.latitude
+            
+            print(longitude)
+            print(latitude)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func presentPhotoInputActionsheet() {
