@@ -13,7 +13,7 @@ class CatalogPresenter {
     weak var view: CatalogViewController?
     private let catalogService = CatalogService()
     public var pushShoe: (Shoes) -> Void = {_ in }
-    public var pushListShoes: ([Shoes]) -> Void = {_ in }
+    public var pushListShoes: ([Shoes], String, String) -> Void = {_, _, _ in }
     
     public func fetchData() {
         let group = DispatchGroup()
@@ -64,8 +64,21 @@ class CatalogPresenter {
         pushShoe(shoe)
     }
     
-    func pushShoeList(shoes: [Shoes]) {
-        pushListShoes(shoes)
+    func pushShoeList(category: String) {
+        catalogService.getCategoryShoes(categoryStr: category) { [weak self] shoes in
+            DispatchQueue.main.async {
+                self?.view?.hideLoader()
+                self?.pushListShoes(shoes, category, "None")
+            }
+        }
     }
     
+    func pushSearchShoeList(searchStr: String) {
+        catalogService.getAllFilterShoes(searchStr: searchStr, selectedGender: "NONE", selectedColor: "None", selectedBrand: "None", selectedCondition: "None", selectedCategory: "None") { [weak self] shoes, error  in
+            DispatchQueue.main.async {
+                self?.view?.hideLoader()
+                self?.pushListShoes(shoes ?? [], searchStr, searchStr)
+            }
+        }
+    }
 }

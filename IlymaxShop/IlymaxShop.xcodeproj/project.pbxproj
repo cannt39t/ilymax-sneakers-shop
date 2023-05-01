@@ -97,6 +97,7 @@
 		7E36E4BF29EEE5F9003D0A7B /* ShoeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4BE29EEE5F9003D0A7B /* ShoeViewPresenter.swift */; };
 		7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */; };
 		7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */; };
+		7E49D90429FF0A9B0049DA9A /* ListOfProductsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E49D90329FF0A9B0049DA9A /* ListOfProductsService.swift */; };
 		7EA2176729F7096900D0573F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA2176629F7096900D0573F /* ReviewViewController.swift */; };
 		7EA2176B29F7099C00D0573F /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA2176A29F7099C00D0573F /* ReviewTableViewCell.swift */; };
 		7EA2176D29F709C100D0573F /* ReviewAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA2176C29F709C100D0573F /* ReviewAddingViewController.swift */; };
@@ -217,6 +218,7 @@
 		7E36E4C029EEE6C4003D0A7B /* ShoeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewController.swift; sourceTree = "<group>"; };
 		7E36E4C229EEEEB6003D0A7B /* ShoeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeViewService.swift; sourceTree = "<group>"; };
 		7E4927A929DDC0F1000129FF /* IlymaxShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IlymaxShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E49D90329FF0A9B0049DA9A /* ListOfProductsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfProductsService.swift; sourceTree = "<group>"; };
 		7EA2176629F7096900D0573F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		7EA2176A29F7099C00D0573F /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		7EA2176C29F709C100D0573F /* ReviewAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAddingViewController.swift; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 		7ED14AA929EF373D00FD7BED /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7E49D90329FF0A9B0049DA9A /* ListOfProductsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1110,6 +1113,7 @@
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
 				7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */,
 				05975AC429F1C58800DAD37F /* Media.swift in Sources */,
+				7E49D90429FF0A9B0049DA9A /* ListOfProductsService.swift in Sources */,
 				05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */,
 				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
 				7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */,
