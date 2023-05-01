@@ -29,11 +29,11 @@ class CartCell: UITableViewCell {
     func setProduct (product: Shoes) {
         productID = product.id!
         nameLabel.text = "\(product.company) \(product.name)"
-        nameLabel.textColor = .black
+        nameLabel.textColor = .label
         sizeLabel.text = "Size: \(product.data[0].size)"
-        sizeLabel.textColor = .black
+        sizeLabel.textColor = .label
         priceLabel.text = "\(product.data[0].price) $"
-        priceLabel.textColor = .black
+        priceLabel.textColor = .label
         guard let imageUrl = product.imageUrl else {
             // Show error message to user if image URL is nil
             return
@@ -64,12 +64,6 @@ class CartCell: UITableViewCell {
             if let error = error {
                 // Show error message to user
                 print("Error loading image: \(error.localizedDescription)")
-            } else {
-//                if cacheType == .memory || cacheType == .disk {
-//                    print("Image loaded from cache")
-//                } else {
-//                    print("Image loaded from network")
-//                }
             }
         }
     }
@@ -77,7 +71,7 @@ class CartCell: UITableViewCell {
     private func setup() {
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.lightGray.cgColor
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .systemBackground
         
         contentView.addSubview(imgImageView)
         

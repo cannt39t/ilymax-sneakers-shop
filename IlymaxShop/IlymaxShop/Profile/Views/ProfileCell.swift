@@ -33,13 +33,13 @@ class ProfileCell: UICollectionViewCell {
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
-        backgroundColor = .white
+        backgroundColor = .secondarySystemBackground
         
         titleLabel.font = titleLabel.font.withSize(20)
-        titleLabel.textColor = .black
+        titleLabel.textColor = .label
         
         informationLabel.font = informationLabel.font.withSize(15)
-        informationLabel.textColor = .gray
+        informationLabel.textColor = .secondaryLabel
     }
     
     private func setup() {

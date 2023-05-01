@@ -14,7 +14,7 @@ class CartHeaderView: UITableViewHeaderFooterView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .black
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +22,7 @@ class CartHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .systemBackground
         
         contentView.addSubview(titleLabel)
         

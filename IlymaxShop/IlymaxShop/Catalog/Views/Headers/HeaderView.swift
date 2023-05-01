@@ -15,13 +15,13 @@ class HeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        showButton.setTitleColor(.black, for: .normal)
-        let image = UIImage(systemName: "chevron.right")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        showButton.setTitleColor(.systemBackground, for: .normal)
+        let image = UIImage(systemName: "chevron.right")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         showButton.setImage(image, for: .normal)
         
          
         // Customize the header view
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         let stack = UIStackView(arrangedSubviews: [label, showButton])
         stack.distribution = .fillProportionally
         

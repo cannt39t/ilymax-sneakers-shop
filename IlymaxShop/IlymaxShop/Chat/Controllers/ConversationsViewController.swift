@@ -39,7 +39,7 @@ class ConversationsViewController: UIViewController {
         
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationItem.title = "Chats"
         
         setupTableView()

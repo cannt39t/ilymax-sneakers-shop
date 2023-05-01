@@ -30,8 +30,9 @@ class UserCell: UICollectionViewCell {
     
     private func setupDesign() {
         nameLabel.font = nameLabel.font.withSize(24)
+        nameLabel.textColor = .label
         
-        emailLabel.textColor = .gray
+        emailLabel.textColor = .secondaryLabel
         
         userImage.contentHorizontalAlignment = .fill
         userImage.contentVerticalAlignment = .fill
@@ -74,13 +75,6 @@ class UserCell: UICollectionViewCell {
     func setUser(user: IlymaxUser) {
         nameLabel.text = user.name
         emailLabel.text = user.emailAddress
-
-//        if let profileUrlImage = UserDefaults.standard.string(forKey: "profile_picture") {
-//            if let imageUrl = URL(string: profileUrlImage) {
-//                configure(with: imageUrl)
-//                return
-//            }
-//        }
         
         if let url = user.profilePictureUrl {
             StorageManager.shared.getImageUrlFromStorageUrl(url) { [weak self] error, imageUrl in

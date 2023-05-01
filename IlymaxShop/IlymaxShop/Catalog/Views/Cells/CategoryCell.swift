@@ -68,12 +68,16 @@ class CategoryCell: UICollectionViewCell {
     }
     
     private func configure(with url: URL) {
-        categoryImage.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+        categoryImage.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { [weak self] (image, error, cacheType, url) in
             if let error = error {
                 print("Error loading image: \(error.localizedDescription)")
+            } else if let image = image {
+                let tintedImage = image.withTintColor(.label, renderingMode: .alwaysOriginal)
+                self?.categoryImage.image = tintedImage
             }
         }
     }
+
     
     override func prepareForReuse() {
         super.prepareForReuse()
