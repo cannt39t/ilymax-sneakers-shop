@@ -74,7 +74,7 @@ extension ProductListPresenter: ProductListPresenterDelegate {
                 if sortOption == "Price High to Low" {
                     resultShoes?.sort { $0.data.first?.price ?? 0 > $1.data.first?.price ?? 0 }
                 } else {
-                    resultShoes?.sort { $0.data.first?.price ?? 0 > $1.data.first?.price ?? 0 }
+                    resultShoes?.sort { $0.data.first?.price ?? 0 < $1.data.first?.price ?? 0 }
                 }
             }
             DispatchQueue.main.async {
