@@ -25,7 +25,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.backgroundColor = .systemBackground
         
         cartTableView = UITableView()
-        cartTableView.backgroundColor = .white
+        cartTableView.backgroundColor = .systemBackground
         cartTableView.delegate = self
         cartTableView.dataSource = self
         
@@ -53,8 +53,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     func setupView() {
         
         buyButton.setTitle("Buy", for: .normal)
-        buyButton.setTitleColor(.white, for: .normal)
-        buyButton.backgroundColor = .black
+        buyButton.setTitleColor(.systemBackground, for: .normal)
+        buyButton.backgroundColor = .label
         buyButton.layer.cornerRadius = 10
         buyButton.addTarget(self, action: #selector(didTapBuyButton), for: .touchUpInside)
         buyButton.isHidden = true
@@ -68,7 +68,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         emptyCartCatalogButton.setTitle("Catalog", for: .normal)
         emptyCartCatalogButton.setTitleColor(.white, for: .normal)
-        emptyCartCatalogButton.backgroundColor = .black
+        emptyCartCatalogButton.backgroundColor = .label
         emptyCartCatalogButton.layer.cornerRadius = 10
         emptyCartCatalogButton.addTarget(self, action: #selector(didTapCatalogButton), for: .touchUpInside)
         emptyCartCatalogButton.isHidden = true

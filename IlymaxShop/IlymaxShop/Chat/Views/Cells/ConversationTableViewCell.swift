@@ -13,21 +13,21 @@ class ConversationTableViewCell: UITableViewCell {
     
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.darkGray, renderingMode: .alwaysOriginal)
+        imageView.image = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 19, weight: .medium)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .darkGray
+        label.textColor = .tertiaryLabel
         return label
     }()
     
@@ -35,6 +35,7 @@ class ConversationTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.numberOfLines = 2
+        label.textColor = .secondaryLabel
         return label
     }()
 
@@ -99,7 +100,10 @@ class ConversationTableViewCell: UITableViewCell {
             }
         }
         
-        let formattedString = DateFormatter.conversationListFormatter.conversationListFormattedString(from: conversation.latestMessage.date)
+        print(conversation)
+        
+        let dateConversation = DateFormatter.dateFormatter.date(from: conversation.latestMessage.date)!
+        let formattedString = DateFormatter.conversationListFormattedString(from: dateConversation)
         userMessageLabel.text = conversation.latestMessage.text
         userNameLabel.text = conversation.name
         dateLabel.text = formattedString

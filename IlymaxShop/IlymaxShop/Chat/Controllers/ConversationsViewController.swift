@@ -12,18 +12,18 @@ class ConversationsViewController: UIViewController {
     
     public let tableView: UITableView = {
         let table = UITableView()
-        //        table.isHidden = true
+        table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         table.register(ConversationTableViewCell.self, forCellReuseIdentifier: ConversationTableViewCell.identifier)
         return table
     }()
     
-    private let noConversationsLabel: UILabel = {
+    public let noConversationsLabel: UILabel = {
         let label = UILabel()
         label.text = "No conversations"
         label.textAlignment = .center
         label.textColor = .gray
-        label.font = .systemFont(ofSize: 21, weight: .medium)
+        label.font = .systemFont(ofSize: 17, weight: .medium)
         label.isHidden = true
         return label
     }()
@@ -39,12 +39,11 @@ class ConversationsViewController: UIViewController {
         
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationItem.title = "Chats"
         
         setupTableView()
         
-        presenter.fetchConversations()
         startListeningForConversations()
     }
     
@@ -65,12 +64,15 @@ class ConversationsViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            noConversationsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noConversationsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
     @objc func didTapComposeButon() {
-        presenter.createNewConversation()
+        presenter.searchUserForConversation(presenter.conversations)
     }
 
 }
@@ -78,18 +80,18 @@ class ConversationsViewController: UIViewController {
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter.conversations.count
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        return presenter.conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         
         
-        let conversation = presenter.conversations[indexPath.section]
+        let conversation = presenter.conversations[indexPath.row]
         cell.configure(with: conversation)
         
         return cell
@@ -97,12 +99,26 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let conversation = presenter.conversations[indexPath.section]
+        let conversation = presenter.conversations[indexPath.row]
         presenter.openChat(conversation: conversation)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            let conversationId = presenter.conversations[indexPath.row].id
+            presenter.deleteConversation(conversationId: conversationId, indexPath: indexPath)
+            tableView.endUpdates()
+        }
+    }
+    
     
 }

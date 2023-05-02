@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class ChatPresenter {
     
@@ -23,6 +24,9 @@ class ChatPresenter {
     public var isNewConversation = false
     
     public var openImageCoordinator: (URL) -> () = { _ in }
+    public var openVideoCoordinator: (URL) -> () = { _ in }
+    public var showPickerLocationCoordinator: (@escaping (CLLocationCoordinate2D) -> ()) -> () = { _ in }
+    public var openLocationCoordinator: (CLLocationCoordinate2D) -> () = { _ in }
     
     var currentUserEmailAddress: String = {
         guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
@@ -70,7 +74,6 @@ class ChatPresenter {
                         return
                     }
                     self?.messages = messages
-                    print(messages)
                     DispatchQueue.main.async { [weak self] in
                         self?.view?.messagesCollectionView.reloadData()
                     }
@@ -93,7 +96,7 @@ class ChatPresenter {
         guard let id = conversationID else {
             return
         }
-        chatService.sendMessage(to: id, email: otherUser.emailAddress, message: message) { sent in
+        chatService.sendMessage(to: id, email: otherUser.emailAddress, otherUser: otherUser, message: message) { sent in
             if sent {
                 print("New message sent")
             } else {
@@ -113,13 +116,42 @@ class ChatPresenter {
             }
             switch result {
                 case .success(let urlString):
-                    // send message
                     guard let url = URL(string: urlString) else {
                         return
                     }
                     let media = Media(url: url, placeholderImage: UIImage(systemName: "photo")!, size: .zero)
                     let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .photo(media))
-                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, message: message) { sent in
+                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, otherUser: strongSelf.otherUser, message: message) { sent in
+                        if sent {
+                            
+                        } else {
+                            
+                        }
+                    }
+                case .failure(let error):
+                    print("message could not upload")
+            }
+        }
+    }
+    
+    func uploadVideoMessage(with videoUrl: URL) {
+        guard let messageID = createMessageID(), let conID = conversationID, let sender = selfSender else {
+            return
+        }
+        let cleanedMessageID = messageID.replacingOccurrences(of: " ", with: "-")
+        let filename = "video_message_" + cleanedMessageID + ".mp4"
+        chatService.uploadMessageVideoUrl(videoUrl: videoUrl, filename: filename) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            switch result {
+                case .success(let urlString):
+                    guard let url = URL(string: urlString) else {
+                        return
+                    }
+                    let media = Media(url: url, placeholderImage: UIImage(systemName: "photo")!, size: .zero)
+                    let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .video(media))
+                    self?.chatService.sendMessage(to: conID, email: strongSelf.otherUser.emailAddress, otherUser: strongSelf.otherUser, message: message) { sent in
                         if sent {
                             
                         } else {
@@ -134,6 +166,41 @@ class ChatPresenter {
     
     func openImage(with url: URL) {
         openImageCoordinator(url)
+    }
+    
+    func openVideo(with url: URL) {
+        openVideoCoordinator(url)
+    }
+    
+    
+    func showPickerLocation() {
+        showPickerLocationCoordinator(getLocation(_:))
+    }
+    
+    private func getLocation(_ selectedCoordinates: CLLocationCoordinate2D) {
+        let longitude = selectedCoordinates.longitude
+        let latitude = selectedCoordinates.latitude
+        
+        print(longitude)
+        print(latitude)
+        
+        guard let messageID = createMessageID(), let conID = conversationID, let sender = selfSender else {
+            return
+        }
+        
+        let location = Location(location: CLLocation(latitude: latitude, longitude: longitude), size: .zero)
+        let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .location(location))
+        chatService.sendMessage(to: conID, email: otherUser.emailAddress, otherUser: otherUser, message: message) { sent in
+            if sent {
+                
+            } else {
+                
+            }
+        }
+    }
+    
+    func openLocationWithCoordinates(_ coordinates: CLLocationCoordinate2D) {
+        openLocationCoordinator(coordinates)
     }
 
 }

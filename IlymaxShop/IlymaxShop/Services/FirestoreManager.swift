@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 import MessageKit
+import CoreLocation
 
 
 final class FirestoreManager {
@@ -514,7 +515,7 @@ extension FirestoreManager {
             }
 
             let messageDate = fisrtMessage.sentDate
-            let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+            let dateString = fisrtMessage.sentDate.ISO8601Format()
 
             var message = ""
 
@@ -524,11 +525,11 @@ extension FirestoreManager {
                 case .attributedText(_):
                     break
                 case .photo(_):
-                    break
+                    message = "Photo"
                 case .video(_):
-                    break
+                    message = "Video"
                 case .location(_):
-                    break
+                    message = "Location"
                 case .emoji(_):
                     break
                 case .audio(_):
@@ -639,7 +640,7 @@ extension FirestoreManager {
         }
         
         let messageDate = firstMessage.sentDate
-        let dateString = DateFormatter.dateFormatter.string(from: messageDate)
+        let dateString = messageDate.ISO8601Format()
         
         var content = ""
 
@@ -653,9 +654,14 @@ extension FirestoreManager {
                     content = urlImage
                 }
                 break
-            case .video(_):
+            case .video(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
                 break
-            case .location(_):
+            case .location(let locationItem):
+                let location = locationItem.location
+                content = "\(location.coordinate.longitude)|\(location.coordinate.latitude)"
                 break
             case .emoji(_):
                 break
@@ -759,6 +765,7 @@ extension FirestoreManager {
                     let type = message["type"] as? String,
                     let dateString = message["date"] as? String,
                     let date = DateFormatter.dateFormatter.date(from: dateString) else {
+                        print("Could not parse message")
                         continue
                 }
                 
@@ -769,8 +776,23 @@ extension FirestoreManager {
                         guard let imageUrl = URL(string: content) else {
                             return
                         }
-                        let media = Media(url: imageUrl, placeholderImage: UIImage(systemName: "photo")!, size: CGSize(width: 300, height: 300))
+                        let media = Media(url: imageUrl, placeholderImage: UIImage(systemName: "photo")!.withTintColor(.gray, renderingMode: .alwaysOriginal), size: CGSize(width: 300, height: 300))
                         kind = .photo(media)
+                    case "video":
+                        guard let videoUrl = URL(string: content) else {
+                            return
+                        }
+                        let media = Media(url: videoUrl, placeholderImage: UIImage(systemName: "video.fill")!.withTintColor(.gray, renderingMode: .alwaysOriginal), size: CGSize(width: 300, height: 300))
+                        kind = .video(media)
+                    case "location":
+                        let locationComponents = content.components(separatedBy: "|")
+                        guard let long = Double(locationComponents[0]), let latt = Double(locationComponents[1]) else {
+                            return
+                        }
+                        print(long)
+                        print(latt)
+                        let location = Location(location: CLLocation(latitude: latt, longitude: long), size: CGSize(width: 300, height: 300))
+                        kind = .location(location)
                     default:
                         break
                 }
@@ -778,7 +800,7 @@ extension FirestoreManager {
                 let sender = Sender(photoURL: "", senderId: senderEmail, displayName: name)
 
                 let message = Message(sender: sender, messageId: id, sentDate: date, kind: kind)
-
+                
                 allMessages.append(message)
             }
 
@@ -788,7 +810,7 @@ extension FirestoreManager {
 
     
     /// Send message to current conversation
-    public func sendMessage(conversationID: String, email: String, message: Message, completion: @escaping (Bool) -> Void) {
+    public func sendMessage(conversationID: String, email: String, otherUser: IlymaxUser, message: Message, completion: @escaping (Bool) -> Void) {
         guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             completion(false)
             return
@@ -798,6 +820,11 @@ extension FirestoreManager {
             completion(false)
             return
         }
+        
+        
+        let currentUser = IlymaxUser(name: currentUserName, emailAddress: currentEmail, profilePictureUrl: nil)
+        print(otherUser)
+        print(currentUser)
         
         let messageDate = message.sentDate
         let dateString = DateFormatter.dateFormatter.string(from: messageDate)
@@ -814,9 +841,14 @@ extension FirestoreManager {
                     content = urlImage
                 }
                 break
-            case .video(_):
+            case .video(let mediaItem):
+                if let urlImage = mediaItem.url?.absoluteString {
+                    content = urlImage
+                }
                 break
-            case .location(_):
+            case .location(let locationItem):
+                let location = locationItem.location
+                content = "\(location.coordinate.longitude)|\(location.coordinate.latitude)"
                 break
             case .emoji(_):
                 break
@@ -847,9 +879,9 @@ extension FirestoreManager {
             if error != nil {
                 completion(false)
             } else {
-                self?.updateConversationLatestMessage(conversationId: conversationID, email: currentEmail, latestMessage: message) { updated in
+                self?.updateConversationLatestMessage(conversationId: conversationID, email: currentEmail, otherUser: otherUser, latestMessage: message) { updated in
                     if updated {
-                        self?.updateConversationLatestMessage(conversationId: conversationID, email: email, latestMessage: message) { updated in
+                        self?.updateConversationLatestMessage(conversationId: conversationID, email: email, otherUser: currentUser, latestMessage: message) { updated in
                             if updated {
                                 completion(true)
                             } else {
@@ -864,7 +896,7 @@ extension FirestoreManager {
         }
     }
     
-    public func updateConversationLatestMessage(conversationId: String, email: String, latestMessage: [String: Any], completion: @escaping (Bool) -> Void) {
+    public func updateConversationLatestMessage(conversationId: String, email: String, otherUser: IlymaxUser, latestMessage: [String: Any], completion: @escaping (Bool) -> Void) {
         guard let dateString = latestMessage["date"], let content = latestMessage["content"] else {
             completion(false)
             return
@@ -883,10 +915,10 @@ extension FirestoreManager {
                 return
             }
             if let conversationData = document?.data(),
-                var existingConversations = conversationData["conversations"] as? [[String: Any]] {
+               var existingConversations = conversationData["conversations"] as? [[String: Any]] {
                 for (index, conversation) in existingConversations.enumerated() {
                     if let id = conversation["id"] as? String,
-                        id == conversationId {
+                       id == conversationId {
                         existingConversations[index]["latest_message"] = latestMessageData
                         conversationRef.setData(["conversations": existingConversations], merge: true) { error in
                             guard error == nil else {
@@ -898,10 +930,152 @@ extension FirestoreManager {
                         return
                     }
                 }
+                // Conversation with the given ID not found, so create a new one and append to existing conversations
+                let newConversation: [String: Any] = [
+                    "id": conversationId,
+                    "latest_message": latestMessageData,
+                    "name": otherUser.name,
+                    "other_user_email": otherUser.emailAddress
+                ]
+                existingConversations.append(newConversation)
+                conversationRef.setData(["conversations": existingConversations], merge: true) { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
+            } else {
+                // User has no existing conversations, so create a new one
+                let newConversation: [String: Any] = [
+                    "id": conversationId,
+                    "latest_message": latestMessageData,
+                    "name": otherUser.name,
+                    "other_user_email": otherUser.emailAddress
+                ]
+                conversationRef.setData(["conversations": [newConversation]], merge: true) { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
             }
-            completion(false)
         }
     }
+
+    
+    private func getConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        let conversationRef = db.collection("conversations").document(email.lowercased())
+        
+        conversationRef.getDocument { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success([]))
+                return
+            }
+            
+            guard let data = snapshot.data(), let conversations = data["conversations"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            var allConversations: [Conversation] = []
+            
+            for conversation in conversations {
+                guard let id = conversation["id"] as? String,
+                      let name = conversation["name"] as? String,
+                      let otherUserEmail = conversation["other_user_email"] as? String,
+                      let latestMessageDict = conversation["latest_message"] as? [String: Any],
+                      let latestMessageDate = latestMessageDict["date"] as? String,
+                      let latestMessageText = latestMessageDict["message"] as? String,
+                      let latestMessageIsRead = latestMessageDict["is_read"] as? Bool else {
+                    continue
+                }
+                
+                let latestMessage = LatestMessage(date: latestMessageDate, text: latestMessageText, isRead: latestMessageIsRead)
+                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
+                
+                allConversations.append(conversation)
+            }
+            
+            completion(.success(allConversations))
+        }
+    }
+
+    
+    public func deleteConversation(conversationId: String, completion: @escaping (Bool) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(false)
+            return
+        }
+        
+        getConversations(for: currentEmail) { [weak self] result in
+            switch result {
+                case .success(var conversations):
+                    conversations.removeAll(where: { $0.id == conversationId })
+                    self?.updateConversations(for: currentEmail, with: conversations) { updated in
+                        completion(updated)
+                    }
+                case .failure(_):
+                    completion(false)
+            }
+        }
+    }
+
+    
+    public func updateConversations(for email: String, with conversations: [Conversation], completion: @escaping (Bool) -> Void) {
+        let conversationRef = db.collection("conversations").document(email.lowercased())
+        
+        // Convert the array of conversations to an array of dictionaries
+        let conversationsData = conversations.map { conversation -> [String: Any] in
+            let latestMessage = conversation.latestMessage
+            let conversationData: [String: Any] = [
+                "id": conversation.id,
+                "name": conversation.name,
+                "other_user_email": conversation.otherUserEmail,
+                "latest_message": [
+                    "date": latestMessage.date,
+                    "message": latestMessage.text,
+                    "is_read": latestMessage.isRead
+                ] as [String : Any]
+            ]
+            return conversationData
+        }
+        
+        conversationRef.setData(["conversations": conversationsData]) { error in
+            if let error = error {
+                print("Error updating conversations: \(error)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
+    
+    public func getConversation(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            completion(.failure(NSError()))
+            return
+        }
+        
+        getConversations(for: targetRecipientEmail) { result in
+            switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let conversations):
+                    if let conversationBetween2Users = conversations.first(where: {
+                        $0.otherUserEmail == currentEmail
+                    }) {
+                        completion(.success(conversationBetween2Users.id))
+                    } else {
+                        completion(.failure(NSError()))
+                    }
+            }
+        }
+    }
+
+
 }
 
 

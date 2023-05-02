@@ -14,7 +14,7 @@ final class StorageManager {
     
     private let storage = Storage.storage()
     
-    public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
+    public typealias UploadContentResult = (Result<String, Error>) -> Void
     
     public enum StorageErrors: Error {
         case failedToUpload
@@ -69,7 +69,7 @@ final class StorageManager {
     }
     
     /// Add image of user profile to database
-    public func insertImageUser2(_ userId: String, _ image: Data, completion: @escaping UploadPictureCompletion) {
+    public func insertImageUser2(_ userId: String, _ image: Data, completion: @escaping UploadContentResult) {
         let storageRef = storage.reference()
         let imageRef = "users/images/\(userId).jpg"
         let userRef = storageRef.child(imageRef)
@@ -152,7 +152,7 @@ final class StorageManager {
     
     
     /// Upload image that will be sent in a conversation message
-    public func uploadMessagePhoto(with data: Data, filename: String, completion: @escaping UploadPictureCompletion) {
+    public func uploadMessagePhoto(with data: Data, filename: String, completion: @escaping UploadContentResult) {
         let storageRef = storage.reference()
         let imageRef = "message_images/\(filename)"
         let userRef = storageRef.child(imageRef)
@@ -175,5 +175,32 @@ final class StorageManager {
         }
     }
     
-    
+    /// Upload video that will be sent in a conversation message
+    public func uploadMessageVideo(file: URL, filename: String, completion: @escaping UploadContentResult) {
+        let name = filename
+        do {
+            let data = try Data(contentsOf: file)
+            
+            let storageRef = storage.reference().child("message_videos").child(name)
+            if let uploadData = data as Data? {
+                let metaData = StorageMetadata()
+                metaData.contentType = "video/mp4"
+                storageRef.putData(uploadData, metadata: metaData, completion: { (metadata, error) in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else{
+                        storageRef.downloadURL { (url, error) in
+                            guard let downloadURL = url else {
+                                completion(.failure(StorageErrors.failedToGetURL))
+                                return
+                            }
+                            completion(.success(downloadURL.absoluteString))
+                        }
+                    }
+                })
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }

@@ -31,7 +31,7 @@ class ChatViewController: MessagesViewController {
     private func setupInputButton() {
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 35, height: 35), animated: false)
-        button.setImage(UIImage(systemName: "paperclip")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        button.setImage(UIImage(systemName: "paperclip")?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
         button.onTouchUpInside { [weak self] _ in
             self?.presentInputActionSheet()
         }
@@ -45,13 +45,17 @@ class ChatViewController: MessagesViewController {
             self?.presentPhotoInputActionsheet()
         }))
         actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self] _ in
-            
+            self?.presentVideoInputActionsheet()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
-            
+        actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self] _ in
+            self?.presentLocationPicker()
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(actionSheet, animated: true)
+    }
+    
+    private func presentLocationPicker() {
+        presenter.showPickerLocation()
     }
     
     private func presentPhotoInputActionsheet() {
@@ -63,13 +67,38 @@ class ChatViewController: MessagesViewController {
             picker.delegate = self
             picker.allowsEditing = true
             self?.present(picker, animated: true)
-            
         }))
         actionSheet.addAction(UIAlertAction(title: "Photo Libary", style: .default, handler: { [weak self] _ in
             
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary
             picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(actionSheet, animated: true)
+    }
+    
+    private func presentVideoInputActionsheet() {
+        let actionSheet = UIAlertController(title: "Attach Video", message: "What would you like to attach a video from?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.mediaTypes = ["public.movie"]
+            picker.videoQuality = .typeMedium
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Libary", style: .default, handler: { [weak self] _ in
+            
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.mediaTypes = ["public.movie"]
+            picker.videoQuality = .typeMedium
             picker.allowsEditing = true
             self?.present(picker, animated: true)
             
@@ -87,12 +116,11 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage, let imageData = image.pngData() else {
-            return
+        if let image = info[.editedImage] as? UIImage, let imageData = image.pngData() {
+            presenter.uploadPhotoMessage(with: imageData)
+        } else if let videoUrl = info[.mediaURL] as? URL {
+            presenter.uploadVideoMessage(with: videoUrl)
         }
-        presenter.uploadPhotoMessage(with: imageData)
-        // Upload image
-        // Send message
     }
     
 }
@@ -111,7 +139,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         if presenter.isNewConversation {
             presenter.sendFirstMessage(message: message)
         } else {
-            // append to existing conversation data
             presenter.sendMessage(message)
         }
         inputBar.inputTextView.text = ""
@@ -167,6 +194,26 @@ extension ChatViewController: MessageCellDelegate {
                     return
                 }
                 presenter.openImage(with: imageUrl)
+            case .video(let media):
+                guard let videoUrl = media.url else {
+                    return
+                }
+                presenter.openVideo(with: videoUrl)
+            default:
+                break
+        }
+    }
+    
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+            return
+        }
+        let message = presenter.messages[indexPath.section]
+        
+        switch message.kind {
+            case .location(let locationItem):
+                let locationCoordinates = locationItem.location.coordinate
+                presenter.openLocationWithCoordinates(locationCoordinates)
             default:
                 break
         }

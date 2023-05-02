@@ -22,14 +22,20 @@ class ChatService {
         }
     }
     
-    func sendMessage(to: String, email: String, message: Message, completion: @escaping (Bool) -> Void)  {
-        FirestoreManager.shared.sendMessage(conversationID: to, email: email, message: message) { result in
+    func sendMessage(to: String, email: String, otherUser: IlymaxUser, message: Message, completion: @escaping (Bool) -> Void)  {
+        FirestoreManager.shared.sendMessage(conversationID: to, email: email, otherUser: otherUser, message: message) { result in
             completion(result)
         }
     }
     
-    func uploadImageDataMessage(imageData: Data, filename: String, completion: @escaping StorageManager.UploadPictureCompletion) {
+    func uploadImageDataMessage(imageData: Data, filename: String, completion: @escaping StorageManager.UploadContentResult) {
         StorageManager.shared.uploadMessagePhoto(with: imageData, filename: filename) { result in
+            completion(result)
+        }
+    }
+    
+    func uploadMessageVideoUrl(videoUrl: URL, filename: String, completion: @escaping StorageManager.UploadContentResult) {
+        StorageManager.shared.uploadMessageVideo(file: videoUrl, filename: filename) { result in
             completion(result)
         }
     }

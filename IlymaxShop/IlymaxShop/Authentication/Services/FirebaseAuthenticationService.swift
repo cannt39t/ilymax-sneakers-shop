@@ -28,11 +28,10 @@ class FirebaseAuthenticationService: AuthenticationService {
     
     func login(email: String, password: String, completion:  @escaping ((Error?) -> Void)) {
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            guard let result = result, error == nil else {
+            guard let _ = result, error == nil else {
                 completion(error)
                 return
             }
-            print(result)
             completion(nil)
         }
     }

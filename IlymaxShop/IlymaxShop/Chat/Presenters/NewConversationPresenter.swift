@@ -11,9 +11,14 @@ class NewConversationPresenter {
     
     weak var view: NewConversationViewController?
     let newConversationService: NewConversationService = NewConversationService()
+    
     var startNewConversation: (IlymaxUser) -> Void = {_ in }
+    var openExistingConversation: (Conversation) -> Void = { _ in }
+    var openExistingDeletedConversation: (IlymaxUser, String) -> Void = { (_, _) in }
+    var dismissSearchController: () -> () = {}
     
     private var users: [IlymaxUser] = []
+    public var existingConversations: [Conversation] = []
     private var hasFetch = false
     
     func searchUsers(query: String) {
@@ -53,6 +58,28 @@ class NewConversationPresenter {
             view?.tableView.isHidden = false
             view?.noResultsLabel.isHidden = true
             view?.tableView.reloadData()
+        }
+    }
+    
+    public func startConversation(with targetUser: IlymaxUser) {
+        dismissSearchController()
+        if let targetConveration = existingConversations.first(where: {
+            $0.otherUserEmail == targetUser.emailAddress
+        }) {
+            openExistingConversation(targetConveration)
+        } else {
+            newConversationService.getConversationForUser(with: targetUser.emailAddress) { [weak self] result in
+                switch result {
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            self?.startNewConversation(targetUser)
+                        }
+                    case .success(let conversationId):
+                        DispatchQueue.main.async {
+                            self?.openExistingDeletedConversation(targetUser, conversationId)
+                        }
+                }
+            }
         }
     }
     

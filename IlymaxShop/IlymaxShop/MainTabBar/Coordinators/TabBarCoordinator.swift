@@ -19,22 +19,22 @@ class TabBarCoordinator {
         let tabBarController = UITabBarController()
         self.tabBarController = tabBarController
         tabBarController.viewControllers = [catalog(), cart(), publicShoes(), chat(), profile()]
-        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.tabBar.backgroundColor = .systemBackground
         return tabBarController
     }
     
     func catalog() -> UIViewController {
         let catalogCoordinator = CatalogCoordinator()
         let catalogController = catalogCoordinator.start()
-        let image = UIImage(systemName: "house")?.withTintColor(.gray)
-        let selectedImage = UIImage(systemName: "house")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "house")?.withTintColor(.tertiarySystemBackground)
+        let selectedImage = UIImage(systemName: "house")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         catalogController.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
         return catalogController
     }
     
     func cart() -> UIViewController {
-        let image = UIImage(systemName: "cart")?.withTintColor(.gray)
-        let selectedImage = UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "cart")?.withTintColor(.tertiarySystemBackground)
+        let selectedImage = UIImage(systemName: "cart")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let controller = NoAuthViewController()
@@ -53,7 +53,7 @@ class TabBarCoordinator {
     func publicShoes() -> UIViewController {
         let originalImage = UIImage(systemName: "plus.circle.fill")
         let imageSize = CGSize(width: 50, height: 50)
-        let resizedImage = originalImage?.resizedImage(targetSize: imageSize)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let resizedImage = originalImage?.resizedImage(targetSize: imageSize)?.withTintColor(.label, renderingMode: .alwaysOriginal)
 
         let tabBarItem = UITabBarItem(title: "", image: resizedImage, selectedImage: resizedImage)
         tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 7, right: 0)
@@ -73,8 +73,8 @@ class TabBarCoordinator {
 
     
     func chat() -> UIViewController {
-        let image = UIImage(systemName: "message.badge")?.withTintColor(.gray)
-        let selectedImage = UIImage(systemName: "message.badge")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "message.badge")?.withTintColor(.tertiarySystemBackground)
+        let selectedImage = UIImage(systemName: "message.badge")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let controller = NoAuthViewController()
@@ -91,8 +91,8 @@ class TabBarCoordinator {
     }
     
     func profile() -> UIViewController {
-        let image = UIImage(systemName: "person")?.withTintColor(.gray)
-        let selectedImage = UIImage(systemName: "person")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "person")?.withTintColor(.tertiarySystemBackground)
+        let selectedImage = UIImage(systemName: "person")?.withTintColor(.label, renderingMode: .alwaysOriginal)
     
         let controller = validateAuth()
         controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
@@ -123,6 +123,7 @@ class TabBarCoordinator {
     }
     
     private func test() {
+//        try? FirebaseAuth.Auth.auth().signOut()
 //        let review = IlymaxReview(text: "norm", rate: 5, authorId: "12", shoesId: "12", date: Date())
 //        FirestoreManager.shared.insertReview(review) { result in
 //            switch result {
