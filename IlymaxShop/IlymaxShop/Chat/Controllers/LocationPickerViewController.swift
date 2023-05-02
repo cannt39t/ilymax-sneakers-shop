@@ -18,29 +18,49 @@ class LocationPickerViewController: UIViewController {
     }()
     
     private var coordinates: CLLocationCoordinate2D?
-    
+    private var isPiackable = true
     public var completion: (CLLocationCoordinate2D) -> () = {_ in }
-
+    
+    init(coordinates: CLLocationCoordinate2D? = nil) {
+        self.coordinates = coordinates
+        self.isPiackable = false
+        super.init(nibName: nil, bundle: nil )
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        title = "Pick Location"
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemBackground
         view.addSubview(map)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(sendButtonPated))
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMap ))
-        gesture.numberOfTapsRequired = 1
-        gesture.numberOfTouchesRequired = 1
-        map.addGestureRecognizer(gesture)
-        map.isUserInteractionEnabled = true
+        if isPiackable {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(sendButtonPated))
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMap ))
+            gesture.numberOfTapsRequired = 1
+            gesture.numberOfTouchesRequired = 1
+            map.addGestureRecognizer(gesture)
+            map.isUserInteractionEnabled = true
+        } else {
+            guard let coordinates = coordinates else {
+                return
+            }
+            let pin = MKPointAnnotation()
+            pin.coordinate = coordinates
+            map.addAnnotation(pin)
+        }
     }
     
     @objc private func sendButtonPated() {
         guard let coordinates = coordinates else {
+            showAlert()
             return
         }
+        navigationController?.popViewController(animated: true)
         completion(coordinates)
     }
     
@@ -67,6 +87,13 @@ class LocationPickerViewController: UIViewController {
             map.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             map.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Where?", message: "Please choose location that you want to send", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true, completion: nil)
     }
 
 }

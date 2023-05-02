@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class ChatPresenter {
     
@@ -24,6 +25,8 @@ class ChatPresenter {
     
     public var openImageCoordinator: (URL) -> () = { _ in }
     public var openVideoCoordinator: (URL) -> () = { _ in }
+    public var showPickerLocationCoordinator: (@escaping (CLLocationCoordinate2D) -> ()) -> () = { _ in }
+    public var openLocationCoordinator: (CLLocationCoordinate2D) -> () = { _ in }
     
     var currentUserEmailAddress: String = {
         guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
@@ -167,6 +170,37 @@ class ChatPresenter {
     
     func openVideo(with url: URL) {
         openVideoCoordinator(url)
+    }
+    
+    
+    func showPickerLocation() {
+        showPickerLocationCoordinator(getLocation(_:))
+    }
+    
+    private func getLocation(_ selectedCoordinates: CLLocationCoordinate2D) {
+        let longitude = selectedCoordinates.longitude
+        let latitude = selectedCoordinates.latitude
+        
+        print(longitude)
+        print(latitude)
+        
+        guard let messageID = createMessageID(), let conID = conversationID, let sender = selfSender else {
+            return
+        }
+        
+        let location = Location(location: CLLocation(latitude: latitude, longitude: longitude), size: .zero)
+        let message = Message(sender: sender, messageId: messageID, sentDate: Date(), kind: .location(location))
+        chatService.sendMessage(to: conID, email: otherUser.emailAddress, otherUser: otherUser, message: message) { sent in
+            if sent {
+                
+            } else {
+                
+            }
+        }
+    }
+    
+    func openLocationWithCoordinates(_ coordinates: CLLocationCoordinate2D) {
+        openLocationCoordinator(coordinates)
     }
 
 }

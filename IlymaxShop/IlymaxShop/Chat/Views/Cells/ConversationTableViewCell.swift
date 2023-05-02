@@ -100,6 +100,8 @@ class ConversationTableViewCell: UITableViewCell {
             }
         }
         
+        print(conversation)
+        
         let dateConversation = DateFormatter.dateFormatter.date(from: conversation.latestMessage.date)!
         let formattedString = DateFormatter.conversationListFormattedString(from: dateConversation)
         userMessageLabel.text = conversation.latestMessage.text

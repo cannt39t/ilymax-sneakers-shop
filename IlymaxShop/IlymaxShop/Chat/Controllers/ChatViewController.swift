@@ -55,15 +55,7 @@ class ChatViewController: MessagesViewController {
     }
     
     private func presentLocationPicker() {
-        let vc = LocationPickerViewController()
-        vc.completion = { [weak self] selectedCoordinates in
-            let longitude = selectedCoordinates.longitude
-            let latitude = selectedCoordinates.latitude
-            
-            print(longitude)
-            print(latitude)
-        }
-        navigationController?.pushViewController(vc, animated: true)
+        presenter.showPickerLocation()
     }
     
     private func presentPhotoInputActionsheet() {
@@ -75,7 +67,6 @@ class ChatViewController: MessagesViewController {
             picker.delegate = self
             picker.allowsEditing = true
             self?.present(picker, animated: true)
-            
         }))
         actionSheet.addAction(UIAlertAction(title: "Photo Libary", style: .default, handler: { [weak self] _ in
             
@@ -84,7 +75,6 @@ class ChatViewController: MessagesViewController {
             picker.delegate = self
             picker.allowsEditing = true
             self?.present(picker, animated: true)
-            
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(actionSheet, animated: true)
@@ -209,6 +199,21 @@ extension ChatViewController: MessageCellDelegate {
                     return
                 }
                 presenter.openVideo(with: videoUrl)
+            default:
+                break
+        }
+    }
+    
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+            return
+        }
+        let message = presenter.messages[indexPath.section]
+        
+        switch message.kind {
+            case .location(let locationItem):
+                let locationCoordinates = locationItem.location.coordinate
+                presenter.openLocationWithCoordinates(locationCoordinates)
             default:
                 break
         }

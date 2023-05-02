@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 import MessageKit
+import CoreLocation
 
 
 final class FirestoreManager {
@@ -393,7 +394,7 @@ extension FirestoreManager {
                 case .video(_):
                     message = "Video"
                 case .location(_):
-                    break
+                    message = "Location"
                 case .emoji(_):
                     break
                 case .audio(_):
@@ -523,7 +524,9 @@ extension FirestoreManager {
                     content = urlImage
                 }
                 break
-            case .location(_):
+            case .location(let locationItem):
+                let location = locationItem.location
+                content = "\(location.coordinate.longitude)|\(location.coordinate.latitude)"
                 break
             case .emoji(_):
                 break
@@ -646,6 +649,15 @@ extension FirestoreManager {
                         }
                         let media = Media(url: videoUrl, placeholderImage: UIImage(systemName: "video.fill")!.withTintColor(.gray, renderingMode: .alwaysOriginal), size: CGSize(width: 300, height: 300))
                         kind = .video(media)
+                    case "location":
+                        let locationComponents = content.components(separatedBy: "|")
+                        guard let long = Double(locationComponents[0]), let latt = Double(locationComponents[1]) else {
+                            return
+                        }
+                        print(long)
+                        print(latt)
+                        let location = Location(location: CLLocation(latitude: latt, longitude: long), size: CGSize(width: 300, height: 300))
+                        kind = .location(location)
                     default:
                         break
                 }
@@ -699,7 +711,9 @@ extension FirestoreManager {
                     content = urlImage
                 }
                 break
-            case .location(_):
+            case .location(let locationItem):
+                let location = locationItem.location
+                content = "\(location.coordinate.longitude)|\(location.coordinate.latitude)"
                 break
             case .emoji(_):
                 break

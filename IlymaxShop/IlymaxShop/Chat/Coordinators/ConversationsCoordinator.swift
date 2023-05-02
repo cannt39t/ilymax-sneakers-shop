@@ -7,7 +7,7 @@
 
 import UIKit
 import AVFoundation
-import AVKit
+import CoreLocation
 
 class ConversationsCoordinator {
     
@@ -33,6 +33,9 @@ class ConversationsCoordinator {
         chatController.presenter = chatPresenter
         chatPresenter.openImageCoordinator = openImage
         chatPresenter.openVideoCoordinator = openVideo
+        chatPresenter.showPickerLocationCoordinator = openMapToSendLocation
+        chatPresenter.openLocationCoordinator = openLocation
+
         chatPresenter.view = chatController
         
         navigationController.pushViewController(chatController, animated: true)
@@ -66,6 +69,8 @@ class ConversationsCoordinator {
         
         chatPresenter.openImageCoordinator = openImage
         chatPresenter.openVideoCoordinator = openVideo
+        chatPresenter.showPickerLocationCoordinator = openMapToSendLocation
+        chatPresenter.openLocationCoordinator = openLocation
         
         navigationController.pushViewController(chatController, animated: true)
     }
@@ -79,7 +84,9 @@ class ConversationsCoordinator {
         
         chatPresenter.openImageCoordinator = openImage
         chatPresenter.openVideoCoordinator = openVideo
-        
+        chatPresenter.showPickerLocationCoordinator = openMapToSendLocation
+        chatPresenter.openLocationCoordinator = openLocation
+
         chatPresenter.isNewConversation = true
         navigationController.pushViewController(chatController, animated: true)
     }
@@ -94,5 +101,19 @@ class ConversationsCoordinator {
         viewer.player = AVPlayer(url: url)
         navigationController.present(viewer, animated: true)
     }
+    
+    func openMapToSendLocation(completion: @escaping (CLLocationCoordinate2D) -> ()) {
+        let locationPickerViewContrller = LocationPickerViewController()
+        locationPickerViewContrller.title = "Pick Location"
+        locationPickerViewContrller.completion = completion
+        navigationController?.pushViewController(locationPickerViewContrller, animated: true)
+    }
+    
+    func openLocation(_ coordiantes: CLLocationCoordinate2D) {
+        let locationPickerViewContrller = LocationPickerViewController(coordinates: coordiantes)
+        locationPickerViewContrller.title = "Location"
+        navigationController?.pushViewController(locationPickerViewContrller, animated: true)
+    }
+    
     
 }
