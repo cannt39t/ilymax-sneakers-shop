@@ -190,7 +190,12 @@ extension ProfileViewController: UICollectionViewDelegate {
             case 0:
                 print(0)
             case 1:
-                print(1)
+                switch indexPath.item {
+                    case 0:
+                        presenter.showMyOrders()
+                    default:
+                        print(indexPath.row)
+                }
             default:
                 print(indexPath)
         }

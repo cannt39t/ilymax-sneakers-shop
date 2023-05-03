@@ -49,6 +49,8 @@
 		055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8029EE8B09008E4C4C /* ChatService.swift */; };
 		055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */; };
 		0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */; };
+		056F94C32A01A62100F04B54 /* OrdersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F94C22A01A62100F04B54 /* OrdersCollectionViewController.swift */; };
+		056F94C52A025DB500F04B54 /* LabelExtesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F94C42A025DB500F04B54 /* LabelExtesion.swift */; };
 		0579046829FFBF4000AD3C81 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579046729FFBF4000AD3C81 /* Location.swift */; };
 		0579046A29FFC0C300AD3C81 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579046929FFC0C300AD3C81 /* LocationPickerViewController.swift */; };
 		0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */; };
@@ -179,6 +181,8 @@
 		055CFB8029EE8B09008E4C4C /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		056F94C22A01A62100F04B54 /* OrdersCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersCollectionViewController.swift; sourceTree = "<group>"; };
+		056F94C42A025DB500F04B54 /* LabelExtesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtesion.swift; sourceTree = "<group>"; };
 		0579046729FFBF4000AD3C81 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		0579046929FFC0C300AD3C81 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		0579DCAC29F130FE009A620E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -440,6 +444,7 @@
 			children = (
 				0565D05B29E8686F008CB4B7 /* UIImageExtension.swift */,
 				055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */,
+				056F94C42A025DB500F04B54 /* LabelExtesion.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -686,6 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				051F101629C8E9AF00877947 /* ProfileViewController.swift */,
+				056F94C22A01A62100F04B54 /* OrdersCollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1132,6 +1138,7 @@
 				05D91E9329ED33FD00C7FBB7 /* ChatViewController.swift in Sources */,
 				055CFB7D29EE8AE6008E4C4C /* ChatPresenter.swift in Sources */,
 				0579DCAF29F138EB009A620E /* Conversation.swift in Sources */,
+				056F94C52A025DB500F04B54 /* LabelExtesion.swift in Sources */,
 				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
 				7ED14ABC29EF39D300FD7BED /* ProductListViewController.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
@@ -1145,6 +1152,7 @@
 				0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */,
 				052D97EE29D9C962008CA67C /* Promotion.swift in Sources */,
 				05D91E9C29ED446000C7FBB7 /* NewConversationViewController.swift in Sources */,
+				056F94C32A01A62100F04B54 /* OrdersCollectionViewController.swift in Sources */,
 				05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */,
 				05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */,
 				7EA2176D29F709C100D0573F /* ReviewAddingViewController.swift in Sources */,

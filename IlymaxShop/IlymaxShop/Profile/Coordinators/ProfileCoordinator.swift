@@ -17,6 +17,8 @@ class ProfileCoordinator {
         profilePresenter.view = profileController
         profileController.presenter = profilePresenter
         
+        profilePresenter.showOrdersCoordinator = goToOrdersList
+        
         return profileController
     }
     
@@ -44,8 +46,8 @@ class ProfileCoordinator {
     }
     
     func goToOrdersList() {
-        let settingsController = UIViewController()
-        navigationController.pushViewController(settingsController, animated: true)
+        let ordersController = OrdersCollectionViewController()
+        navigationController.pushViewController(ordersController, animated: true)
     }
     
     func goToShippingAddressesList() {

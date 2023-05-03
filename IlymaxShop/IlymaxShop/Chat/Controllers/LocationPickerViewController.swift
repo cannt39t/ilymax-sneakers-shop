@@ -18,7 +18,7 @@ class LocationPickerViewController: UIViewController {
     }()
     
     private var coordinates: CLLocationCoordinate2D?
-    private var isPiackable = true
+    public var isPiackable = true
     public var completion: (CLLocationCoordinate2D) -> () = {_ in }
     
     init(coordinates: CLLocationCoordinate2D? = nil) {
@@ -40,7 +40,7 @@ class LocationPickerViewController: UIViewController {
         view.addSubview(map)
         if isPiackable {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(sendButtonPated))
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMap ))
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMap))
             gesture.numberOfTapsRequired = 1
             gesture.numberOfTouchesRequired = 1
             map.addGestureRecognizer(gesture)

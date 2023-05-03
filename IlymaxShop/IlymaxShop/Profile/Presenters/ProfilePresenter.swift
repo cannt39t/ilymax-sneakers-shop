@@ -15,6 +15,8 @@ class ProfilePresenter {
     private let profileService = ProfileService()
     public static var currentUser: IlymaxUser?
     
+    public var showOrdersCoordinator: () -> () = { }
+    
     func fetchUser() {
         profileService.getCurrentUser { [weak self] user in
             if let user {
@@ -44,6 +46,10 @@ class ProfilePresenter {
                     self?.view?.showError(error)
             }
         }
+    }
+    
+    func showMyOrders() {
+        showOrdersCoordinator()
     }
     
     // TODO: Replace these functions on real ones from servies
