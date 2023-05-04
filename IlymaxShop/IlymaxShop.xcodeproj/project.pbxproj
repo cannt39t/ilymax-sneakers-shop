@@ -93,6 +93,7 @@
 		05D91E9C29ED446000C7FBB7 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */; };
 		05D91E9F29ED500400C7FBB7 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9E29ED500400C7FBB7 /* StorageManager.swift */; };
 		05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F351EA29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift */; };
+		05FA8EBD2A044E8000521B5B /* AddressesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */; };
 		7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0229DC86ED005B716B /* PublicShoesPresenter.swift */; };
 		7E1DAD0729DC8AB6005B716B /* SizeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0629DC8AB6005B716B /* SizeCell.swift */; };
 		7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0829DC8F12005B716B /* PublicShoesSizeViewController.swift */; };
@@ -218,6 +219,7 @@
 		05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		05D91E9E29ED500400C7FBB7 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		05F351EA29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
+		05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesCollectionViewController.swift; sourceTree = "<group>"; };
 		7E1DAD0229DC86ED005B716B /* PublicShoesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesPresenter.swift; sourceTree = "<group>"; };
 		7E1DAD0629DC8AB6005B716B /* SizeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeCell.swift; sourceTree = "<group>"; };
 		7E1DAD0829DC8F12005B716B /* PublicShoesSizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesSizeViewController.swift; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 			children = (
 				051F101629C8E9AF00877947 /* ProfileViewController.swift */,
 				056F94C22A01A62100F04B54 /* OrdersCollectionViewController.swift */,
+				05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1123,6 +1126,7 @@
 				051F101529C8E99D00877947 /* CatalogViewController.swift in Sources */,
 				0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */,
 				05D3C4BA29D367F100D76EED /* Security.swift in Sources */,
+				05FA8EBD2A044E8000521B5B /* AddressesCollectionViewController.swift in Sources */,
 				05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */,
 				0579046829FFBF4000AD3C81 /* Location.swift in Sources */,
 				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
