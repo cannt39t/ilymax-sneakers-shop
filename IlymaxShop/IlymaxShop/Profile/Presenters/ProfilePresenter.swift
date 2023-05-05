@@ -13,16 +13,19 @@ class ProfilePresenter {
     
     weak var view: ProfileViewController?
     private let profileService = ProfileService()
-    public static var currentUser: IlymaxUser?
+    public var currentUser: IlymaxUser?
     
-    public var showOrdersCoordinator: () -> () = { }
+    public var showOrdersCoordinator: (IlymaxUser) -> () = { _ in }
+    public var showSettingsCoordinator: (IlymaxUser) -> () = { _ in }
+    public var showAddressesCoordinator: (IlymaxUser) -> () = { _ in }
+    public var showSalesCoordinator: (IlymaxUser) -> () = { _ in }
     
     func fetchUser() {
         profileService.getCurrentUser { [weak self] user in
             if let user {
                 DispatchQueue.main.async {
                     self?.view?.showUserProfile(with: user)
-                    ProfilePresenter.currentUser = user
+                    self?.currentUser = user
                 }
             } else {
                 DispatchQueue.main.async {
@@ -49,7 +52,31 @@ class ProfilePresenter {
     }
     
     func showMyOrders() {
-        showOrdersCoordinator()
+        guard let user = currentUser else {
+            fatalError("No way that this happens")
+        }
+        showOrdersCoordinator(user)
+    }
+    
+    func showMySettings() {
+        guard let user = currentUser else {
+            fatalError("No way that this happens")
+        }
+        showSettingsCoordinator(user)
+    }
+    
+    func showMySales() {
+        guard let user = currentUser else {
+            fatalError("No way that this happens")
+        }
+        showSalesCoordinator(user)
+    }
+    
+    func showMyAddresses() {
+        guard let user = currentUser else {
+            fatalError("No way that this happens")
+        }
+        showAddressesCoordinator(user)
     }
     
     // TODO: Replace these functions on real ones from servies
