@@ -16,7 +16,6 @@ class ProfileViewController: UIViewController {
     public var presenter: ProfilePresenter!
     private var currentUser: IlymaxUser?
     private let hud = JGProgressHUD()
-    private let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,24 +207,29 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     @objc private func tapOnImage() {
-        let alert = UIAlertController(title: "Choose profile image", message: nil, preferredStyle: .actionSheet)
-        let actionPhoto = UIAlertAction(title: "Library", style: .default) { _ in
-            self.imagePicker.sourceType = .photoLibrary
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.delegate = self
-            self.present(self.imagePicker, animated: true, completion: nil)
-        }
-        let actionCamera = UIAlertAction(title: "Camera", style: .default) { _ in
-            self.imagePicker.sourceType = .camera
-            self.imagePicker.delegate = self
-            self.present(self.imagePicker, animated: true, completion: nil)
-        }
-        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                
-        alert.addAction(actionPhoto)
-        alert.addAction(actionCamera)
-        alert.addAction(actionCancel)
-        present(alert, animated: true, completion: nil)
+        presentPhotoInputActionsheet()
+    }
+    
+    private func presentPhotoInputActionsheet() {
+        let actionSheet = UIAlertController(title: "Attach Photo", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Libary", style: .default, handler: { [weak self] _ in
+            
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(actionSheet, animated: true)
     }
 }
 
