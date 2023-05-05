@@ -1,18 +1,18 @@
 //
-//  OrdersCollectionViewController.swift
+//  ListSalesController.swift
 //  IlymaxShop
 //
-//  Created by Илья Казначеев on 02.05.2023.
+//  Created by Илья Казначеев on 05.05.2023.
 //
 
 import UIKit
 import JGProgressHUD
 
 
-class OrdersCollectionViewController: UIViewController {
-
+class ListSalesController: UIViewController {
+    
     public var collectionView: UICollectionView!
-    public var presenter: OrdersPresenter!
+    public var presenter: ListSalesPresenter!
     private let loader = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
@@ -23,9 +23,9 @@ class OrdersCollectionViewController: UIViewController {
         title = "Orders"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         
-//        showLoader()
+        //        showLoader()
         setupCollectionView()
-//        presenter.fetchOrders()
+        //        presenter.fetchOrders()
     }
     
     @objc func backButtonTaped() {
@@ -44,8 +44,7 @@ class OrdersCollectionViewController: UIViewController {
     
 }
 
-
-extension OrdersCollectionViewController: UICollectionViewDataSource {
+extension ListSalesController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,10 +60,10 @@ extension OrdersCollectionViewController: UICollectionViewDataSource {
         cell.backgroundColor = .secondarySystemBackground
         return cell
     }
-
+    
 }
 
-extension OrdersCollectionViewController: UICollectionViewDelegate {
+extension ListSalesController: UICollectionViewDelegate {
     
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {

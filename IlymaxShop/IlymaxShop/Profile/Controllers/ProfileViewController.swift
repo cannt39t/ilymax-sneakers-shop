@@ -193,6 +193,12 @@ extension ProfileViewController: UICollectionViewDelegate {
                 switch indexPath.item {
                     case 0:
                         presenter.showMyOrders()
+                    case 1:
+                        presenter.showMySales()
+                    case 2:
+                        presenter.showMyAddresses()
+                    case 3:
+                        presenter.showMySettings()
                     default:
                         print(indexPath.row)
                 }

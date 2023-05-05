@@ -11,7 +11,7 @@ import JGProgressHUD
 class AddressesCollectionViewController: UIViewController {
 
     public var collectionView: UICollectionView!
-    //    public var presenter: AddressesPresenter!
+    public var presenter: AddressesPresenter!
     private let loader = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
@@ -19,20 +19,17 @@ class AddressesCollectionViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = false
-        title = "Orders"
+        title = "Addresses"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         
-        //        showLoader()
+//        showLoader()
         setupCollectionView()
-        //        presenter.fetchAddresses()
+//        presenter.fetchAddresses()
     }
     
     @objc func backButtonTaped() {
-        //      presenter.backButtonTap()
-        print("asdaf")
+        presenter.backButtonTap()
     }
-    
-    
     
     func showLoader() {
         loader.show(in: self.view, animated: true)
