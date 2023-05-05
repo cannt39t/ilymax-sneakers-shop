@@ -18,6 +18,9 @@ class ProfileCoordinator {
         profileController.presenter = profilePresenter
         
         profilePresenter.showOrdersCoordinator = goToOrdersList
+        profilePresenter.showAddressesCoordinator = goToShippingAddressesList
+        profilePresenter.showSalesCoordinator = goToSellingsList
+        profilePresenter.showSettingsCoordinator = goToSeetings
         
         return profileController
     }
@@ -35,24 +38,57 @@ class ProfileCoordinator {
     
     //TODO: Replace UIViewController by current implementation
     
-    func goToSeetings() {
-        let settingsController = UIViewController()
+    func goToSeetings(for user: IlymaxUser) {
+        let settingsController = SettingsController()
+        
+        let settingsPresenter = SettingsPresenter(currentUser: user)
+        settingsPresenter.back = moveBack
+        
+        settingsController.presenter = settingsPresenter
+        settingsPresenter.view = settingsController
+        
         navigationController.pushViewController(settingsController, animated: true)
     }
     
-    func goToSellingsList() {
-        let settingsController = UIViewController()
-        navigationController.pushViewController(settingsController, animated: true)
+    func goToSellingsList(for user: IlymaxUser) {
+        let salesListController = ListSalesController()
+        
+        let salesListPresenter = ListSalesPresenter(currentUser: user)
+        salesListPresenter.back = moveBack
+        
+        salesListController.presenter = salesListPresenter
+        salesListPresenter.view = salesListController
+        
+        navigationController.pushViewController(salesListController, animated: true)
     }
     
-    func goToOrdersList() {
+    func goToOrdersList(for user: IlymaxUser) {
         let ordersController = OrdersCollectionViewController()
+        
+        let ordersPresenter = OrdersPresenter(currentUser: user)
+        ordersPresenter.back = moveBack
+        
+        ordersPresenter.view = ordersController
+        ordersController.presenter = ordersPresenter
+        
+        
         navigationController.pushViewController(ordersController, animated: true)
     }
     
-    func goToShippingAddressesList() {
-        let settingsController = UIViewController()
-        navigationController.pushViewController(settingsController, animated: true)
+    func goToShippingAddressesList(for user: IlymaxUser) {
+        let addressesCollectionViewController = AddressesCollectionViewController()
+        
+        let addressesCollectionViewPresenter = AddressesPresenter(currentUser: user)
+        addressesCollectionViewPresenter.back = moveBack
+        
+        addressesCollectionViewPresenter.view = addressesCollectionViewController
+        addressesCollectionViewController.presenter = addressesCollectionViewPresenter
+        
+        navigationController.pushViewController(addressesCollectionViewController, animated: true)
+    }
+    
+    func moveBack() {
+        navigationController.popViewController(animated: true)
     }
     
 }
