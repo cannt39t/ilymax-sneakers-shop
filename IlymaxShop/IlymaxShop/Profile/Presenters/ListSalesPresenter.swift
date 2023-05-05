@@ -20,4 +20,8 @@ class ListSalesPresenter {
         self.currentUser = currentUser
     }
     
+    func backButtonTap() {
+        back()
+    }
+    
 }

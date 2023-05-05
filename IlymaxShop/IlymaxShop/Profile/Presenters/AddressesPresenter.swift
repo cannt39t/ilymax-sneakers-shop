@@ -20,4 +20,8 @@ class AddressesPresenter {
         self.currentUser = currentUser
     }
     
+    func backButtonTap() {
+        back()
+    }
+    
 }

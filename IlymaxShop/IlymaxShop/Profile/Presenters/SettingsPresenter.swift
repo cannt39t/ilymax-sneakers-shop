@@ -20,4 +20,8 @@ class SettingsPresenter {
         self.currentUser = currentUser
     }
     
+    func backButtonTap() {
+        back()
+    }
+    
 }
