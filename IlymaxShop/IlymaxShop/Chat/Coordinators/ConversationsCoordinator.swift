@@ -104,6 +104,7 @@ class ConversationsCoordinator {
     
     func openMapToSendLocation(completion: @escaping (CLLocationCoordinate2D) -> ()) {
         let locationPickerViewContrller = LocationPickerViewController()
+        locationPickerViewContrller.isPiackable = true
         locationPickerViewContrller.title = "Pick Location"
         locationPickerViewContrller.completion = completion
         navigationController?.pushViewController(locationPickerViewContrller, animated: true)

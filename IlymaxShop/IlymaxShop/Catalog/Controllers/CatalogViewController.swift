@@ -23,12 +23,22 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     private var cur = 0
     private var timer: Timer?
     
+    private var ilymaxLabel: UILabel = {
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 60, height: 150)))
+        label.text = "ILYMAX"
+        label.textColor = .label
+        label.font = .systemFont(ofSize: 24, weight: .light)
+        label.addCharacterSpacing(kernValue: 15)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        navigationItem.titleView = ilymaxLabel
         showLoader()
         showCollectionView()
         presenter.fetchData()
