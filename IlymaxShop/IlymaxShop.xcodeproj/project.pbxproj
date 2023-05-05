@@ -68,6 +68,13 @@
 		05A5CDA829DB65D700564CC3 /* CatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5CDA729DB65D700564CC3 /* CatalogService.swift */; };
 		05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 05BA97D229D613FA002B7568 /* JGProgressHUD */; };
 		05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA97D429D62151002B7568 /* NoAuthViewController.swift */; };
+		05C1A3C12A059DAC000F5665 /* AddressesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3C02A059DAC000F5665 /* AddressesPresenter.swift */; };
+		05C1A3C32A059DBC000F5665 /* OrdersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3C22A059DBC000F5665 /* OrdersPresenter.swift */; };
+		05C1A3C52A05A059000F5665 /* ListSalesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3C42A05A059000F5665 /* ListSalesPresenter.swift */; };
+		05C1A3C72A05A448000F5665 /* AddressesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3C62A05A448000F5665 /* AddressesService.swift */; };
+		05C1A3C92A05A463000F5665 /* OrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3C82A05A463000F5665 /* OrdersService.swift */; };
+		05C1A3CB2A05A474000F5665 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3CA2A05A474000F5665 /* SettingsService.swift */; };
+		05C1A3CD2A05A487000F5665 /* ListSalesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3CC2A05A487000F5665 /* ListSalesService.swift */; };
 		05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */; };
 		05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */; };
 		05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7229E554D900573EF3 /* ProfileService.swift */; };
@@ -199,6 +206,13 @@
 		05A5CDA429DB56DA00564CC3 /* CatalogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogPresenter.swift; sourceTree = "<group>"; };
 		05A5CDA729DB65D700564CC3 /* CatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogService.swift; sourceTree = "<group>"; };
 		05BA97D429D62151002B7568 /* NoAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuthViewController.swift; sourceTree = "<group>"; };
+		05C1A3C02A059DAC000F5665 /* AddressesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesPresenter.swift; sourceTree = "<group>"; };
+		05C1A3C22A059DBC000F5665 /* OrdersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersPresenter.swift; sourceTree = "<group>"; };
+		05C1A3C42A05A059000F5665 /* ListSalesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesPresenter.swift; sourceTree = "<group>"; };
+		05C1A3C62A05A448000F5665 /* AddressesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesService.swift; sourceTree = "<group>"; };
+		05C1A3C82A05A463000F5665 /* OrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersService.swift; sourceTree = "<group>"; };
+		05C1A3CA2A05A474000F5665 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		05C1A3CC2A05A487000F5665 /* ListSalesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesService.swift; sourceTree = "<group>"; };
 		05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		05CDCA7229E554D900573EF3 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -490,6 +504,9 @@
 			isa = PBXGroup;
 			children = (
 				05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */,
+				05C1A3C02A059DAC000F5665 /* AddressesPresenter.swift */,
+				05C1A3C22A059DBC000F5665 /* OrdersPresenter.swift */,
+				05C1A3C42A05A059000F5665 /* ListSalesPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -498,6 +515,10 @@
 			isa = PBXGroup;
 			children = (
 				05CDCA7229E554D900573EF3 /* ProfileService.swift */,
+				05C1A3C62A05A448000F5665 /* AddressesService.swift */,
+				05C1A3C82A05A463000F5665 /* OrdersService.swift */,
+				05C1A3CA2A05A474000F5665 /* SettingsService.swift */,
+				05C1A3CC2A05A487000F5665 /* ListSalesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1134,7 +1155,9 @@
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
 				7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */,
 				05975AC429F1C58800DAD37F /* Media.swift in Sources */,
+				05C1A3CD2A05A487000F5665 /* ListSalesService.swift in Sources */,
 				7E49D90429FF0A9B0049DA9A /* ListOfProductsService.swift in Sources */,
+				05C1A3CB2A05A474000F5665 /* SettingsService.swift in Sources */,
 				05A5CD9A29DAE4E000564CC3 /* PromotionCell.swift in Sources */,
 				0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */,
 				7E36E4C129EEE6C4003D0A7B /* ShoeViewController.swift in Sources */,
@@ -1144,6 +1167,7 @@
 				0579DCAF29F138EB009A620E /* Conversation.swift in Sources */,
 				056F94C52A025DB500F04B54 /* LabelExtesion.swift in Sources */,
 				05CDCA7629E5563100573EF3 /* FirestoreCollectionProtocol.swift in Sources */,
+				05C1A3C92A05A463000F5665 /* OrdersService.swift in Sources */,
 				7ED14ABC29EF39D300FD7BED /* ProductListViewController.swift in Sources */,
 				05D0673929C9E11500A6BBD7 /* SignUpViewController.swift in Sources */,
 				052D4B9029FB11960011507A /* VideoViewerViewController.swift in Sources */,
@@ -1163,6 +1187,7 @@
 				05D26CED29CB24EF00EFC040 /* IlymaxUser.swift in Sources */,
 				051F101729C8E9AF00877947 /* ProfileViewController.swift in Sources */,
 				05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */,
+				05C1A3C72A05A448000F5665 /* AddressesService.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
@@ -1180,11 +1205,13 @@
 				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ConversationsViewController.swift in Sources */,
+				05C1A3C32A059DBC000F5665 /* OrdersPresenter.swift in Sources */,
 				7ED14AB229EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift in Sources */,
 				7ED14AB429EF396200FD7BED /* TabledContentCollectionViewDelegate.swift in Sources */,
 				05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */,
 				0510F20929F6ED3700175131 /* IlymaxReview.swift in Sources */,
 				7E1DAD0B29DC8F8D005B716B /* PublicShoesImageViewController.swift in Sources */,
+				05C1A3C12A059DAC000F5665 /* AddressesPresenter.swift in Sources */,
 				05A5CDA829DB65D700564CC3 /* CatalogService.swift in Sources */,
 				051F100F29C8E41100877947 /* CartCoordinator.swift in Sources */,
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
@@ -1205,6 +1232,7 @@
 				7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */,
 				7EA2177429F713BC00D0573F /* ShoeViewCoordinator.swift in Sources */,
 				05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */,
+				05C1A3C52A05A059000F5665 /* ListSalesPresenter.swift in Sources */,
 				05D91E9129ED316600C7FBB7 /* ConversationsPresenter.swift in Sources */,
 				7EA2176B29F7099C00D0573F /* ReviewTableViewCell.swift in Sources */,
 				05975AC629F1E43000DAD37F /* PhotoViewerViewController.swift in Sources */,
