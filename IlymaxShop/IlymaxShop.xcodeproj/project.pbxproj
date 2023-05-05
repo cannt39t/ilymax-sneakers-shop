@@ -75,6 +75,9 @@
 		05C1A3C92A05A463000F5665 /* OrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3C82A05A463000F5665 /* OrdersService.swift */; };
 		05C1A3CB2A05A474000F5665 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3CA2A05A474000F5665 /* SettingsService.swift */; };
 		05C1A3CD2A05A487000F5665 /* ListSalesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3CC2A05A487000F5665 /* ListSalesService.swift */; };
+		05C1A3CF2A05A509000F5665 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3CE2A05A509000F5665 /* SettingsPresenter.swift */; };
+		05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D02A05A58D000F5665 /* SettingsController.swift */; };
+		05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */; };
 		05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */; };
 		05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */; };
 		05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7229E554D900573EF3 /* ProfileService.swift */; };
@@ -213,6 +216,9 @@
 		05C1A3C82A05A463000F5665 /* OrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersService.swift; sourceTree = "<group>"; };
 		05C1A3CA2A05A474000F5665 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		05C1A3CC2A05A487000F5665 /* ListSalesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesService.swift; sourceTree = "<group>"; };
+		05C1A3CE2A05A509000F5665 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		05C1A3D02A05A58D000F5665 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesController.swift; sourceTree = "<group>"; };
 		05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		05CDCA7229E554D900573EF3 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -506,6 +512,7 @@
 				05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */,
 				05C1A3C02A059DAC000F5665 /* AddressesPresenter.swift */,
 				05C1A3C22A059DBC000F5665 /* OrdersPresenter.swift */,
+				05C1A3CE2A05A509000F5665 /* SettingsPresenter.swift */,
 				05C1A3C42A05A059000F5665 /* ListSalesPresenter.swift */,
 			);
 			path = Presenters;
@@ -714,8 +721,10 @@
 			isa = PBXGroup;
 			children = (
 				051F101629C8E9AF00877947 /* ProfileViewController.swift */,
-				056F94C22A01A62100F04B54 /* OrdersCollectionViewController.swift */,
 				05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */,
+				056F94C22A01A62100F04B54 /* OrdersCollectionViewController.swift */,
+				05C1A3D02A05A58D000F5665 /* SettingsController.swift */,
+				05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1135,6 +1144,7 @@
 			files = (
 				7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */,
 				0579046A29FFC0C300AD3C81 /* LocationPickerViewController.swift in Sources */,
+				05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */,
 				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				7EA2176729F7096900D0573F /* ReviewViewController.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
@@ -1195,6 +1205,7 @@
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
 				055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */,
 				0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */,
+				05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */,
 				05A5CD9E29DB52A700564CC3 /* CategoryCell.swift in Sources */,
 				05A5CD9C29DB529B00564CC3 /* PopularCell.swift in Sources */,
 				055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */,
@@ -1208,6 +1219,7 @@
 				05C1A3C32A059DBC000F5665 /* OrdersPresenter.swift in Sources */,
 				7ED14AB229EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift in Sources */,
 				7ED14AB429EF396200FD7BED /* TabledContentCollectionViewDelegate.swift in Sources */,
+				05C1A3CF2A05A509000F5665 /* SettingsPresenter.swift in Sources */,
 				05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */,
 				0510F20929F6ED3700175131 /* IlymaxReview.swift in Sources */,
 				7E1DAD0B29DC8F8D005B716B /* PublicShoesImageViewController.swift in Sources */,
