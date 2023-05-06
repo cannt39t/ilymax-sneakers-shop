@@ -28,7 +28,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         label.text = "ILYMAX"
         label.textColor = .label
         label.font = .systemFont(ofSize: 24, weight: .light)
-        label.addCharacterSpacing(kernValue: 15)
+        label.addCharacterSpacing(kernValue: 35)
         return label
     }()
     
@@ -38,12 +38,26 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-        navigationItem.titleView = ilymaxLabel
+        
+        
+        
+        let search = UISearchController(searchResultsController: nil)
+        search.searchBar.delegate = self
+        self.navigationItem.searchController = search
+        navigationItem.hidesSearchBarWhenScrolling = true
+        
+        
+        
+        navigationController?.navigationBar.topItem?.titleView = ilymaxLabel
+        
+//        navigationController?.navigationBar.backItem?.searchController = search
+//        navigationController?.navigationBar.backItem?.searchController?.hidesBottomBarWhenPushed = true
+        
+        
         showLoader()
         showCollectionView()
         presenter.fetchData()
     }
-    
     
     public func showLoader() {
         hud.show(in: self.view, animated: true)
@@ -55,7 +69,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     
     
     public func showCollectionView() {
-        setupSearchBar()
         setupCollectionView()
         setupTimer()
     }
@@ -67,15 +80,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     private func setupSearchBar() {
         searchBar.delegate = self
         searchBar.placeholder = "What are u looking for?"
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(searchBar)
-        
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
     }
     
     private func setupTimer() {
@@ -188,7 +192,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)

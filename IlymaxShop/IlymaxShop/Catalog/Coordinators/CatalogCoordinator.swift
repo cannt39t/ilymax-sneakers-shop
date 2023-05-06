@@ -19,7 +19,6 @@ class CatalogCoordinator {
         catalogPresenter.view = catalogController
         catalogController.presenter = catalogPresenter
         let navigationController = UINavigationController(rootViewController: catalogController)
-        navigationController.hidesBarsOnSwipe = true
         self.navigationController = navigationController
         return navigationController
     }
