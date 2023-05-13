@@ -39,14 +39,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
-        
-        
         let search = UISearchController(searchResultsController: nil)
         search.searchBar.delegate = self
         self.navigationItem.searchController = search
         navigationItem.hidesSearchBarWhenScrolling = true
-        
-        
         
         navigationController?.navigationBar.topItem?.titleView = ilymaxLabel
         
@@ -152,6 +148,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         //supplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
+        header.pinToVisibleBounds = true
         section.boundarySupplementaryItems = [header]
         
         return section
@@ -213,11 +210,9 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
                 print(promotions[indexPath.item])
             case 1:
                 presenter.pushShoeView(shoe: popular[indexPath.item])
-                print(popular[indexPath.item])
             case 2:
                 showLoader()
                 presenter.pushShoeList(category: categories[indexPath.item].name)
-                print(categories[indexPath.item])
             default:
                 print(indexPath)
         }
