@@ -78,6 +78,7 @@
 		05C1A3CF2A05A509000F5665 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3CE2A05A509000F5665 /* SettingsPresenter.swift */; };
 		05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D02A05A58D000F5665 /* SettingsController.swift */; };
 		05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */; };
+		05C1A3D72A068826000F5665 /* SettingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D62A068826000F5665 /* SettingHeader.swift */; };
 		05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */; };
 		05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */; };
 		05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7229E554D900573EF3 /* ProfileService.swift */; };
@@ -219,6 +220,7 @@
 		05C1A3CE2A05A509000F5665 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		05C1A3D02A05A58D000F5665 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesController.swift; sourceTree = "<group>"; };
+		05C1A3D62A068826000F5665 /* SettingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeader.swift; sourceTree = "<group>"; };
 		05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		05CDCA7229E554D900573EF3 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -474,8 +476,8 @@
 		05A437FF29D816BB00AADDB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				05A4380029D8171C00AADDB9 /* UserCell.swift */,
-				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+				05C1A3D52A0687EC000F5665 /* Cells */,
+				05C1A3D42A0687E5000F5665 /* Headers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -504,6 +506,23 @@
 				05A5CDA729DB65D700564CC3 /* CatalogService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		05C1A3D42A0687E5000F5665 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				05C1A3D62A068826000F5665 /* SettingHeader.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		05C1A3D52A0687EC000F5665 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				05A4380029D8171C00AADDB9 /* UserCell.swift */,
+				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		05CDCA6E29E5545000573EF3 /* Presenters */ = {
@@ -1222,6 +1241,7 @@
 				05C1A3CF2A05A509000F5665 /* SettingsPresenter.swift in Sources */,
 				05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */,
 				0510F20929F6ED3700175131 /* IlymaxReview.swift in Sources */,
+				05C1A3D72A068826000F5665 /* SettingHeader.swift in Sources */,
 				7E1DAD0B29DC8F8D005B716B /* PublicShoesImageViewController.swift in Sources */,
 				05C1A3C12A059DAC000F5665 /* AddressesPresenter.swift in Sources */,
 				05A5CDA829DB65D700564CC3 /* CatalogService.swift in Sources */,
