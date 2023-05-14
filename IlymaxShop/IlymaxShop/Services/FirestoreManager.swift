@@ -1205,7 +1205,6 @@ extension FirestoreManager {
             }
             
             if let snapshot = snapshot, snapshot.exists {
-                // If the cart items document exists, add the new item to the existing array
                 cartRef.updateData([
                     "items": FieldValue.arrayUnion([data])
                 ]) { (error) in
@@ -1276,6 +1275,36 @@ extension FirestoreManager {
             }
             
             completion(.success(cartItems))
+        }
+    }
+    
+    
+    func deleteCartItem(userID: String, itemID: String, completion: @escaping (Bool) -> ()) {
+        let cartRef = db.collection(IlymaxCartItem.collectionName).document(userID)
+        cartRef.getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error getting cart items: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            guard let snapshot = snapshot, snapshot.exists else {
+                print("Cart items document does not exist")
+                completion(false)
+                return
+            }
+            
+            cartRef.updateData([
+                "items": FieldValue.arrayRemove([["id": itemID]])
+            ]) { (error) in
+                if let error = error {
+                    print("Error deleting item from cart: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Item deleted from cart")
+                    completion(true)
+                }
+            }
         }
     }
 }
