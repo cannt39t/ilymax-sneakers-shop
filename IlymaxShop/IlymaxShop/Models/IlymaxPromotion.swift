@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Promotion: FirestoreCollectionProtocol {
+struct IlymaxPromotion: FirestoreCollectionProtocol {
     
     static var collectionName: String = "promotions"
     
