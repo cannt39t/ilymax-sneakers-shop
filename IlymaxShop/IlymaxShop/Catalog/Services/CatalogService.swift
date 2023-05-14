@@ -9,7 +9,7 @@ import Foundation
 
 class CatalogService {
     
-    public func getAllPromotions(completion: @escaping (([Promotion]) -> Void)) {
+    public func getAllPromotions(completion: @escaping (([IlymaxPromotion]) -> Void)) {
         FirestoreManager.shared.getAllPromotions { promotions in
             completion(promotions)
         }
