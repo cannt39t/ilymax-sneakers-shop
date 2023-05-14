@@ -11,7 +11,7 @@ class PromotionCell: UICollectionViewCell {
     
     public static let indertifier = "PromotionCell"
     private var promotionImage: UIImageView = .init()
-    private var promotion: Promotion?
+    private var promotion: IlymaxPromotion?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -40,7 +40,7 @@ class PromotionCell: UICollectionViewCell {
         ])
     }
     
-    public func setPromotion(promotion: Promotion) {
+    public func setPromotion(promotion: IlymaxPromotion) {
         promotionImage.image = nil
         self.promotion = promotion
         
