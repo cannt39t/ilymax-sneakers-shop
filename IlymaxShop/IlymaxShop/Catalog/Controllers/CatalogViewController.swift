@@ -16,7 +16,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     private let searchBar = UISearchBar()
     private let hud = JGProgressHUD()
     
-    public var promotions: [Promotion] = []
+    public var promotions: [IlymaxPromotion] = []
     public var popular: [Shoes] = []
     public var categories: [IlymaxCategory] = []
     
@@ -148,7 +148,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         //supplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
-        header.pinToVisibleBounds = true
         section.boundarySupplementaryItems = [header]
         
         return section
