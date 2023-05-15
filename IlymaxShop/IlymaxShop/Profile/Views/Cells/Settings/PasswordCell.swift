@@ -29,7 +29,7 @@ class PasswordCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemGroupedBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
