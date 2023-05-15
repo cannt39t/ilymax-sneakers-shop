@@ -29,14 +29,14 @@ class PersonalnformationCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemGroupedBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
         nameLabel.font = nameLabel.font.withSize(14)
         nameLabel.textColor = .secondaryLabel
         
-        valueTextField.font = nameLabel.font.withSize(16)
+        valueTextField.font = nameLabel.font.withSize(18)
         valueTextField.textColor = .label
     }
     
@@ -53,9 +53,9 @@ class PersonalnformationCell: UICollectionViewCell {
         contentView.addSubview(mainStack)
         
         NSLayoutConstraint.activate([
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 9),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 9),
-            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -9),
+            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -9)
         ])
     }
