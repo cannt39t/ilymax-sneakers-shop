@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        navigationItem.title = "Profile"
         showLoader()
         presenter.fetchUser()
     }
@@ -60,7 +61,6 @@ class ProfileViewController: UIViewController {
 }
     
 extension ProfileViewController: UICollectionViewDataSource {
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
@@ -165,7 +165,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .systemGroupedBackground
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -233,10 +233,11 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
 }
 
+
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let indexPath = IndexPath(row: 0, section: 0) // Change row and section according to your requirement
+            let indexPath = IndexPath(row: 0, section: 0)
             let userCell = collectionView.cellForItem(at: indexPath) as! UserCell
             if let image = pickedImage.fixedOrientation() {
                 print("Fixed image orientation")
