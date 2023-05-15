@@ -88,7 +88,7 @@ final class StorageManager {
                 }
                 let urlString = url.absoluteString
                 
-                FirestoreManager.shared.updateImageProfileUrl(for: userId, imageUrl: imageRef) { error in
+                FirestoreManager.shared.updateImageProfileUrl(for: userId, imageUrl: urlString) { error in
                     if error != nil {
                         completion(.failure(StorageErrors.failedToUpdateProfileImage))
                         return
