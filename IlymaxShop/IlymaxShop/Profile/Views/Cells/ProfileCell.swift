@@ -33,7 +33,7 @@ class ProfileCell: UICollectionViewCell {
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemGroupedBackground
         
         titleLabel.font = titleLabel.font.withSize(20)
         titleLabel.textColor = .label
@@ -62,7 +62,7 @@ class ProfileCell: UICollectionViewCell {
             mainStack.trailingAnchor.constraint(equalTo: forwardImage.leadingAnchor, constant: -12),
             mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             
-            forwardImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            forwardImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             forwardImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
