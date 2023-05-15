@@ -50,6 +50,7 @@ class ConversationsViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorInsetReference = .fromCellEdges
     }
     
     private func startListeningForConversations() {
