@@ -35,6 +35,9 @@
 		05278EEC29EDC9BD00E9FC8C /* ConversationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */; };
 		05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */; };
 		05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */; };
+		052B08DA2A1281AC000ED5DE /* PersonalnformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08D92A1281AC000ED5DE /* PersonalnformationCell.swift */; };
+		052B08DC2A128B49000ED5DE /* PasswordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08DB2A128B49000ED5DE /* PasswordCell.swift */; };
+		052B08DE2A1291E0000ED5DE /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08DD2A1291E0000ED5DE /* NotificationCell.swift */; };
 		052D4B9029FB11960011507A /* VideoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D4B8F29FB11960011507A /* VideoViewerViewController.swift */; };
 		052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97E829D9C8D6008CA67C /* Shoes.swift */; };
 		052D97EE29D9C962008CA67C /* IlymaxPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97ED29D9C962008CA67C /* IlymaxPromotion.swift */; };
@@ -179,6 +182,9 @@
 		05278EEB29EDC9BD00E9FC8C /* ConversationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsService.swift; sourceTree = "<group>"; };
 		05278EED29EDD4ED00E9FC8C /* NewConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationPresenter.swift; sourceTree = "<group>"; };
 		05278EEF29EDD54B00E9FC8C /* NewConversationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationService.swift; sourceTree = "<group>"; };
+		052B08D92A1281AC000ED5DE /* PersonalnformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalnformationCell.swift; sourceTree = "<group>"; };
+		052B08DB2A128B49000ED5DE /* PasswordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCell.swift; sourceTree = "<group>"; };
+		052B08DD2A1291E0000ED5DE /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		052D4B8F29FB11960011507A /* VideoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewerViewController.swift; sourceTree = "<group>"; };
 		052D97E829D9C8D6008CA67C /* Shoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shoes.swift; sourceTree = "<group>"; };
 		052D97ED29D9C962008CA67C /* IlymaxPromotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxPromotion.swift; sourceTree = "<group>"; };
@@ -450,6 +456,16 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		052B08D82A128188000ED5DE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				052B08D92A1281AC000ED5DE /* PersonalnformationCell.swift */,
+				052B08DB2A128B49000ED5DE /* PasswordCell.swift */,
+				052B08DD2A1291E0000ED5DE /* NotificationCell.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		0539C3AE29CDDAAB008F41B4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +540,7 @@
 			children = (
 				05A4380029D8171C00AADDB9 /* UserCell.swift */,
 				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+				052B08D82A128188000ED5DE /* Settings */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1208,6 +1225,7 @@
 				05188D9F29C4FF21004E1D7B /* IlymaxShop.xcdatamodeld in Sources */,
 				05D26CF529CB43A200EFC040 /* LoginPresenter.swift in Sources */,
 				0579DCAD29F130FE009A620E /* ConversationTableViewCell.swift in Sources */,
+				052B08DA2A1281AC000ED5DE /* PersonalnformationCell.swift in Sources */,
 				051F100B29C8E3BD00877947 /* ConversationsCoordinator.swift in Sources */,
 				0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */,
 				052D97EE29D9C962008CA67C /* IlymaxPromotion.swift in Sources */,
@@ -1265,7 +1283,9 @@
 				05D91E9A29ED3C6A00C7FBB7 /* Sender.swift in Sources */,
 				7ED14AB629EF397900FD7BED /* DefaultCollectionViewDelegate.swift in Sources */,
 				05A5CDA229DB54B300564CC3 /* IlymaxCategory.swift in Sources */,
+				052B08DC2A128B49000ED5DE /* PasswordCell.swift in Sources */,
 				7E1DAD0929DC8F12005B716B /* PublicShoesSizeViewController.swift in Sources */,
+				052B08DE2A1291E0000ED5DE /* NotificationCell.swift in Sources */,
 				7EA2177429F713BC00D0573F /* ShoeViewCoordinator.swift in Sources */,
 				05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */,
 				05C1A3C52A05A059000F5665 /* ListSalesPresenter.swift in Sources */,
