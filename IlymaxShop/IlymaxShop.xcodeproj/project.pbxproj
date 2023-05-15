@@ -38,6 +38,8 @@
 		052B08DA2A1281AC000ED5DE /* PersonalnformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08D92A1281AC000ED5DE /* PersonalnformationCell.swift */; };
 		052B08DC2A128B49000ED5DE /* PasswordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08DB2A128B49000ED5DE /* PasswordCell.swift */; };
 		052B08DE2A1291E0000ED5DE /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08DD2A1291E0000ED5DE /* NotificationCell.swift */; };
+		052B08E02A12A27C000ED5DE /* HelpCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08DF2A12A27C000ED5DE /* HelpCenterCell.swift */; };
+		052B08E22A12BA63000ED5DE /* ActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B08E12A12BA62000ED5DE /* ActionCell.swift */; };
 		052D4B9029FB11960011507A /* VideoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D4B8F29FB11960011507A /* VideoViewerViewController.swift */; };
 		052D97E929D9C8D6008CA67C /* Shoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97E829D9C8D6008CA67C /* Shoes.swift */; };
 		052D97EE29D9C962008CA67C /* IlymaxPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D97ED29D9C962008CA67C /* IlymaxPromotion.swift */; };
@@ -185,6 +187,8 @@
 		052B08D92A1281AC000ED5DE /* PersonalnformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalnformationCell.swift; sourceTree = "<group>"; };
 		052B08DB2A128B49000ED5DE /* PasswordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCell.swift; sourceTree = "<group>"; };
 		052B08DD2A1291E0000ED5DE /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		052B08DF2A12A27C000ED5DE /* HelpCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterCell.swift; sourceTree = "<group>"; };
+		052B08E12A12BA62000ED5DE /* ActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCell.swift; sourceTree = "<group>"; };
 		052D4B8F29FB11960011507A /* VideoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewerViewController.swift; sourceTree = "<group>"; };
 		052D97E829D9C8D6008CA67C /* Shoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shoes.swift; sourceTree = "<group>"; };
 		052D97ED29D9C962008CA67C /* IlymaxPromotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxPromotion.swift; sourceTree = "<group>"; };
@@ -462,6 +466,8 @@
 				052B08D92A1281AC000ED5DE /* PersonalnformationCell.swift */,
 				052B08DB2A128B49000ED5DE /* PasswordCell.swift */,
 				052B08DD2A1291E0000ED5DE /* NotificationCell.swift */,
+				052B08DF2A12A27C000ED5DE /* HelpCenterCell.swift */,
+				052B08E12A12BA62000ED5DE /* ActionCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1289,8 +1295,10 @@
 				7EA2177429F713BC00D0573F /* ShoeViewCoordinator.swift in Sources */,
 				05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */,
 				05C1A3C52A05A059000F5665 /* ListSalesPresenter.swift in Sources */,
+				052B08E02A12A27C000ED5DE /* HelpCenterCell.swift in Sources */,
 				05D91E9129ED316600C7FBB7 /* ConversationsPresenter.swift in Sources */,
 				7EA2176B29F7099C00D0573F /* ReviewTableViewCell.swift in Sources */,
+				052B08E22A12BA63000ED5DE /* ActionCell.swift in Sources */,
 				05975AC629F1E43000DAD37F /* PhotoViewerViewController.swift in Sources */,
 				05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */,
 			);
