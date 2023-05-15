@@ -140,7 +140,7 @@ extension ProfileViewController: UICollectionViewDelegate {
         
         //section
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 80, leading: 24, bottom: 24, trailing: 24)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 60, leading: 24, bottom: 24, trailing: 24)
         
         return section
     }
