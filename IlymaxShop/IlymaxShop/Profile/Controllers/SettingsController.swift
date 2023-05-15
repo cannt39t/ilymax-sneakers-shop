@@ -67,11 +67,61 @@ extension SettingsController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .secondarySystemBackground
-        return cell
+        switch indexPath.section {
+            case 0:
+                switch indexPath.item {
+                    case 0:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonalnformationCell.identifier, for: indexPath) as! PersonalnformationCell
+                        cell.configureCell("Name", presenter.currentUser.name)
+                        return cell
+                    case 1:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonalnformationCell.identifier, for: indexPath) as! PersonalnformationCell
+                        cell.configureCell("Email", presenter.currentUser.emailAddress)
+                        return cell
+                    default:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                        cell.backgroundColor = .secondarySystemBackground
+                        return cell
+                }
+            case 1:
+                switch indexPath.item {
+                    case 0:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PasswordCell.identifier, for: indexPath) as! PasswordCell
+                        return cell
+                    default:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                        cell.backgroundColor = .secondarySystemBackground
+                        return cell
+                }
+            case 2:
+                switch indexPath.item {
+                    case 0:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCell.identifier, for: indexPath) as! NotificationCell
+                        cell.setName("Sales")
+                        return cell
+                    case 1:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCell.identifier, for: indexPath) as! NotificationCell
+                        cell.setName("Messages")
+                        return cell
+                    case 2:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCell.identifier, for: indexPath) as! NotificationCell
+                        cell.setName("Delivery status changes")
+                        return cell
+                    default:
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                        cell.backgroundColor = .secondarySystemBackground
+                        return cell
+                }
+//            case 3:
+//                return 3
+//            case 4:
+//                return 1
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                cell.backgroundColor = .secondarySystemBackground
+                return cell
+        }
     }
-    
 }
 
 extension SettingsController: UICollectionViewDelegate {
@@ -101,7 +151,7 @@ extension SettingsController: UICollectionViewDelegate {
         item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
         
         //group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(75))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(90))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         //section
@@ -187,6 +237,9 @@ extension SettingsController: UICollectionViewDelegate {
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(SettingHeader.self, forSupplementaryViewOfKind: "HeaderView", withReuseIdentifier: SettingHeader.identifier)
+        collectionView.register(PersonalnformationCell.self, forCellWithReuseIdentifier: PersonalnformationCell.identifier)
+        collectionView.register(PasswordCell.self, forCellWithReuseIdentifier: PasswordCell.identifier)
+        collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: NotificationCell.identifier)
     }
     
 }
