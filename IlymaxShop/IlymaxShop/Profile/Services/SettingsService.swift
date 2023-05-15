@@ -6,11 +6,17 @@
 //
 
 import Foundation
+import SDWebImage
 
 
 class SettingsService {
     
-    
-    
+    func clearCache(completion: @escaping () -> ()) {
+        let cache = SDImageCache.shared
+        cache.clearMemory()
+        cache.clearDisk {
+            completion()
+        }
+    }
     
 }
