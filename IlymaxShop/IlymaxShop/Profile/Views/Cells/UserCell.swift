@@ -28,6 +28,12 @@ class UserCell: UICollectionViewCell {
         setup()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImage.layer.cornerRadius = userImage.frame.width / 2
+        userImage.clipsToBounds = true
+    }
+    
     private func setupDesign() {
         nameLabel.font = nameLabel.font.withSize(24)
         nameLabel.textColor = .label
@@ -76,33 +82,27 @@ class UserCell: UICollectionViewCell {
         nameLabel.text = user.name
         emailLabel.text = user.emailAddress
         
-        if let url = user.profilePictureUrl {
-            StorageManager.shared.getImageUrlFromStorageUrl(url) { [weak self] error, imageUrl in
-                if let error {
-                    print(error.localizedDescription)
-                    return
-                }
-                
-                if let imageUrl {
-                    self?.configure(with: imageUrl)
-                }
-            }
+        if let imageURLString = user.profilePictureUrl, let imageURL = URL(string: imageURLString) {
+            configure(with: imageURL)
         }
     }
     
     private func configure(with url: URL) {
-        userImage.sd_setImage(with: url, for: .normal, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+        userImage.sd_setImage(with: url, for: .normal, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { [weak self] (image, error, cacheType, url) in
+            guard let strongSelf = self else {
+                fatalError()
+            }
             if let error = error {
                 print("Error loading image: \(error.localizedDescription)")
             }
+            
+            strongSelf.userImage.layer.cornerRadius = strongSelf.userImage.frame.width / 2
+            strongSelf.userImage.clipsToBounds = true
         }
-        userImage.imageView!.layer.cornerRadius = userImage.imageView!.frame.size.height / 2
     }
-    
     
     func setImageProfile(_ image: UIImage) {
         userImage.setImage(image, for: .normal)
         userImage.imageView!.layer.cornerRadius = userImage.imageView!.frame.size.height / 2
     }
-    
 }
