@@ -29,7 +29,7 @@ class NotificationCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemGroupedBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
@@ -51,8 +51,8 @@ class NotificationCell: UICollectionViewCell {
         contentView.addSubview(mainStack)
         
         NSLayoutConstraint.activate([
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 9),
-            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -9),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             toggle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: toggle.centerYAnchor),
         ])
