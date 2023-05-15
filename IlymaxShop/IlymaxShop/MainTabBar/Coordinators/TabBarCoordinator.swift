@@ -123,16 +123,6 @@ class TabBarCoordinator {
     }
     
     private func test() {
-//        try? FirebaseAuth.Auth.auth().signOut()
-//        let review = IlymaxReview(text: "norm", rate: 5, authorId: "12", shoesId: "12", date: Date())
-//        FirestoreManager.shared.insertReview(review) { result in
-//            switch result {
-//                case .success(let id):
-//                    print(id)
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//            }
-//        }
         
     }
 }
