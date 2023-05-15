@@ -15,7 +15,7 @@ class SettingHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .systemBackground
+        backgroundColor = .clear
         label.font = .systemFont(ofSize: 24, weight: .light)
         let stack = UIStackView(arrangedSubviews: [label])
         stack.distribution = .fillProportionally
@@ -24,8 +24,8 @@ class SettingHeader: UICollectionReusableView {
         addSubview(stack)
         
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             stack.bottomAnchor.constraint(equalTo: bottomAnchor),
             stack.topAnchor.constraint(equalTo: topAnchor)
         ])
