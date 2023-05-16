@@ -6,12 +6,23 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var presenter: CartPresenter!
     
-    public var products: [Shoes] = []
+    private let hud = JGProgressHUD()
+    
+    func showLoader() {
+        hud.show(in: self.view, animated: true)
+    }
+    
+    func hideLoader() {
+        hud.dismiss(animated: true)
+    }
+    
+    public var products: [IlymaxCartItem] = []
     
     private var totalPrice: Double = 0
     
@@ -45,7 +56,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.fetchData()
+        showLoader()
+        presenter.loadProducts()
         setupView()
         setup()
     }
@@ -122,7 +134,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func updateTotalPrice(){
-        let totalPrice = products.reduce(0.0) { $0 + $1.data[0].price }
+        let totalPrice = products.reduce(0.0) { $0 + $1.data.price }
         totalPriceLabel.text = "Items in the cart: \(products.count). Total Price: $\(totalPrice)"
     }
     
@@ -160,13 +172,14 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        showLoader()
         presenter?.didTapOnSection(product: products[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let myDel = UIContextualAction(style: .destructive, title: nil){ [self]
             (_, _, complitionHand) in
-            self.presenter.deleteByID(productId: products[indexPath.row].id!)
+            self.presenter.delete(productId: products[indexPath.row].id, size: products[indexPath.row].data.size)
             self.products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             start()

@@ -367,6 +367,7 @@ extension FirestoreManager {
                     }
 
                     let data = document.data()
+                    let id = data["id"] as? String ?? ""
                     let name = data["name"] as? String ?? ""
                     let description = data["description"] as? String ?? ""
                     let color = data["color"] as? String ?? ""
@@ -392,7 +393,7 @@ extension FirestoreManager {
                         let shoe = ShoesDetail(size: size, price: Float(price), quantity: quantity)
                         shoeData.append(shoe)
                     }
-                    let shoe = Shoes(name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                    let shoe = Shoes(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
                     completion(shoe, nil)
                 }
         }
@@ -1279,7 +1280,7 @@ extension FirestoreManager {
     }
     
     
-    func deleteCartItem(userID: String, itemID: String, completion: @escaping (Bool) -> ()) {
+    func deleteCartItem(userID: String, itemID: String, size: String, completion: @escaping (Bool) -> ()) {
         let cartRef = db.collection(IlymaxCartItem.collectionName).document(userID)
         cartRef.getDocument { (snapshot, error) in
             if let error = error {
@@ -1295,7 +1296,7 @@ extension FirestoreManager {
             }
             
             cartRef.updateData([
-                "items": FieldValue.arrayRemove([["id": itemID]])
+                "items": FieldValue.arrayRemove([["id": itemID, "size": size]])
             ]) { (error) in
                 if let error = error {
                     print("Error deleting item from cart: \(error.localizedDescription)")

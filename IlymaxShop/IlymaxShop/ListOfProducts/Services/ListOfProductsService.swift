@@ -18,4 +18,14 @@ class ListOfProductsService {
             completion(shoes ?? [], error)
         }
     }
+    
+    func addItemToCart(userID: String, item: IlymaxCartItem) {
+        FirestoreManager.shared.addItemToCart(userID: userID, item: item) { success in
+            if success {
+                print("success")
+            } else {
+                print("error")
+            }
+        }
+    }
 }

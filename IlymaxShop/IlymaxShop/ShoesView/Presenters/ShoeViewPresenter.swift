@@ -5,6 +5,7 @@
 //  Created by Максим Тарасов on 18.04.2023.
 //
 
+import FirebaseAuth
 import UIKit
 
 class ShoeViewPresenter {
@@ -57,6 +58,10 @@ class ShoeViewPresenter {
     
     func pushReviews() {
         pushReview(reviews, (product?.id)!)
+    }
+    
+    func addToCart(cartItem: IlymaxCartItem) {
+        shoeViewService.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: cartItem)
     }
     
 }

@@ -5,6 +5,7 @@
 //  Created by Максим Тарасов on 21.03.2023.
 //
 
+import FirebaseAuth
 import UIKit
 
 class CartPresenter {
@@ -13,22 +14,12 @@ class CartPresenter {
     private let cartService = CartService()
     public var pushShoe: (Shoes) -> Void = {_ in }
     
-    public func fetchData() {
-        let group = DispatchGroup()
-
-        group.enter()
-        loadProducts(group: group)
-        
-        group.notify(queue: .main) { [weak self] in
-            self?.view?.updateView()
-        }
-    }
-    
-    func loadProducts(group: DispatchGroup) {
-        cartService.getProducts { [weak self] products in
+    func loadProducts() {
+        cartService.getProducts(userID: FirebaseAuth.Auth.auth().currentUser!.uid) { [weak self] products in
             DispatchQueue.main.async {
                 self?.view?.products = products
-                group.leave()
+                self?.view?.hideLoader()
+                self?.view?.updateView()
             }
         }
     }
@@ -41,12 +32,17 @@ class CartPresenter {
     }
     
     // MARK: - Открытие экрана товара
-    func didTapOnSection(product: Shoes){
-        pushShoe(product)
+    func didTapOnSection(product: IlymaxCartItem){
+        cartService.getShoe(shoeId: product.id) { [weak self] shoe in
+            DispatchQueue.main.async {
+                self?.view?.hideLoader()
+                self?.pushShoe(shoe)
+            }
+        }
     }
     
     // MARK: - Удаление
-    func deleteByID(productId: String){
-        cartService.deleteByID(id: productId)
+    func delete(productId: String, size: String){
+        cartService.delete(userID: FirebaseAuth.Auth.auth().currentUser!.uid, itemId: productId, size: size)
     }
 }

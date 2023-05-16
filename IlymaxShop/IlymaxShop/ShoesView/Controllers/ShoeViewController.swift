@@ -274,7 +274,14 @@ class ShoeViewController: UIViewController {
     }
     
     @objc private func didTapAddToCartButton() {
-        print("AddToCart")
+        if addToCartButton.titleLabel?.text != "Choose Size" {
+            let price = Float( (addToCartButton.titleLabel?.text!.replacingOccurrences(of: " $", with: ""))!)
+
+            let ilymaxCartItem = IlymaxCartItem(id: presenter.product!.id!, name: presenter.product!.name, description: presenter.product!.description, color: presenter.product!.color, gender: presenter.product!.gender, condition: presenter.product!.condition, imageUrl: presenter.product!.imageUrl!, data: ShoesDetail(size: "\(selectedButton?.titleLabel?.text ?? "") EU", price: price!, quantity: 1), ownerId: presenter.product!.ownerId, company: presenter.product!.company, category: presenter.product!.category)
+            
+            presenter.addToCart(cartItem: ilymaxCartItem)
+            print("AddToCart")
+        }
     }
 
     @objc private func backButtonTapped() {
