@@ -7,6 +7,7 @@
 
 import Foundation
 import SDWebImage
+import FirebaseAuth
 
 
 class SettingsService {
@@ -17,6 +18,10 @@ class SettingsService {
         cache.clearDisk {
             completion()
         }
+    }
+    
+    func signOut() {
+        try? Auth.auth().signOut()
     }
     
 }
