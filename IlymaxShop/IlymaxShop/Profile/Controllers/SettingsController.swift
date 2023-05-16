@@ -13,7 +13,7 @@ class SettingsController: UIViewController {
     
     public var collectionView: UICollectionView!
     public var presenter: SettingsPresenter!
-    private let loader = JGProgressHUD(style: .dark)
+    private let loader = JGProgressHUD(style: .light)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -281,12 +281,27 @@ extension SettingsController: UICollectionViewDelegate {
         collectionView.register(ActionCell.self, forCellWithReuseIdentifier: ActionCell.identifier)
     }
     
+//    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+//        if let cell = collectionView.cellForItem(at: indexPath) {
+//            cell.contentView.backgroundColor = .lightGray
+//        }
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+//        if let cell = collectionView.cellForItem(at: indexPath) {
+//            cell.contentView.backgroundColor = nil
+//        }
+//    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.section {
             case 4 :
                 switch indexPath.item {
                     case 0 :
                         presenter.clearCache()
+                    case 1 :
+                        presenter.signOut()
                     default:
                         print(indexPath)
                 }
