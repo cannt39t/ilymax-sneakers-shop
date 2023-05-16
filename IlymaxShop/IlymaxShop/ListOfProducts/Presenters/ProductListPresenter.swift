@@ -5,12 +5,13 @@
 //  Created by Максим Тарасов on 18.04.2023.
 //
 
+import FirebaseAuth
 import UIKit
 
 protocol ProductListPresenterDelegate: AnyObject {
     func showInfo(product: Shoes)
     func modalAdding(product: Shoes)
-    func addToCart(productId: String)
+    func addToCart(ilymaxCartItem: IlymaxCartItem)
     
 }
 
@@ -28,8 +29,8 @@ class ProductListPresenter {
 extension ProductListPresenter: ProductListPresenterDelegate {
     
     //MARK: -Добавление в корзину
-    func addToCart(productId: String) {
-        print("PRESENTER AddingToCart")
+    func addToCart(ilymaxCartItem: IlymaxCartItem) {
+        service.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: ilymaxCartItem)
     }
     
     

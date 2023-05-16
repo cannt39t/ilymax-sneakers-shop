@@ -26,18 +26,15 @@ class CartCell: UITableViewCell {
     private var priceLabel: UILabel = .init()
     private var productID: String = .init()
 
-    func setProduct (product: Shoes) {
-        productID = product.id!
+    func setProduct (product: IlymaxCartItem) {
+        productID = product.id
         nameLabel.text = "\(product.company) \(product.name)"
         nameLabel.textColor = .label
-        sizeLabel.text = "Size: \(product.data[0].size)"
+        sizeLabel.text = "Size: \(product.data.size)"
         sizeLabel.textColor = .label
-        priceLabel.text = "\(product.data[0].price) $"
+        priceLabel.text = "\(product.data.price) $"
         priceLabel.textColor = .label
-        guard let imageUrl = product.imageUrl else {
-            // Show error message to user if image URL is nil
-            return
-        }
+        let imageUrl = product.imageUrl
         
         StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
             guard let self = self else { return } // Make sure self is not nil

@@ -9,18 +9,32 @@ import Foundation
 import Combine
 
 class CartService {
-    public func getProducts(completion: @escaping (([Shoes]) -> Void)) {
-        FirestoreManager.shared.getAllShoes { shoes, error in
-            if let error {
-                print(error)
-                completion([])
-                return
-            }
-            completion(shoes ?? [])
+    public func getProducts(userID: String, completion: @escaping (([IlymaxCartItem]) -> Void)) {
+        FirestoreManager.shared.getCartItemsListener(for: userID) { result in
+            switch result {
+                case .success(let cartItems):
+                    completion(cartItems)
+                
+                case .failure(let error):
+                    print(error)
+                    completion([])
+                }
         }
     }
     
-    func deleteByID(id: String){
-        
+    func delete(userID: String, itemId: String, size: String){
+        FirestoreManager.shared.deleteCartItem(userID: userID, itemID: itemId, size: size) { success in
+            if success {
+                print("success")
+            } else {
+                print("error")
+            }
+        }
+    }
+    
+    public func getShoe (shoeId: String, completion: @escaping ((Shoes?, Error?) -> Void)) {
+        FirestoreManager.shared.getShoe(withId: shoeId) { shoe, error in
+            completion(shoe, error)
+        }
     }
 }

@@ -14,6 +14,7 @@ class ModalAddingViewController: UIViewController {
     private var picker: UIPickerView = .init()
     private var imageView: UIImageView = .init()
     private var addButton: UIButton = .init(type: .system)
+    private var selectedRow: Int?
     
     var data: [String] = []
     
@@ -93,7 +94,8 @@ class ModalAddingViewController: UIViewController {
 
     
     @objc private func addToCartTapped() {
-        presenter?.addToCart(productId: product!.id!)
+        let ilymaxCartItem = IlymaxCartItem(id: product.id!, name: product.name, description: product.description, color: product.color, gender: product.gender, condition: product.condition, imageUrl: product.imageUrl!, data: ShoesDetail(size: product.data[selectedRow ?? 0].size, price: product.data[selectedRow ?? 0].price, quantity: 1), ownerId: product.ownerId, company: product.company, category: product.category)
+        presenter?.addToCart(ilymaxCartItem: ilymaxCartItem)
         dismiss(animated: true)
     }
     
@@ -113,6 +115,10 @@ extension ModalAddingViewController: UIPickerViewDataSource {
 extension ModalAddingViewController: UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(data[row])"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedRow = row
     }
 }
 
