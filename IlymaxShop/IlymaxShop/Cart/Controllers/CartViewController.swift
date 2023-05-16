@@ -33,10 +33,10 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var cartTableView: UITableView!
     
     func setup() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGroupedBackground
         
         cartTableView = UITableView()
-        cartTableView.backgroundColor = .systemBackground
+        cartTableView.backgroundColor = .systemGroupedBackground
         cartTableView.delegate = self
         cartTableView.dataSource = self
         
@@ -79,7 +79,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         emptyCartLabel.translatesAutoresizingMaskIntoConstraints = false
         
         emptyCartCatalogButton.setTitle("Catalog", for: .normal)
-        emptyCartCatalogButton.setTitleColor(.white, for: .normal)
+        emptyCartCatalogButton.setTitleColor(.systemBackground, for: .normal)
         emptyCartCatalogButton.backgroundColor = .label
         emptyCartCatalogButton.layer.cornerRadius = 10
         emptyCartCatalogButton.addTarget(self, action: #selector(didTapCatalogButton), for: .touchUpInside)
@@ -106,9 +106,10 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             emptyCartLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             emptyCartLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
                 
-            emptyCartCatalogButton.bottomAnchor.constraint(equalTo: emptyCartLabel.bottomAnchor, constant: 50),
+            emptyCartCatalogButton.topAnchor.constraint(equalTo: emptyCartLabel.bottomAnchor, constant: 12),
             emptyCartCatalogButton.leadingAnchor.constraint(equalTo: emptyCartLabel.leadingAnchor, constant: 16),
             emptyCartCatalogButton.trailingAnchor.constraint(equalTo: emptyCartLabel.trailingAnchor, constant: -16),
+            emptyCartCatalogButton.heightAnchor.constraint(equalToConstant: 48),
                 
             totalPriceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             totalPriceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
