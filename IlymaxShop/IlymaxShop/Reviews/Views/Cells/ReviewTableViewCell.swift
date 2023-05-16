@@ -87,14 +87,13 @@ class ReviewTableViewCell: UITableViewCell {
 
     func configure(with review: IlymaxReview, name: String, imageURL: String?) {
         nameLabel.text = name
-//        reviewImageView.image = UIImage(systemName: "photo")
-        guard let imageUrl = imageURL else {
-            // Show error message to user if image URL is nil
-            return
-        }
+        reviewImageView.image = UIImage(systemName: "photo")
         
         if let imageURLString = imageURL, let imageURL = URL(string: imageURLString) {
             loadImage(with: imageURL)
+        } else {
+            let profileImage = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
+            reviewImageView.image = profileImage
         }
         
         dateLabel.text = "\(review.date.formatted(date: .complete, time: .omitted))"
