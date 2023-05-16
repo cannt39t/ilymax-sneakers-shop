@@ -96,7 +96,6 @@ class SignUpPresenter {
             }
             DispatchQueue.main.async {
                 self?.view?.hideLoader()
-                self?.coordinator.startProfile()
             }
         }
     }
