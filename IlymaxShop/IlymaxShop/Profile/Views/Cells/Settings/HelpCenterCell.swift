@@ -29,7 +29,6 @@ class HelpCenterCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        backgroundColor = .secondarySystemGroupedBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
@@ -38,6 +37,14 @@ class HelpCenterCell: UICollectionViewCell {
         
         let image = UIImage(systemName: "chevron.right")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         chevronRight = UIImageView(image: image)
+        
+        let lightView = UIView(frame: bounds)
+        lightView.backgroundColor = .secondarySystemGroupedBackground
+        self.backgroundView = lightView
+        
+        let grayView = UIView(frame: bounds)
+        grayView.backgroundColor = .lightGray.withAlphaComponent(0.25)
+        self.selectedBackgroundView = grayView
     }
     
     private func setup() {
