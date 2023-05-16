@@ -109,6 +109,8 @@
 		05D91E9A29ED3C6A00C7FBB7 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9929ED3C6A00C7FBB7 /* Sender.swift */; };
 		05D91E9C29ED446000C7FBB7 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */; };
 		05D91E9F29ED500400C7FBB7 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9E29ED500400C7FBB7 /* StorageManager.swift */; };
+		05DE81492A140CCB0054078B /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DE81482A140CCB0054078B /* AddressCell.swift */; };
+		05DE814B2A1418F90054078B /* AddressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DE814A2A1418F90054078B /* AddressHeader.swift */; };
 		05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F351EA29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift */; };
 		05FA8EBD2A044E8000521B5B /* AddressesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */; };
 		7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0229DC86ED005B716B /* PublicShoesPresenter.swift */; };
@@ -252,6 +254,8 @@
 		05D91E9929ED3C6A00C7FBB7 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		05D91E9B29ED446000C7FBB7 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		05D91E9E29ED500400C7FBB7 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		05DE81482A140CCB0054078B /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
+		05DE814A2A1418F90054078B /* AddressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressHeader.swift; sourceTree = "<group>"; };
 		05F351EA29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
 		05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesCollectionViewController.swift; sourceTree = "<group>"; };
 		7E1DAD0229DC86ED005B716B /* PublicShoesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesPresenter.swift; sourceTree = "<group>"; };
@@ -537,6 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				05C1A3D62A068826000F5665 /* SettingHeader.swift */,
+				05DE814A2A1418F90054078B /* AddressHeader.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 			children = (
 				05A4380029D8171C00AADDB9 /* UserCell.swift */,
 				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+				05DE81472A140CA10054078B /* Addresses */,
 				052B08D82A128188000ED5DE /* Settings */,
 			);
 			path = Cells;
@@ -627,6 +633,14 @@
 				0579046729FFBF4000AD3C81 /* Location.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		05DE81472A140CA10054078B /* Addresses */ = {
+			isa = PBXGroup;
+			children = (
+				05DE81482A140CCB0054078B /* AddressCell.swift */,
+			);
+			path = Addresses;
 			sourceTree = "<group>";
 		};
 		05EC2D0829D07F6F00962420 /* Catalog */ = {
@@ -1248,6 +1262,7 @@
 				05B79A6F2A112ECF00F88F67 /* IlymaxCartItem.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
+				05DE81492A140CCB0054078B /* AddressCell.swift in Sources */,
 				05D26CF929CB4E6300EFC040 /* ValidationError.swift in Sources */,
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
 				055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */,
@@ -1263,6 +1278,7 @@
 				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ConversationsViewController.swift in Sources */,
+				05DE814B2A1418F90054078B /* AddressHeader.swift in Sources */,
 				05C1A3C32A059DBC000F5665 /* OrdersPresenter.swift in Sources */,
 				7ED14AB229EF394E00FD7BED /* DefaultGriddedContentCollectionViewDelegate.swift in Sources */,
 				7ED14AB429EF396200FD7BED /* TabledContentCollectionViewDelegate.swift in Sources */,
