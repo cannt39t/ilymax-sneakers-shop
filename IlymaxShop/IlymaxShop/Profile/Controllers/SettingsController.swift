@@ -281,18 +281,6 @@ extension SettingsController: UICollectionViewDelegate {
         collectionView.register(ActionCell.self, forCellWithReuseIdentifier: ActionCell.identifier)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-//        if let cell = collectionView.cellForItem(at: indexPath) {
-//            cell.contentView.backgroundColor = .lightGray
-//        }
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-//        if let cell = collectionView.cellForItem(at: indexPath) {
-//            cell.contentView.backgroundColor = nil
-//        }
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.section {
