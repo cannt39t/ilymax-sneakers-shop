@@ -29,4 +29,8 @@ class SettingsPresenter {
             self?.view?.showSucces()
         }
     }
+    
+    public func signOut() {
+        settingsService.signOut()
+    }
 }
