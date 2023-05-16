@@ -33,14 +33,9 @@ class CartService {
         }
     }
     
-    public func getShoe (shoeId: String, completion: @escaping ((Shoes) -> Void)) {
+    public func getShoe (shoeId: String, completion: @escaping ((Shoes?, Error?) -> Void)) {
         FirestoreManager.shared.getShoe(withId: shoeId){ shoe, error in
-            if let error {
-                print(error)
-                completion(Shoes(name: "", description: "", color: "", gender: "", condition: "", data: [], ownerId: "", company: "", category: ""))
-                return
-            }
-            completion(shoe ?? Shoes(name: "", description: "", color: "", gender: "", condition: "", data: [], ownerId: "", company: "", category: ""))
+            completion(shoe, error)
         }
     }
 }
