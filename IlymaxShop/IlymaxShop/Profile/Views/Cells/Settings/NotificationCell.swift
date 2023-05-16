@@ -29,12 +29,19 @@ class NotificationCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        backgroundColor = .secondarySystemGroupedBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
         nameLabel.font = nameLabel.font.withSize(18)
         nameLabel.textColor = .label
+        
+        let lightView = UIView(frame: bounds)
+        lightView.backgroundColor = .secondarySystemGroupedBackground
+        self.backgroundView = lightView
+        
+        let grayView = UIView(frame: bounds)
+        grayView.backgroundColor = .lightGray.withAlphaComponent(0.25)
+        self.selectedBackgroundView = grayView
     }
     
     private func setup() {
