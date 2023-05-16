@@ -90,12 +90,11 @@ class ConversationTableViewCell: UITableViewCell {
     
     public func configure(with conversation: Conversation) {
         DispatchQueue.global(qos: .utility).async {
-            StorageManager.shared.getImageUrlFromStorageUrlProfileByEmail(email: conversation.otherUserEmail) { [weak self] url in
-                print(url?.absoluteString ?? "ytne")
-                if let url {
-                    self?.configureImage(with: url)
-                } else {
-                    
+            FirestoreManager.shared.getUserByEmail(with: conversation.otherUserEmail) { [weak self] user in
+                if let user {
+                    if let imageURLString = user.profilePictureUrl, let imageURL = URL(string: imageURLString) {
+                        self?.setImage(with: imageURL)
+                    }
                 }
             }
         }
@@ -109,7 +108,7 @@ class ConversationTableViewCell: UITableViewCell {
         dateLabel.text = formattedString
     }
     
-    private func configureImage(with url: URL) {
+    private func setImage(with url: URL) {
         DispatchQueue.main.async { [weak self] in
             self?.userImageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
                 if let error = error {
