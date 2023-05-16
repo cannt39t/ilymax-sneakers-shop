@@ -34,13 +34,18 @@ class CartPresenter {
     // MARK: - Открытие экрана товара
     func didTapOnSection(product: IlymaxCartItem){
         cartService.getShoe(shoeId: product.id) { [weak self] shoe, error in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 self?.view?.hideLoader()
-                if shoe != nil {
-                    self?.pushShoe(shoe!)
-                } else {
-                    print(error ?? "Error: Cannot load ShoeView")
+                if let error {
+                    print(error.localizedDescription)
+                    return
                 }
+            
+                guard let shoe = shoe else {
+                    fatalError()
+                }
+                
+                self?.pushShoe(shoe)
             }
         }
     }
