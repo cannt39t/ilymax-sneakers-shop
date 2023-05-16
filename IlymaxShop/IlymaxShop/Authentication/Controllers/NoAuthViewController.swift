@@ -9,7 +9,7 @@ import UIKit
 
 class NoAuthViewController: UIViewController {
     
-    private let sneakersImage: UIImageView = .init(image: UIImage(named: "sneakers"))
+    private let sneakersImage: UIImageView = .init(image: UIImage(named: "sneakers")?.withTintColor(.label, renderingMode: .alwaysOriginal))
     private var textLabel: UILabel = .init()
     private var authButton: UIButton = .init()
 
@@ -22,6 +22,8 @@ class NoAuthViewController: UIViewController {
     
     
     private func setupDesign() {
+        view.backgroundColor = .systemGroupedBackground
+        
         textLabel.text = "You are not authorized to use this function"
         textLabel.font = textLabel.font.withSize(20)
         textLabel.textAlignment = .center
@@ -29,8 +31,8 @@ class NoAuthViewController: UIViewController {
         
         authButton.setTitle("Log in", for: .normal)
         authButton.titleLabel?.font = textLabel.font.withSize(20)
-        authButton.setTitleColor(.white, for: .normal)
-        authButton.backgroundColor = .black
+        authButton.setTitleColor(.systemBackground, for: .normal)
+        authButton.backgroundColor = .label
         authButton.layer.cornerRadius = 10.0
         authButton.clipsToBounds = true
         authButton.addTarget(self, action: #selector(tapedOnAuthButton), for: .touchUpInside)
