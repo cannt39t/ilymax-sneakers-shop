@@ -93,7 +93,6 @@ class ChatViewController: MessagesViewController {
             
         }))
         actionSheet.addAction(UIAlertAction(title: "Libary", style: .default, handler: { [weak self] _ in
-            
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary
             picker.delegate = self
@@ -101,7 +100,6 @@ class ChatViewController: MessagesViewController {
             picker.videoQuality = .typeMedium
             picker.allowsEditing = true
             self?.present(picker, animated: true)
-            
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(actionSheet, animated: true)

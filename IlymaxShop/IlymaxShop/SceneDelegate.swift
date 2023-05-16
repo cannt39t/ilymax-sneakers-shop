@@ -18,7 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appCoordinator = AppCoordinator()
         window.rootViewController = appCoordinator.start()
         window.makeKeyAndVisible()
-//        window.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
         self.window = window
     }
 }

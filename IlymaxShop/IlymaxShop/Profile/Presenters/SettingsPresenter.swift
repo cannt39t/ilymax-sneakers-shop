@@ -24,4 +24,13 @@ class SettingsPresenter {
         back()
     }
     
+    public func clearCache() {
+        settingsService.clearCache { [weak self] in
+            self?.view?.showSucces()
+        }
+    }
+    
+    public func signOut() {
+        settingsService.signOut()
+    }
 }

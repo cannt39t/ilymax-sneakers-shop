@@ -75,7 +75,6 @@ class LoginPresenter {
             }
             DispatchQueue.main.async {
                 self?.view?.hideLoader()
-                self?.coordinator.startProfile()
             }
         }
     }

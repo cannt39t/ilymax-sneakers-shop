@@ -31,8 +31,6 @@ class CategoryCell: UICollectionViewCell {
     }
     
     private func setup() {
-//        contentView.backgroundColor = .white
-        
         let stack = UIStackView(arrangedSubviews: [categoryImage, nameLabel])
         stack.alignment = .leading
         stack.spacing = 24
@@ -48,23 +46,16 @@ class CategoryCell: UICollectionViewCell {
             stack.topAnchor.constraint(equalTo: contentView.topAnchor),
             
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            categoryImage.widthAnchor.constraint(equalTo: categoryImage.heightAnchor)
+            categoryImage.widthAnchor.constraint(equalToConstant: 50),
+            categoryImage.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     public func setCategory(category: IlymaxCategory) {
-        categoryImage.image = nil
         self.category = category
         nameLabel.text = category.name
-        StorageManager.shared.getImageUrlFromStorageUrl(category.imageUrl) { [weak self] error, url in
-            if let error {
-                print(error)
-                return
-            }
-            if let url {
-                self?.configure(with: url)
-            }
-        }
+        let imageURL = URL(string: category.imageUrl)!
+        configure(with: imageURL)
     }
     
     private func configure(with url: URL) {
@@ -77,7 +68,6 @@ class CategoryCell: UICollectionViewCell {
             }
         }
     }
-
     
     override func prepareForReuse() {
         super.prepareForReuse()

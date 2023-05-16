@@ -41,18 +41,9 @@ class PromotionCell: UICollectionViewCell {
     }
     
     public func setPromotion(promotion: IlymaxPromotion) {
-        promotionImage.image = nil
         self.promotion = promotion
-        
-        StorageManager.shared.getImageUrlFromStorageUrl(promotion.imageUrl) { [weak self] error, url in
-            if let error {
-                print(error)
-                return
-            }
-            if let url {
-                self?.configure(with: url)
-            }
-        }
+        let imageURL = URL(string: promotion.imageUrl)!
+        configure(with: imageURL)
     }
     
     private func configure(with url: URL) {

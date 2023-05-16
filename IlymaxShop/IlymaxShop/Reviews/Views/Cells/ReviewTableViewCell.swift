@@ -40,7 +40,7 @@ class ReviewTableViewCell: UITableViewCell {
         reviewLabel.numberOfLines = 0
 
         reviewImageView.translatesAutoresizingMaskIntoConstraints = false
-        reviewImageView.contentMode = .scaleAspectFit
+        reviewImageView.contentMode = .scaleAspectFill
         
 
         let imageAndNameStackView = UIStackView(arrangedSubviews: [reviewImageView, nameLabel])
@@ -74,11 +74,13 @@ class ReviewTableViewCell: UITableViewCell {
        ])
         
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         reviewImageView.layer.cornerRadius = reviewImageView.frame.width / 2
         reviewImageView.clipsToBounds = true
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -91,21 +93,8 @@ class ReviewTableViewCell: UITableViewCell {
             return
         }
         
-        StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
-            guard let self = self else { return } // Make sure self is not nil
-            
-            if let error = error {
-                // Show error message to user
-                print("Error loading image: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let url = url else {
-                // Show error message to user if URL is nil
-                return
-            }
-            
-            self.loadImage(with: url)
+        if let imageURLString = imageURL, let imageURL = URL(string: imageURLString) {
+            loadImage(with: imageURL)
         }
         
         dateLabel.text = "\(review.date.formatted(date: .complete, time: .omitted))"
@@ -124,14 +113,7 @@ class ReviewTableViewCell: UITableViewCell {
     private func loadImage(with url: URL) {
         reviewImageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
             if let error = error {
-                // Show error message to user
                 print("Error loading image: \(error.localizedDescription)")
-            } else {
-//                if cacheType == .memory || cacheType == .disk {
-//                    print("Image loaded from cache")
-//                } else {
-//                    print("Image loaded from network")
-//                }
             }
         }
     }

@@ -27,7 +27,6 @@ class ProfileCoordinator {
     
     private func setController(controller: UIViewController) {
         let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.navigationBar.isHidden = true
         self.navigationController = navigationController
     }
     
@@ -35,8 +34,6 @@ class ProfileCoordinator {
         setController(controller: getProfileController())
         return navigationController
     }
-    
-    //TODO: Replace UIViewController by current implementation
     
     func goToSeetings(for user: IlymaxUser) {
         let settingsController = SettingsController()

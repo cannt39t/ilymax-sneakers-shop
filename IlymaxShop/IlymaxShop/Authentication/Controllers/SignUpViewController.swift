@@ -19,7 +19,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     private var signUpButton: UIButton = .init()
     private var alreadyHaveAccountLabel: UILabel = .init()
     private var signInButton: UIButton = .init()
-    private let hud = JGProgressHUD()
+    private let hud = JGProgressHUD(style: .light)
     
     private var lastRedIndex: Int?
     var presenter: SignUpPresenter!
@@ -91,7 +91,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         mainStack.distribution = .fillProportionally
 
         let frame = UIView()
-        frame.backgroundColor = .white
+        frame.backgroundColor = .secondarySystemGroupedBackground
         
         for subview in view.subviews {
             subview.removeFromSuperview()
@@ -130,6 +130,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     
     private func setupDesign() {
+        view.backgroundColor = .systemGroupedBackground
+        
         welcomeLabel.text = "Welcome"
         welcomeLabel.font = welcomeLabel.font.withSize(30)
         welcomeLabel.textAlignment = .center
@@ -154,20 +156,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         confirmPasswordTextField.accessibilityIdentifier = "confirmation password"
         
         signUpButton.setTitle("Sign up", for: .normal)
-        signUpButton.setTitleColor(.white, for: .normal)
-        signUpButton.backgroundColor = .black
+        signUpButton.setTitleColor(.systemBackground, for: .normal)
+        signUpButton.backgroundColor = .label
         signUpButton.layer.cornerRadius = 10.0
         signUpButton.clipsToBounds = true
         signUpButton.addTarget(self, action: #selector(tapedOnSignUpButton), for: .touchUpInside)
         
         alreadyHaveAccountLabel.text = "Already have account? "
-        alreadyHaveAccountLabel.textColor = .gray
+        alreadyHaveAccountLabel.textColor = .secondaryLabel
         
         let attributedString = NSMutableAttributedString(string: "Sign in")
         attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
         signInButton.backgroundColor = .clear
         signInButton.setAttributedTitle(attributedString, for: .normal)
-        signInButton.setTitleColor(.black, for: .normal)
+        signInButton.setTitleColor(.label, for: .normal)
         signInButton.addTarget(self, action: #selector(tapedOnSignInButton), for: .touchUpInside)
         signInButton.clipsToBounds = true
     }

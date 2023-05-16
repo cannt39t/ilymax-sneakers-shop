@@ -50,6 +50,8 @@ class ConversationsViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .lightGray
     }
     
     private func startListeningForConversations() {
@@ -89,7 +91,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
-        
         
         let conversation = presenter.conversations[indexPath.row]
         cell.configure(with: conversation)
