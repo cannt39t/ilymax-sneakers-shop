@@ -20,6 +20,11 @@ class TabBarCoordinator {
         self.tabBarController = tabBarController
         tabBarController.viewControllers = [catalog(), cart(), publicShoes(), chat(), profile()]
         tabBarController.tabBar.backgroundColor = .systemBackground
+    
+        Auth.auth().addStateDidChangeListener() { [self] auth, user in
+            self.replaceAuthByProfile()
+        }
+        
         return tabBarController
     }
     
@@ -103,7 +108,6 @@ class TabBarCoordinator {
     private func validateAuth() -> UIViewController {
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let authCoordinator = AuthenticationCoordinator()
-            authCoordinator.startProfile = replaceAuthByProfile
             let controller = authCoordinator.start()
             return controller
         } else {
