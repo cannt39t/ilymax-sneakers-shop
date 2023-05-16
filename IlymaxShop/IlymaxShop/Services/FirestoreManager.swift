@@ -1234,7 +1234,7 @@ extension FirestoreManager {
     }
     
     
-    func getCartItems(for userId: String, completion: @escaping (Result<[IlymaxCartItem], Error>) -> Void) {
+    func getCartItemsListener(for userId: String, completion: @escaping (Result<[IlymaxCartItem], Error>) -> Void) {
         let cartRef = db.collection(IlymaxCartItem.collectionName).document(userId)
         cartRef.addSnapshotListener { snapshot, error in
             guard let snapshot = snapshot, snapshot.exists else {
@@ -1279,32 +1279,98 @@ extension FirestoreManager {
         }
     }
     
-    
-    func deleteCartItem(userID: String, itemID: String, size: String, completion: @escaping (Bool) -> ()) {
-        let cartRef = db.collection(IlymaxCartItem.collectionName).document(userID)
-        cartRef.getDocument { (snapshot, error) in
+    private func getCartItems(for userId: String, completion: @escaping (Result<[IlymaxCartItem], Error>) -> Void) {
+        let cartRef = db.collection(IlymaxCartItem.collectionName).document(userId)
+        cartRef.getDocument { snapshot, error in
             if let error = error {
-                print("Error getting cart items: \(error.localizedDescription)")
-                completion(false)
+                completion(.failure(error))
                 return
             }
             
             guard let snapshot = snapshot, snapshot.exists else {
-                print("Cart items document does not exist")
-                completion(false)
+                completion(.success([]))
                 return
             }
             
-            cartRef.updateData([
-                "items": FieldValue.arrayRemove([["id": itemID, "size": size]])
-            ]) { (error) in
-                if let error = error {
-                    print("Error deleting item from cart: \(error.localizedDescription)")
-                    completion(false)
-                } else {
-                    print("Item deleted from cart")
-                    completion(true)
+            guard let data = snapshot.data(), let items = data["items"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            var cartItems: [IlymaxCartItem] = []
+            
+            for item in items {
+                guard
+                    let id = item["id"] as? String,
+                    let name = item["name"] as? String,
+                    let description = item["description"] as? String,
+                    let color = item["color"] as? String,
+                    let gender = item["gender"] as? String,
+                    let condition = item["condition"] as? String,
+                    let imageUrl = item["imageUrl"] as? String,
+                    let ownerId = item["ownerId"] as? String,
+                    let company = item["company"] as? String,
+                    let category = item["category"] as? String,
+                    let shoesData = item["data"] as? [String : Any],
+                    let size = shoesData["size"] as? String,
+                    let price = shoesData["price"] as? Float,
+                    let quantity = shoesData["quantity"] as? Int
+                else {
+                    continue
                 }
+                
+                let shoesDetail = ShoesDetail(size: size, price: price, quantity: quantity)
+                let cartItem = IlymaxCartItem(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoesDetail, ownerId: ownerId, company: company, category: category)
+                
+                cartItems.append(cartItem)
+            }
+            
+            completion(.success(cartItems))
+        }
+    }
+
+    
+    
+    func deleteCartItem(userID: String, itemID: String, size: String, completion: @escaping (Bool) -> ()) {
+        getCartItems(for: userID) { [weak self] result in
+            
+            switch result {
+                case .failure(let error):
+                    print(error)
+                    completion(false)
+                case .success(var cartItems):
+                    print(cartItems)
+                    cartItems = cartItems.filter { $0.id != itemID || $0.data.size != size }
+                    let cartRef = self!.db.collection(IlymaxCartItem.collectionName).document(userID)
+                    cartRef.updateData([
+                        "items": cartItems.map { item in
+                            return [
+                                "id": item.id,
+                                "name": item.name,
+                                "description": item.description,
+                                "color": item.color,
+                                "gender": item.gender,
+                                "condition": item.condition,
+                                "imageUrl": item.imageUrl,
+                                "data": [
+                                    "size": item.data.size,
+                                    "price": item.data.price,
+                                    "quantity": item.data.quantity
+                                ] as [String : Any],
+                                "ownerId": item.ownerId,
+                                "company": item.company,
+                                "category": item.category,
+                            ]
+                        }
+                    ]) { error in
+                        if let error = error {
+                            print("Error deleting item from cart: \(error.localizedDescription)")
+                            completion(false)
+                        } else {
+                            print("Item deleted from cart")
+                            completion(true)
+                        }
+                    }
             }
         }
     }
