@@ -10,7 +10,6 @@ import Combine
 
 class CartService {
     public func getProducts(userID: String, completion: @escaping (([IlymaxCartItem]) -> Void)) {
-
         FirestoreManager.shared.getCartItemsListener(for: userID) { result in
             switch result {
                 case .success(let cartItems):
@@ -34,7 +33,7 @@ class CartService {
     }
     
     public func getShoe (shoeId: String, completion: @escaping ((Shoes?, Error?) -> Void)) {
-        FirestoreManager.shared.getShoe(withId: shoeId){ shoe, error in
+        FirestoreManager.shared.getShoe(withId: shoeId) { shoe, error in
             completion(shoe, error)
         }
     }
