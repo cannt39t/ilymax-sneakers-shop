@@ -11,15 +11,15 @@ import Combine
 class CartService {
     public func getProducts(userID: String, completion: @escaping (([IlymaxCartItem]) -> Void)) {
 
-        FirestoreManager.shared.getCartItems(for: userID) { result in
+        FirestoreManager.shared.getCartItemsListener(for: userID) { result in
             switch result {
-            case .success(let cartItems):
-                completion(cartItems)
-            
-            case .failure(let error):
-                print(error)
-                completion([])
-         }
+                case .success(let cartItems):
+                    completion(cartItems)
+                
+                case .failure(let error):
+                    print(error)
+                    completion([])
+                }
         }
     }
     
