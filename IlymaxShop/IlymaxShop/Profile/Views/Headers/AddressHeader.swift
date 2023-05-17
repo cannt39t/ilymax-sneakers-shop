@@ -58,9 +58,7 @@ class AddressHeader: UICollectionReusableView {
     }
     
     override func prepareForReuse() {
-//        let image = UIImage(systemName: "square")!.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
-//        changeDefaultState.setImage(image, for: .normal)
-//        changeDefaultState.titleLabel?.textColor = .secondaryLabel
+        
     }
     
 }
