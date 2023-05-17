@@ -14,14 +14,8 @@ class ListSalesPresenter {
     private let listSalesService = ListSalesService()
     public var currentUser: IlymaxUser
     
-    public var back: () -> () = {}
-    
     init(currentUser: IlymaxUser) {
         self.currentUser = currentUser
-    }
-    
-    func backButtonTap() {
-        back()
     }
     
 }
