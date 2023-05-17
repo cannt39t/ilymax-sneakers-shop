@@ -1339,7 +1339,6 @@ extension FirestoreManager {
                     print(error)
                     completion(false)
                 case .success(var cartItems):
-                    print(cartItems)
                     cartItems = cartItems.filter { $0.id != itemID || $0.data.size != size }
                     let cartRef = self!.db.collection(IlymaxCartItem.collectionName).document(userID)
                     cartRef.updateData([
@@ -1372,6 +1371,93 @@ extension FirestoreManager {
                         }
                     }
             }
+        }
+    }
+}
+
+// MARK: - Address managment
+
+extension FirestoreManager {
+    
+    
+    func addAddressFor(userID: String, address: IlymaxAddress, completion: @escaping (Bool) -> ()) {
+        let data: [String: Any] = [
+            "fullName": address.fullName,
+            "address": address.address,
+            "zipcode": address.zipcode,
+            "country": address.country,
+            "city": address.city
+        ]
+        
+        let cartRef = db.collection(IlymaxCartItem.collectionName).document(userID)
+        cartRef.getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error getting cart items: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let snapshot = snapshot, snapshot.exists {
+                cartRef.updateData([
+                    "addresses": FieldValue.arrayUnion([data])
+                ]) { (error) in
+                    if let error = error {
+                        print("Error adding address: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        print("Address added")
+                        completion(true)
+                    }
+                }
+            } else {
+                cartRef.setData([
+                    "addresses": [data]
+                ]) { (error) in
+                    if let error = error {
+                        print("Error creating Addresses document: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        print("Addresses document created with item")
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func getAddressesListener(for userId: String, completion: @escaping (Result<[IlymaxAddress], Error>) -> Void) {
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userId)
+        cartRef.addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success([]))
+                return
+            }
+            
+            guard let data = snapshot.data(), let items = data["addresses"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            var addresses: [IlymaxAddress] = []
+            
+            for item in items {
+                guard
+                    let fullName = item["fullName"] as? String,
+                    let address = item["address"] as? String,
+                    let zipcode = item["zipcode"] as? Int,
+                    let country = item["country"] as? String,
+                    let city = item["city"] as? String
+                else {
+                    continue
+                }
+                
+                let tempAddress = IlymaxAddress(fullName: fullName, address: address, zipcode: zipcode, country: country, city: city)
+                
+                addresses.append(tempAddress)
+            }
+            
+            completion(.success(addresses))
         }
     }
 }
