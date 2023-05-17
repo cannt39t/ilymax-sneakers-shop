@@ -77,6 +77,7 @@ class ProfileCoordinator {
         
         let addressesCollectionViewPresenter = AddressesPresenter(currentUser: user)
         addressesCollectionViewPresenter.back = moveBack
+        addressesCollectionViewPresenter.pushAddAddressController = pushCreateAddressController
         
         addressesCollectionViewPresenter.view = addressesCollectionViewController
         addressesCollectionViewController.presenter = addressesCollectionViewPresenter
@@ -86,6 +87,11 @@ class ProfileCoordinator {
     
     func moveBack() {
         navigationController.popViewController(animated: true)
+    }
+    
+    func pushCreateAddressController() {
+        let vc = AddAddressViewController()
+        navigationController.pushViewController(vc, animated: true)
     }
     
 }
