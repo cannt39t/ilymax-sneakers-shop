@@ -12,7 +12,14 @@ class AddressesCollectionViewController: UIViewController {
 
     public var collectionView: UICollectionView!
     public var presenter: AddressesPresenter!
-    private let loader = JGProgressHUD(style: .dark)
+    private let loader = JGProgressHUD(style: .light)
+    
+    public  var noAddressesView: UILabel = {
+        let label = UILabel()
+        label.isHidden = true
+        label.text = "You have no addresses"
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +29,25 @@ class AddressesCollectionViewController: UIViewController {
         title = "Addresses"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         
-//        showLoader()
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "plus")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(push))
+        
+        
         setupCollectionView()
-//        presenter.fetchAddresses()
+        view.addSubview(noAddressesView)
+        presenter.getAddresses()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        noAddressesView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            noAddressesView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noAddressesView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    @objc func push() {
+        presenter.pushAddAddressController()
     }
     
     @objc func backButtonTaped() {
@@ -50,7 +73,7 @@ extension AddressesCollectionViewController: UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        20
+        presenter.addresses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -80,11 +103,11 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
         
         //group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(155))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
         
         //section
         let section = NSCollectionLayoutSection(group: group)
@@ -124,9 +147,6 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: AddressHeader.identifier, for: indexPath) as? AddressHeader else {
             return UICollectionReusableView()
-        }
-        if indexPath.section == 0 {
-            view.makeDefault()
         }
         return view
     }
