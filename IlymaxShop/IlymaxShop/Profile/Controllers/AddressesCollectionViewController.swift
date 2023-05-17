@@ -51,7 +51,7 @@ class AddressesCollectionViewController: UIViewController {
     }
     
     @objc func backButtonTaped() {
-        presenter.backButtonTap()
+        navigationController?.popViewController(animated: true)
     }
     
     func showLoader() {
