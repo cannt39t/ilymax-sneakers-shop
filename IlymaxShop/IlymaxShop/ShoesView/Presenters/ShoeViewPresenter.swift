@@ -13,7 +13,9 @@ class ShoeViewPresenter {
     private let shoeViewService = ShoeViewService()
     var product: Shoes?
     var sellerName = ""
-    public var pushReview: ([IlymaxReview], String) -> Void = {_,_  in }
+    var user: IlymaxUser?
+    public var pushReview: ([IlymaxReview], String, String) -> Void = {_,_,_  in }
+    public var pushSellerView: ([Shoes], IlymaxUser) -> Void = {_,_ in }
     
     var reviews: [IlymaxReview] = []
     var average: Double = 0
@@ -48,7 +50,7 @@ class ShoeViewPresenter {
             guard let self = self else { return }
             
             self.sellerName = user?.name ?? ""
-            
+            self.user = user!
             DispatchQueue.main.async { [weak self] in
                 self?.view?.setupUI()
                 self?.view?.hideLoader()
@@ -57,11 +59,24 @@ class ShoeViewPresenter {
     }
     
     func pushReviews() {
-        pushReview(reviews, (product?.id)!)
+        pushReview(reviews, (product?.id)!, product!.ownerId)
     }
     
     func addToCart(cartItem: IlymaxCartItem) {
-        shoeViewService.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: cartItem)
+        if FirebaseAuth.Auth.auth().currentUser?.uid == nil || self.product?.ownerId == FirebaseAuth.Auth.auth().currentUser!.uid{
+    
+        } else {
+            shoeViewService.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: cartItem)
+        }
+    }
+    
+    func pushSeller() {
+        shoeViewService.getAllShoesByUserID(userID: product!.ownerId) {[weak self] shoes in
+            DispatchQueue.main.async {
+                self?.pushSellerView(shoes, self!.user!)
+                self?.view?.hideLoader()
+            }
+        }
     }
     
 }

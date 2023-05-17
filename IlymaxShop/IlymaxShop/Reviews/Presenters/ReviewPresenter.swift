@@ -16,14 +16,17 @@ class ReviewPresenter {
     var authors: [String] = []
     var pictureURL: [String?] = []
     var shoeID: String = ""
-    var authorID = FirebaseAuth.Auth.auth().currentUser!.uid
+    var ownerID: String = ""
+    var authorID = FirebaseAuth.Auth.auth().currentUser?.uid
     public var popAdd: () -> Void = {}
     public var pushAdd: (String, String) -> Void = {_, _ in}
     
     private var reviewService = ReviewService()
     
     func pushAdding() {
-        pushAdd(shoeID, authorID)
+        if authorID != nil {
+            pushAdd(shoeID, authorID!)
+        }
     }
     
     func loadUsers() {
@@ -47,6 +50,10 @@ class ReviewPresenter {
         } else {
             self.view?.hideLoader()
             self.view?.setupUI()
+        }
+        
+        if authorID == nil || authorID == ownerID {
+            self.view?.hideButton()
         }
    }
 }

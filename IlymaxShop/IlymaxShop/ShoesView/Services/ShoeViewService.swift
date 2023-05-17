@@ -59,4 +59,15 @@ class ShoeViewService {
             }
         }
     }
+    
+    func getAllShoesByUserID(userID: String, completion: @escaping (([Shoes]) -> Void)){
+        FirestoreManager.shared.getAllShoesByUserID(userID: userID) { shoes, error in
+            if let error {
+                print(error)
+                completion([])
+                return
+            }
+            completion(shoes ?? [])
+        }
+    }
 }

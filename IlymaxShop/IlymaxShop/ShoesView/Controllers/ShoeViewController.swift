@@ -266,7 +266,8 @@ class ShoeViewController: UIViewController {
     }
     
     @objc private func sellerNameButtonTapped() {
-        print("Seller")
+        showLoader()
+        presenter.pushSeller()
     }
     
     @objc private func chatButtonTapped() {
@@ -280,7 +281,6 @@ class ShoeViewController: UIViewController {
             let ilymaxCartItem = IlymaxCartItem(id: presenter.product!.id!, name: presenter.product!.name, description: presenter.product!.description, color: presenter.product!.color, gender: presenter.product!.gender, condition: presenter.product!.condition, imageUrl: presenter.product!.imageUrl!, data: ShoesDetail(size: "\(selectedButton?.titleLabel?.text ?? "") EU", price: price!, quantity: 1), ownerId: presenter.product!.ownerId, company: presenter.product!.company, category: presenter.product!.category)
             
             presenter.addToCart(cartItem: ilymaxCartItem)
-            print("AddToCart")
         }
     }
 
