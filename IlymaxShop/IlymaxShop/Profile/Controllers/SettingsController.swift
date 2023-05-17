@@ -15,6 +15,15 @@ class SettingsController: UIViewController {
     public var presenter: SettingsPresenter!
     private let loader = JGProgressHUD(style: .light)
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        hidesBottomBarWhenPushed = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +38,7 @@ class SettingsController: UIViewController {
     }
     
     @objc func backButtonTaped() {
-        presenter.backButtonTap()
+        navigationController?.popViewController(animated: true)
     }
     
     func showLoader() {
