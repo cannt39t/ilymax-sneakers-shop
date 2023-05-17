@@ -13,14 +13,7 @@ class OrdersPresenter {
     private let ordersService = OrdersService()
     public var currentUser: IlymaxUser
     
-    public var back: () -> () = {}
-    
     init(currentUser: IlymaxUser) {
         self.currentUser = currentUser
     }
-    
-    func backButtonTap() {
-        back()
-    }
-    
 }
