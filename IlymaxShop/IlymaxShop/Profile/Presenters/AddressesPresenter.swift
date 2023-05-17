@@ -15,7 +15,6 @@ class AddressesPresenter {
     public var currentUser: IlymaxUser
     public var addresses: [IlymaxAddress] = []
     
-    public var back: () -> () = {}
     public var pushAddAddressController: () -> () = {}
     
     init(currentUser: IlymaxUser) {
@@ -41,9 +40,4 @@ class AddressesPresenter {
             }
         }
     }
-    
-    func backButtonTap() {
-        back()
-    }
-    
 }
