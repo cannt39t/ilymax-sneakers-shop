@@ -211,7 +211,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     private func presentPhotoInputActionsheet() {
-        let actionSheet = UIAlertController(title: "Attach Photo", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Change profile image", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
             
             let picker = UIImagePickerController()
