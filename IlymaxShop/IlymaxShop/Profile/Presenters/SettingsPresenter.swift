@@ -14,14 +14,8 @@ class SettingsPresenter {
     private let settingsService = SettingsService()
     public var currentUser: IlymaxUser
     
-    public var back: () -> () = {}
-    
     init(currentUser: IlymaxUser) {
         self.currentUser = currentUser
-    }
-    
-    func backButtonTap() {
-        back()
     }
     
     public func clearCache() {
