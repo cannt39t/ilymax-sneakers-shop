@@ -29,7 +29,7 @@ class OrdersCollectionViewController: UIViewController {
     }
     
     @objc func backButtonTaped() {
-        presenter.backButtonTap()
+        navigationController?.popViewController(animated: true)
     }
     
     
