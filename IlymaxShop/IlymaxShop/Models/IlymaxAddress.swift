@@ -16,5 +16,6 @@ struct IlymaxAddress: FirestoreCollectionProtocol {
     var zipcode: Int
     var country: String
     var city: String
+    var isDefault: Bool
     
 }
