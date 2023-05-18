@@ -218,6 +218,66 @@ extension FirestoreManager {
         }
     }
     
+    /// Get all shoes for a specific owner_id from Database
+    public func getAllShoesForCurrentUser(ownerId: String, completion: @escaping (Result<[Shoes], Error>) -> Void) {
+        let shoesRef = db.collection("shoes")
+        let query = shoesRef.whereField("owner_id", isEqualTo: ownerId)
+        
+        query.getDocuments { (snapshot, error) in
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            guard let snapshot = snapshot else {
+                completion(.success([]))
+                return
+            }
+            
+            var shoes: [Shoes] = []
+            
+            for document in snapshot.documents {
+                let data = document.data()
+                guard let id = data["id"] as? String,
+                      let name = data["name"] as? String,
+                      let description = data["description"] as? String,
+                      let color = data["color"] as? String,
+                      let gender = data["gender"] as? String,
+                      let imageUrl = data["image_url"] as? String,
+                      let ownerId = data["owner_id"] as? String,
+                      let company = data["company"] as? String,
+                      let category = data["category"] as? String,
+                      let condition = data["condition"] as? String,
+                      let dataArr = data["data"] as? [[String: Any]]
+                else {
+                    completion(.success([]))
+                    return
+                }
+                
+                var shoeData: [ShoesDetail] = []
+                
+                for dict in dataArr {
+                    guard let size = dict["size"] as? String,
+                          let price = dict["price"] as? Double,
+                          let quantity = dict["quantity"] as? Int
+                    else {
+                        completion(.success([]))
+                        return
+                    }
+                    
+                    let shoe = ShoesDetail(size: size, price: Float(price), quantity: quantity)
+                    shoeData.append(shoe)
+                }
+                
+                let shoe = Shoes(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                shoes.append(shoe)
+            }
+            
+            completion(.success(shoes))
+        }
+    }
+
+    
 
     /// Get all shoes from Database
     public func getAllShoes(completion: @escaping ([Shoes]?, Error?) -> Void) {
