@@ -1386,7 +1386,8 @@ extension FirestoreManager {
             "address": address.address,
             "zipcode": address.zipcode,
             "country": address.country,
-            "city": address.city
+            "city": address.city,
+            "isDefault": address.isDefault
         ]
         
         let cartRef = db.collection(IlymaxAddress.collectionName).document(userID)
@@ -1447,12 +1448,13 @@ extension FirestoreManager {
                     let address = item["address"] as? String,
                     let zipcode = item["zipcode"] as? Int,
                     let country = item["country"] as? String,
-                    let city = item["city"] as? String
+                    let city = item["city"] as? String,
+                    let isDefault = item["isDefault"] as? Bool
                 else {
                     continue
                 }
                 
-                let tempAddress = IlymaxAddress(fullName: fullName, address: address, zipcode: zipcode, country: country, city: city)
+                let tempAddress = IlymaxAddress(fullName: fullName, address: address, zipcode: zipcode, country: country, city: city, isDefault: isDefault)
                 
                 addresses.append(tempAddress)
             }
