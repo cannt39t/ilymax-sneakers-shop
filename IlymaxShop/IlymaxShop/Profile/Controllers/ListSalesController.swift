@@ -23,16 +23,13 @@ class ListSalesController: UIViewController {
         title = "Listing for sale"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         
-        //        showLoader()
         setupCollectionView()
-        //        presenter.fetchOrders()
+        presenter.getSaleList()
     }
     
     @objc func backButtonTaped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
     
     func showLoader() {
         loader.show(in: self.view, animated: true)
@@ -48,7 +45,7 @@ extension ListSalesController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        presenter.listOfSales.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -56,8 +53,8 @@ extension ListSalesController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .secondarySystemBackground
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaleListCell.identifier, for: indexPath) as! SaleListCell
+        cell.configure(with: presenter.listOfSales[indexPath.item])
         return cell
     }
     
@@ -100,7 +97,7 @@ extension ListSalesController: UICollectionViewDelegate {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .systemGroupedBackground
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -113,6 +110,7 @@ extension ListSalesController: UICollectionViewDelegate {
         ])
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(SaleListCell.self, forCellWithReuseIdentifier: SaleListCell.identifier)
     }
-    
 }
+
