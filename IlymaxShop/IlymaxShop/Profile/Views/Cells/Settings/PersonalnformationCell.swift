@@ -12,7 +12,7 @@ class PersonalnformationCell: UICollectionViewCell {
     
     public static let identifier = "PersonalnformationCell"
     private let nameLabel: UILabel = .init()
-    private let valueTextField: UITextField = .init()
+    public let valueTextField: UITextField = .init()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

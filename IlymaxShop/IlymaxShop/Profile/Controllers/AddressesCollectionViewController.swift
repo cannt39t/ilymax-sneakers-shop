@@ -31,7 +31,6 @@ class AddressesCollectionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "plus")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(push))
         
-        
         setupCollectionView()
         view.addSubview(noAddressesView)
         presenter.getAddresses()

@@ -12,6 +12,7 @@ import JGProgressHUD
 class ListSalesController: UIViewController {
     
     public var collectionView: UICollectionView!
+    private var flowLayout: UICollectionViewFlowLayout!
     public var presenter: ListSalesPresenter!
     private let loader = JGProgressHUD(style: .dark)
     
@@ -67,8 +68,11 @@ extension ListSalesController: UICollectionViewDataSource {
 
 extension ListSalesController: UICollectionViewDelegateFlowLayout {
     private func setupCollectionView() {
-        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
         flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.minimumLineSpacing = 12
+        flowLayout.sectionInset = UIEdgeInsets(top: 12, left: 18, bottom: 12, right: 18)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -88,9 +92,17 @@ extension ListSalesController: UICollectionViewDelegateFlowLayout {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(SaleListCell.self, forCellWithReuseIdentifier: SaleListCell.identifier)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 12
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 12, left: 18, bottom: 12, right: 18)
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemWidth = collectionView.bounds.width
+        let itemWidth = collectionView.bounds.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right - collectionView.contentInset.left - collectionView.contentInset.right
         
         let text = presenter.listOfSales[indexPath.item].description
         
@@ -98,6 +110,7 @@ extension ListSalesController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: textHeight)
     }
 }
+
 
 extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {

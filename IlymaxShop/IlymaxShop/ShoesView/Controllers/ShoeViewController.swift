@@ -46,8 +46,8 @@ class ShoeViewController: UIViewController {
         
         navigationController?.navigationBar.tintColor = .label
         navigationItem.title = "\(presenter.product!.name)"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))
+        view.backgroundColor = .systemGroupedBackground
         
         showLoader()
         loadImage()
@@ -81,8 +81,8 @@ class ShoeViewController: UIViewController {
     func setupUI() {
         
         addToCartButton.setTitle("Choose Size", for: .normal)
-        addToCartButton.setTitleColor(.white, for: .normal)
-        addToCartButton.backgroundColor = .black
+        addToCartButton.setTitleColor(.systemBackground, for: .normal)
+        addToCartButton.backgroundColor = .label
         addToCartButton.layer.cornerRadius = 10
         addToCartButton.addTarget(self, action: #selector(didTapAddToCartButton), for: .touchUpInside)
         addToCartButton.translatesAutoresizingMaskIntoConstraints = false
@@ -93,11 +93,11 @@ class ShoeViewController: UIViewController {
         
         
         nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        nameLabel.textColor = .black
+        nameLabel.textColor = .label
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         reviewScoreButton.setTitle(" \(presenter.average)", for: .normal)
-        reviewScoreButton.setTitleColor(.black, for: .normal)
+        reviewScoreButton.setTitleColor(.label, for: .normal)
         reviewScoreButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         let symbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
         let starImage = UIImage(systemName: "star.fill", withConfiguration: symbolConfig)
@@ -107,44 +107,44 @@ class ShoeViewController: UIViewController {
         reviewScoreButton.translatesAutoresizingMaskIntoConstraints = false
         
         reviewCountButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        reviewCountButton.setTitleColor(.gray, for: .normal)
+        reviewCountButton.setTitleColor(.secondaryLabel, for: .normal)
         reviewCountButton.addTarget(self, action: #selector(reviewScoreButtonTapped), for: .touchUpInside)
         reviewCountButton.translatesAutoresizingMaskIntoConstraints = false
         
         sellerNameButton.setTitle("\(presenter.sellerName)", for: .normal)
-        sellerNameButton.setTitleColor(.black, for: .normal)
+        sellerNameButton.setTitleColor(.label, for: .normal)
         sellerNameButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         sellerNameButton.addTarget(self, action: #selector(sellerNameButtonTapped), for: .touchUpInside)
         sellerNameButton.translatesAutoresizingMaskIntoConstraints = false
         
         chatButton.setImage(UIImage(systemName: "ellipsis.message.fill"), for: .normal)
-        chatButton.tintColor = .black
+        chatButton.tintColor = .label
         chatButton.translatesAutoresizingMaskIntoConstraints = false
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
         
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
-        descriptionLabel.textColor = .darkGray
+        descriptionLabel.textColor = .secondaryLabel
         descriptionLabel.numberOfLines = 0
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         genderLabel.font = UIFont.systemFont(ofSize: 16)
-        genderLabel.textColor = .darkGray
+        genderLabel.textColor = .secondaryLabel
         genderLabel.translatesAutoresizingMaskIntoConstraints = false
         
         colorLabel.font = UIFont.systemFont(ofSize: 16)
-        colorLabel.textColor = .darkGray
+        colorLabel.textColor = .secondaryLabel
         colorLabel.translatesAutoresizingMaskIntoConstraints = false
         
         categoryLabel.font = UIFont.systemFont(ofSize: 16)
-        categoryLabel.textColor = .darkGray
+        categoryLabel.textColor = .secondaryLabel
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
         conditionLabel.font = UIFont.systemFont(ofSize: 16)
-        conditionLabel.textColor = .darkGray
+        conditionLabel.textColor = .secondaryLabel
         conditionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         detailButton.setTitle("Show Details", for: .normal)
-        detailButton.setTitleColor(.black, for: .normal)
+        detailButton.setTitleColor(.label, for: .normal)
         detailButton.translatesAutoresizingMaskIntoConstraints = false
         detailButton.addTarget(self, action: #selector(detailButtonTapped(_:)), for: .touchUpInside)
         genderLabel.isHidden = true
@@ -163,9 +163,9 @@ class ShoeViewController: UIViewController {
             let button = UIButton()
             let sizeString = size.size.components(separatedBy: " ")[0]
             button.setTitle(sizeString, for: .normal)
-            button.setTitleColor(.white, for: .normal)
+            button.setTitleColor(.systemBackground, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-            button.backgroundColor = .gray
+            button.backgroundColor = .secondaryLabel
             button.translatesAutoresizingMaskIntoConstraints = false
             
 //            let availableWidth = sizeStackView.frame.width - (CGFloat(presenter.product!.data.count - 1) * sizeStackView.spacing)
@@ -317,7 +317,7 @@ class ShoeViewController: UIViewController {
     @objc func sizeButtonTapped(_ sender: UIButton) {
         selectedButton?.backgroundColor = .gray
         
-        sender.backgroundColor = .black
+        sender.backgroundColor = .label
         selectedButton = sender
     }
     

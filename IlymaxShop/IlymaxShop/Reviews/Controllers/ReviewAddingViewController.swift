@@ -28,11 +28,10 @@ class ReviewAddingViewController: UIViewController, UITextViewDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
-        navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Add Your Review"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))
         
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        view.backgroundColor = .systemGroupedBackground
         
         starsStackView.translatesAutoresizingMaskIntoConstraints = false
         starsStackView.axis = .horizontal
@@ -42,8 +41,8 @@ class ReviewAddingViewController: UIViewController, UITextViewDelegate {
         
         
         doneButton.setTitle("Done", for: .normal)
-        doneButton.setTitleColor(.white, for: .normal)
-        doneButton.backgroundColor = .black
+        doneButton.setTitleColor(.systemBackground, for: .normal)
+        doneButton.backgroundColor = .label
         doneButton.layer.cornerRadius = 10
         doneButton.addTarget(self, action: #selector(didTapDoneButton), for: .touchUpInside)
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -52,11 +51,14 @@ class ReviewAddingViewController: UIViewController, UITextViewDelegate {
         descriptionLabel.font = UIFont.systemFont(ofSize: 30)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
-//        descriptionTextView.text =
         descriptionTextView.delegate = self
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.font = UIFont.systemFont(ofSize: 16)
+        descriptionTextView.layer.borderColor = UIColor.secondaryLabel.cgColor
+        descriptionTextView.layer.borderWidth = 1
+        descriptionTextView.layer.cornerRadius = 10
+        descriptionTextView.layer.masksToBounds = true
 
         let stackView = UIStackView(arrangedSubviews: [descriptionLabel, descriptionTextView])
         stackView.axis = .vertical

@@ -37,24 +37,24 @@ class ReviewViewController: UIViewController {
    
     func setupUI() {
         navigationItem.title = "Reviews"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))
+        view.backgroundColor = .systemBackground
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ReviewTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-        tableView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        tableView.backgroundColor = .systemGroupedBackground
         
         view.addSubview(tableView)
         
-        addButton.backgroundColor = .white
+        addButton.backgroundColor = .label
         addButton.layer.cornerRadius = 30
-        addButton.layer.shadowColor = UIColor.black.cgColor
+        addButton.layer.shadowColor = UIColor.systemBackground.cgColor
         addButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         addButton.layer.shadowOpacity = 0.5
         addButton.layer.shadowRadius = 2
-        addButton.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)), for: .normal)
-        addButton.tintColor = .black
+        addButton.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold))?.withTintColor(.systemBackground, renderingMode: .alwaysOriginal), for: .normal)
+        addButton.tintColor = .systemBackground
         addButton.addTarget(self, action: #selector(addReview), for: .touchUpInside)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         for review in presenter.reviews {

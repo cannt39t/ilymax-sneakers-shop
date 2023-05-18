@@ -36,7 +36,7 @@ class ModalAddingViewController: UIViewController {
         addButton.setTitle("Add to Cart", for: .normal)
         addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         addButton.addTarget(self, action: #selector(addToCartTapped), for: .touchUpInside)
-        addButton.tintColor = .black
+        addButton.tintColor = .label
         view.addSubview(addButton)
         
         picker.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class ModalAddingViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        view.backgroundColor = .systemGroupedBackground
         
         guard let imageUrlString = product.imageUrl, let imageUrl = URL(string: imageUrlString) else {
             // Show error message to user if image URL is nil

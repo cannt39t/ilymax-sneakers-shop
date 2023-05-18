@@ -51,7 +51,6 @@ class ConversationsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .lightGray
     }
     
     private func startListeningForConversations() {

@@ -205,7 +205,8 @@ extension AddAddressViewController: UICollectionViewDelegate {
                 }
                 navigationController?.pushViewController(vc, animated: true)
             default:
-                print(indexPath)
+                let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                cell.valueTextField.becomeFirstResponder()
         }
     }
     

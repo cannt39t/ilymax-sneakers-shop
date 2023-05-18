@@ -58,7 +58,7 @@ class ReviewTableViewCell: UITableViewCell {
         mainStackView.axis = .vertical
         mainStackView.spacing = 8
         
-        contentView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        contentView.backgroundColor = .systemGroupedBackground
         contentView.addSubview(mainStackView)
 
         NSLayoutConstraint.activate([

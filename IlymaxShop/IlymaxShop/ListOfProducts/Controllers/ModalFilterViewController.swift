@@ -46,7 +46,7 @@ class ModalFilterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGroupedBackground
 
         configureViews()
         configureLayout()
@@ -62,26 +62,26 @@ class ModalFilterViewController: UIViewController {
         tableView.tableFooterView = UIView()
 
         submitButton.setTitle("Submit", for: .normal)
-        submitButton.backgroundColor = .black
+        submitButton.backgroundColor = .label
+        submitButton.setTitleColor(.systemBackground, for: .normal)
         submitButton.layer.cornerRadius = 10
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
 
     private func configureLayout() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16)
-        ])
-
-        submitButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            submitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25),
-            submitButton.heightAnchor.constraint(equalToConstant: 50)
+            tableView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16),
+            
+            submitButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            submitButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            submitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            submitButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 
@@ -137,42 +137,42 @@ extension ModalFilterViewController: UITableViewDataSource {
             cell.textLabel?.text = sortOption.description
             if sortOption == selectedSort {
                 cell.accessoryType = .checkmark
-                cell.tintColor = .black
+                cell.tintColor = .label
             }
         case 1:
             let gender = genders[indexPath.row]
             cell.textLabel?.text = gender
             if gender == selectedGender {
                 cell.accessoryType = .checkmark
-                cell.tintColor = .black
+                cell.tintColor = .label
             }
         case 2:
             let condition = conditions[indexPath.row]
             cell.textLabel?.text = condition
             if condition == selectedCondition {
                 cell.accessoryType = .checkmark
-                cell.tintColor = .black
+                cell.tintColor = .label
             }
         case 3:
             let brand = brands[indexPath.row]
             cell.textLabel?.text = brand
             if brand == selectedBrand {
                 cell.accessoryType = .checkmark
-                cell.tintColor = .black
+                cell.tintColor = .label
             }
         case 4:
             let size = sizes[indexPath.row]
             cell.textLabel?.text = "\(size) EU"
             if size == selectedSize {
                 cell.accessoryType = .checkmark
-                cell.tintColor = .black
+                cell.tintColor = .label
             }
         case 5:
             let color = colors[indexPath.row]
             cell.textLabel?.text = color
             if color == selectedColor {
                 cell.accessoryType = .checkmark
-                cell.tintColor = .black
+                cell.tintColor = .label
             }
         default:
             break

@@ -8,7 +8,7 @@
 import UIKit
 
 class ProductListCollectionViewCell: UICollectionViewCell {
-    static let reuseID = String(describing: ProductListCollectionViewCell.self)
+    static let identifier = String(describing: ProductListCollectionViewCell.self)
 
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -30,7 +30,7 @@ class ProductListCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var cartButton: UIButton = {
+    public lazy var cartButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "cart"), for: .normal)
@@ -81,7 +81,7 @@ class ProductListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var transparentButton: UIButton = {
+    public lazy var transparentButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
@@ -122,7 +122,7 @@ class ProductListCollectionViewCell: UICollectionViewCell {
             transparentButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
 
-        backgroundColor = .white
+        backgroundColor = .secondarySystemGroupedBackground
         clipsToBounds = true
         layer.cornerRadius = 4
         
@@ -152,17 +152,12 @@ class ProductListCollectionViewCell: UICollectionViewCell {
 
     var product: Shoes = .init(name: "", description: "", color: "", gender: "", condition: "", data: [], ownerId: "", company: "", category: "")
 
-    func update(product: Shoes, productListPresenterDelegate: ProductListPresenterDelegate) {
+    func update(product: Shoes, productListPresenterDelegate: ProductListPresenterDelegate?) {
         brandLabel.text = product.company
         nameLabel.text = product.name
         priceLabel.text = "\(product.data[0].price) $"
         self.product = product
         self.productListPresenterDelegate = productListPresenterDelegate
-        
-        guard let imageUrl = product.imageUrl else {
-            // Show error message to user if image URL is nil
-            return
-        }
         
         guard let imageUrlString = product.imageUrl, let imageUrl = URL(string: imageUrlString) else {
             // Show error message to user if image URL is nil

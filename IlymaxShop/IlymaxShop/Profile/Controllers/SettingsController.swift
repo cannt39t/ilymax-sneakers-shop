@@ -293,7 +293,7 @@ extension SettingsController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.section {
-            case 4 :
+            case 4:
                 switch indexPath.item {
                     case 0 :
                         presenter.clearCache()
@@ -302,9 +302,11 @@ extension SettingsController: UICollectionViewDelegate {
                     default:
                         print(indexPath)
                 }
+            case 0:
+                let cell = collectionView.cellForItem(at: indexPath) as! PersonalnformationCell
+                cell.valueTextField.becomeFirstResponder()
             default:
                 print(indexPath)
         }
     }
-    
 }
