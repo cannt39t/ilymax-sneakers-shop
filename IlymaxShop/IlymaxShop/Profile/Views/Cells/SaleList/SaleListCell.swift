@@ -26,7 +26,7 @@ class SaleListCell: UICollectionViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 20)
         label.textColor = .label
         label.numberOfLines = 1
         return label
@@ -34,7 +34,7 @@ class SaleListCell: UICollectionViewCell {
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .label
         label.numberOfLines = 1
         return label
@@ -43,7 +43,7 @@ class SaleListCell: UICollectionViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 12)
+        label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .secondaryLabel
         label.numberOfLines = 1
         return label
@@ -51,16 +51,11 @@ class SaleListCell: UICollectionViewCell {
     
     private let desryptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .secondaryLabel
         label.isUserInteractionEnabled = true
         label.numberOfLines = 0
         return label
-    }()
-    
-    private var mainStack: UIStackView = {
-        let stackView = UIStackView()
-        return stackView
     }()
     
     required init?(coder: NSCoder) {
@@ -75,6 +70,18 @@ class SaleListCell: UICollectionViewCell {
         
         
         setup()
+    }
+    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var frame = layoutAttributes.frame
+        frame.size.height = ceil(size.height)
+        layoutAttributes.frame = frame
+        
+        return layoutAttributes
     }
     
     private func setup() {
@@ -93,20 +100,22 @@ class SaleListCell: UICollectionViewCell {
         nameAndPriceStack.axis = .vertical
         nameAndPriceStack.alignment = .leading
         nameAndPriceStack.distribution = .fillEqually
-        nameAndPriceStack.spacing = 6
+        nameAndPriceStack.spacing = 18
         
         let topStack = UIStackView(arrangedSubviews: [shoesImageView, nameAndPriceStack])
         topStack.axis = .horizontal
-        topStack.alignment = .leading
-        topStack.spacing = 6
+        topStack.alignment = .center
+        topStack.spacing = 12
         
-        mainStack = UIStackView(arrangedSubviews: [topStack, dateLabel, desryptionLabel])
-        mainStack.axis = .vertical
-        mainStack.alignment = .leading
-        mainStack.spacing = 6
+        let bottomStack = UIStackView(arrangedSubviews: [dateLabel, desryptionLabel])
+        bottomStack.axis = .vertical
+        bottomStack.alignment = .center
+        bottomStack.spacing = 12
         
-        mainStack.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(mainStack)
+        topStack.translatesAutoresizingMaskIntoConstraints = false
+        bottomStack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(topStack)
+        contentView.addSubview(bottomStack)
         
         NSLayoutConstraint.activate([
             topStack.heightAnchor.constraint(equalToConstant: 100),
@@ -114,13 +123,14 @@ class SaleListCell: UICollectionViewCell {
             shoesImageView.widthAnchor.constraint(equalToConstant: 100),
             shoesImageView.heightAnchor.constraint(equalToConstant: 100),
             
-            nameAndPriceStack.topAnchor.constraint(equalTo: topStack.topAnchor, constant: 12),
-            nameAndPriceStack.bottomAnchor.constraint(equalTo: topStack.bottomAnchor, constant: -12),
+            topStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            topStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            topStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            topStack.bottomAnchor.constraint(equalTo: bottomStack.topAnchor, constant: -12),
             
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
-            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-            mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
+            bottomStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            bottomStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            bottomStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
         ])
     }
     
