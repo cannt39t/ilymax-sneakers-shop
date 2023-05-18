@@ -50,6 +50,7 @@ class ProfileCoordinator {
         let salesListController = ListSalesController()
         
         let salesListPresenter = ListSalesPresenter(currentUser: user)
+        salesListPresenter.pushShoes = pushShoes
         
         salesListController.presenter = salesListPresenter
         salesListPresenter.view = salesListController
@@ -87,5 +88,10 @@ class ProfileCoordinator {
         presenter.view = view
         view.presenter = presenter
         navigationController.pushViewController(view, animated: true)
+    }
+    
+    func pushShoes(_ shoes: Shoes) {
+        let shoesViewCoordinator = ShoeViewCoordinator(navigationController: navigationController)
+        shoesViewCoordinator.start(product: shoes)
     }
 }

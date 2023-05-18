@@ -14,6 +14,7 @@ class ListSalesPresenter {
     private let listSalesService = ListSalesService()
     public var currentUser: IlymaxUser
     public var listOfSales: [Shoes] = []
+    public var pushShoes: (Shoes) -> () = { _ in }
     
     init(currentUser: IlymaxUser) {
         self.currentUser = currentUser
@@ -30,5 +31,4 @@ class ListSalesPresenter {
             }
         }
     }
-    
 }

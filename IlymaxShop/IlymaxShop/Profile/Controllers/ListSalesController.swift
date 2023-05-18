@@ -58,43 +58,19 @@ extension ListSalesController: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        presenter.pushShoes(presenter.listOfSales[indexPath.item])
+    }
+    
 }
 
-extension ListSalesController: UICollectionViewDelegate {
-    
-    
-    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { [weak self] (index, enviroment) -> NSCollectionLayoutSection? in
-            return self?.createSectionFor(index: index, enviroment: enviroment)
-        })
-        return layout
-    }
-    
-    private func createSectionFor(index: Int, enviroment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        setupFirstSection()
-    }
-    
-    
-    private func setupFirstSection() -> NSCollectionLayoutSection {
-        // item
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
-        
-        //group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(225))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        //section
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
-        
-        return section
-    }
-    
+extension ListSalesController: UICollectionViewDelegateFlowLayout {
     private func setupCollectionView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .systemGroupedBackground
@@ -112,5 +88,23 @@ extension ListSalesController: UICollectionViewDelegate {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(SaleListCell.self, forCellWithReuseIdentifier: SaleListCell.identifier)
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemWidth = collectionView.bounds.width
+        
+        let text = presenter.listOfSales[indexPath.item].description
+        
+        let textHeight = text.height(withConstrainedWidth: itemWidth, font: UIFont.systemFont(ofSize: 16))
+        return CGSize(width: itemWidth, height: textHeight)
+    }
 }
+
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        return ceil(boundingBox.height)
+    }
+}
+
 

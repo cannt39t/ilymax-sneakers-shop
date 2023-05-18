@@ -91,7 +91,7 @@ class UserCell: UICollectionViewCell {
     }
     
     private func configure(with url: URL) {
-        userImage.sd_setImage(with: url, for: .normal, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { [weak self] (image, error, cacheType, url) in
+        userImage.sd_setImage(with: url, for: .normal, placeholderImage: nil, options: [.highPriority]) { [weak self] (image, error, cacheType, url) in
             guard let strongSelf = self else {
                 fatalError()
             }
