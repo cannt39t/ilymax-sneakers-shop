@@ -12,6 +12,8 @@
 		0504CE6D2A1561ED0050BA48 /* AddAddressService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504CE6C2A1561ED0050BA48 /* AddAddressService.swift */; };
 		0504CE6F2A1562280050BA48 /* AddAddressPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504CE6E2A1562280050BA48 /* AddAddressPresenter.swift */; };
 		0504CE712A1562AB0050BA48 /* AddAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504CE702A1562AB0050BA48 /* AddAddressCell.swift */; };
+		0504CE732A1580BE0050BA48 /* ChooseCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504CE722A1580BE0050BA48 /* ChooseCountryViewController.swift */; };
+		0504CE762A15837D0050BA48 /* EmojiStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504CE752A15837D0050BA48 /* EmojiStringExtension.swift */; };
 		050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 050C580829E2D83B00A27A30 /* SDWebImage */; };
 		0510F20929F6ED3700175131 /* IlymaxReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0510F20829F6ED3700175131 /* IlymaxReview.swift */; };
 		05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05188D9429C4FF21004E1D7B /* AppDelegate.swift */; };
@@ -168,6 +170,8 @@
 		0504CE6C2A1561ED0050BA48 /* AddAddressService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressService.swift; sourceTree = "<group>"; };
 		0504CE6E2A1562280050BA48 /* AddAddressPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressPresenter.swift; sourceTree = "<group>"; };
 		0504CE702A1562AB0050BA48 /* AddAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressCell.swift; sourceTree = "<group>"; };
+		0504CE722A1580BE0050BA48 /* ChooseCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCountryViewController.swift; sourceTree = "<group>"; };
+		0504CE752A15837D0050BA48 /* EmojiStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiStringExtension.swift; sourceTree = "<group>"; };
 		0510F20829F6ED3700175131 /* IlymaxReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxReview.swift; sourceTree = "<group>"; };
 		05188D9429C4FF21004E1D7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05188D9629C4FF21004E1D7B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -330,6 +334,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0504CE742A15835E0050BA48 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0504CE752A15837D0050BA48 /* EmojiStringExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		05188D8829C4FF21004E1D7B = {
 			isa = PBXGroup;
 			children = (
@@ -709,6 +721,7 @@
 		05EC2D0C29D07FA200962420 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0504CE742A15835E0050BA48 /* Extensions */,
 				05CDCA7129E554CE00573EF3 /* Services */,
 				05CDCA6E29E5545000573EF3 /* Presenters */,
 				05A437FF29D816BB00AADDB9 /* Views */,
@@ -799,6 +812,7 @@
 				05C1A3D02A05A58D000F5665 /* SettingsController.swift */,
 				05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */,
 				0504CE6A2A154F0A0050BA48 /* AddAddressViewController.swift */,
+				0504CE722A1580BE0050BA48 /* ChooseCountryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1286,6 +1300,7 @@
 				051F100929C8E3A700877947 /* ProfileCoordinator.swift in Sources */,
 				055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */,
 				0565D05C29E8686F008CB4B7 /* UIImageExtension.swift in Sources */,
+				0504CE732A1580BE0050BA48 /* ChooseCountryViewController.swift in Sources */,
 				05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */,
 				0504CE6D2A1561ED0050BA48 /* AddAddressService.swift in Sources */,
 				05A5CD9E29DB52A700564CC3 /* CategoryCell.swift in Sources */,
@@ -1297,6 +1312,7 @@
 				7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */,
 				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
+				0504CE762A15837D0050BA48 /* EmojiStringExtension.swift in Sources */,
 				051F101929C8E9BA00877947 /* ConversationsViewController.swift in Sources */,
 				05DE814B2A1418F90054078B /* AddressHeader.swift in Sources */,
 				05C1A3C32A059DBC000F5665 /* OrdersPresenter.swift in Sources */,
