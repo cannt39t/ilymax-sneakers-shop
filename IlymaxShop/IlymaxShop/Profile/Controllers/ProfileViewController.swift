@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController {
     
     
     func showError(_ error: Error) {
-        let alertController = UIAlertController(title: error.localizedDescription, message: "Something went wrong, Please wat for some time", preferredStyle: .alert)
+        let alertController = UIAlertController(title: error.localizedDescription, message: "Something went wrong, Please wait for some time", preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Okay, i'll try it later", style: .default, handler: nil)
         alertController.addAction(dismissAction)
         present(alertController, animated: true, completion: nil)
