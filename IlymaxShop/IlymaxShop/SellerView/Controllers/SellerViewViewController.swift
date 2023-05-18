@@ -6,135 +6,145 @@
 //
 
 import UIKit
-import JGProgressHUD
 
-class SellerViewViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SellerViewViewController: UIViewController {
 
+    public var collectionView: UICollectionView!
     var presenter: SellerViewPresenter!
-    private let hud = JGProgressHUD()
-    private let label = UILabel()
     
-    private let itemsPerRow: CGFloat = 2
-      
-    private let minimumItemSpacing: CGFloat = 8
-    
-    private let sectionInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-
-    init() {
-        let layout = UICollectionViewFlowLayout()
-        super.init(collectionViewLayout: layout)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isEmpty()
-        self.collectionView.register(SellerViewViewCell.self,
-                                      forCellWithReuseIdentifier: SellerViewViewCell.reuseID)
-        collectionView.contentInset = .zero
-        collectionView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.title = "Seller's profile"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveBack))
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.isHidden = false
+        title = "Seller"
+        navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         
-        collectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CustomHeader")
-
+        //        showLoader()
+        setupCollectionView()
+        //        presenter.fetchSettings()
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader else {
-            fatalError("Unexpected supplementary view kind")
-        }
-
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CustomHeader", for: indexPath) as? CustomHeaderView else {
-            fatalError("Unable to dequeue CustomHeaderView")
-        }
-        
-        headerView.setUser(user: presenter.user!)
-
-        return headerView
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 100)
-    }
-    
-    func showLoader() {
-        hud.show(in: self.view, animated: true)
-        isEmpty()
-    }
-    
-    func hideLoader() {
-        hud.dismiss(animated: true)
-    }
-    
-    func isEmpty() {
-        label.text = "Sorry, nothing was found"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        view.addSubview(label)
-        
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        if presenter.products.count == 0 {
-            label.isHidden = false
-        } else {
-            label.isHidden = true
-        }
-    }
-    
-    @objc private func moveBack() {
+    @objc func backButtonTaped() {
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
-extension SellerViewViewController {
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.products.count ?? 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SellerViewViewCell.reuseID,
-                                                            for: indexPath) as? SellerViewViewCell else {
-            fatalError("Wrong cell")
+extension SellerViewViewController: UICollectionViewDataSource {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+            case 0:
+                return 1
+            default:
+                return presenter.products.count
         }
-        let product = presenter?.products[indexPath.item]
-        cell.update(product: product!, sellerViewPresenterDelegate: presenter)
-        return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                            layout collectionViewLayout: UICollectionViewLayout,
-                            sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left + sectionInsets.right + minimumItemSpacing * (itemsPerRow - 1)
-        let availableWidth = collectionView.bounds.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
-        let height = widthPerItem * 1.5
-        return CGSize(width: widthPerItem, height: height)
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+            case 0:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCell.identifier, for: indexPath) as! UserCell
+                cell.setUser(user: presenter.user)
+                return cell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCollectionViewCell.identifier, for: indexPath) as! ProductListCollectionViewCell
+                cell.update(product: presenter.products[indexPath.item], productListPresenterDelegate: nil)
+                cell.cartButton.isHidden = true
+                cell.transparentButton.isHidden = true
+                return cell
+        }
+    }
+}
+
+extension SellerViewViewController: UICollectionViewDelegate {
+    
+    
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { [weak self] (index, enviroment) -> NSCollectionLayoutSection? in
+            return self?.createSectionFor(index: index, enviroment: enviroment)
+        })
+        return layout
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+    private func createSectionFor(index: Int, enviroment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        switch index {
+            case 0:
+                return userSection()
+            default:
+                return setupProductSection()
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumItemSpacing
+    
+    private func userSection() -> NSCollectionLayoutSection {
+        // item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 0)
+        
+        //group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        //section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 24, leading: 24, bottom: 24, trailing: 24)
+        
+        return section
+    }
+    
+    private func setupProductSection() -> NSCollectionLayoutSection {
+        // item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
+        
+        //group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(266))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        //section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 24, trailing: 12)
+        
+        return section
+    }
+    
+    private func setupCollectionView() {
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .systemGroupedBackground
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+        
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(UserCell.self, forCellWithReuseIdentifier: UserCell.identifier)
+        collectionView.register(ProductListCollectionViewCell.self, forCellWithReuseIdentifier: ProductListCollectionViewCell.identifier)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        switch indexPath.section {
+            case 0:
+                print(indexPath)
+            default:
+                presenter.pushShoe(presenter.products[indexPath.item])
+        }
     }
 }

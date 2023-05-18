@@ -57,14 +57,14 @@ class ProductListViewController: UICollectionViewController {
         
         isEmpty()
         self.collectionView.register(ProductListCollectionViewCell.self,
-                                      forCellWithReuseIdentifier: ProductListCollectionViewCell.reuseID)
+                                      forCellWithReuseIdentifier: ProductListCollectionViewCell.identifier)
         collectionView.contentInset = .zero
-        collectionView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        collectionView.backgroundColor = .systemGroupedBackground
         updatePresentationStyle()
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .label
         navigationItem.title = "\(presenter.name)"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveBack))
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: selectedStyle.buttonImage, style: .plain, target: self, action: #selector(changeContentLayout)), UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(filter))]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveBack))
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: selectedStyle.buttonImage, style: .plain, target: self, action: #selector(changeContentLayout)), UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(filter))]
     }
     
     func showLoader() {
@@ -123,11 +123,11 @@ class ProductListViewController: UICollectionViewController {
 
 extension ProductListViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.products.count ?? 0
+        return presenter.products.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCollectionViewCell.reuseID,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCollectionViewCell.identifier,
                                                             for: indexPath) as? ProductListCollectionViewCell else {
             fatalError("Wrong cell")
         }
