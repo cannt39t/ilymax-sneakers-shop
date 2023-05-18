@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddAddressViewController: UIViewController {
+class AddAddressViewController: UIViewController, UITextFieldDelegate {
     
     public var collectionView: UICollectionView!
     public var presenter: AddAddressPresenter!
@@ -15,6 +15,10 @@ class AddAddressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = false
@@ -37,13 +41,14 @@ class AddAddressViewController: UIViewController {
         saveButton.setTitleColor(.systemBackground, for: .normal)
         saveButton.backgroundColor = .label
         let action = UIAction { [weak self] _ in
-//            presenter.saveAddress
-            self?.navigationController?.popViewController(animated: true)
+            self?.validateField()
         }
         saveButton.addAction(action, for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -52,6 +57,10 @@ class AddAddressViewController: UIViewController {
             saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             saveButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
 }
 
@@ -70,28 +79,39 @@ extension AddAddressViewController: UICollectionViewDataSource {
         switch indexPath.item {
             case 0:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
-                cell.configureCell("Full name", "Arlene McCoy")
+                cell.valueTextField.placeholder = "Enter name of address"
+                cell.valueTextField.delegate = self
+                cell.valueTextField.resignFirstResponder()
+                cell.configureCell("Full name", "")
                 return cell
             case 1:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
-                cell.configureCell("Address", "25 Robert Latouche Street")
+                cell.valueTextField.placeholder = "E.g. 25 Robert Latouche Street"
+                cell.valueTextField.delegate = self
+                cell.valueTextField.resignFirstResponder()
+                cell.configureCell("Address", "")
                 return cell
             case 2:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Enter like '324545'"
+                cell.valueTextField.delegate = self
+                cell.valueTextField.resignFirstResponder()
                 cell.valueTextField.keyboardType = .numberPad
-                cell.configureCell("Zipcode (Postal Code)", "324545")
+                cell.configureCell("Zipcode (Postal Code)", "")
                 return cell
             case 3:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Choose country"
                 cell.valueTextField.isEnabled = false
                 cell.forwardImage.isHidden = false
-                cell.configureCell("Country", "Choose country")
+                cell.configureCell("Country", "")
                 return cell
             case 4:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
-                cell.valueTextField.isEnabled = false
-                cell.forwardImage.isHidden = false
-                cell.configureCell("City", "Choose city")
+                cell.valueTextField.placeholder = "E.g. London"
+                cell.valueTextField.delegate = self
+                cell.valueTextField.resignFirstResponder()
+                cell.configureCell("City", "")
                 return cell
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
@@ -99,6 +119,25 @@ extension AddAddressViewController: UICollectionViewDataSource {
                 return cell
         }
     }
+    
+    private func validateField() {
+        var isValid = true
+        var arguments = [String]()
+        for item in 0..<5 {
+            let cell = collectionView.cellForItem(at: IndexPath(item: item, section: 0)) as! AddAddressCell
+            guard let text = cell.valueTextField.text, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
+                cell.makeInvalid()
+                isValid = false
+                continue
+            }
+            arguments.append(text)
+            cell.makeValid()
+        }
+        if isValid {
+            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4]))
+        }
+    }
+
 }
 
 extension AddAddressViewController: UICollectionViewDelegate {
@@ -158,9 +197,13 @@ extension AddAddressViewController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.item {
             case 3:
-                print("Go choose country")
-            case 4:
-                print("Go choose city")
+                let vc = ChooseCountryViewController()
+                vc.completion = { country in
+                    print("Selected country: \(country)")
+                    let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                    cell.valueTextField.text = country
+                }
+                navigationController?.pushViewController(vc, animated: true)
             default:
                 print(indexPath)
         }
