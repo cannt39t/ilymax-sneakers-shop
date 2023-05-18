@@ -140,6 +140,7 @@
 		7ED3E75F2A1549B900B78244 /* SellerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */; };
 		7ED3E7672A154D0400B78244 /* SellerViewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E7662A154D0400B78244 /* SellerViewViewCell.swift */; };
 		7ED3E7692A15688500B78244 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E7682A15688500B78244 /* CustomHeaderView.swift */; };
+		7ED3E76D2A166A0A00B78244 /* SellerViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,6 +289,7 @@
 		7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewViewController.swift; sourceTree = "<group>"; };
 		7ED3E7662A154D0400B78244 /* SellerViewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewViewCell.swift; sourceTree = "<group>"; };
 		7ED3E7682A15688500B78244 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1050,6 +1052,7 @@
 		7ED3E7572A15487B00B78244 /* SellerView */ = {
 			isa = PBXGroup;
 			children = (
+				7ED3E76B2A1669F000B78244 /* Coordinators */,
 				7ED3E75B2A1548B100B78244 /* Controllers */,
 				7ED3E75A2A1548A700B78244 /* Presenters */,
 				7ED3E7592A15489C00B78244 /* Services */,
@@ -1104,6 +1107,14 @@
 				7ED3E7682A15688500B78244 /* CustomHeaderView.swift */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		7ED3E76B2A1669F000B78244 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1261,6 +1272,7 @@
 				05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */,
 				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				7EA2176729F7096900D0573F /* ReviewViewController.swift in Sources */,
+				7ED3E76D2A166A0A00B78244 /* SellerViewCoordinator.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
 				051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */,
 				05D91E9F29ED500400C7FBB7 /* StorageManager.swift in Sources */,

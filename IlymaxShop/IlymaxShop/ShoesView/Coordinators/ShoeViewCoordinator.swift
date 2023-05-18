@@ -55,18 +55,7 @@ class ShoeViewCoordinator {
     }
     
     func pushSellerView(products: [Shoes], user: IlymaxUser) {
-        let sellerViewViewController = SellerViewViewController()
-        let presenter = SellerViewPresenter()
-        sellerViewViewController.presenter = presenter
-        presenter.pushShoe = pushShoeView
-        presenter.products = products
-        presenter.user = user
-        presenter.view = sellerViewViewController
-        navigationController.pushViewController(sellerViewViewController, animated: true)
-    }
-    
-    func pushShoeView(shoe: Shoes) {
-        let shoeViewCoordinator = ShoeViewCoordinator(navigationController: navigationController)
-        shoeViewCoordinator.start(product: shoe)
+        let sellerViewCoordinator = SellerViewCoordinator(navigationController: navigationController)
+        sellerViewCoordinator.start(products: products, user: user)
     }
 }
