@@ -83,9 +83,9 @@ class AddressCell: UICollectionViewCell {
         ])
     }
     
-    public func configureCell() {
-        nameLabel.text = "Bruno Fernandes"
-        descryptionLabel.text = "25 rue Robert Latouche, Nice, 06200, Côte D’azur, France"
+    public func configureCell(with address: IlymaxAddress) {
+        nameLabel.text = address.fullName
+        descryptionLabel.text = "\(address.country), \(address.city), \(address.zipcode), \(address.address)"
     }
 }
 
