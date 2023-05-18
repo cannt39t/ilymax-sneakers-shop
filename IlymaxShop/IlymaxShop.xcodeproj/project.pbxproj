@@ -118,6 +118,7 @@
 		05D91E9F29ED500400C7FBB7 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9E29ED500400C7FBB7 /* StorageManager.swift */; };
 		05DE81492A140CCB0054078B /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DE81482A140CCB0054078B /* AddressCell.swift */; };
 		05DE814B2A1418F90054078B /* AddressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DE814A2A1418F90054078B /* AddressHeader.swift */; };
+		05F31F122A1641AE002DED92 /* SaleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F31F112A1641AE002DED92 /* SaleListCell.swift */; };
 		05F351EB29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F351EA29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift */; };
 		05FA8EBD2A044E8000521B5B /* AddressesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */; };
 		7E1DAD0329DC86ED005B716B /* PublicShoesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DAD0229DC86ED005B716B /* PublicShoesPresenter.swift */; };
@@ -270,6 +271,7 @@
 		05D91E9E29ED500400C7FBB7 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		05DE81482A140CCB0054078B /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		05DE814A2A1418F90054078B /* AddressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressHeader.swift; sourceTree = "<group>"; };
+		05F31F112A1641AE002DED92 /* SaleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleListCell.swift; sourceTree = "<group>"; };
 		05F351EA29D30D4800A6EFC5 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
 		05FA8EBC2A044E8000521B5B /* AddressesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesCollectionViewController.swift; sourceTree = "<group>"; };
 		7E1DAD0229DC86ED005B716B /* PublicShoesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicShoesPresenter.swift; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 			children = (
 				05A4380029D8171C00AADDB9 /* UserCell.swift */,
 				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+				05F31F102A1640F4002DED92 /* SaleList */,
 				05DE81472A140CA10054078B /* Addresses */,
 				052B08D82A128188000ED5DE /* Settings */,
 			);
@@ -886,6 +889,14 @@
 				0539C3A929CDDA9A008F41B4 /* CartService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		05F31F102A1640F4002DED92 /* SaleList */ = {
+			isa = PBXGroup;
+			children = (
+				05F31F112A1641AE002DED92 /* SaleListCell.swift */,
+			);
+			path = SaleList;
 			sourceTree = "<group>";
 		};
 		7E1DAD0129DC86CE005B716B /* Presenters */ = {
@@ -1284,6 +1295,7 @@
 				052D97EE29D9C962008CA67C /* IlymaxPromotion.swift in Sources */,
 				05D91E9C29ED446000C7FBB7 /* NewConversationViewController.swift in Sources */,
 				056F94C32A01A62100F04B54 /* OrdersCollectionViewController.swift in Sources */,
+				05F31F122A1641AE002DED92 /* SaleListCell.swift in Sources */,
 				05D0673729C9DF2800A6BBD7 /* AuthenticationCoordinator.swift in Sources */,
 				05BA97D529D62151002B7568 /* NoAuthViewController.swift in Sources */,
 				7EA2176D29F709C100D0573F /* ReviewAddingViewController.swift in Sources */,
