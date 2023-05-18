@@ -134,27 +134,12 @@ class SellerViewViewCell: UICollectionViewCell {
         self.product = product
         self.sellerViewPresenterDelegate = sellerViewPresenterDelegate
         
-        guard let imageUrl = product.imageUrl else {
+        guard let imageUrlString = product.imageUrl, let imageUrl = URL(string: imageUrlString) else {
             // Show error message to user if image URL is nil
             return
         }
         
-        StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
-            guard let self = self else { return } // Make sure self is not nil
-            
-            if let error = error {
-                // Show error message to user
-                print("Error loading image: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let url = url else {
-                // Show error message to user if URL is nil
-                return
-            }
-            
-            self.loadImage(with: url)
-        }
+        loadImage(with: imageUrl)
     }
 
     private func loadImage(with url: URL) {
@@ -162,12 +147,6 @@ class SellerViewViewCell: UICollectionViewCell {
             if let error = error {
                 // Show error message to user
                 print("Error loading image: \(error.localizedDescription)")
-            } else {
-//                if cacheType == .memory || cacheType == .disk {
-//                    print("Image loaded from cache")
-//                } else {
-//                    print("Image loaded from network")
-//                }
             }
         }
     }

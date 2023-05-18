@@ -34,24 +34,13 @@ class CartCell: UITableViewCell {
         sizeLabel.textColor = .label
         priceLabel.text = "\(product.data.price) $"
         priceLabel.textColor = .label
-        let imageUrl = product.imageUrl
         
-        StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
-            guard let self = self else { return } // Make sure self is not nil
-            
-            if let error = error {
-                // Show error message to user
-                print("Error loading image: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let url = url else {
-                // Show error message to user if URL is nil
-                return
-            }
-            
-            self.loadImage(with: url)
+        guard let imageUrl = URL(string: product.imageUrl) else {
+            // Show error message to user if image URL is nil
+            return
         }
+        
+        loadImage(with: imageUrl)
     }
     
 
