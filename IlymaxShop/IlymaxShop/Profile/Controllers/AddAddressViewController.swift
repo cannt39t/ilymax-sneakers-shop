@@ -134,7 +134,7 @@ extension AddAddressViewController: UICollectionViewDataSource {
             cell.makeValid()
         }
         if isValid {
-            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4]))
+            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4], isDefault: false))
         }
     }
 
