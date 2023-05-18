@@ -1389,7 +1389,7 @@ extension FirestoreManager {
             "city": address.city
         ]
         
-        let cartRef = db.collection(IlymaxCartItem.collectionName).document(userID)
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userID)
         cartRef.getDocument { (snapshot, error) in
             if let error = error {
                 print("Error getting cart items: \(error.localizedDescription)")
