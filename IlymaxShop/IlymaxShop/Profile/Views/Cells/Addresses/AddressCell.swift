@@ -53,7 +53,6 @@ class AddressCell: UICollectionViewCell {
         
         let grayView = UIView(frame: bounds)
         grayView.backgroundColor = .lightGray.withAlphaComponent(0.25)
-
         self.selectedBackgroundView = grayView
         
         separatorLine.layer.borderWidth = 1.0
