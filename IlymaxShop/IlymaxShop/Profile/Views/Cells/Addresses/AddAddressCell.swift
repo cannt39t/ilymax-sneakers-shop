@@ -32,8 +32,8 @@ class AddAddressCell: UICollectionViewCell {
     private func setupDesign() {
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        layer.borderWidth = 1.0
-        layer.borderColor = UIColor.secondaryLabel.cgColor
+        
+        makeValid()
         
         nameLabel.font = nameLabel.font.withSize(14)
         nameLabel.textColor = .secondaryLabel
@@ -76,6 +76,16 @@ class AddAddressCell: UICollectionViewCell {
     public func configureCell(_ name: String, _ value: String) {
         nameLabel.text = name
         valueTextField.text = value
+    }
+    
+    public func makeInvalid() {
+        layer.borderWidth = 2.0
+        layer.borderColor = UIColor.red.cgColor
+    }
+    
+    public func makeValid() {
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.secondaryLabel.cgColor
     }
     
 }
