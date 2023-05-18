@@ -136,6 +136,11 @@
 		7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB729EF39A100FD7BED /* ModalFilterViewController.swift */; };
 		7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14AB929EF39B900FD7BED /* ModalAddingViewController.swift */; };
 		7ED14ABC29EF39D300FD7BED /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED14ABB29EF39D300FD7BED /* ProductListViewController.swift */; };
+		7ED3E75D2A1548DF00B78244 /* SellerViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E75C2A1548DF00B78244 /* SellerViewPresenter.swift */; };
+		7ED3E75F2A1549B900B78244 /* SellerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */; };
+		7ED3E7672A154D0400B78244 /* SellerViewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E7662A154D0400B78244 /* SellerViewViewCell.swift */; };
+		7ED3E7692A15688500B78244 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E7682A15688500B78244 /* CustomHeaderView.swift */; };
+		7ED3E76D2A166A0A00B78244 /* SellerViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +285,11 @@
 		7ED14AB729EF39A100FD7BED /* ModalFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFilterViewController.swift; sourceTree = "<group>"; };
 		7ED14AB929EF39B900FD7BED /* ModalAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddingViewController.swift; sourceTree = "<group>"; };
 		7ED14ABB29EF39D300FD7BED /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
+		7ED3E75C2A1548DF00B78244 /* SellerViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewPresenter.swift; sourceTree = "<group>"; };
+		7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewViewController.swift; sourceTree = "<group>"; };
+		7ED3E7662A154D0400B78244 /* SellerViewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewViewCell.swift; sourceTree = "<group>"; };
+		7ED3E7682A15688500B78244 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +341,7 @@
 		05188D9329C4FF21004E1D7B /* IlymaxShop */ = {
 			isa = PBXGroup;
 			children = (
+				7ED3E7572A15487B00B78244 /* SellerView */,
 				7EA2176229F7091600D0573F /* Reviews */,
 				7ED14AA629EF371100FD7BED /* ListOfProducts */,
 				7E36E4BA29EEE57E003D0A7B /* ShoesView */,
@@ -1038,6 +1049,74 @@
 			path = "Collection FlowLayouts";
 			sourceTree = "<group>";
 		};
+		7ED3E7572A15487B00B78244 /* SellerView */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E76B2A1669F000B78244 /* Coordinators */,
+				7ED3E75B2A1548B100B78244 /* Controllers */,
+				7ED3E75A2A1548A700B78244 /* Presenters */,
+				7ED3E7592A15489C00B78244 /* Services */,
+				7ED3E7582A15489200B78244 /* Views */,
+			);
+			path = SellerView;
+			sourceTree = "<group>";
+		};
+		7ED3E7582A15489200B78244 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E76A2A15692200B78244 /* Headers */,
+				7ED3E7652A154CEA00B78244 /* Cell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7ED3E7592A15489C00B78244 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7ED3E75A2A1548A700B78244 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E75C2A1548DF00B78244 /* SellerViewPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		7ED3E75B2A1548B100B78244 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7ED3E7652A154CEA00B78244 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E7662A154D0400B78244 /* SellerViewViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7ED3E76A2A15692200B78244 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E7682A15688500B78244 /* CustomHeaderView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		7ED3E76B2A1669F000B78244 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1189,9 +1268,11 @@
 			files = (
 				7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */,
 				0579046A29FFC0C300AD3C81 /* LocationPickerViewController.swift in Sources */,
+				7ED3E75F2A1549B900B78244 /* SellerViewViewController.swift in Sources */,
 				05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */,
 				0539C3A529CDDA6E008F41B4 /* CartPresenter.swift in Sources */,
 				7EA2176729F7096900D0573F /* ReviewViewController.swift in Sources */,
+				7ED3E76D2A166A0A00B78244 /* SellerViewCoordinator.swift in Sources */,
 				051F100729C8E39400877947 /* AppCoordinator.swift in Sources */,
 				051F101F29C8EA4D00877947 /* WelcomeViewController.swift in Sources */,
 				05D91E9F29ED500400C7FBB7 /* StorageManager.swift in Sources */,
@@ -1245,6 +1326,8 @@
 				05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */,
 				05C1A3C72A05A448000F5665 /* AddressesService.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
+				7ED3E7672A154D0400B78244 /* SellerViewViewCell.swift in Sources */,
+				7ED3E7692A15688500B78244 /* CustomHeaderView.swift in Sources */,
 				05B79A6F2A112ECF00F88F67 /* IlymaxCartItem.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
@@ -1261,6 +1344,7 @@
 				7ED14AAD29EF37A200FD7BED /* ProductListCollectionViewCell.swift in Sources */,
 				7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */,
 				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
+				7ED3E75D2A1548DF00B78244 /* SellerViewPresenter.swift in Sources */,
 				0539C3AC29CDDA9A008F41B4 /* CartService.swift in Sources */,
 				051F101929C8E9BA00877947 /* ConversationsViewController.swift in Sources */,
 				05C1A3C32A059DBC000F5665 /* OrdersPresenter.swift in Sources */,
@@ -1469,7 +1553,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 94Y6332Y3J;
+				DEVELOPMENT_TEAM = Q5F7MPX4BB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
@@ -1499,7 +1583,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 94Y6332Y3J;
+				DEVELOPMENT_TEAM = Q5F7MPX4BB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";

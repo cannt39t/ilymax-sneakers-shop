@@ -78,8 +78,12 @@ class ReviewViewController: UIViewController {
         ])
     }
     
-    @objc private func addReview() {
+    func hideButton() {
         addButton.isHidden = true
+    }
+    
+    @objc private func addReview() {
+        hideButton()
         presenter.pushAdding()
     }
     

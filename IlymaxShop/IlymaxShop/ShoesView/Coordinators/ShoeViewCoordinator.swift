@@ -19,13 +19,14 @@ class ShoeViewCoordinator {
         let shoeViewController = ShoeViewController()
         let shoeViewPresenter = ShoeViewPresenter()
         shoeViewPresenter.pushReview = pushReviews
+        shoeViewPresenter.pushSellerView = pushSellerView
         shoeViewPresenter.view = shoeViewController
         shoeViewController.presenter = shoeViewPresenter
         shoeViewPresenter.product = product
         navigationController.pushViewController(shoeViewController, animated: true)
     }
     
-    func pushReviews(reviews: [IlymaxReview], shoeID: String) {
+    func pushReviews(reviews: [IlymaxReview], shoeID: String, ownerID: String) {
         let reviewController = ReviewViewController()
         let presenter = ReviewPresenter()
         presenter.pushAdd = pushAddReview
@@ -33,6 +34,7 @@ class ShoeViewCoordinator {
         reviewController.presenter = presenter
         presenter.reviews = reviews
         presenter.shoeID = shoeID
+        presenter.ownerID = ownerID
         presenter.view = reviewController
         navigationController.pushViewController(reviewController, animated: true)
     }
@@ -52,4 +54,8 @@ class ShoeViewCoordinator {
         navigationController.popViewController(animated: true)
     }
     
+    func pushSellerView(products: [Shoes], user: IlymaxUser) {
+        let sellerViewCoordinator = SellerViewCoordinator(navigationController: navigationController)
+        sellerViewCoordinator.start(products: products, user: user)
+    }
 }
