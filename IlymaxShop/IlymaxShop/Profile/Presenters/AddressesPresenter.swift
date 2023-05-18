@@ -40,4 +40,17 @@ class AddressesPresenter {
             }
         }
     }
+    
+    public func makeDefault(index: Int) {
+        if addresses[index].isDefault {
+            addresses[index].isDefault = false
+            view?.collectionView.reloadData()
+        } else {
+            for i in 0..<addresses.count {
+                addresses[i].isDefault = false
+            }
+            addresses[index].isDefault = true
+            view?.collectionView.reloadData()
+        }
+    }
 }
