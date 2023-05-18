@@ -12,8 +12,7 @@ import UIKit
 class AddressHeader: UICollectionReusableView {
     
     public static let identifier = "AddressHeader"
-    public var isDefaultAddress = false
-//    private var address: IlymaxAddress
+    public var completion: () -> () = {}
     
     public var changeDefaultState: UIButton = .init()
     
@@ -26,6 +25,9 @@ class AddressHeader: UICollectionReusableView {
         config.imagePadding = 10
         changeDefaultState = UIButton(configuration: config)
         changeDefaultState.contentHorizontalAlignment = .leading
+        changeDefaultState.addAction(UIAction(handler: { [weak self] _ in
+            self?.completion()
+        }), for: .touchUpInside)
     }
     
     override init(frame: CGRect) {
@@ -51,6 +53,12 @@ class AddressHeader: UICollectionReusableView {
         let image = UIImage(systemName: "checkmark.square.fill")!.withTintColor(.label, renderingMode: .alwaysOriginal)
         changeDefaultState.configuration?.image = image
         changeDefaultState.configuration?.baseForegroundColor = .label
+    }
+    
+    public func makeNotDefault() {
+        let image = UIImage(systemName: "square")!.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
+        changeDefaultState.configuration?.image = image
+        changeDefaultState.configuration?.baseForegroundColor = .secondaryLabel
     }
     
     required init?(coder Decoder: NSCoder) {
