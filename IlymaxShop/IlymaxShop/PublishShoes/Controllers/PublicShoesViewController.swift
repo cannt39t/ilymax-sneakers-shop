@@ -41,6 +41,7 @@ class PublicShoesViewController: UIViewController, UITextViewDelegate {
     private let conditionButton = UIButton()
 
     override func viewDidLoad() {
+        super.viewDidLoad()
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -48,8 +49,6 @@ class PublicShoesViewController: UIViewController, UITextViewDelegate {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Adding"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(moveForward))
-        super.viewDidLoad()
-
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
 
         nameLabel.text = "Name"

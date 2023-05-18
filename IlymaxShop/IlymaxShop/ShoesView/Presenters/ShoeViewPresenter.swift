@@ -20,17 +20,6 @@ class ShoeViewPresenter {
     var reviews: [IlymaxReview] = []
     var average: Double = 0
     
-    func loadImage() {
-        guard let product = product else { return }
-        
-        shoeViewService.getImage(for: product) { [weak self] image in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                self.view?.updateImage(with: image)
-            }
-        }
-    }
     
     func loadReviews() {
         shoeViewService.getReviewsByShoesId((product?.id)!) {[weak self] result in

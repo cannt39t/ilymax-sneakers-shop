@@ -218,6 +218,66 @@ extension FirestoreManager {
         }
     }
     
+    /// Get all shoes for a specific owner_id from Database
+    public func getAllShoesForCurrentUser(ownerId: String, completion: @escaping (Result<[Shoes], Error>) -> Void) {
+        let shoesRef = db.collection("shoes")
+        let query = shoesRef.whereField("owner_id", isEqualTo: ownerId)
+        
+        query.getDocuments { (snapshot, error) in
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            guard let snapshot = snapshot else {
+                completion(.success([]))
+                return
+            }
+            
+            var shoes: [Shoes] = []
+            
+            for document in snapshot.documents {
+                let data = document.data()
+                guard let id = data["id"] as? String,
+                      let name = data["name"] as? String,
+                      let description = data["description"] as? String,
+                      let color = data["color"] as? String,
+                      let gender = data["gender"] as? String,
+                      let imageUrl = data["image_url"] as? String,
+                      let ownerId = data["owner_id"] as? String,
+                      let company = data["company"] as? String,
+                      let category = data["category"] as? String,
+                      let condition = data["condition"] as? String,
+                      let dataArr = data["data"] as? [[String: Any]]
+                else {
+                    completion(.success([]))
+                    return
+                }
+                
+                var shoeData: [ShoesDetail] = []
+                
+                for dict in dataArr {
+                    guard let size = dict["size"] as? String,
+                          let price = dict["price"] as? Double,
+                          let quantity = dict["quantity"] as? Int
+                    else {
+                        completion(.success([]))
+                        return
+                    }
+                    
+                    let shoe = ShoesDetail(size: size, price: Float(price), quantity: quantity)
+                    shoeData.append(shoe)
+                }
+                
+                let shoe = Shoes(id: id, name: name, description: description, color: color, gender: gender, condition: condition, imageUrl: imageUrl, data: shoeData, ownerId: ownerId, company: company, category: category)
+                shoes.append(shoe)
+            }
+            
+            completion(.success(shoes))
+        }
+    }
+
+    
 
     /// Get all shoes from Database
     public func getAllShoes(completion: @escaping ([Shoes]?, Error?) -> Void) {
@@ -1392,7 +1452,6 @@ extension FirestoreManager {
                     print(error)
                     completion(false)
                 case .success(var cartItems):
-                    print(cartItems)
                     cartItems = cartItems.filter { $0.id != itemID || $0.data.size != size }
                     let cartRef = self!.db.collection(IlymaxCartItem.collectionName).document(userID)
                     cartRef.updateData([
@@ -1425,6 +1484,95 @@ extension FirestoreManager {
                         }
                     }
             }
+        }
+    }
+}
+
+// MARK: - Address managment
+
+extension FirestoreManager {
+    
+    
+    func addAddressFor(userID: String, address: IlymaxAddress, completion: @escaping (Bool) -> ()) {
+        let data: [String: Any] = [
+            "fullName": address.fullName,
+            "address": address.address,
+            "zipcode": address.zipcode,
+            "country": address.country,
+            "city": address.city,
+            "isDefault": address.isDefault
+        ]
+        
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userID)
+        cartRef.getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error getting cart items: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let snapshot = snapshot, snapshot.exists {
+                cartRef.updateData([
+                    "addresses": FieldValue.arrayUnion([data])
+                ]) { (error) in
+                    if let error = error {
+                        print("Error adding address: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        print("Address added")
+                        completion(true)
+                    }
+                }
+            } else {
+                cartRef.setData([
+                    "addresses": [data]
+                ]) { (error) in
+                    if let error = error {
+                        print("Error creating Addresses document: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        print("Addresses document created with item")
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func getAddressesListener(for userId: String, completion: @escaping (Result<[IlymaxAddress], Error>) -> Void) {
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userId)
+        cartRef.addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success([]))
+                return
+            }
+            
+            guard let data = snapshot.data(), let items = data["addresses"] as? [[String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            var addresses: [IlymaxAddress] = []
+            
+            for item in items {
+                guard
+                    let fullName = item["fullName"] as? String,
+                    let address = item["address"] as? String,
+                    let zipcode = item["zipcode"] as? Int,
+                    let country = item["country"] as? String,
+                    let city = item["city"] as? String,
+                    let isDefault = item["isDefault"] as? Bool
+                else {
+                    continue
+                }
+                
+                let tempAddress = IlymaxAddress(fullName: fullName, address: address, zipcode: zipcode, country: country, city: city, isDefault: isDefault)
+                
+                addresses.append(tempAddress)
+            }
+            
+            completion(.success(addresses))
         }
     }
 }

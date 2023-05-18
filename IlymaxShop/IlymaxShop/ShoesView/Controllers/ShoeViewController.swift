@@ -44,9 +44,26 @@ class ShoeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.tintColor = .label
+        navigationItem.title = "\(presenter.product!.name)"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        
         showLoader()
-        presenter.loadImage()
+        loadImage()
         presenter.loadReviews()
+    }
+    
+    private func loadImage() {
+        guard let shoe = presenter.product, let imageUrlString = shoe.imageUrl, let imageUrl = URL(string: imageUrlString) else {
+            fatalError()
+        }
+
+        imageView.sd_setImage(with: imageUrl, placeholderImage: nil, options: [.highPriority]) { (image, error, cacheType, url) in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+            }
+        }
     }
    
     func showLoader() {
@@ -62,11 +79,6 @@ class ShoeViewController: UIViewController {
     }
     
     func setupUI() {
-        
-        navigationController?.navigationBar.tintColor = .label
-        navigationItem.title = "\(presenter.product!.name)"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
         
         addToCartButton.setTitle("Choose Size", for: .normal)
         addToCartButton.setTitleColor(.white, for: .normal)
@@ -321,9 +333,5 @@ class ShoeViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
             self.scrollView.setContentOffset(CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.size.height), animated: true)
         }
-    }
-    
-    func setImage(_ image: UIImage?) {
-        imageView.image = image
     }
 }

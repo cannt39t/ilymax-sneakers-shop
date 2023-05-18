@@ -68,7 +68,7 @@ class CartCell: UITableViewCell {
     private func setup() {
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.lightGray.cgColor
-        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = .systemGroupedBackground
         
         contentView.addSubview(imgImageView)
         

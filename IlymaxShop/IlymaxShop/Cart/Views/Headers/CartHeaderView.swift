@@ -22,7 +22,7 @@ class CartHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = .clear
         
         contentView.addSubview(titleLabel)
         

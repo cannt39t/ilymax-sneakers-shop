@@ -43,7 +43,7 @@ class UserCell: UICollectionViewCell {
         userImage.contentHorizontalAlignment = .fill
         userImage.contentVerticalAlignment = .fill
         
-        let profileImage = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.darkGray, renderingMode: .alwaysOriginal)
+        let profileImage = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
         userImage.setImage(profileImage, for: .normal)
         userImage.imageView?.contentMode = .scaleAspectFill
     }
@@ -75,6 +75,9 @@ class UserCell: UICollectionViewCell {
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
+        
+        userImage.layer.cornerRadius = userImage.frame.width / 2
+        userImage.layer.masksToBounds = true
     }
 
     

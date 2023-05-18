@@ -39,7 +39,6 @@ class ProfileCoordinator {
         let settingsController = SettingsController()
         
         let settingsPresenter = SettingsPresenter(currentUser: user)
-        settingsPresenter.back = moveBack
         
         settingsController.presenter = settingsPresenter
         settingsPresenter.view = settingsController
@@ -51,7 +50,6 @@ class ProfileCoordinator {
         let salesListController = ListSalesController()
         
         let salesListPresenter = ListSalesPresenter(currentUser: user)
-        salesListPresenter.back = moveBack
         
         salesListController.presenter = salesListPresenter
         salesListPresenter.view = salesListController
@@ -63,7 +61,6 @@ class ProfileCoordinator {
         let ordersController = OrdersCollectionViewController()
         
         let ordersPresenter = OrdersPresenter(currentUser: user)
-        ordersPresenter.back = moveBack
         
         ordersPresenter.view = ordersController
         ordersController.presenter = ordersPresenter
@@ -76,7 +73,7 @@ class ProfileCoordinator {
         let addressesCollectionViewController = AddressesCollectionViewController()
         
         let addressesCollectionViewPresenter = AddressesPresenter(currentUser: user)
-        addressesCollectionViewPresenter.back = moveBack
+        addressesCollectionViewPresenter.pushAddAddressController = pushCreateAddressController
         
         addressesCollectionViewPresenter.view = addressesCollectionViewController
         addressesCollectionViewController.presenter = addressesCollectionViewPresenter
@@ -84,8 +81,11 @@ class ProfileCoordinator {
         navigationController.pushViewController(addressesCollectionViewController, animated: true)
     }
     
-    func moveBack() {
-        navigationController.popViewController(animated: true)
+    func pushCreateAddressController() {
+        let view = AddAddressViewController()
+        let presenter = AddAddressPresenter()
+        presenter.view = view
+        view.presenter = presenter
+        navigationController.pushViewController(view, animated: true)
     }
-    
 }

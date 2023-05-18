@@ -159,7 +159,7 @@ class ChatPresenter {
                         }
                     }
                 case .failure(let error):
-                    print("message could not upload")
+                    print(error.localizedDescription)
             }
         }
     }

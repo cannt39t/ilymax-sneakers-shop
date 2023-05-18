@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController {
     
     
     func showError(_ error: Error) {
-        let alertController = UIAlertController(title: error.localizedDescription, message: "Something went wrong, Please wat for some time", preferredStyle: .alert)
+        let alertController = UIAlertController(title: error.localizedDescription, message: "Something went wrong, Please wait for some time", preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Okay, i'll try it later", style: .default, handler: nil)
         alertController.addAction(dismissAction)
         present(alertController, animated: true, completion: nil)
@@ -211,7 +211,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     private func presentPhotoInputActionsheet() {
-        let actionSheet = UIAlertController(title: "Attach Photo", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Change profile image", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
             
             let picker = UIImagePickerController()
