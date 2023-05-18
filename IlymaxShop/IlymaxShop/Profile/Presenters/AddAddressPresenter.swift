@@ -13,8 +13,14 @@ class AddAddressPresenter {
     weak var view: AddAddressViewController?
     private let addressesService = AddAddressService()
     
-    public func addAddress() {
-        
+    public func addAddress(_ address: IlymaxAddress) {
+        addressesService.addAddress(address) { [weak self] added in
+            if added {
+                self?.view?.navigationController?.popViewController(animated: true)
+            } else {
+                print("Didnt add")
+            }
+        }
     }
 }
 
