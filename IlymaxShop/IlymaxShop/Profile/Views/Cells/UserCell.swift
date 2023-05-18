@@ -75,6 +75,9 @@ class UserCell: UICollectionViewCell {
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
+        
+        userImage.layer.cornerRadius = userImage.frame.width / 2
+        userImage.layer.masksToBounds = true
     }
 
     
