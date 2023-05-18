@@ -80,7 +80,8 @@ extension AddressesCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddressCell.identifier, for: indexPath) as! AddressCell
-        cell.configureCell()
+        let address = presenter.addresses[indexPath.section]
+        cell.configureCell(with: address)
         return cell
     }
     
@@ -118,7 +119,7 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
         //supplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
-        header.contentInsets = NSDirectionalEdgeInsets(top: -20, leading: 0, bottom: 0, trailing: 0)
+
         section.boundarySupplementaryItems = [header]
         
         return section
@@ -149,6 +150,14 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: AddressHeader.identifier, for: indexPath) as? AddressHeader else {
             return UICollectionReusableView()
+        }
+        view.completion = { [weak self] in
+            self?.presenter.makeDefault(index: indexPath.section)
+        }
+        if presenter.addresses[indexPath.section].isDefault {
+            view.makeDefault()
+        } else {
+            view.makeNotDefault()
         }
         return view
     }
