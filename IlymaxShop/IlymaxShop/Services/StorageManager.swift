@@ -117,7 +117,7 @@ final class StorageManager {
                     completion(nil)
                     return
                 }
-                completion(imageRef)
+                completion(url!.absoluteString)
             }
         }
     }
