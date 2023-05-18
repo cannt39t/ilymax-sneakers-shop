@@ -38,6 +38,8 @@ class AddressesCollectionViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         noAddressesView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
