@@ -24,34 +24,13 @@ class ModalAddingViewController: UIViewController {
         data = product!.data.map { $0.size }
         
         imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width)
-        guard let imageUrl = product?.imageUrl else {
-            // Show error message to user if image URL is nil
-            return
-        }
-        
-        StorageManager.shared.getImageUrlFromStorageUrl(imageUrl) { [weak self] error, url in
-            guard let self = self else { return } // Make sure self is not nil
-            
-            if let error = error {
-                // Show error message to user
-                print("Error loading image: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let url = url else {
-                // Show error message to user if URL is nil
-                return
-            }
-            
-            self.loadImage(with: url)
-        }
+
         view.addSubview(imageView)
         
                 
         
         picker.dataSource = self
         picker.delegate = self
-//        picker.center = view.center
         view.addSubview(picker)
 
         addButton.setTitle("Add to Cart", for: .normal)
@@ -75,6 +54,13 @@ class ModalAddingViewController: UIViewController {
         ])
         
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        
+        guard let imageUrlString = product.imageUrl, let imageUrl = URL(string: imageUrlString) else {
+            // Show error message to user if image URL is nil
+            return
+        }
+        
+        loadImage(with: imageUrl)
     }
 
     private func loadImage(with url: URL) {
@@ -82,13 +68,7 @@ class ModalAddingViewController: UIViewController {
             if let error = error {
                 // Show error message to user
                 print("Error loading image: \(error.localizedDescription)")
-            } else {
-//                if cacheType == .memory || cacheType == .disk {
-//                    print("Image loaded from cache")
-//                } else {
-//                    print("Image loaded from network")
-//                }
-            }
+            } 
         }
     }
 

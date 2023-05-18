@@ -17,6 +17,8 @@ class SaleListCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
+        imageView.layer.borderColor = UIColor.secondaryLabel.cgColor
+        imageView.layer.borderWidth = 1
         imageView.image = UIImage(systemName: "photo")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -121,25 +123,6 @@ class SaleListCell: UICollectionViewCell {
             mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
         ])
     }
-    
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let preferredAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-        
-        let targetSize = CGSize(width: preferredAttributes.frame.width, height: UIView.layoutFittingExpandedSize.height)
-        let measuredSize = mainStack.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
-        
-        preferredAttributes.frame.size.height = measuredSize.height
-        
-        return preferredAttributes
-    }
-    
-    override func systemLayoutSizeFitting(_ targetSize: CGSize) -> CGSize {
-        let size = mainStack.systemLayoutSizeFitting(targetSize,
-                                                     withHorizontalFittingPriority: .required,
-                                                     verticalFittingPriority: .fittingSizeLevel)
-        return CGSize(width: targetSize.width, height: size.height)
-    }
-
     
     public func configure(with shoe: Shoes) {
         nameLabel.text = shoe.name

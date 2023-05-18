@@ -10,6 +10,7 @@ import UIKit
 protocol SellerViewPresenterDelegate: AnyObject {
     func showInfo(product: Shoes)    
 }
+
 class SellerViewPresenter {
     
     weak var view: SellerViewViewController?
