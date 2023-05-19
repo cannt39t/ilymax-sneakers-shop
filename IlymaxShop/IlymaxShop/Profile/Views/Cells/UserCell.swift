@@ -10,7 +10,15 @@ import UIKit
 class UserCell: UICollectionViewCell {
     
     public static let identifier = "UserCell"
-    public var userImage: UIButton = .init()
+    
+    public let userImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal)
+        imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
     private let nameLabel: UILabel = .init()
     private let emailLabel: UILabel = .init()
     
@@ -30,8 +38,9 @@ class UserCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        userImage.layer.cornerRadius = userImage.frame.width / 2
-        userImage.clipsToBounds = true
+        
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        userImageView.layer.masksToBounds = true
     }
     
     private func setupDesign() {
@@ -39,13 +48,6 @@ class UserCell: UICollectionViewCell {
         nameLabel.textColor = .label
         
         emailLabel.textColor = .secondaryLabel
-        
-        userImage.contentHorizontalAlignment = .fill
-        userImage.contentVerticalAlignment = .fill
-        
-        let profileImage = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
-        userImage.setImage(profileImage, for: .normal)
-        userImage.imageView?.contentMode = .scaleAspectFill
     }
     
     private func setup() {
@@ -57,27 +59,27 @@ class UserCell: UICollectionViewCell {
         stack.alignment = .leading
         stack.distribution = .fillEqually
         
-        contentView.addSubview(userImage)
+        contentView.addSubview(userImageView)
         contentView.addSubview(stack)
         
-        userImage.translatesAutoresizingMaskIntoConstraints = false
+        userImageView.translatesAutoresizingMaskIntoConstraints = false
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-            userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -0),
-            userImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            userImage.widthAnchor.constraint(equalTo: userImage.heightAnchor),
+            userImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            userImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -0),
+            userImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            userImageView.widthAnchor.constraint(equalTo: userImageView.heightAnchor),
             
-            stack.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 12),
+            stack.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 12),
             stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
         
-        userImage.layer.cornerRadius = userImage.frame.width / 2
-        userImage.layer.masksToBounds = true
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        userImageView.layer.masksToBounds = true
     }
 
     
@@ -91,21 +93,18 @@ class UserCell: UICollectionViewCell {
     }
     
     private func configure(with url: URL) {
-        userImage.sd_setImage(with: url, for: .normal, placeholderImage: nil, options: [.highPriority]) { [weak self] (image, error, cacheType, url) in
-            guard let strongSelf = self else {
-                fatalError()
+        DispatchQueue.main.async { [unowned self] in
+            userImageView.sd_setImage(with: url, placeholderImage: UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal), options: [.highPriority]) { [unowned self] (image, error, cacheType, url) in
+                if let error = error {
+                    print("Error loading image: \(error.localizedDescription)")
+                }
+                userImageView.layer.cornerRadius = userImageView.frame.width / 2
+                userImageView.layer.masksToBounds = true
             }
-            if let error = error {
-                print("Error loading image: \(error.localizedDescription)")
-            }
-            
-            strongSelf.userImage.layer.cornerRadius = strongSelf.userImage.frame.width / 2
-            strongSelf.userImage.clipsToBounds = true
         }
     }
     
     func setImageProfile(_ image: UIImage) {
-        userImage.setImage(image, for: .normal)
-        userImage.imageView!.layer.cornerRadius = userImage.imageView!.frame.size.height / 2
+        userImageView.image = image
     }
 }

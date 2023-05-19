@@ -83,7 +83,9 @@ extension ProfileViewController: UICollectionViewDataSource {
                 let userCell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCell.identifier, for: indexPath) as! UserCell
                 
                 userCell.setUser(user: currentUser!)
-                userCell.userImage.addTarget(self, action: #selector(tapOnImage), for: .touchUpInside)
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnImage(_:)))
+                userCell.userImageView.addGestureRecognizer(tap)
+                
                 
                 return userCell
             case 1:
@@ -206,7 +208,7 @@ extension ProfileViewController: UICollectionViewDelegate {
         }
     }
     
-    @objc private func tapOnImage() {
+    @objc private func tapOnImage(_ sender: UITapGestureRecognizer) {
         presentPhotoInputActionsheet()
     }
     
