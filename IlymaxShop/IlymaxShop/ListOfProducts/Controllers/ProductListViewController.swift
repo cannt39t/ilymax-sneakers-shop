@@ -7,6 +7,7 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
 class ProductListViewController: UICollectionViewController {
 
@@ -131,8 +132,12 @@ extension ProductListViewController {
                                                             for: indexPath) as? ProductListCollectionViewCell else {
             fatalError("Wrong cell")
         }
+        let userId = FirebaseAuth.Auth.auth().currentUser!.uid
         let product = presenter?.products[indexPath.item]
         cell.update(product: product!, productListPresenterDelegate: presenter)
+        if product!.ownerId == userId {
+            cell.cartButton.isHidden = true
+        }
         return cell
     }
     
