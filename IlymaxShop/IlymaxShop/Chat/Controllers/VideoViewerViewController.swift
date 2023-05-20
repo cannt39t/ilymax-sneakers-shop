@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import AVKit
 
-class VideoViewerViewController: AVPlayerViewController {
+class VideoViewerViewController: AVPlayerViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,8 @@ class VideoViewerViewController: AVPlayerViewController {
         view.backgroundColor = .black
         navigationItem.largeTitleDisplayMode = .never
         tabBarController?.tabBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         setup()
     }

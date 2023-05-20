@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ModalAddingViewController: UIViewController {
     var product: Shoes!
@@ -74,6 +75,10 @@ class ModalAddingViewController: UIViewController {
 
     
     @objc private func addToCartTapped() {
+        guard let userId = FirebaseAuth.Auth.auth().currentUser?.uid else {
+            tabBarController?.selectedIndex = 4
+            return
+        }
         let ilymaxCartItem = IlymaxCartItem(id: product.id!, name: product.name, description: product.description, color: product.color, gender: product.gender, condition: product.condition, imageUrl: product.imageUrl!, data: ShoesDetail(size: product.data[selectedRow ?? 0].size, price: product.data[selectedRow ?? 0].price, quantity: 1), ownerId: product.ownerId, company: product.company, category: product.category)
         presenter?.addToCart(ilymaxCartItem: ilymaxCartItem)
         dismiss(animated: true)

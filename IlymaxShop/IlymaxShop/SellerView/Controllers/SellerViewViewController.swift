@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SellerViewViewController: UIViewController {
+class SellerViewViewController: UIViewController, UIGestureRecognizerDelegate {
 
     public var collectionView: UICollectionView!
     var presenter: SellerViewPresenter!
@@ -19,6 +19,8 @@ class SellerViewViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         title = "Seller"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         //        showLoader()
         setupCollectionView()

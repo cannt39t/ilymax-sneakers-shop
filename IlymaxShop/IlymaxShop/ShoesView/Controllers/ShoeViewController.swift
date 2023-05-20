@@ -7,8 +7,9 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
-class ShoeViewController: UIViewController {
+class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var presenter: ShoeViewPresenter!
     
@@ -44,6 +45,8 @@ class ShoeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.navigationBar.tintColor = .label
         navigationItem.title = "\(presenter.product!.name)"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))
@@ -287,6 +290,10 @@ class ShoeViewController: UIViewController {
     }
     
     @objc private func didTapAddToCartButton() {
+        guard (FirebaseAuth.Auth.auth().currentUser?.uid) != nil else {
+            tabBarController?.selectedIndex = 4
+            return
+        }
         if addToCartButton.titleLabel?.text != "Choose Size" {
             let price = Float( (addToCartButton.titleLabel?.text!.replacingOccurrences(of: " $", with: ""))!)
 

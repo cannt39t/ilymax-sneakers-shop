@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class PhotoViewerViewController: UIViewController {
+class PhotoViewerViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let url: URL
     private let imageView: UIImageView = {
@@ -26,6 +26,9 @@ class PhotoViewerViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         tabBarController?.tabBar.isHidden = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
         view.addSubview(imageView)
         imageView.sd_setImage(with: url)
     }

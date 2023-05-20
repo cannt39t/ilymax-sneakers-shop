@@ -9,7 +9,7 @@ import UIKit
 import JGProgressHUD
 import FirebaseAuth
 
-class ProductListViewController: UICollectionViewController {
+class ProductListViewController: UICollectionViewController, UIGestureRecognizerDelegate {
 
     var presenter: ProductListPresenter!
     private let hud = JGProgressHUD()
@@ -55,6 +55,9 @@ class ProductListViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         isEmpty()
         self.collectionView.register(ProductListCollectionViewCell.self,
@@ -132,11 +135,12 @@ extension ProductListViewController {
                                                             for: indexPath) as? ProductListCollectionViewCell else {
             fatalError("Wrong cell")
         }
-        let userId = FirebaseAuth.Auth.auth().currentUser!.uid
         let product = presenter?.products[indexPath.item]
         cell.update(product: product!, productListPresenterDelegate: presenter)
-        if product!.ownerId == userId {
-            cell.cartButton.isHidden = true
+        if let userId = FirebaseAuth.Auth.auth().currentUser?.uid {
+            if product!.ownerId == userId {
+                cell.cartButton.isHidden = true
+            }
         }
         return cell
     }

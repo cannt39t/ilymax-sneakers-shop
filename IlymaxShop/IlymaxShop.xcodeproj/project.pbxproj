@@ -1580,7 +1580,9 @@
 				DEVELOPMENT_TEAM = 94Y6332Y3J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow access to send video and audio messages";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select photo from your libary";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1592,7 +1594,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxShop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxSho;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1610,7 +1612,9 @@
 				DEVELOPMENT_TEAM = 94Y6332Y3J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IlymaxShop/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "To take a picture requires access to the camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow access to send video and audio messages";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select photo from your libary";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1622,7 +1626,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxShop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxSho;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

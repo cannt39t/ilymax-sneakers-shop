@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class ReviewViewController: UIViewController {
+class ReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var presenter: ReviewPresenter!
     private let addButton =  UIButton()
@@ -22,6 +22,9 @@ class ReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         showLoader()
         presenter.loadUsers()
