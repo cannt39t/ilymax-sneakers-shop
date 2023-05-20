@@ -9,7 +9,7 @@ import UIKit
 import JGProgressHUD
 import FirebaseAuth
 
-class ShoeViewController: UIViewController {
+class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var presenter: ShoeViewPresenter!
     
@@ -45,6 +45,8 @@ class ShoeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.navigationBar.tintColor = .label
         navigationItem.title = "\(presenter.product!.name)"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))

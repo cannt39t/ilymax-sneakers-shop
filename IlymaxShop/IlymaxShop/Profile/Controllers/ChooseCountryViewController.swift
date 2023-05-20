@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChooseCountryViewController: UIViewController {
+class ChooseCountryViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let tableView = UITableView()
     var completion: (String) -> () = { _ in }
@@ -20,6 +20,8 @@ class ChooseCountryViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         title = "Choose country"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
         
         tableView.dataSource = self

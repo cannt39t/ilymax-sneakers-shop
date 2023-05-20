@@ -9,7 +9,7 @@ import UIKit
 import JGProgressHUD
 import FirebaseAuth
 
-class ProductListViewController: UICollectionViewController {
+class ProductListViewController: UICollectionViewController, UIGestureRecognizerDelegate {
 
     var presenter: ProductListPresenter!
     private let hud = JGProgressHUD()
@@ -55,6 +55,9 @@ class ProductListViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         isEmpty()
         self.collectionView.register(ProductListCollectionViewCell.self,

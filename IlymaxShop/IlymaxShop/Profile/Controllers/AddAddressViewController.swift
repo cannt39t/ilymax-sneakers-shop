@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddAddressViewController: UIViewController, UITextFieldDelegate {
+class AddAddressViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     public var collectionView: UICollectionView!
     public var presenter: AddAddressPresenter!
@@ -24,6 +24,8 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.isHidden = false
         title = "Add shipping address"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
         setupCollectionView()
         setupButton()

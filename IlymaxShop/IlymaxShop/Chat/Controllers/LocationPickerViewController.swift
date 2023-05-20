@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class LocationPickerViewController: UIViewController {
+class LocationPickerViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let map: MKMapView = {
         let map = MKMapView()
@@ -36,6 +36,8 @@ class LocationPickerViewController: UIViewController {
 
         
         navigationItem.largeTitleDisplayMode = .never
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         view.backgroundColor = .systemBackground
         view.addSubview(map)
         if isPiackable {

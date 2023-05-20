@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationViewController: UIViewController {
+class NewConversationViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -47,6 +47,8 @@ class NewConversationViewController: UIViewController {
         
         navigationController?.navigationBar.topItem?.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(disMissSelf))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         setupSearchBar()
         setupTableView()

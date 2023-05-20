@@ -22,6 +22,7 @@ class OrdersCollectionViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         title = "Orders"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
 //        showLoader()
         setupCollectionView()
@@ -115,5 +116,10 @@ extension OrdersCollectionViewController: UICollectionViewDelegate {
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
-    
+}
+
+extension OrdersCollectionViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReviewAddingViewController: UIViewController, UITextViewDelegate {
+class ReviewAddingViewController: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate {
     var presenter: ReviewAddingPresenter!
 
     private let descriptionLabel = UILabel()
@@ -18,6 +18,9 @@ class ReviewAddingViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
         setupUI()
         starConfig()

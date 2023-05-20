@@ -9,7 +9,7 @@ import UIKit
 import JGProgressHUD
 
 
-class ListSalesController: UIViewController {
+class ListSalesController: UIViewController, UIGestureRecognizerDelegate {
     
     public var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -23,6 +23,8 @@ class ListSalesController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         title = "Listing for sale"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         setupCollectionView()
         presenter.getSaleList()
