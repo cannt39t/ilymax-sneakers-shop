@@ -287,6 +287,10 @@ class ShoeViewController: UIViewController {
     }
     
     @objc private func didTapAddToCartButton() {
+        guard let userId = FirebaseAuth.Auth.auth().currentUser.uid {
+            tabBarController?.selectedIndex = 4
+            return
+        }
         if addToCartButton.titleLabel?.text != "Choose Size" {
             let price = Float( (addToCartButton.titleLabel?.text!.replacingOccurrences(of: " $", with: ""))!)
 
