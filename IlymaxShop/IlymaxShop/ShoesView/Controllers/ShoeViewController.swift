@@ -7,6 +7,7 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
 class ShoeViewController: UIViewController {
     
@@ -287,7 +288,7 @@ class ShoeViewController: UIViewController {
     }
     
     @objc private func didTapAddToCartButton() {
-        guard let userId = FirebaseAuth.Auth.auth().currentUser.uid {
+        guard (FirebaseAuth.Auth.auth().currentUser?.uid) != nil else {
             tabBarController?.selectedIndex = 4
             return
         }

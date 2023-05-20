@@ -134,7 +134,7 @@ extension ProductListViewController {
         }
         let product = presenter?.products[indexPath.item]
         cell.update(product: product!, productListPresenterDelegate: presenter)
-        if let userId = FirebaseAuth.Auth.auth().currentUser.uid {
+        if let userId = FirebaseAuth.Auth.auth().currentUser?.uid {
             if product!.ownerId == userId {
                 cell.cartButton.isHidden = true
             }
