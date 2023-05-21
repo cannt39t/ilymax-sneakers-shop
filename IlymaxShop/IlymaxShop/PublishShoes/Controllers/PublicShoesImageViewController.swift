@@ -42,7 +42,7 @@ class PublicShoesImageViewController: UIViewController {
     private func setupUI() {
         navigationItem.title = "Adding"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up.circle")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(uploadButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.up")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(uploadButtonTapped))
         
         view.backgroundColor = .systemBackground
         
