@@ -7,276 +7,265 @@
 
 import UIKit
 
-class PublicShoesViewController: UIViewController, UITextViewDelegate {
-    var presenter: PublicShoesPresenter!
-
-    let genders = ["MAN", "WOMAN", "UNISEX"]
-    var genderActions = [UIAction]()
-    let companies = ["ILYMAX", "Nike", "Adidas", "Vans", "Timberland", "Puma", "Crocs", "Reebok", "Converse", "Lacoste", "Jordan", "Barbour", "TODS", "Brioni", "Gucci", "Diesel", "New Balance", "Ocai", "Diadora", "DrMartens", "Asics", "Boss", "Salomon", "UGG"]
-    var companyActions = [UIAction]()
-    let colors = [ "Black", "Blue", "Brown", "Gold", "Green", "Grey", "Multi", "Navy", "Neutral", "Orange", "Pink", "Purple", "Red", "Silver", "White", "Yellow"]
-    var colorActions = [UIAction]()
-    var categoryActions = [UIAction]()
-    let conditions = ["NEW", "PiU"]
-    var conditionActions = [UIAction]()
-
-    private let nameLabel = UILabel()
-    private let nameTextView = UITextView()
-    private let descriptionLabel = UILabel()
-    private let descriptionTextView = UITextView()
+class PublicShoesViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
-    private let genderLabel = UILabel()
-    private let genderButton = UIButton()
-
-    private let companyLabel = UILabel()
-    private let companyButton = UIButton()
-
-    private let colorLabel = UILabel()
-    private let colorButton = UIButton()
-
-    private let categoryLabel = UILabel()
-    private let categoryButton = UIButton()
-
-    private let conditionLabel = UILabel()
-    private let conditionButton = UIButton()
+    let genders = ["MAN", "WOMAN", "UNISEX"]
+    let companies = ["ILYMAX", "Nike", "Adidas", "Vans", "Timberland", "Puma", "Crocs", "Reebok", "Converse", "Lacoste", "Jordan", "Barbour", "TODS", "Brioni", "Gucci", "Diesel", "New Balance", "Ocai", "Diadora", "DrMartens", "Asics", "Boss", "Salomon", "UGG"]
+    let colors = [ "Black", "Blue", "Brown", "Gold", "Green", "Grey", "Multi", "Navy", "Neutral", "Orange", "Pink", "Purple", "Red", "Silver", "White", "Yellow"]
+    let conditions = ["NEW", "PiU"]
+    
+    public var collectionView: UICollectionView!
+    var presenter: PublicShoesPresenter!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
-        
-        navigationController?.navigationBar.tintColor = .black
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.isHidden = false
         navigationItem.title = "Adding"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(moveForward))
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.forward")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveForward))
 
-        nameLabel.text = "Name"
-        nameLabel.font = UIFont.systemFont(ofSize: 30)
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
-        nameTextView.text = presenter.product.name
-        nameTextView.delegate = self
-        nameTextView.translatesAutoresizingMaskIntoConstraints = false
-        nameTextView.isScrollEnabled = false
-        nameTextView.font = UIFont.systemFont(ofSize: 16)
-        
-        descriptionLabel.text = "Description"
-        descriptionLabel.font = UIFont.systemFont(ofSize: 30)
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        descriptionTextView.text = presenter.product.description
-        descriptionTextView.delegate = self
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.isScrollEnabled = false
-        descriptionTextView.font = UIFont.systemFont(ofSize: 16)
-
-        genderLabel.text = "Gender"
-        genderLabel.font = UIFont.systemFont(ofSize: 30)
-        genderLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        if presenter.product.gender != ""{
-            genderButton.setTitle("\(presenter.product.gender)", for: .normal)
-        }else{
-            genderButton.setTitle("Select Gender", for: .normal)
-        }
-        genderButton.setTitleColor(.black, for: .normal)
-
-        for gender in genders {
-            let genderAction = UIAction(title: gender) { [weak self] action in
-                self?.genderButton.setTitle(gender, for: .normal)
-            }
-            genderActions.append(genderAction)
-        }
-        let genderMenu = UIMenu(title: "Select Gender", children: genderActions)
-        genderButton.menu = genderMenu
-        genderButton.showsMenuAsPrimaryAction = true
-        
-        genderButton.translatesAutoresizingMaskIntoConstraints = false
-
-        
-        companyLabel.text = "Company"
-        companyLabel.font = UIFont.systemFont(ofSize: 30)
-        companyLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        if presenter.product.company != ""{
-            companyButton.setTitle("\(presenter.product.company)", for: .normal)
-        }else{
-            companyButton.setTitle("Select Company", for: .normal)
-        }
-        companyButton.setTitleColor(.black, for: .normal)
-        for company in companies {
-            let companyAction = UIAction(title: company) { [weak self] action in
-                self?.companyButton.setTitle(company, for: .normal)
-            }
-            companyActions.append(companyAction)
-        }
-
-        let companyMenu = UIMenu(title: "Select Company", children: companyActions)
-
-        companyButton.menu = companyMenu
-        companyButton.showsMenuAsPrimaryAction = true
-        companyButton.translatesAutoresizingMaskIntoConstraints = false
-
-
-        
-        colorLabel.text = "Color"
-        colorLabel.font = UIFont.systemFont(ofSize: 30)
-        colorLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        if presenter.product.color != ""{
-            colorButton.setTitle("\(presenter.product.color)", for: .normal)
-        }else{
-            colorButton.setTitle("Select Color", for: .normal)
-        }
-        colorButton.setTitleColor(.black, for: .normal)
-        colorButton.layer.borderColor = UIColor.black.cgColor
-        for color in colors {
-            let colorAction = UIAction(title: color) {  [weak self] action in
-                self?.colorButton.setTitle(color, for: .normal)
-            }
-            colorActions.append(colorAction)
-        }
-
-        let colorMenu = UIMenu(title: "Select Color", children: colorActions)
-
-        colorButton.menu = colorMenu
-        colorButton.showsMenuAsPrimaryAction = true
-        colorButton.translatesAutoresizingMaskIntoConstraints = false
-
-        categoryLabel.text = "Category"
-        categoryLabel.font = UIFont.systemFont(ofSize: 30)
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        if presenter.product.category != "" {
-            categoryButton.setTitle("\(presenter.product.category)", for: .normal)
-        } else {
-            categoryButton.setTitle("Select Category", for: .normal)
-        }
-
-        categoryButton.setTitleColor(.black, for: .normal)
-        categoryButton.layer.borderColor = UIColor.black.cgColor
-        for category in presenter.categories {
-            let categoryAction = UIAction(title: category) {  [weak self] action in
-                self?.categoryButton.setTitle(category, for: .normal)
-            }
-            categoryActions.append(categoryAction)
-        }
-
-        let categoryMenu = UIMenu(title: "Select Category", children: categoryActions)
-
-        categoryButton.menu = categoryMenu
-        categoryButton.showsMenuAsPrimaryAction = true
-        categoryButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        conditionLabel.text = "Condition"
-        conditionLabel.font = UIFont.systemFont(ofSize: 30)
-        conditionLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        if presenter.product.condition != ""{
-            conditionButton.setTitle("\(presenter.product.condition)", for: .normal)
-        }else{
-            conditionButton.setTitle("Select Condition", for: .normal)
-        }
-        conditionButton.setTitleColor(.black, for: .normal)
-        conditionButton.layer.borderColor = UIColor.black.cgColor
-        for condition in conditions {
-            let conditionAction = UIAction(title: condition) {  [weak self] action in
-                self?.conditionButton.setTitle(condition, for: .normal)
-            }
-            conditionActions.append(conditionAction)
-        }
-
-        let conditionMenu = UIMenu(title: "Select Condition", children: conditionActions)
-
-        conditionButton.menu = conditionMenu
-        conditionButton.showsMenuAsPrimaryAction = true
-        conditionButton.translatesAutoresizingMaskIntoConstraints = false
-
-        let textStackView = UIStackView(arrangedSubviews: [nameLabel, nameTextView, descriptionLabel, descriptionTextView])
-        textStackView.axis = .vertical
-        textStackView.spacing = 16
-        textStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        let secondStackView = UIStackView(arrangedSubviews: [
-            genderLabel, genderButton, companyLabel, companyButton, colorLabel,  colorButton, categoryLabel, categoryButton, conditionLabel, conditionButton
-        ])
-        secondStackView.axis = .vertical
-        secondStackView.spacing = 16
-        secondStackView.alignment = .leading
-        secondStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        let stackView = UIStackView(arrangedSubviews: [textStackView, secondStackView])
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
-        scrollView.addSubview(stackView)
-
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
-        ])
-
+        setupCollectionView()
     }
 
-    func updateData() {
-        nameTextView.text = presenter.product.name
-        descriptionTextView.text = presenter.product.name
-        genderButton.setTitle("Select Gender", for: .normal)
-        companyButton.setTitle("Select Company", for: .normal)
-        colorButton.setTitle("Select Color", for: .normal)
-        categoryButton.setTitle("Select Category", for: .normal)
-        conditionButton.setTitle("Select Condition", for: .normal)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
     
+    
     @objc private func moveForward() {
-        let gender = genderButton.title(for: .normal)
-        let company = companyButton.title(for: .normal)
-        let color = colorButton.title(for: .normal)
-        let category = categoryButton.title(for: .normal)
-        let condition = conditionButton.title(for: .normal)
-        
-        if nameTextView.text != "" && descriptionTextView.text != "" && gender != "Select Gender" && company != "Select Company" && color != "Select Color" && category != "Select Category" && condition != "Select Condition" {
-            presenter.product.name = nameTextView.text ?? ""
-            presenter.product.description = descriptionTextView.text ?? ""
-            presenter.product.gender = gender ?? ""
-            presenter.product.company = company ?? ""
-            presenter.product.color = color ?? ""
-            presenter.product.category = category ?? ""
-            presenter.product.condition = condition ?? ""
+        var isValid = true
+        var arguments = [String]()
+        for item in 0..<7 {
+            let cell = collectionView.cellForItem(at: IndexPath(item: item, section: 0)) as! AddAddressCell
+            guard let text = cell.valueTextField.text, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
+                cell.makeInvalid()
+                isValid = false
+                continue
+            }
+            arguments.append(text)
+            cell.makeValid()
+        }
+        if isValid {
+            presenter.product.name = arguments[0]
+            presenter.product.description = arguments[1]
+            presenter.product.gender = arguments[2]
+            presenter.product.company = arguments[3]
+            presenter.product.color = arguments[4]
+            presenter.product.category = arguments[5]
+            presenter.product.condition = arguments[6]
             let sizeAddVC = PublicShoesSizeViewController()
             sizeAddVC.presenter = presenter
             self.navigationController?.pushViewController(sizeAddVC, animated: true)
-        } else {
-            let alertController = UIAlertController(title: "The next step is not available", message: "Please fill in all fields", preferredStyle: .alert)
-            let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(dismissAction)
-            present(alertController, animated: true, completion: nil)
         }
     }
-    
-    // MARK: - Если по нажатию на "Return" нужно скрыть клавиатуру
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        if text == "\n" {
-//            textView.resignFirstResponder()
-//            return false
-//        }
-//        return true
-//    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+}
+
+extension PublicShoesViewController: UICollectionViewDataSource {
+
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        7
     }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.item {
+            case 0:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Enter name"
+                if presenter.product.name != "" {
+                    cell.valueTextField.text = presenter.product.name
+                }
+                cell.valueTextField.delegate = self
+                cell.valueTextField.resignFirstResponder()
+                cell.configureCell("Name", "")
+                return cell
+            case 1:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Enter description"
+                if presenter.product.description != "" {
+                    cell.valueTextField.text = presenter.product.description
+                }
+                cell.valueTextField.delegate = self
+                cell.valueTextField.resignFirstResponder()
+                cell.configureCell("Description", "")
+                return cell
+            case 2:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Choose gender"
+                if presenter.product.gender != "" {
+                    cell.valueTextField.text = presenter.product.gender
+                }
+                cell.valueTextField.isEnabled = false
+                cell.forwardImage.isHidden = false
+                cell.configureCell("Gender", "")
+                return cell
+            case 3:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Choose company"
+                if presenter.product.company != "" {
+                    cell.valueTextField.text = presenter.product.company
+                }
+                cell.valueTextField.isEnabled = false
+                cell.forwardImage.isHidden = false
+                cell.configureCell("Company", "")
+                return cell
+            case 4:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Choose color"
+                if presenter.product.color != "" {
+                    cell.valueTextField.text = presenter.product.color
+                }
+                cell.valueTextField.isEnabled = false
+                cell.forwardImage.isHidden = false
+                cell.configureCell("Color", "")
+                return cell
+            case 5:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Choose category"
+                if presenter.product.category != "" {
+                    cell.valueTextField.text = presenter.product.category
+                }
+                cell.valueTextField.isEnabled = false
+                cell.forwardImage.isHidden = false
+                cell.configureCell("Category", "")
+                return cell
+            case 6:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddAddressCell.identifier, for: indexPath) as! AddAddressCell
+                cell.valueTextField.placeholder = "Choose condition"
+                if presenter.product.condition != "" {
+                    cell.valueTextField.text = presenter.product.condition
+                }
+                cell.valueTextField.isEnabled = false
+                cell.forwardImage.isHidden = false
+                cell.configureCell("Condition", "")
+                return cell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                cell.backgroundColor = .secondarySystemBackground
+                return cell
+            }
+        
+    }
+
+}
+
+extension PublicShoesViewController: UICollectionViewDelegate {
+
+
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { [weak self] (index, enviroment) -> NSCollectionLayoutSection? in
+            return self?.createSectionFor(index: index, enviroment: enviroment)
+        })
+        return layout
+    }
+
+    private func createSectionFor(index: Int, enviroment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        setupFirstSection()
+    }
+
+
+    private func setupFirstSection() -> NSCollectionLayoutSection {
+        // item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+
+        //group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(90))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        //section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 60, trailing: 12)
+
+        return section
+    }
+
+    func setupCollectionView() {
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .systemGroupedBackground
+
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(AddAddressCell.self, forCellWithReuseIdentifier: AddAddressCell.identifier)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        switch indexPath.item {
+            case 2:
+                let vc = ChooseViewController()
+                vc.data = genders
+                vc.textForTitle = "gender"
+                vc.completion = { data in
+                    let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                    cell.valueTextField.text = data
+                }
+                navigationController?.pushViewController(vc, animated: true)
+            case 3:
+                let vc = ChooseViewController()
+                vc.data = companies
+                vc.textForTitle = "companie"
+                vc.completion = { data in
+                    let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                    cell.valueTextField.text = data
+                }
+                navigationController?.pushViewController(vc, animated: true)
+            case 4:
+                let vc = ChooseViewController()
+                vc.data = colors
+                vc.textForTitle = "color"
+                vc.completion = { data in
+                    let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                    cell.valueTextField.text = data
+                }
+                navigationController?.pushViewController(vc, animated: true)
+            case 5:
+                let vc = ChooseViewController()
+                vc.data = presenter.categories
+                vc.textForTitle = "category"
+                vc.completion = { data in
+                   let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                   cell.valueTextField.text = data
+               }
+                navigationController?.pushViewController(vc, animated: true)
+            case 6:
+                let vc = ChooseViewController()
+                vc.data = conditions
+                vc.textForTitle = "condition"
+                vc.completion = { data in
+                    let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                    cell.valueTextField.text = data
+                }
+                navigationController?.pushViewController(vc, animated: true)
+            default:
+                let cell = collectionView.cellForItem(at: indexPath) as! AddAddressCell
+                cell.valueTextField.becomeFirstResponder()
+        }
+    }
+
 }

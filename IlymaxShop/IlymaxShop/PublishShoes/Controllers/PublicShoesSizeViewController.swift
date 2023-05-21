@@ -19,6 +19,8 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         setupUI()
         
+        tableView.backgroundColor = .systemBackground
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
@@ -30,12 +32,12 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
 
 
     private func setupUI() {
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .systemBackground
         navigationItem.title = "Adding"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(moveForward))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.forward")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveForward))
 
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        view.backgroundColor = .systemBackground
         
         addButton.backgroundColor = .white
         addButton.layer.cornerRadius = 30

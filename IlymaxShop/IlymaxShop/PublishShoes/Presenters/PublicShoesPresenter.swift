@@ -21,7 +21,7 @@ class PublicShoesPresenter {
     
     func restart() {
         product = Shoes(name: "", description: "", color: "", gender: "", condition: "", imageUrl: "", data: [], ownerId: FirebaseAuth.Auth.auth().currentUser!.uid, company: "", category: "")
-        self.view?.updateData()
+        self.view?.setupCollectionView()
     }
     
     var categories: [String] = [""]
