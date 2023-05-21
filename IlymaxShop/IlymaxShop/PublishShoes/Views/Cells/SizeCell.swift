@@ -25,7 +25,7 @@ class SizeCell: UITableViewCell {
         sizeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         sizeButton.setTitle("Select Size", for: .normal)
-        sizeButton.setTitleColor(.black, for: .normal)
+        sizeButton.setTitleColor(.darkGray, for: .normal)
         
         for size in sizes {
             let sizeAction = UIAction(title: "\(size) EU") { [weak self] action in

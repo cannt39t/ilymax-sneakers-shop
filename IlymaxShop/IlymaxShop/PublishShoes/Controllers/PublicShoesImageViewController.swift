@@ -40,17 +40,17 @@ class PublicShoesImageViewController: UIViewController {
     }
     
     private func setupUI() {
-        navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Adding"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Upload", style: .plain, target: self, action: #selector(uploadButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.up")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(uploadButtonTapped))
         
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+        view.backgroundColor = .systemBackground
         
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         imageView.image = UIImage(systemName: "shoeprints.fill")
+        imageView.tintColor = .secondarySystemBackground
         imageView.clipsToBounds = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnImage(_:)))
@@ -58,7 +58,6 @@ class PublicShoesImageViewController: UIViewController {
         imageView.isUserInteractionEnabled = true
         
         nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)

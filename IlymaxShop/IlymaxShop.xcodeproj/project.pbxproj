@@ -149,6 +149,7 @@
 		7ED3E75D2A1548DF00B78244 /* SellerViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E75C2A1548DF00B78244 /* SellerViewPresenter.swift */; };
 		7ED3E75F2A1549B900B78244 /* SellerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */; };
 		7ED3E76D2A166A0A00B78244 /* SellerViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */; };
+		7ED3E76F2A1A9ABC00B78244 /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED3E76E2A1A9ABC00B78244 /* ChooseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +307,7 @@
 		7ED3E75C2A1548DF00B78244 /* SellerViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewPresenter.swift; sourceTree = "<group>"; };
 		7ED3E75E2A1549B900B78244 /* SellerViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewViewController.swift; sourceTree = "<group>"; };
 		7ED3E76C2A166A0A00B78244 /* SellerViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerViewCoordinator.swift; sourceTree = "<group>"; };
+		7ED3E76E2A1A9ABC00B78244 /* ChooseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -870,6 +872,7 @@
 				051F101C29C8EA1900877947 /* PublicShoesViewController.swift */,
 				7E1DAD0829DC8F12005B716B /* PublicShoesSizeViewController.swift */,
 				7E1DAD0A29DC8F8D005B716B /* PublicShoesImageViewController.swift */,
+				7ED3E76E2A1A9ABC00B78244 /* ChooseViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1303,6 +1306,7 @@
 				05278EEE29EDD4ED00E9FC8C /* NewConversationPresenter.swift in Sources */,
 				0579046829FFBF4000AD3C81 /* Location.swift in Sources */,
 				051F101B29C8E9DB00877947 /* CartViewController.swift in Sources */,
+				7ED3E76F2A1A9ABC00B78244 /* ChooseViewController.swift in Sources */,
 				0504CE692A152F460050BA48 /* IlymaxAddress.swift in Sources */,
 				05A5CDA529DB56DA00564CC3 /* CatalogPresenter.swift in Sources */,
 				051F101129C8E42500877947 /* CatalogCoordinator.swift in Sources */,
