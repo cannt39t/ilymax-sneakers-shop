@@ -35,7 +35,7 @@ class PublicShoesSizeViewController: UIViewController, UITableViewDelegate, UITa
         navigationController?.navigationBar.tintColor = .systemBackground
         navigationItem.title = "Adding"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.forward")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveForward))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.right")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveForward))
 
         view.backgroundColor = .systemBackground
         

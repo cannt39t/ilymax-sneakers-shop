@@ -27,7 +27,7 @@ class PublicShoesViewController: UIViewController, UITextFieldDelegate, UIGestur
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = false
         navigationItem.title = "Adding"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.forward")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveForward))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.right")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(moveForward))
 
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
