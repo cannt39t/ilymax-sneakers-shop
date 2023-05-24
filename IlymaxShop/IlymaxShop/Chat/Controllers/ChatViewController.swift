@@ -20,6 +20,7 @@ class ChatViewController: MessagesViewController {
         
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -27,8 +28,26 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messageCellDelegate = self
         messageInputBar.delegate = self
         
+        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
+            layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.textMessageSizeCalculator.incomingAvatarSize = .zero
+            layout.photoMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.photoMessageSizeCalculator.incomingAvatarSize = .zero
+            layout.attributedTextMessageSizeCalculator.incomingAvatarSize = .zero
+            layout.attributedTextMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.videoMessageSizeCalculator.incomingAvatarSize = .zero
+            layout.videoMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.locationMessageSizeCalculator.incomingAvatarSize = .zero
+            layout.locationMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.attributedTextMessageSizeCalculator.avatarLeadingTrailingPadding = .zero
+        }
+        
         setupInputButton()
         messagesCollectionView.reloadData()
+    }
+    
+    @objc func backButtonTaped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupInputButton() {
@@ -179,6 +198,18 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
                 break
         }
     }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        avatarView.isHidden = true
+    }
+    
+    private func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
+        return .zero
+    }
+    
+    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+        return .bubble
+    }
 }
 
 extension ChatViewController: MessageCellDelegate {
@@ -220,4 +251,12 @@ extension ChatViewController: MessageCellDelegate {
         }
     }
     
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        if sender.senderId == presenter.selfSender?.senderId {
+            return .systemBlue
+        }
+        return .secondarySystemBackground
+    }
 }
