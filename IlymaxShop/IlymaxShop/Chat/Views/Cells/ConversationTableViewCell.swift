@@ -109,11 +109,14 @@ class ConversationTableViewCell: UITableViewCell {
     }
     
     private func setImage(with url: URL) {
-        DispatchQueue.main.async { [weak self] in
-            self?.userImageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
+        DispatchQueue.main.async { [unowned self] in
+            userImageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { [unowned self] (image, error, cacheType, url) in
                 if let error = error {
                     print("Error loading image: \(error.localizedDescription)")
                 }
+                
+                userImageView.layer.cornerRadius = userImageView.frame.width / 2
+                userImageView.layer.masksToBounds = true
             }
         }
     }
