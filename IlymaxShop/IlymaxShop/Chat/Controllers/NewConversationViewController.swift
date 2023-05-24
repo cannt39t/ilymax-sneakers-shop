@@ -41,7 +41,7 @@ class NewConversationViewController: UIViewController, UIGestureRecognizerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGroupedBackground
         view.addSubview(noResultsLabel)
         view.addSubview(tableView)
         

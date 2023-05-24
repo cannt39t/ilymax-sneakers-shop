@@ -47,10 +47,12 @@ class ConversationsPresenter {
         }
     }
     
-    func deleteConversation(conversationId: String, indexPath: IndexPath) {
-        conversationsService.deleteConversation(coversationId: conversationId) { [weak self] result in
+    func deleteConversation(conversationId: String) {
+        conversationsService.deleteConversation(coversationId: conversationId) { result in
             if result {
-                self?.view?.tableView.deleteRows(at: [indexPath], with: .left)
+                print("Deleted a chat")
+            } else {
+                print("Failed to delete a chat")
             }
         }
     }

@@ -107,17 +107,21 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         80
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let myDel = UIContextualAction(style: .destructive, title: nil){ [unowned self]
+            (_, _, complitionHand) in
             let conversationId = presenter.conversations[indexPath.row].id
-            presenter.deleteConversation(conversationId: conversationId, indexPath: indexPath)
+            tableView.beginUpdates()
+            
+            presenter.conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            presenter.deleteConversation(conversationId: conversationId)
             tableView.endUpdates()
         }
+        myDel.image = UIImage(systemName: "trash")
+        myDel.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [myDel])
     }
     
     

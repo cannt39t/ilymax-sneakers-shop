@@ -10,9 +10,12 @@ import UIKit
 class ShoeViewCoordinator {
     
     private weak var navigationController: UINavigationController!
+    private var chatCoordiantor: ConversationsCoordinator!
     
     init(navigationController: UINavigationController!) {
         self.navigationController = navigationController
+        chatCoordiantor = ConversationsCoordinator()
+        chatCoordiantor.navigationController = navigationController
     }
     
     func start(product: Shoes) {
@@ -20,6 +23,9 @@ class ShoeViewCoordinator {
         let shoeViewPresenter = ShoeViewPresenter()
         shoeViewPresenter.pushReview = pushReviews
         shoeViewPresenter.pushSellerView = pushSellerView
+        shoeViewPresenter.openExistingConversation = openChat
+        shoeViewPresenter.openExistingDeletedConversation = openExistingDeletedConversation
+        shoeViewPresenter.startNewConversation = createNewConvesation
         shoeViewPresenter.view = shoeViewController
         shoeViewController.presenter = shoeViewPresenter
         shoeViewPresenter.product = product
@@ -57,5 +63,17 @@ class ShoeViewCoordinator {
     func pushSellerView(products: [Shoes], user: IlymaxUser) {
         let sellerViewCoordinator = SellerViewCoordinator(navigationController: navigationController)
         sellerViewCoordinator.start(products: products, user: user)
+    }
+    
+    func openChat(conversation: Conversation) {
+        chatCoordiantor.openChat(conversation: conversation)
+    }
+    
+    func openExistingDeletedConversation(with user: IlymaxUser, conversationId: String) {
+        chatCoordiantor.openExistingDeletedConversation(with: user, conversationId: conversationId)
+    }
+    
+    private func createNewConvesation(with user: IlymaxUser) {
+        chatCoordiantor.createNewConvesation(with: user)
     }
 }

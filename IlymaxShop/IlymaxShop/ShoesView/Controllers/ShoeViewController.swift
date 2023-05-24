@@ -70,7 +70,7 @@ class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
    
     func showLoader() {
-        hud.show(in: self.view, animated: true)
+        hud.show(in: view, animated: true)
     }
     
     func hideLoader() {
@@ -82,9 +82,16 @@ class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func setupUI() {
+        if let currentId = (FirebaseAuth.Auth.auth().currentUser?.uid) {
+            if currentId == presenter.product!.ownerId {
+                chatButton.isEnabled = false
+                addToCartButton.isEnabled = false
+            }
+        }
         
         addToCartButton.setTitle("Choose Size", for: .normal)
         addToCartButton.setTitleColor(.systemBackground, for: .normal)
+        addToCartButton.setTitle("You can't add your shoes", for: .disabled)
         addToCartButton.backgroundColor = .label
         addToCartButton.layer.cornerRadius = 10
         addToCartButton.addTarget(self, action: #selector(didTapAddToCartButton), for: .touchUpInside)
@@ -121,6 +128,7 @@ class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
         sellerNameButton.translatesAutoresizingMaskIntoConstraints = false
         
         chatButton.setImage(UIImage(systemName: "ellipsis.message.fill"), for: .normal)
+        chatButton.setImage(UIImage(systemName: "ellipsis.message.fill")?.withTintColor(.darkGray, renderingMode: .alwaysOriginal), for: .disabled)
         chatButton.tintColor = .label
         chatButton.translatesAutoresizingMaskIntoConstraints = false
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
@@ -286,7 +294,11 @@ class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc private func chatButtonTapped() {
-        print("Chat")
+        guard (FirebaseAuth.Auth.auth().currentUser?.uid) != nil else {
+            tabBarController?.selectedIndex = 4
+            return
+        }
+        presenter.openChat()
     }
     
     @objc private func didTapAddToCartButton() {

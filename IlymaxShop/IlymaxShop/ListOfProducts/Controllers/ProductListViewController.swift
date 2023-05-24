@@ -60,7 +60,7 @@ class ProductListViewController: UICollectionViewController, UIGestureRecognizer
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         isEmpty()
-        self.collectionView.register(ProductListCollectionViewCell.self,
+        collectionView.register(ProductListCollectionViewCell.self,
                                       forCellWithReuseIdentifier: ProductListCollectionViewCell.identifier)
         collectionView.contentInset = .zero
         collectionView.backgroundColor = .systemGroupedBackground

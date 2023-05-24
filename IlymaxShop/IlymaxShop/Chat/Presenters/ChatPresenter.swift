@@ -76,6 +76,8 @@ class ChatPresenter {
                     self?.messages = messages
                     DispatchQueue.main.async { [weak self] in
                         self?.view?.messagesCollectionView.reloadData()
+//                        let indexPath = IndexPath(item: 0, section: messages.count - 1)
+//                        self?.view?.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
                     }
                 case .failure(let error):
                     print(error)
@@ -129,7 +131,7 @@ class ChatPresenter {
                         }
                     }
                 case .failure(let error):
-                    print("message could not upload")
+                    print("message could not upload \(error)")
             }
         }
     }
@@ -180,9 +182,6 @@ class ChatPresenter {
     private func getLocation(_ selectedCoordinates: CLLocationCoordinate2D) {
         let longitude = selectedCoordinates.longitude
         let latitude = selectedCoordinates.latitude
-        
-        print(longitude)
-        print(latitude)
         
         guard let messageID = createMessageID(), let conID = conversationID, let sender = selfSender else {
             return

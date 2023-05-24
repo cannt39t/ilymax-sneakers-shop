@@ -11,7 +11,7 @@ import CoreLocation
 
 class ConversationsCoordinator {
     
-    private var navigationController: UINavigationController!
+    var navigationController: UINavigationController!
     
     func start() -> UIViewController {
         let conversationPresenter = ConversationsPresenter()
@@ -24,21 +24,6 @@ class ConversationsCoordinator {
         conversationsController.presenter = conversationPresenter
         navigationController = UINavigationController(rootViewController: conversationsController)
         return navigationController
-    }
-    
-    func openChat(conversation: Conversation) {
-        let chatController = ChatViewController()
-        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: conversation.name, emailAddress: conversation.otherUserEmail, profilePictureUrl: nil), conversationID: conversation.id)
-        
-        chatController.presenter = chatPresenter
-        chatPresenter.openImageCoordinator = openImage
-        chatPresenter.openVideoCoordinator = openVideo
-        chatPresenter.showPickerLocationCoordinator = openMapToSendLocation
-        chatPresenter.openLocationCoordinator = openLocation
-
-        chatPresenter.view = chatController
-        
-        navigationController.pushViewController(chatController, animated: true)
     }
     
     func newConversation(existingConversations: [Conversation]) {
@@ -60,7 +45,22 @@ class ConversationsCoordinator {
         navigationController.present(navController, animated: true)
     }
     
-    private func openExistingDeletedConversation(with user: IlymaxUser, conversationId: String) {
+    func openChat(conversation: Conversation) {
+        let chatController = ChatViewController()
+        let chatPresenter = ChatPresenter(otherUser: IlymaxUser(name: conversation.name, emailAddress: conversation.otherUserEmail, profilePictureUrl: nil), conversationID: conversation.id)
+        
+        chatController.presenter = chatPresenter
+        chatPresenter.openImageCoordinator = openImage
+        chatPresenter.openVideoCoordinator = openVideo
+        chatPresenter.showPickerLocationCoordinator = openMapToSendLocation
+        chatPresenter.openLocationCoordinator = openLocation
+
+        chatPresenter.view = chatController
+        
+        navigationController.pushViewController(chatController, animated: true)
+    }
+    
+    func openExistingDeletedConversation(with user: IlymaxUser, conversationId: String) {
         let chatController = ChatViewController()
         let chatPresenter = ChatPresenter(otherUser: user, conversationID: conversationId)
         
@@ -75,7 +75,7 @@ class ConversationsCoordinator {
         navigationController.pushViewController(chatController, animated: true)
     }
     
-    private func createNewConvesation(with user: IlymaxUser) {
+    func createNewConvesation(with user: IlymaxUser) {
         let chatController = ChatViewController()
         let chatPresenter = ChatPresenter(otherUser: user)
         
@@ -115,6 +115,4 @@ class ConversationsCoordinator {
         locationPickerViewContrller.title = "Location"
         navigationController?.pushViewController(locationPickerViewContrller, animated: true)
     }
-    
-    
 }

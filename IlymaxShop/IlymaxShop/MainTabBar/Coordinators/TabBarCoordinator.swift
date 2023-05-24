@@ -127,6 +127,6 @@ class TabBarCoordinator {
     }
     
     private func test() {
-        
+//        fatalError("Test")
     }
 }
