@@ -14,6 +14,11 @@ class ShoeViewPresenter {
     var product: Shoes?
     var sellerName = ""
     var user: IlymaxUser?
+    
+    var startNewConversation: (IlymaxUser) -> Void = {_ in }
+    var openExistingConversation: (Conversation) -> Void = { _ in }
+    var openExistingDeletedConversation: (IlymaxUser, String) -> Void = { (_, _) in }
+    
     public var pushReview: ([IlymaxReview], String, String) -> Void = {_,_,_  in }
     public var pushSellerView: ([Shoes], IlymaxUser) -> Void = {_,_ in }
     
@@ -52,11 +57,7 @@ class ShoeViewPresenter {
     }
     
     func addToCart(cartItem: IlymaxCartItem) {
-        if FirebaseAuth.Auth.auth().currentUser?.uid == nil || self.product?.ownerId == FirebaseAuth.Auth.auth().currentUser!.uid{
-    
-        } else {
-            shoeViewService.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: cartItem)
-        }
+        shoeViewService.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: cartItem)
     }
     
     func pushSeller() {
@@ -66,6 +67,36 @@ class ShoeViewPresenter {
                 self?.view?.hideLoader()
             }
         }
+    }
+    
+    func openChat() {
+        shoeViewService.getAllConversations(completion: { [weak self] result in
+            switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .success(let existingConversations):
+                    if let targetUser = self?.user {
+                        if let targetConveration = existingConversations.first(where: {
+                            $0.otherUserEmail == targetUser.emailAddress
+                        }) {
+                            self?.openExistingConversation(targetConveration)
+                        } else {
+                            self?.shoeViewService.getConversationForUser(with: targetUser.emailAddress) { [weak self] result in
+                                switch result {
+                                    case .failure(_):
+                                        DispatchQueue.main.async {
+                                            self?.startNewConversation(targetUser)
+                                        }
+                                    case .success(let conversationId):
+                                        DispatchQueue.main.async {
+                                            self?.openExistingDeletedConversation(targetUser, conversationId)
+                                        }
+                                }
+                            }
+                        }
+                    }
+            }
+        })
     }
     
 }
