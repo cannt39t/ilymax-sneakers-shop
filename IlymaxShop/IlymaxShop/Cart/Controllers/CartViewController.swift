@@ -178,10 +178,10 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let myDel = UIContextualAction(style: .destructive, title: nil){ [self]
+        let myDel = UIContextualAction(style: .destructive, title: nil){ [unowned self]
             (_, _, complitionHand) in
-            self.presenter.delete(productId: products[indexPath.row].id, size: products[indexPath.row].data.size)
-            self.products.remove(at: indexPath.row)
+            presenter.delete(productId: products[indexPath.row].id, size: products[indexPath.row].data.size)
+            products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             start()
         }
