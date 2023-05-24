@@ -47,4 +47,19 @@ class ShoeViewService {
             completion(shoes ?? [])
         }
     }
+    
+    func getAllConversations(completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+            fatalError("No way")
+        }
+        FirestoreManager.shared.getAllConversations(for: currentEmail) { result in
+            completion(result)
+        }
+    }
+    
+    func getConversationForUser(with email: String, completion: @escaping (Result<String, Error>) -> Void) {
+        FirestoreManager.shared.getConversation(with: email) { result in
+            completion(result)
+        }
+    }
 }
