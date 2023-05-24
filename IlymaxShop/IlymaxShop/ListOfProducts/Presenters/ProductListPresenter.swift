@@ -45,7 +45,7 @@ extension ProductListPresenter: ProductListPresenterDelegate {
     }
     
     func sortShoes(sortOption: String, selectedGender: String, selectedSize: String, selectedColor: String, selectedBrand: String, selectedCondition: String) {
-        self.view?.showLoader()
+        view?.showLoader()
 //        print("Selected Sort Option: \(sortOption )")
 //        print("Selected Gender: \(selectedGender )")
 //        print("Selected Size: " + String(selectedSize))
