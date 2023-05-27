@@ -662,6 +662,7 @@ extension FirestoreManager {
                 "id": conversationID,
                 "name": name,
                 "other_user_email": otherUserEmail,
+                "date": dateString,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -678,6 +679,7 @@ extension FirestoreManager {
                 "id": conversationID,
                 "name": currentUserName,
                 "other_user_email": currentEmail,
+                "date": dateString,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -835,16 +837,18 @@ extension FirestoreManager {
             for conversation in conversations {
                 guard let id = conversation["id"] as? String,
                     let name = conversation["name"] as? String,
+                    let dateString = conversation["date"] as? String,
                     let otherUserEmail = conversation["other_user_email"] as? String,
                     let latestMessageDict = conversation["latest_message"] as? [String: Any],
                     let latestMessageDate = latestMessageDict["date"] as? String,
                     let latestMessageText = latestMessageDict["message"] as? String,
-                    let latestMessageIsRead = latestMessageDict["is_read"] as? Bool else {
+                    let latestMessageIsRead = latestMessageDict["is_read"] as? Bool,
+                    let dateConversation = DateFormatter.dateFormatter.date(from: dateString) else {
                         continue
                 }
 
                 let latestMessage = LatestMessage(date: latestMessageDate, text: latestMessageText, isRead: latestMessageIsRead)
-                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
+                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, date: dateConversation, latestMessage: latestMessage)
 
                 allConversations.append(conversation)
             }
@@ -1049,7 +1053,8 @@ extension FirestoreManager {
                     "id": conversationId,
                     "latest_message": latestMessageData,
                     "name": otherUser.name,
-                    "other_user_email": otherUser.emailAddress
+                    "other_user_email": otherUser.emailAddress,
+                    "date": latestMessageData["date"]
                 ]
                 existingConversations.append(newConversation)
                 conversationRef.setData(["conversations": existingConversations], merge: true) { error in
@@ -1065,7 +1070,8 @@ extension FirestoreManager {
                     "id": conversationId,
                     "latest_message": latestMessageData,
                     "name": otherUser.name,
-                    "other_user_email": otherUser.emailAddress
+                    "other_user_email": otherUser.emailAddress,
+                    "date": latestMessageData["date"]
                 ]
                 conversationRef.setData(["conversations": [newConversation]], merge: true) { error in
                     guard error == nil else {
@@ -1098,16 +1104,17 @@ extension FirestoreManager {
             for conversation in conversations {
                 guard let id = conversation["id"] as? String,
                       let name = conversation["name"] as? String,
+                      let dateString = conversation["date"] as? String,
                       let otherUserEmail = conversation["other_user_email"] as? String,
                       let latestMessageDict = conversation["latest_message"] as? [String: Any],
                       let latestMessageDate = latestMessageDict["date"] as? String,
                       let latestMessageText = latestMessageDict["message"] as? String,
-                      let latestMessageIsRead = latestMessageDict["is_read"] as? Bool else {
+                      let latestMessageIsRead = latestMessageDict["is_read"] as? Bool,
+                      let dateConversation = DateFormatter.dateFormatter.date(from: dateString) else {
                     continue
                 }
-                
                 let latestMessage = LatestMessage(date: latestMessageDate, text: latestMessageText, isRead: latestMessageIsRead)
-                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
+                let conversation = Conversation(id: id, name: name, otherUserEmail: otherUserEmail, date: dateConversation, latestMessage: latestMessage)
                 
                 allConversations.append(conversation)
             }
@@ -1147,6 +1154,7 @@ extension FirestoreManager {
                 "id": conversation.id,
                 "name": conversation.name,
                 "other_user_email": conversation.otherUserEmail,
+                "date": conversation.date.ISO8601Format(),
                 "latest_message": [
                     "date": latestMessage.date,
                     "message": latestMessage.text,
@@ -1167,7 +1175,7 @@ extension FirestoreManager {
     }
     
     
-    public func getConversation(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void) {
+    public func getConversation(with targetRecipientEmail: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
         guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             completion(.failure(NSError()))
             return
@@ -1181,7 +1189,7 @@ extension FirestoreManager {
                     if let conversationBetween2Users = conversations.first(where: {
                         $0.otherUserEmail == currentEmail
                     }) {
-                        completion(.success(conversationBetween2Users.id))
+                        completion(.success(conversationBetween2Users))
                     } else {
                         completion(.failure(NSError()))
                     }
