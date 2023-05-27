@@ -12,6 +12,7 @@ struct Conversation {
     let id: String
     let name: String
     let otherUserEmail: String
+    let date: Date
     let latestMessage: LatestMessage
     
 }
@@ -23,19 +24,19 @@ struct LatestMessage {
 }
 
 
-extension Conversation {
-    static func fromDictionary(_ dictionary: [String: Any]) -> Conversation? {
-        guard let id = dictionary["id"] as? String,
-              let name = dictionary["name"] as? String,
-              let otherUserEmail = dictionary["other_user_email"] as? String,
-              let latestMessageData = dictionary["latest_message"] as? [String: Any],
-              let latestMessage = LatestMessage.fromDictionary(latestMessageData) else {
-            return nil
-        }
-
-        return Conversation(id: id, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessage)
-    }
-}
+//extension Conversation {
+//    static func fromDictionary(_ dictionary: [String: Any]) -> Conversation? {
+//        guard let id = dictionary["id"] as? String,
+//              let name = dictionary["name"] as? String,
+//              let otherUserEmail = dictionary["other_user_email"] as? String,
+//              let latestMessageData = dictionary["latest_message"] as? [String: Any],
+//              let latestMessage = LatestMessage.fromDictionary(latestMessageData) else {
+//            return nil
+//        }
+//
+//        return Conversation(id: id, name: name, otherUserEmail: otherUserEmail, date: <#Date#>, latestMessage: latestMessage)
+//    }
+//}
 
 extension LatestMessage {
     static func fromDictionary(_ dictionary: [String: Any]) -> LatestMessage? {
