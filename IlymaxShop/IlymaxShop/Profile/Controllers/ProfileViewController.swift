@@ -238,7 +238,7 @@ extension ProfileViewController: UICollectionViewDelegate {
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let pickedImage = info[.editedImage] as? UIImage {
             let indexPath = IndexPath(row: 0, section: 0)
             let userCell = collectionView.cellForItem(at: indexPath) as! UserCell
             if let image = pickedImage.fixedOrientation() {
