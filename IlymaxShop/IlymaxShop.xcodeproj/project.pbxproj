@@ -110,8 +110,6 @@
 		05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 05D3C4B129D3489C00D76EED /* FirebaseDatabase */; };
 		05D3C4BA29D367F100D76EED /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D3C4B929D367F100D76EED /* Security.swift */; };
 		05D91E8929ED2D6B00C7FBB7 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8829ED2D6B00C7FBB7 /* MessageKit */; };
-		05D91E8C29ED2EB600C7FBB7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8B29ED2EB600C7FBB7 /* Realm */; };
-		05D91E8E29ED2EB600C7FBB7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 05D91E8D29ED2EB600C7FBB7 /* RealmSwift */; };
 		05D91E9129ED316600C7FBB7 /* ConversationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9029ED316600C7FBB7 /* ConversationsPresenter.swift */; };
 		05D91E9329ED33FD00C7FBB7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9229ED33FD00C7FBB7 /* ChatViewController.swift */; };
 		05D91E9829ED3C0500C7FBB7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D91E9729ED3C0500C7FBB7 /* Message.swift */; };
@@ -320,13 +318,11 @@
 				050C580929E2D83B00A27A30 /* SDWebImage in Frameworks */,
 				05D3C4B229D3489C00D76EED /* FirebaseDatabase in Frameworks */,
 				05A4381E29D8522C00AADDB9 /* FirebaseFirestore in Frameworks */,
-				05D91E8E29ED2EB600C7FBB7 /* RealmSwift in Frameworks */,
 				05D91E8929ED2D6B00C7FBB7 /* MessageKit in Frameworks */,
 				05BA97D329D613FA002B7568 /* JGProgressHUD in Frameworks */,
 				050A72682A1E931800F19EEA /* FirebaseAnalytics in Frameworks */,
 				052D97F129D9CBE8008CA67C /* FirebaseStorage in Frameworks */,
 				050A72662A1E920700F19EEA /* FirebaseCrashlytics in Frameworks */,
-				05D91E8C29ED2EB600C7FBB7 /* Realm in Frameworks */,
 				05D3C4B029D3489C00D76EED /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1173,8 +1169,6 @@
 				052D97F029D9CBE8008CA67C /* FirebaseStorage */,
 				050C580829E2D83B00A27A30 /* SDWebImage */,
 				05D91E8829ED2D6B00C7FBB7 /* MessageKit */,
-				05D91E8B29ED2EB600C7FBB7 /* Realm */,
-				05D91E8D29ED2EB600C7FBB7 /* RealmSwift */,
 				050A72652A1E920700F19EEA /* FirebaseCrashlytics */,
 				050A72672A1E931800F19EEA /* FirebaseAnalytics */,
 			);
@@ -1635,7 +1629,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxSho;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1667,7 +1661,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxSho;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itis.IlymaxShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1880,16 +1874,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 05D91E8729ED2D6B00C7FBB7 /* XCRemoteSwiftPackageReference "MessageKit" */;
 			productName = MessageKit;
-		};
-		05D91E8B29ED2EB600C7FBB7 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 05D91E8A29ED2EB600C7FBB7 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		05D91E8D29ED2EB600C7FBB7 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 05D91E8A29ED2EB600C7FBB7 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
