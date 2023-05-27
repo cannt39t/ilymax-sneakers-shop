@@ -10,7 +10,6 @@ import UIKit
 class PublicShoesImageViewController: UIViewController {
     var presenter: PublicShoesPresenter!
     private let imageView = UIImageView()
-    private let imagePicker = UIImagePickerController()
     private let nameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let genderLabel = UILabel()
@@ -145,33 +144,45 @@ class PublicShoesImageViewController: UIViewController {
     }
     
     @objc private func tapOnImage(_ sender: UITapGestureRecognizer) {
-        let alert = UIAlertController(title: "Image", message: nil, preferredStyle: .actionSheet)
-        let actionPhoto = UIAlertAction(title: "Library", style: .default) { _ in
-            self.imagePicker.sourceType = .photoLibrary
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.delegate = self
-            self.present(self.imagePicker, animated: true, completion: nil)
-        }
-        let actionCamera = UIAlertAction(title: "Camera", style: .default) { _ in
-            self.imagePicker.sourceType = .camera
-            self.imagePicker.delegate = self
-            self.present(self.imagePicker, animated: true, completion: nil)
-        }
-        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                
-        alert.addAction(actionPhoto)
-        alert.addAction(actionCamera)
-        alert.addAction(actionCancel)
-        present(alert, animated: true, completion: nil)
+        presentPhotoInputActionsheet()
+    }
+    
+    private func presentPhotoInputActionsheet() {
+        let actionSheet = UIAlertController(title: "Change profile image", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Libary", style: .default, handler: { [weak self] _ in
+            
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(actionSheet, animated: true)
     }
 }
 
-extension PublicShoesImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension PublicShoesImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageView.image = pickedImage
-            imageView.contentMode = .scaleAspectFill
-            imageView.clipsToBounds = true
+        if let pickedImage = info[.editedImage] as? UIImage {
+            if let image = pickedImage.fixedOrientation() {
+                print("Fixed image orientation")
+                imageView.image = image
+                imageView.contentMode = .scaleAspectFill
+                imageView.clipsToBounds = true
+            } else {
+                imageView.image = pickedImage
+                imageView.contentMode = .scaleAspectFill
+                imageView.clipsToBounds = true
+            }
         }
         dismiss(animated: true)
     }
