@@ -14,7 +14,7 @@ class NewConversationPresenter {
     
     var startNewConversation: (IlymaxUser) -> Void = {_ in }
     var openExistingConversation: (Conversation) -> Void = { _ in }
-    var openExistingDeletedConversation: (IlymaxUser, String) -> Void = { (_, _) in }
+    var openExistingDeletedConversation: (IlymaxUser, Conversation) -> Void = { (_, _) in }
     var dismissSearchController: () -> () = {}
     
     private var users: [IlymaxUser] = []
@@ -74,9 +74,9 @@ class NewConversationPresenter {
                         DispatchQueue.main.async {
                             self?.startNewConversation(targetUser)
                         }
-                    case .success(let conversationId):
+                    case .success(let conversation):
                         DispatchQueue.main.async {
-                            self?.openExistingDeletedConversation(targetUser, conversationId)
+                            self?.openExistingDeletedConversation(targetUser, conversation)
                         }
                 }
             }
