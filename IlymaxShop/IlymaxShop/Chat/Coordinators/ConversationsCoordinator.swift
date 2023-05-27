@@ -51,6 +51,7 @@ class ConversationsCoordinator {
         
         chatController.presenter = chatPresenter
         chatPresenter.openImageCoordinator = openImage
+        chatPresenter.conversation = conversation
         chatPresenter.openVideoCoordinator = openVideo
         chatPresenter.showPickerLocationCoordinator = openMapToSendLocation
         chatPresenter.openLocationCoordinator = openLocation
@@ -60,10 +61,11 @@ class ConversationsCoordinator {
         navigationController.pushViewController(chatController, animated: true)
     }
     
-    func openExistingDeletedConversation(with user: IlymaxUser, conversationId: String) {
+    func openExistingDeletedConversation(with user: IlymaxUser, conversation: Conversation) {
         let chatController = ChatViewController()
-        let chatPresenter = ChatPresenter(otherUser: user, conversationID: conversationId)
+        let chatPresenter = ChatPresenter(otherUser: user, conversationID: conversation.id)
         
+        chatPresenter.conversation = conversation
         chatPresenter.view = chatController
         chatController.presenter = chatPresenter
         

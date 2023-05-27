@@ -14,6 +14,7 @@ class CategoryCell: UICollectionViewCell {
     
     public static let indertifier = "CategoryCell"
     private var categoryImage: UIImageView = .init()
+    private let forwardImage: UIImageView =  .init(image: UIImage(systemName: "chevron.forward")!.withTintColor(.label, renderingMode: .alwaysOriginal))
     private var nameLabel: UILabel = .init()
     
     public var category: IlymaxCategory?
@@ -31,6 +32,18 @@ class CategoryCell: UICollectionViewCell {
     }
     
     private func setup() {
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        
+        let lightView = UIView(frame: bounds)
+        lightView.backgroundColor = .secondarySystemGroupedBackground
+        self.backgroundView = lightView
+        
+        let grayView = UIView(frame: bounds)
+        grayView.backgroundColor = .lightGray.withAlphaComponent(0.25)
+        self.selectedBackgroundView = grayView
+        
+        
         let stack = UIStackView(arrangedSubviews: [categoryImage, nameLabel])
         stack.alignment = .leading
         stack.spacing = 24
@@ -38,16 +51,21 @@ class CategoryCell: UICollectionViewCell {
         stack.distribution = .fillProportionally
         
         contentView.addSubview(stack)
+        forwardImage.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(forwardImage)
         
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
+            stack.trailingAnchor.constraint(equalTo: forwardImage.trailingAnchor, constant: -12),
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             stack.topAnchor.constraint(equalTo: contentView.topAnchor),
             
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             categoryImage.widthAnchor.constraint(equalToConstant: 50),
-            categoryImage.heightAnchor.constraint(equalToConstant: 50)
+            categoryImage.heightAnchor.constraint(equalToConstant: 50),
+            
+            forwardImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            forwardImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     

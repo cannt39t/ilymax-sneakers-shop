@@ -29,7 +29,9 @@ class PopularCell: UICollectionViewCell {
     }
     
     private func setup() {
-        contentView.backgroundColor = .white
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        contentView.backgroundColor = .secondarySystemGroupedBackground
         
         contentView.addSubview(shoeImage)
         shoeImage.contentMode = .scaleAspectFit

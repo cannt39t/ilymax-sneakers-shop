@@ -26,7 +26,7 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIGesture
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-
+        
         setupCollectionView()
         setupButton()
     }
@@ -211,6 +211,4 @@ extension AddAddressViewController: UICollectionViewDelegate {
                 cell.valueTextField.becomeFirstResponder()
         }
     }
-    
 }
-

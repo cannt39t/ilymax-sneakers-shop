@@ -17,7 +17,7 @@ class ShoeViewPresenter {
     
     var startNewConversation: (IlymaxUser) -> Void = {_ in }
     var openExistingConversation: (Conversation) -> Void = { _ in }
-    var openExistingDeletedConversation: (IlymaxUser, String) -> Void = { (_, _) in }
+    var openExistingDeletedConversation: (IlymaxUser, Conversation) -> Void = { (_, _) in }
     
     public var pushReview: ([IlymaxReview], String, String) -> Void = {_,_,_  in }
     public var pushSellerView: ([Shoes], IlymaxUser) -> Void = {_,_ in }
@@ -87,9 +87,9 @@ class ShoeViewPresenter {
                                         DispatchQueue.main.async {
                                             self?.startNewConversation(targetUser)
                                         }
-                                    case .success(let conversationId):
+                                    case .success(let conversation):
                                         DispatchQueue.main.async {
-                                            self?.openExistingDeletedConversation(targetUser, conversationId)
+                                            self?.openExistingDeletedConversation(targetUser, conversation)
                                         }
                                 }
                             }

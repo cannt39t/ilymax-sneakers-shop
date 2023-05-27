@@ -69,8 +69,8 @@ class ShoeViewCoordinator {
         chatCoordiantor.openChat(conversation: conversation)
     }
     
-    func openExistingDeletedConversation(with user: IlymaxUser, conversationId: String) {
-        chatCoordiantor.openExistingDeletedConversation(with: user, conversationId: conversationId)
+    func openExistingDeletedConversation(with user: IlymaxUser, conversation: Conversation) {
+        chatCoordiantor.openExistingDeletedConversation(with: user, conversation: conversation)
     }
     
     private func createNewConvesation(with user: IlymaxUser) {

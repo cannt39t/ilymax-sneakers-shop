@@ -57,7 +57,7 @@ class ShoeViewService {
         }
     }
     
-    func getConversationForUser(with email: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func getConversationForUser(with email: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
         FirestoreManager.shared.getConversation(with: email) { result in
             completion(result)
         }

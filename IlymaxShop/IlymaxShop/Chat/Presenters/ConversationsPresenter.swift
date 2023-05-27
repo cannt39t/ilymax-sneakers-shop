@@ -30,7 +30,7 @@ class ConversationsPresenter {
                     print(error)
                 case.success(let conversations):
                     self?.conversations = conversations
-                    print(conversations.count)
+                    print(conversations)
                     if conversations.count != 0 {
                         DispatchQueue.main.async { [weak self] in
                             self?.view?.tableView.isHidden = false

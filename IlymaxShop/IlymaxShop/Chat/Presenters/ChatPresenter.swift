@@ -14,6 +14,7 @@ class ChatPresenter {
     weak var view: ChatViewController?
     let chatService: ChatService = ChatService()
     var otherUser: IlymaxUser
+    var conversation: Conversation!
     
     public var selfSender: Sender? {
         return Sender(photoURL: "", senderId: currentUserEmailAddress, displayName: "Me")
