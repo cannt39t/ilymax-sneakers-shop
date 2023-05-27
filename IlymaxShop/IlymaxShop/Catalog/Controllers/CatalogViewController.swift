@@ -116,7 +116,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         //group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(256))
@@ -125,9 +125,8 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         //section
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
-        //        section.visibleItemsInvalidationHandler = {
-        //
-        //        }
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 0)
+        
         return section
     }
     
@@ -149,6 +148,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
         section.boundarySupplementaryItems = [header]
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 0)
         
         return section
     }
@@ -157,10 +157,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 30, bottom: 0, trailing: 10)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12)
         
         //layout
-        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(72))
         
         // group
         let group = NSCollectionLayoutGroup.vertical(
@@ -169,6 +169,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         
         // section
         let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 24, trailing: 0)
         
         //supplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48))
@@ -182,7 +183,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
         collectionView.delegate = self
-        collectionView.backgroundColor = .secondarySystemBackground
+        collectionView.backgroundColor = .systemGroupedBackground
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -204,6 +205,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.section {
             case 0:
                 print(promotions[indexPath.item])
@@ -266,14 +268,14 @@ extension CatalogViewController: UICollectionViewDataSource {
                 guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: "HeaderView", for: indexPath) as? HeaderView else {
                     return UICollectionReusableView()
                 }
-                view.setTitle(with: "Most popular")
+                view.setTitle(with: "Most popular", hide: false)
                 view.didTapOnHeader = {} // вызвать презентер
                 return view
             default:
                 guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: "HeaderView", for: indexPath) as? HeaderView else {
                     return UICollectionReusableView()
                 }
-                view.setTitle(with: "Browse by category")
+                view.setTitle(with: "Browse by category", hide: true)
                 return view
         }
     }
