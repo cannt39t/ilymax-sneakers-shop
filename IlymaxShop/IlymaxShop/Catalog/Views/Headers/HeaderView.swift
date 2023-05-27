@@ -9,7 +9,7 @@ import UIKit
 
 class HeaderView: UICollectionReusableView {
     private let label = UILabel()
-    private let showButton = UIButton()
+    let showButton = UIButton()
     public var didTapOnHeader: (() -> Void) = {}
  
     override init(frame: CGRect) {
@@ -19,10 +19,13 @@ class HeaderView: UICollectionReusableView {
         let image = UIImage(systemName: "chevron.right")?.withTintColor(.label, renderingMode: .alwaysOriginal)
         showButton.setImage(image, for: .normal)
         
+        label.font = .systemFont(ofSize: 21)
+        
          
         // Customize the header view
-        backgroundColor = .systemBackground
+//        backgroundColor = .systemBackground
         let stack = UIStackView(arrangedSubviews: [label, showButton])
+        stack.alignment = .leading
         stack.distribution = .fillProportionally
         
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -31,13 +34,15 @@ class HeaderView: UICollectionReusableView {
         NSLayoutConstraint.activate([
             stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stack.topAnchor.constraint(equalTo: topAnchor)
+//            stack.bottomAnchor.constraint(equalTo: bottomAnchor),
+//            stack.topAnchor.constraint(equalTo: topAnchor),
+            stack.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
-    public func setTitle(with title: String) {
+    public func setTitle(with title: String, hide: Bool) {
         label.text = title
+        showButton.isHidden = hide
     }
     
     required init?(coder Decoder: NSCoder) {
