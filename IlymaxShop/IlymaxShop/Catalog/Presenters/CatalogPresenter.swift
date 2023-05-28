@@ -14,6 +14,7 @@ class CatalogPresenter {
     private let catalogService = CatalogService()
     public var pushShoe: (Shoes) -> Void = {_ in }
     public var pushListShoes: ([Shoes], String, String) -> Void = {_, _, _ in }
+    public var pushList: ([Shoes]) -> () = { _ in }
     
     public func fetchData() {
         let group = DispatchGroup()
@@ -56,6 +57,21 @@ class CatalogPresenter {
             DispatchQueue.main.async {
                 self?.view?.categories = categories
                 group.leave()
+            }
+        }
+    }
+    
+    public func getShoesWithIds(ids: [String]) {
+        catalogService.getShoesWithIds(with: ids) { [weak self] result in
+            switch result {
+                case .failure(_):
+                    self?.pushListShoes([], "None", "None")
+                case .success(let shoes):
+                    if shoes.count == 1 {
+                        self?.pushShoe(shoes[0])
+                    } else {
+                        self?.pushListShoes(shoes, "None", "None")
+                    }
             }
         }
     }
