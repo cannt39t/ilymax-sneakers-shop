@@ -24,4 +24,16 @@ class SettingsService {
         try? Auth.auth().signOut()
     }
     
+    func changeNotification(nameNotifcation: String, value: Bool) {
+        UserDefaults.standard.setValue(value, forKey: nameNotifcation)
+    }
+    
+    func getCurrentState(for nameNotifcation: String) -> Bool {
+        if let value = UserDefaults.standard.object(forKey: nameNotifcation) as? Bool {
+            return value
+        } else {
+            changeNotification(nameNotifcation: nameNotifcation, value: false)
+            return false
+        }
+    }
 }
