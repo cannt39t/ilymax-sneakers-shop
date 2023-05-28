@@ -53,4 +53,10 @@ class CatalogService {
             completion(shoes ?? [])
         }
     }
+    
+    public func getShoesWithIds(with ids: [String], completion: @escaping (Result<[Shoes], Error>) -> Void) {
+        FirestoreManager.shared.getShoesWithIDs(ids: ids) { result in
+            completion(result)
+        }
+    }
 }

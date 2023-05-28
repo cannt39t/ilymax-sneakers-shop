@@ -46,10 +46,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         
         navigationController?.navigationBar.topItem?.titleView = ilymaxLabel
         
-//        navigationController?.navigationBar.backItem?.searchController = search
-//        navigationController?.navigationBar.backItem?.searchController?.hidesBottomBarWhenPushed = true
-        
-        
         showLoader()
         showCollectionView()
         presenter.fetchData()
@@ -208,7 +204,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.section {
             case 0:
-                print(promotions[indexPath.item])
+                presenter.getShoesWithIds(ids: promotions[indexPath.item].shoesIds)
             case 1:
                 presenter.pushShoeView(shoe: popular[indexPath.item])
             case 2:
@@ -286,6 +282,7 @@ extension CatalogViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchStr = searchBar.text ?? ""
         if searchStr.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            
         } else {
             showLoader()
             presenter.pushSearchShoeList(searchStr: searchStr)

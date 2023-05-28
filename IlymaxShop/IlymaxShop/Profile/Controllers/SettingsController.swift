@@ -115,13 +115,19 @@ extension SettingsController: UICollectionViewDataSource {
                     case 0:
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCell.identifier, for: indexPath) as! NotificationCell
                         cell.setName("Sales")
+                        cell.toggle.isOn = presenter.getState(for: "Sales")
+                        cell.completion = presenter.changeState
                         return cell
                     case 1:
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCell.identifier, for: indexPath) as! NotificationCell
+                        cell.toggle.isOn = presenter.getState(for: "Messages")
+                        cell.completion = presenter.changeState
                         cell.setName("Messages")
                         return cell
                     case 2:
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCell.identifier, for: indexPath) as! NotificationCell
+                        cell.toggle.isOn = presenter.getState(for: "Delivery status changes")
+                        cell.completion = presenter.changeState
                         cell.setName("Delivery status changes")
                         return cell
                     default:
