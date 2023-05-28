@@ -28,15 +28,15 @@ class CatalogCoordinator {
         shoeViewCoordinator.start(product: shoe)
     }
     
-    func pushListOfShoes(shoes: [Shoes], name: String, searchStr: String) {
+    func pushListOfShoes(shoes: [Shoes], name: String?, searchStr: String?) {
         let listOfShoesController = ProductListViewController()
         let presenter = ProductListPresenter()
         presenter.pushShoe = pushShoeView
         presenter.presentMoodal = presentModalAdding
         listOfShoesController.presenter = presenter
         presenter.products = shoes
-        presenter.searchStr = searchStr
-        presenter.name = name
+        presenter.searchStr = searchStr ?? ""
+        presenter.name = name ?? ""
         presenter.view = listOfShoesController
         navigationController.pushViewController(listOfShoesController, animated: true)
     }
