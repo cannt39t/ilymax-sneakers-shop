@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class ModalAddingViewController: UIViewController {
     var product: Shoes!
@@ -16,6 +17,7 @@ class ModalAddingViewController: UIViewController {
     private var imageView: UIImageView = .init()
     private var addButton: UIButton = .init(type: .system)
     private var selectedRow: Int?
+    private var hud = JGProgressHUD()
     
     var data: [String] = []
     
@@ -63,6 +65,14 @@ class ModalAddingViewController: UIViewController {
         
         loadImage(with: imageUrl)
     }
+    
+    func showSucces() {
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.square = true
+        hud.textLabel.text = "Added to cart"
+        hud.show(in: self.view, animated: true)
+        hud.dismiss(afterDelay: 1.0)
+    }
 
     private func loadImage(with url: URL) {
         imageView.sd_setImage(with: url, placeholderImage: nil, options: [.progressiveLoad, .highPriority]) { (image, error, cacheType, url) in
@@ -75,13 +85,14 @@ class ModalAddingViewController: UIViewController {
 
     
     @objc private func addToCartTapped() {
-        guard let userId = FirebaseAuth.Auth.auth().currentUser?.uid else {
+        guard (FirebaseAuth.Auth.auth().currentUser?.uid) != nil else {
             tabBarController?.selectedIndex = 4
             return
         }
         let ilymaxCartItem = IlymaxCartItem(id: product.id!, name: product.name, description: product.description, color: product.color, gender: product.gender, condition: product.condition, imageUrl: product.imageUrl!, data: ShoesDetail(size: product.data[selectedRow ?? 0].size, price: product.data[selectedRow ?? 0].price, quantity: 1), ownerId: product.ownerId, company: product.company, category: product.category)
         presenter?.addToCart(ilymaxCartItem: ilymaxCartItem)
         dismiss(animated: true)
+        showSucces()
     }
     
 }
