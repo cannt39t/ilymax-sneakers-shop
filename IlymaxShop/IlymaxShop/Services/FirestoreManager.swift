@@ -54,7 +54,6 @@ extension FirestoreManager {
     
     public func getUser(with id: String, completion: @escaping (IlymaxUser?) -> Void) {
         let docRef = db.collection("users").document(id)
-
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let data = document.data()!
@@ -276,8 +275,18 @@ extension FirestoreManager {
             completion(.success(shoes))
         }
     }
-
     
+    public func getShoeCountForCurrentUser(ownerId: String, completion: @escaping (Result<Int, Error>) -> Void) {
+        getAllShoesForCurrentUser(ownerId: ownerId) { result in
+            switch result {
+                case .success(let shoes):
+                    let count = shoes.count
+                    completion(.success(count))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
+        }
+    }
 
     /// Get all shoes from Database
     public func getAllShoes(completion: @escaping ([Shoes]?, Error?) -> Void) {
@@ -1636,4 +1645,27 @@ extension FirestoreManager {
             completion(.success(addresses))
         }
     }
+    
+    func getAddressCount(for userId: String, completion: @escaping (Result<Int, Error>) -> Void) {
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userId)
+        cartRef.getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success(0))
+                return
+            }
+            
+            guard let data = snapshot.data(), let addresses = data["addresses"] as? [[String: Any]] else {
+                completion(.success(0))
+                return
+            }
+            
+            completion(.success(addresses.count))
+        }
+    }
 }
+
