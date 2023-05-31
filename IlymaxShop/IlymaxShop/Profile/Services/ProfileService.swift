@@ -32,4 +32,18 @@ class ProfileService {
             competion(result)
         }
     }
+    
+    func getAdressCount(completion: @escaping (Result<Int, Error>) -> Void) {
+        let currentUserId = FirebaseAuth.Auth.auth().currentUser!.uid
+        FirestoreManager.shared.getAddressCount(for: currentUserId) { result in
+            completion(result)
+        }
+    }
+    
+    func getSaleListCount(completion: @escaping (Result<Int, Error>) -> Void) {
+        let currentUserId = FirebaseAuth.Auth.auth().currentUser!.uid
+        FirestoreManager.shared.getShoeCountForCurrentUser(ownerId: currentUserId) { result in
+            completion(result)
+        }
+    }
 }
