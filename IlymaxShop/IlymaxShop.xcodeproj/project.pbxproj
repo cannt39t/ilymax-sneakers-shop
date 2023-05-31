@@ -94,6 +94,8 @@
 		05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D02A05A58D000F5665 /* SettingsController.swift */; };
 		05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */; };
 		05C1A3D72A068826000F5665 /* SettingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D62A068826000F5665 /* SettingHeader.swift */; };
+		05CA2B5F2A27C0AB007A6791 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CA2B5E2A27C0AB007A6791 /* OrderCell.swift */; };
+		05CA2B612A27C781007A6791 /* IlymaxOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CA2B602A27C781007A6791 /* IlymaxOrder.swift */; };
 		05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */; };
 		05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */; };
 		05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7229E554D900573EF3 /* ProfileService.swift */; };
@@ -254,6 +256,8 @@
 		05C1A3D02A05A58D000F5665 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesController.swift; sourceTree = "<group>"; };
 		05C1A3D62A068826000F5665 /* SettingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeader.swift; sourceTree = "<group>"; };
+		05CA2B5E2A27C0AB007A6791 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
+		05CA2B602A27C781007A6791 /* IlymaxOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxOrder.swift; sourceTree = "<group>"; };
 		05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		05CDCA7229E554D900573EF3 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -431,6 +435,7 @@
 				0510F20829F6ED3700175131 /* IlymaxReview.swift */,
 				05B79A6E2A112ECF00F88F67 /* IlymaxCartItem.swift */,
 				0504CE682A152F460050BA48 /* IlymaxAddress.swift */,
+				05CA2B602A27C781007A6791 /* IlymaxOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -593,11 +598,20 @@
 			children = (
 				05A4380029D8171C00AADDB9 /* UserCell.swift */,
 				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+				05CA2B5D2A27C07E007A6791 /* Orders */,
 				05F31F102A1640F4002DED92 /* SaleList */,
 				05DE81472A140CA10054078B /* Addresses */,
 				052B08D82A128188000ED5DE /* Settings */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		05CA2B5D2A27C07E007A6791 /* Orders */ = {
+			isa = PBXGroup;
+			children = (
+				05CA2B5E2A27C0AB007A6791 /* OrderCell.swift */,
+			);
+			path = Orders;
 			sourceTree = "<group>";
 		};
 		05CDCA6E29E5545000573EF3 /* Presenters */ = {
@@ -1382,6 +1396,7 @@
 				05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */,
 				05C1A3C72A05A448000F5665 /* AddressesService.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
+				05CA2B612A27C781007A6791 /* IlymaxOrder.swift in Sources */,
 				05B79A6F2A112ECF00F88F67 /* IlymaxCartItem.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
@@ -1398,6 +1413,7 @@
 				055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
 				0519A9C529D99EB600AE1553 /* HeaderView.swift in Sources */,
+				05CA2B5F2A27C0AB007A6791 /* OrderCell.swift in Sources */,
 				7ED14AAD29EF37A200FD7BED /* ProductListCollectionViewCell.swift in Sources */,
 				7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */,
 				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
