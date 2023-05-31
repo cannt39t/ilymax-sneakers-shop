@@ -58,6 +58,7 @@ class ShoeViewPresenter {
     
     func addToCart(cartItem: IlymaxCartItem) {
         shoeViewService.addItemToCart(userID: FirebaseAuth.Auth.auth().currentUser!.uid, item: cartItem)
+        view?.showSucces()
     }
     
     func pushSeller() {
