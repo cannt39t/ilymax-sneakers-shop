@@ -48,6 +48,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         
         showLoader()
         showCollectionView()
+        setupRefreshController()
         presenter.fetchData()
     }
     
@@ -59,6 +60,15 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         hud.dismiss(animated: true)
     }
     
+    func setupRefreshController() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView?.refreshControl = refreshControl
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        presenter.fetchData()
+    }
     
     public func showCollectionView() {
         setupCollectionView()
