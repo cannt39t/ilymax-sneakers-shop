@@ -26,8 +26,27 @@ class CartPresenter {
     
     // MARK: - Переадресация на платежку
     func buyButtonDidTap() {
-        if let url = URL(string: "https://qiwi.com/n/MAKSYAK") {
-            UIApplication.shared.open(url, options: [:])
+        cartService.getDefaultAddress { [weak self] result in
+            switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let addressOptional):
+                    guard let address = addressOptional else {
+                        self?.view?.showAlertNoAddress()
+                        return
+                    }
+                    self?.cartService.createOrder(items: self?.view?.products ?? [], address: address) { didCreate in
+                        if didCreate {
+                            self?.cartService.deleteCart { didDelete in
+                                if didDelete {
+                                    self?.view?.showOrderCreated()
+                                }
+                            }
+                        } else {
+                            print("Does not create order")
+                        }
+                    }
+            }
         }
     }
     
