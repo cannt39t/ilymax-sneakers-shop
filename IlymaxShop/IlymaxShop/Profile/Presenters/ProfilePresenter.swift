@@ -31,6 +31,7 @@ class ProfilePresenter {
         group.enter()
         group.enter()
         group.enter()
+        group.enter()
         
         profileService.getSaleListCount { [weak self] result in
             defer { group.leave() }
@@ -53,6 +54,12 @@ class ProfilePresenter {
                 case .failure(let error):
                     print(error)
             }
+        }
+        
+        profileService.getOrdersCount { [weak self] result in
+            defer { group.leave() }
+            
+            self?.countOrders = result
         }
         
         profileService.getCurrentUser { [weak self] user in
@@ -85,28 +92,6 @@ class ProfilePresenter {
                 DispatchQueue.main.async {
                     self?.view?.somethingWentWrong()
                 }
-            }
-        }
-    }
-    
-    func getListingsForSale() {
-        profileService.getSaleListCount { [weak self] result in
-            switch result {
-                case .success(let count):
-                    self?.countSaleList = count
-                case .failure(let error):
-                    print(error)
-            }
-        }
-    }
-    
-    func getAddresses() {
-        profileService.getSaleListCount { [weak self] result in
-            switch result {
-                case .success(let count):
-                    self?.countAddresses = count
-                case .failure(let error):
-                    print(error)
             }
         }
     }
@@ -154,11 +139,4 @@ class ProfilePresenter {
         }
         showAddressesCoordinator(user)
     }
-    
-    // TODO: Replace these functions on real ones from servies
-    
-    func getOrders() {
-        
-    }
-    
 }
