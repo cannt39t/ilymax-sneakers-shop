@@ -63,6 +63,9 @@ class ShoeViewCoordinator {
     }
     
     func openChat(conversation: Conversation) {
+        if let currentVC = navigationController?.topViewController as? ChatViewController {
+            return
+        }
         let chatCoordiantor = ConversationsCoordinator()
         chatCoordiantor.navigationController = navigationController
         chatCoordiantor.openChat(conversation: conversation)
