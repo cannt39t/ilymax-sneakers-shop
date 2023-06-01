@@ -40,9 +40,22 @@ class OrderCell: UICollectionViewCell {
         return label
     }()
     
-    private let statusButton: UIButton = {
-        let button = UIButton()
-        return button
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
+    private let statusImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    public static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter
     }()
     
     private let separatorLine: UIView = .init()
@@ -60,7 +73,6 @@ class OrderCell: UICollectionViewCell {
         
         setup()
     }
-    
     
     private func setupDesign() {
         layer.cornerRadius = 10
@@ -82,15 +94,23 @@ class OrderCell: UICollectionViewCell {
         setupDesign()
         
         let topStack = UIStackView(arrangedSubviews: [idLabel, dateLabel])
-        topStack.distribution = .fill
+        topStack.distribution = .equalCentering
         
         let bottomStack = UIStackView(arrangedSubviews: [quanityLabel, totalAmountLabel])
-        bottomStack.distribution = .fill
+        bottomStack.distribution = .equalCentering
+        
+        let statusStack = UIStackView(arrangedSubviews: [statusImageView, statusLabel])
+        statusStack.spacing = 12
+        
+        contentView.addSubview(topStack)
+        contentView.addSubview(separatorLine)
+        contentView.addSubview(bottomStack)
+        contentView.addSubview(statusStack)
         
         topStack.translatesAutoresizingMaskIntoConstraints = false
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
-        statusButton.translatesAutoresizingMaskIntoConstraints = false
+        statusStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             topStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
@@ -105,9 +125,61 @@ class OrderCell: UICollectionViewCell {
             bottomStack.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 12),
             bottomStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             
-            statusButton.topAnchor.constraint(equalTo: bottomAnchor, constant: -12),
-            statusButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            statusStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            statusStack.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
+    }
+    
+    
+    func configureWith(order: IlymaxOrder) {
+        idLabel.text = "Order No\(order.id)"
+        dateLabel.text = OrderCell.dateFormatter.string(from: order.date)
+
+        quanityLabel.attributedText = getAttributedString(firstPart: "Quanity:", secondPart: "\(order.items.count)")
+        
+        print(order.address)
+        let totalAmount: Float = order.items.reduce(0) { $0 + $1.data.price }
+        totalAmountLabel.attributedText = getAttributedString(firstPart: "Total Amount:", secondPart: "$\(Int(totalAmount))")
+        
+        switch order.status {
+            case "Processing":
+                statusLabel.text = "Processing"
+                statusLabel.textColor = .systemYellow
+                statusImageView.image = UIImage(systemName: "clock")?.withTintColor(.label, renderingMode: .alwaysOriginal)
+                statusImageView.isHidden = false
+            case "Delivered":
+                statusLabel.text = "Delivered"
+                statusLabel.textColor = .green
+                statusImageView.isHidden = true
+            case "Canceled":
+                statusLabel.text = "Canceled"
+                statusLabel.textColor = .red
+                statusImageView.isHidden = true
+            default:
+                statusLabel.isHidden = true
+                statusImageView.isHidden = true
+        }
+    }
+    
+    func getAttributedString(firstPart: String, secondPart: String) -> NSMutableAttributedString {
+        let quantityString = firstPart
+        let quantityAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.secondaryLabel
+        ]
+        let quantityAttributedString = NSAttributedString(string: quantityString, attributes: quantityAttributes)
+        
+        let quantityValueString = secondPart
+        let quantityValueAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.label
+        ]
+        let quantityValueAttributedString = NSAttributedString(string: quantityValueString, attributes: quantityValueAttributes)
+        
+        let combinedAttributedString = NSMutableAttributedString()
+        combinedAttributedString.append(quantityAttributedString)
+        combinedAttributedString.append(NSAttributedString(string: " "))
+        combinedAttributedString.append(quantityValueAttributedString)
+        
+        return combinedAttributedString
     }
     
 }
