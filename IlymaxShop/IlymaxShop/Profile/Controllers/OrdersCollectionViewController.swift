@@ -125,6 +125,11 @@ extension OrdersCollectionViewController: UICollectionViewDelegate {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(OrderCell.self, forCellWithReuseIdentifier: OrderCell.identifier)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        presenter.pushOrderDetail(presenter.orders[indexPath.item])
+    }
 }
 
 extension OrdersCollectionViewController: UIGestureRecognizerDelegate {
