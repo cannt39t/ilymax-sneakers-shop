@@ -46,4 +46,11 @@ class ProfileService {
             completion(result)
         }
     }
+    
+    func getOrdersCount(completion: @escaping (Int) -> Void) {
+        let currentUserId = FirebaseAuth.Auth.auth().currentUser!.uid
+        FirestoreManager.shared.getCountOrderForUser(with: currentUserId) { result in
+            completion(result)
+        }
+    }
 }
