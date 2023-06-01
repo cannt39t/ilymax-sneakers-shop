@@ -24,4 +24,10 @@ class AddressesService {
         }
     }
     
+    func saveAddresses(addresses: [IlymaxAddress]) {
+        let userId = FirebaseAuth.Auth.auth().currentUser!.uid
+        FirestoreManager.shared.replaceAddressesFor(userID: userId, addresses: addresses) { result in
+            print(result)
+        }
+    }
 }
