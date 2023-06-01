@@ -30,8 +30,6 @@ class ModalAddingViewController: UIViewController {
 
         view.addSubview(imageView)
         
-                
-        
         picker.dataSource = self
         picker.delegate = self
         view.addSubview(picker)
@@ -67,9 +65,9 @@ class ModalAddingViewController: UIViewController {
     }
     
     func showSucces() {
-        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.indicatorView = JGProgressHUDErrorIndicatorView()
         hud.square = true
-        hud.textLabel.text = "Added to cart"
+        hud.textLabel.text = "Log in to add"
         hud.show(in: self.view, animated: true)
         hud.dismiss(afterDelay: 1.0)
     }
@@ -86,13 +84,12 @@ class ModalAddingViewController: UIViewController {
     
     @objc private func addToCartTapped() {
         guard (FirebaseAuth.Auth.auth().currentUser?.uid) != nil else {
-            tabBarController?.selectedIndex = 4
+            showSucces()
             return
         }
         let ilymaxCartItem = IlymaxCartItem(id: product.id!, name: product.name, description: product.description, color: product.color, gender: product.gender, condition: product.condition, imageUrl: product.imageUrl!, data: ShoesDetail(size: product.data[selectedRow ?? 0].size, price: product.data[selectedRow ?? 0].price, quantity: 1), ownerId: product.ownerId, company: product.company, category: product.category)
         presenter?.addToCart(ilymaxCartItem: ilymaxCartItem)
         dismiss(animated: true)
-        showSucces()
     }
     
 }
