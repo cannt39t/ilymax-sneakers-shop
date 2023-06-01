@@ -18,4 +18,5 @@ struct IlymaxOrder: FirestoreCollectionProtocol {
     let customerId: String
     
     let items: [IlymaxCartItem]
+    let address: IlymaxAddress
 }
