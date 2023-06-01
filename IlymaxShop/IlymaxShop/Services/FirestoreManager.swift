@@ -1003,8 +1003,6 @@ extension FirestoreManager {
         
         
         let currentUser = IlymaxUser(name: currentUserName, emailAddress: currentEmail, profilePictureUrl: nil)
-        print(otherUser)
-        print(currentUser)
         
         let messageDate = message.sentDate
         let dateString = DateFormatter.dateFormatter.string(from: messageDate)
@@ -1556,6 +1554,19 @@ extension FirestoreManager {
             }
         }
     }
+    
+    func deleteCart(userID: String, completion: @escaping (Bool) -> ()) {
+        let cartRef = db.collection(IlymaxCartItem.collectionName).document(userID)
+        cartRef.delete { error in
+            if let error = error {
+                print("Error deleting cart: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Cart deleted")
+                completion(true)
+            }
+        }
+    }
 }
 
 // MARK: - Address managment
@@ -1665,6 +1676,235 @@ extension FirestoreManager {
             }
             
             completion(.success(addresses.count))
+        }
+    }
+    
+    func replaceAddressesFor(userID: String, addresses: [IlymaxAddress], completion: @escaping (Bool) -> ()) {
+        let data: [[String: Any]] = addresses.map { address in
+            return [
+                "fullName": address.fullName,
+                "address": address.address,
+                "zipcode": address.zipcode,
+                "country": address.country,
+                "city": address.city,
+                "isDefault": address.isDefault
+            ]
+        }
+        
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userID)
+        cartRef.setData([
+            "addresses": data
+        ]) { (error) in
+            if let error = error {
+                print("Error replacing addresses: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Addresses replaced")
+                completion(true)
+            }
+        }
+    }
+    
+    func getDefaultAddress(for userId: String, completion: @escaping (Result<IlymaxAddress?, Error>) -> Void) {
+        let cartRef = db.collection(IlymaxAddress.collectionName).document(userId)
+        cartRef.getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(.success(nil))
+                return
+            }
+            
+            guard let data = snapshot.data(), let addresses = data["addresses"] as? [[String: Any]] else {
+                completion(.success(nil))
+                return
+            }
+            
+            var defaultAddress: IlymaxAddress?
+            
+            for item in addresses {
+                guard
+                    let fullName = item["fullName"] as? String,
+                    let address = item["address"] as? String,
+                    let zipcode = item["zipcode"] as? Int,
+                    let country = item["country"] as? String,
+                    let city = item["city"] as? String,
+                    let isDefault = item["isDefault"] as? Bool
+                else {
+                    continue
+                }
+                
+                let tempAddress = IlymaxAddress(fullName: fullName, address: address, zipcode: zipcode, country: country, city: city, isDefault: isDefault)
+                
+                if isDefault {
+                    defaultAddress = tempAddress
+                    break
+                }
+            }
+            
+            completion(.success(defaultAddress))
+        }
+    }
+}
+
+
+// MARK: - Orders managment
+extension FirestoreManager {
+    
+    
+    func addOrder(order: IlymaxOrder, completion: @escaping (Bool) -> ()) {
+        let data: [String: Any] = [
+            "id": order.id,
+            "date": order.date.ISO8601Format(),
+            "status": order.status,
+            "customerId": order.customerId,
+            "items": order.items.map { item in
+                return [
+                    "id": item.id,
+                    "name": item.name,
+                    "description": item.description,
+                    "color": item.color,
+                    "gender": item.gender,
+                    "condition": item.condition,
+                    "imageUrl": item.imageUrl,
+                    "data": [
+                        "size": item.data.size,
+                        "price": item.data.price,
+                        "quantity": item.data.quantity
+                    ] as [String : Any],
+                    "ownerId": item.ownerId,
+                    "company": item.company,
+                    "category": item.category
+                ] as [String : Any]
+            },
+            "address": [
+                "fullName": order.address.fullName,
+                "address": order.address.address,
+                "zipcode": order.address.zipcode,
+                "country": order.address.country,
+                "city": order.address.city,
+                "isDefault": order.address.isDefault
+            ] as [String : Any]
+        ]
+        
+        let orderRef = db.collection(IlymaxOrder.collectionName).document()
+        orderRef.setData(data) { (error) in
+            if let error = error {
+                print("Error adding order: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Order added")
+                completion(true)
+            }
+        }
+    }
+
+    
+    
+    func getAllOrdersFor(userID: String) async throws -> [IlymaxOrder] {
+        let ordersRef = db.collection(IlymaxOrder.collectionName)
+        let query = ordersRef.whereField("customerId", isEqualTo: userID)
+        
+        do {
+            let querySnapshot = try await query.getDocuments()
+            var orders: [IlymaxOrder] = []
+            
+            for document in querySnapshot.documents {
+                let orderData = document.data()
+                guard let id = orderData["id"] as? String,
+                      let dateString = orderData["date"] as? String,
+                      let status = orderData["status"] as? String,
+                      let customerId = orderData["customerId"] as? String,
+                      let date = DateFormatter.dateFormatter.date(from: dateString),
+                      let itemsData = orderData["items"] as? [[String: Any]],
+                      let addressData = orderData["address"] as? [String: Any],
+                      let fullName = addressData["fullName"] as? String,
+                      let _address = addressData["address"] as? String,
+                      let zipcode = addressData["zipcode"] as? Int,
+                      let country = addressData["country"] as? String,
+                      let city = addressData["city"] as? String,
+                      let isDefault = addressData["isDefault"] as? Bool
+                else {
+                    continue
+                }
+                
+                var items: [IlymaxCartItem] = []
+                
+                for itemData in itemsData {
+                    guard let itemId = itemData["id"] as? String,
+                          let itemName = itemData["name"] as? String,
+                          let itemDescription = itemData["description"] as? String,
+                          let itemColor = itemData["color"] as? String,
+                          let itemGender = itemData["gender"] as? String,
+                          let itemCondition = itemData["condition"] as? String,
+                          let itemImageUrl = itemData["imageUrl"] as? String,
+                          let itemDataDict = itemData["data"] as? [String: Any],
+                          let itemSize = itemDataDict["size"] as? String,
+                          let itemPrice = itemDataDict["price"] as? Float,
+                          let itemQuantity = itemDataDict["quantity"] as? Int,
+                          let ownerId = itemData["ownerId"] as? String,
+                          let company = itemData["company"] as? String,
+                          let category = itemData["category"] as? String
+                    else {
+                        continue
+                    }
+                    
+                    let item = IlymaxCartItem(
+                        id: itemId,
+                        name: itemName,
+                        description: itemDescription,
+                        color: itemColor,
+                        gender: itemGender,
+                        condition: itemCondition,
+                        imageUrl: itemImageUrl,
+                        data: ShoesDetail(size: itemSize, price: itemPrice, quantity: itemQuantity),
+                        ownerId: ownerId,
+                        company: company,
+                        category: category
+                    )
+                    items.append(item)
+                }
+                
+                let address = IlymaxAddress(
+                    fullName: fullName,
+                    address: _address,
+                    zipcode: zipcode,
+                    country: country,
+                    city: city,
+                    isDefault: isDefault
+                )
+                
+                let order = IlymaxOrder(id: id, date: date, status: status, customerId: customerId, items: items, address: address)
+                orders.append(order)
+            }
+            
+            return orders
+        } catch {
+            throw error
+        }
+    }
+    
+    func getCountOrderForUser(with id: String, completion: @escaping (Int) -> Void) {
+        let ordersRef = db.collection(IlymaxOrder.collectionName)
+        let query = ordersRef.whereField("customerId", isEqualTo: id)
+        
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting orders: \(error.localizedDescription)")
+                completion(0)
+                return
+            }
+            
+            guard let querySnapshot = querySnapshot else {
+                completion(0)
+                return
+            }
+            
+            let count = querySnapshot.documents.count
+            completion(count)
         }
     }
 }
