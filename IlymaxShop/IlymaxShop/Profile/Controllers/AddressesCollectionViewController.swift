@@ -54,8 +54,12 @@ class AddressesCollectionViewController: UIViewController {
         ])
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        presenter.saveAddresses()
+    }
+    
     @objc func push() {
-        presenter.pushAddAddressController()
+        presenter.pushAddAddressController(!presenter.addresses.isEmpty)
     }
     
     @objc func backButtonTaped() {
