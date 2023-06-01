@@ -80,22 +80,7 @@ class ProfilePresenter {
             self?.view?.showUserProfile(with: (self?.currentUser)!)
         }
     }
-    
-    func fetchUser() {
-        profileService.getCurrentUser { [weak self] user in
-            if let user {
-                DispatchQueue.main.async {
-                    self?.view?.showUserProfile(with: user)
-                    self?.currentUser = user
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.view?.somethingWentWrong()
-                }
-            }
-        }
-    }
-    
+
     func uploadProfileImage(_ image: UIImage) {
         view?.showLoader()
         profileService.uploadProfileImage(with: image) { [weak self] result in
