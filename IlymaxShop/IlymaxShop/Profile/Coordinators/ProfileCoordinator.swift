@@ -64,6 +64,7 @@ class ProfileCoordinator {
         let ordersPresenter = OrdersPresenter(currentUser: user)
         
         ordersPresenter.view = ordersController
+        ordersPresenter.pushOrderDetail = pushOrderDetail
         ordersController.presenter = ordersPresenter
         
         
@@ -88,6 +89,12 @@ class ProfileCoordinator {
         let presenter = AddAddressPresenter()
         presenter.view = view
         view.presenter = presenter
+        navigationController.pushViewController(view, animated: true)
+    }
+    
+    func pushOrderDetail(order: IlymaxOrder) {
+        let view = OrderDetailController()
+        view.order = order
         navigationController.pushViewController(view, animated: true)
     }
     
