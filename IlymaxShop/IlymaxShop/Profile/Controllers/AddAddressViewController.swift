@@ -12,6 +12,7 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIGesture
     public var collectionView: UICollectionView!
     public var presenter: AddAddressPresenter!
     public var saveButton: UIButton = .init()
+    public var hasAddresses: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,7 +137,7 @@ extension AddAddressViewController: UICollectionViewDataSource {
             cell.makeValid()
         }
         if isValid {
-            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4], isDefault: false))
+            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4], isDefault: !hasAddresses))
         }
     }
 
