@@ -82,8 +82,9 @@ class ProfileCoordinator {
         navigationController.pushViewController(addressesCollectionViewController, animated: true)
     }
     
-    func pushCreateAddressController() {
+    func pushCreateAddressController(hasAddresses: Bool) {
         let view = AddAddressViewController()
+        view.hasAddresses = hasAddresses
         let presenter = AddAddressPresenter()
         presenter.view = view
         view.presenter = presenter
