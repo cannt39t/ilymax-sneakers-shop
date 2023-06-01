@@ -28,8 +28,8 @@ class ProfileViewController: UIViewController {
     
     public func showUserProfile(with user: IlymaxUser) {
         currentUser = user
-        setupCollectionView()
         hideLoader()
+        setupCollectionView()
     }
     
     
