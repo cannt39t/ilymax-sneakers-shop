@@ -179,7 +179,7 @@ extension FirestoreManager {
             "gender": shoes.gender,
             "condition": shoes.condition,
             "image_url": shoes.imageUrl ?? "",
-            "data": shoes.data.map { ["size": $0.size, "price": $0.price, "quantity": $0.quantity] },
+            "data": shoes.data.map { ["size": $0.size, "price": $0.price, "quantity": $0.quantity] as [String : Any] },
             "owner_id": shoes.ownerId,
             "company": shoes.company,
             "category": shoes.category,
@@ -729,7 +729,7 @@ extension FirestoreManager {
                     "date": dateString,
                     "message": message,
                     "is_read": false
-                ]
+                ] as [String : Any]
             ]
             
             guard let currentUserName = UserDefaults.standard.string(forKey: "currentUserName") else {
@@ -746,7 +746,7 @@ extension FirestoreManager {
                     "date": dateString,
                     "message": message,
                     "is_read": false
-                ]
+                ] as [String : Any]
             ]
             // Update recipient user conversation
             
