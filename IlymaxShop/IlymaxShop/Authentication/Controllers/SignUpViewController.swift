@@ -142,6 +142,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         emailTextField.placeholder = "Email"
         emailTextField.textContentType = .emailAddress
+        emailTextField.keyboardType = .emailAddress
         emailTextField.borderStyle = .roundedRect
         emailTextField.accessibilityIdentifier = "email"
         

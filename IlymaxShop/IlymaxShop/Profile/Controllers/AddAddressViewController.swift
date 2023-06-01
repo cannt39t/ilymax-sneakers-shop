@@ -12,6 +12,7 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIGesture
     public var collectionView: UICollectionView!
     public var presenter: AddAddressPresenter!
     public var saveButton: UIButton = .init()
+    public var hasAddresses: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,16 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIGesture
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.tag == 1 {
+            let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
+            let inputCharacterSet = CharacterSet(charactersIn: string)
+            return allowedCharacterSet.isSuperset(of: inputCharacterSet)
+        }
+        
+        return true
+    }
 }
 
 extension AddAddressViewController: UICollectionViewDataSource {
@@ -98,6 +109,7 @@ extension AddAddressViewController: UICollectionViewDataSource {
                 cell.valueTextField.placeholder = "Enter like '324545'"
                 cell.valueTextField.delegate = self
                 cell.valueTextField.resignFirstResponder()
+                cell.valueTextField.tag = 1
                 cell.valueTextField.keyboardType = .numberPad
                 cell.configureCell("Zipcode (Postal Code)", "")
                 return cell
@@ -136,10 +148,11 @@ extension AddAddressViewController: UICollectionViewDataSource {
             cell.makeValid()
         }
         if isValid {
-            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4], isDefault: false))
+            presenter.addAddress(IlymaxAddress(fullName: arguments[0], address: arguments[1], zipcode: Int(arguments[2])!, country: arguments[3], city: arguments[4], isDefault: !hasAddresses))
         }
     }
-
+    
+    
 }
 
 extension AddAddressViewController: UICollectionViewDelegate {

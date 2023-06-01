@@ -62,6 +62,14 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         setup()
     }
     
+    func showOrderCreated() {
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.square = true
+        hud.textLabel.text = "Order created"
+        hud.show(in: self.view, animated: true)
+        hud.dismiss(afterDelay: 1.0)
+    }
+    
     func setupView() {
         
         buyButton.setTitle("Buy", for: .normal)
@@ -193,5 +201,26 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
     }
-
+    
+    func showAlertNoAddress() {
+        let alert = UIAlertController(title: "Where is the address?", message: "Its seems like you don't have address in your account", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+            //Cancel Action
+        }))
+        alert.addAction(UIAlertAction(title: "Add address",
+                                      style: UIAlertAction.Style.default,
+                                      handler: { [weak self] (_: UIAlertAction!) in
+            self?.tabBarController?.selectedIndex = 4
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
+                let navigationController = self?.tabBarController?.selectedViewController as! UINavigationController
+                let profileController = navigationController.topViewController as! ProfileViewController
+                profileController.presenter.showMyAddresses()
+            }
+        }))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: false, completion: nil)
+        }
+    }
 }

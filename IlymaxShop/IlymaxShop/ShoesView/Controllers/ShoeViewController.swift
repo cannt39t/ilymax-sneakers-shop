@@ -57,6 +57,19 @@ class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
         presenter.loadReviews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    func showSucces() {
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.square = true
+        hud.textLabel.text = "Added to cart"
+        hud.show(in: self.view, animated: true)
+        hud.dismiss(afterDelay: 1.0)
+    }
+    
     private func loadImage() {
         guard let shoe = presenter.product, let imageUrlString = shoe.imageUrl, let imageUrl = URL(string: imageUrlString) else {
             fatalError()

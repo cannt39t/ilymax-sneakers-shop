@@ -59,6 +59,9 @@
 		0539C3AD29CDDA9A008F41B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */; };
 		0539C3B229CDDAAB008F41B4 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3AF29CDDAAB008F41B4 /* CartCell.swift */; };
 		0539C3B329CDDAAB008F41B4 /* CartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */; };
+		054608912A292A4000AA1AF1 /* OrderItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054608902A292A4000AA1AF1 /* OrderItemCell.swift */; };
+		054608942A29317000AA1AF1 /* OrderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054608932A29317000AA1AF1 /* OrderFooter.swift */; };
+		054608962A29372800AA1AF1 /* OrderDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054608952A29372800AA1AF1 /* OrderDetailController.swift */; };
 		055CFB7D29EE8AE6008E4C4C /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB7C29EE8AE6008E4C4C /* ChatPresenter.swift */; };
 		055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8029EE8B09008E4C4C /* ChatService.swift */; };
 		055CFB8329EEC76B008E4C4C /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055CFB8229EEC76B008E4C4C /* DateFormatterExtension.swift */; };
@@ -94,6 +97,8 @@
 		05C1A3D12A05A58D000F5665 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D02A05A58D000F5665 /* SettingsController.swift */; };
 		05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */; };
 		05C1A3D72A068826000F5665 /* SettingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C1A3D62A068826000F5665 /* SettingHeader.swift */; };
+		05CA2B5F2A27C0AB007A6791 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CA2B5E2A27C0AB007A6791 /* OrderCell.swift */; };
+		05CA2B612A27C781007A6791 /* IlymaxOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CA2B602A27C781007A6791 /* IlymaxOrder.swift */; };
 		05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */; };
 		05CDCA7029E5546400573EF3 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */; };
 		05CDCA7329E554D900573EF3 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDCA7229E554D900573EF3 /* ProfileService.swift */; };
@@ -219,6 +224,9 @@
 		0539C3AA29CDDA9A008F41B4 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0539C3AF29CDDAAB008F41B4 /* CartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		0539C3B129CDDAAB008F41B4 /* CartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHeaderView.swift; sourceTree = "<group>"; };
+		054608902A292A4000AA1AF1 /* OrderItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemCell.swift; sourceTree = "<group>"; };
+		054608932A29317000AA1AF1 /* OrderFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderFooter.swift; sourceTree = "<group>"; };
+		054608952A29372800AA1AF1 /* OrderDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailController.swift; sourceTree = "<group>"; };
 		055CFB7A29EE6FC0008E4C4C /* IlymaxShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		055CFB7B29EE6FC0008E4C4C /* IlymaxShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IlymaxShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		055CFB7C29EE8AE6008E4C4C /* ChatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
@@ -254,6 +262,8 @@
 		05C1A3D02A05A58D000F5665 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSalesController.swift; sourceTree = "<group>"; };
 		05C1A3D62A068826000F5665 /* SettingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeader.swift; sourceTree = "<group>"; };
+		05CA2B5E2A27C0AB007A6791 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
+		05CA2B602A27C781007A6791 /* IlymaxOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlymaxOrder.swift; sourceTree = "<group>"; };
 		05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		05CDCA6F29E5546400573EF3 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		05CDCA7229E554D900573EF3 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -431,6 +441,7 @@
 				0510F20829F6ED3700175131 /* IlymaxReview.swift */,
 				05B79A6E2A112ECF00F88F67 /* IlymaxCartItem.swift */,
 				0504CE682A152F460050BA48 /* IlymaxAddress.swift */,
+				05CA2B602A27C781007A6791 /* IlymaxOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -534,6 +545,14 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		054608922A29312600AA1AF1 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				054608932A29317000AA1AF1 /* OrderFooter.swift */,
+			);
+			path = Footers;
+			sourceTree = "<group>";
+		};
 		0565D05A29E86838008CB4B7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +568,7 @@
 			children = (
 				05C1A3D52A0687EC000F5665 /* Cells */,
 				05C1A3D42A0687E5000F5665 /* Headers */,
+				054608922A29312600AA1AF1 /* Footers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -593,11 +613,21 @@
 			children = (
 				05A4380029D8171C00AADDB9 /* UserCell.swift */,
 				05CDCA6C29E54AA300573EF3 /* ProfileCell.swift */,
+				05CA2B5D2A27C07E007A6791 /* Orders */,
 				05F31F102A1640F4002DED92 /* SaleList */,
 				05DE81472A140CA10054078B /* Addresses */,
 				052B08D82A128188000ED5DE /* Settings */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		05CA2B5D2A27C07E007A6791 /* Orders */ = {
+			isa = PBXGroup;
+			children = (
+				05CA2B5E2A27C0AB007A6791 /* OrderCell.swift */,
+				054608902A292A4000AA1AF1 /* OrderItemCell.swift */,
+			);
+			path = Orders;
 			sourceTree = "<group>";
 		};
 		05CDCA6E29E5545000573EF3 /* Presenters */ = {
@@ -833,6 +863,7 @@
 				05C1A3D22A05A5A0000F5665 /* ListSalesController.swift */,
 				0504CE6A2A154F0A0050BA48 /* AddAddressViewController.swift */,
 				0504CE722A1580BE0050BA48 /* ChooseCountryViewController.swift */,
+				054608952A29372800AA1AF1 /* OrderDetailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1316,6 +1347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054608912A292A4000AA1AF1 /* OrderItemCell.swift in Sources */,
 				7ED14ABA29EF39BA00FD7BED /* ModalAddingViewController.swift in Sources */,
 				0579046A29FFC0C300AD3C81 /* LocationPickerViewController.swift in Sources */,
 				7ED3E75F2A1549B900B78244 /* SellerViewViewController.swift in Sources */,
@@ -1382,6 +1414,7 @@
 				05278EF029EDD54B00E9FC8C /* NewConversationService.swift in Sources */,
 				05C1A3C72A05A448000F5665 /* AddressesService.swift in Sources */,
 				05188D9529C4FF21004E1D7B /* AppDelegate.swift in Sources */,
+				05CA2B612A27C781007A6791 /* IlymaxOrder.swift in Sources */,
 				05B79A6F2A112ECF00F88F67 /* IlymaxCartItem.swift in Sources */,
 				0539C3A729CDDA82008F41B4 /* Product.swift in Sources */,
 				7E1DAD1229DC9E09005B716B /* FirebasePublicShoesService.swift in Sources */,
@@ -1393,11 +1426,13 @@
 				0504CE732A1580BE0050BA48 /* ChooseCountryViewController.swift in Sources */,
 				05C1A3D32A05A5A0000F5665 /* ListSalesController.swift in Sources */,
 				0504CE6D2A1561ED0050BA48 /* AddAddressService.swift in Sources */,
+				054608962A29372800AA1AF1 /* OrderDetailController.swift in Sources */,
 				05A5CD9E29DB52A700564CC3 /* CategoryCell.swift in Sources */,
 				05A5CD9C29DB529B00564CC3 /* PopularCell.swift in Sources */,
 				055CFB8129EE8B09008E4C4C /* ChatService.swift in Sources */,
 				051F101D29C8EA1900877947 /* PublicShoesViewController.swift in Sources */,
 				0519A9C529D99EB600AE1553 /* HeaderView.swift in Sources */,
+				05CA2B5F2A27C0AB007A6791 /* OrderCell.swift in Sources */,
 				7ED14AAD29EF37A200FD7BED /* ProductListCollectionViewCell.swift in Sources */,
 				7ED14AB829EF39A100FD7BED /* ModalFilterViewController.swift in Sources */,
 				7E36E4C329EEEEB6003D0A7B /* ShoeViewService.swift in Sources */,
@@ -1420,6 +1455,7 @@
 				051F101329C8E5A500877947 /* TabBarCoordinator.swift in Sources */,
 				7ED14AAF29EF38D800FD7BED /* ProductListPresenter.swift in Sources */,
 				7EA2177629F73DAB00D0573F /* ReviewService.swift in Sources */,
+				054608942A29317000AA1AF1 /* OrderFooter.swift in Sources */,
 				05D26CEF29CB2BB900EFC040 /* SignUpPresenter.swift in Sources */,
 				7E1DAD0E29DC9D68005B716B /* PublicShoesService.swift in Sources */,
 				05CDCA6D29E54AA300573EF3 /* ProfileCell.swift in Sources */,
@@ -1621,8 +1657,8 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1653,8 +1689,8 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the camera is required to add an image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

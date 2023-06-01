@@ -267,5 +267,4 @@ extension PublicShoesViewController: UICollectionViewDelegate {
                 cell.valueTextField.becomeFirstResponder()
         }
     }
-
 }

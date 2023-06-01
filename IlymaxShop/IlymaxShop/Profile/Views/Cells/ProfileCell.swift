@@ -30,6 +30,14 @@ class ProfileCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
+        let lightView = UIView(frame: bounds)
+        lightView.backgroundColor = .secondarySystemGroupedBackground
+        self.backgroundView = lightView
+        
+        let grayView = UIView(frame: bounds)
+        grayView.backgroundColor = .lightGray.withAlphaComponent(0.25)
+        self.selectedBackgroundView = grayView
+        
         layer.cornerRadius = 10
         layer.masksToBounds = true
         

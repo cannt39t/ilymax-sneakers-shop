@@ -64,6 +64,7 @@ class ProfileCoordinator {
         let ordersPresenter = OrdersPresenter(currentUser: user)
         
         ordersPresenter.view = ordersController
+        ordersPresenter.pushOrderDetail = pushOrderDetail
         ordersController.presenter = ordersPresenter
         
         
@@ -82,11 +83,18 @@ class ProfileCoordinator {
         navigationController.pushViewController(addressesCollectionViewController, animated: true)
     }
     
-    func pushCreateAddressController() {
+    func pushCreateAddressController(hasAddresses: Bool) {
         let view = AddAddressViewController()
+        view.hasAddresses = hasAddresses
         let presenter = AddAddressPresenter()
         presenter.view = view
         view.presenter = presenter
+        navigationController.pushViewController(view, animated: true)
+    }
+    
+    func pushOrderDetail(order: IlymaxOrder) {
+        let view = OrderDetailController()
+        view.order = order
         navigationController.pushViewController(view, animated: true)
     }
     

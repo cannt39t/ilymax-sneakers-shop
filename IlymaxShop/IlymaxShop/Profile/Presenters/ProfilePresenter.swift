@@ -15,16 +15,58 @@ class ProfilePresenter {
     private let profileService = ProfileService()
     public var currentUser: IlymaxUser?
     
+    public var countAddresses: Int = 0
+    public var countOrders: Int = 0
+    public var countSaleList: Int = 0
+    
     public var showOrdersCoordinator: (IlymaxUser) -> () = { _ in }
     public var showSettingsCoordinator: (IlymaxUser) -> () = { _ in }
     public var showAddressesCoordinator: (IlymaxUser) -> () = { _ in }
     public var showSalesCoordinator: (IlymaxUser) -> () = { _ in }
     
-    func fetchUser() {
+    
+    func fetchUserAndData() {
+        let group = DispatchGroup()
+        
+        group.enter()
+        group.enter()
+        group.enter()
+        group.enter()
+        
+        profileService.getSaleListCount { [weak self] result in
+            defer { group.leave() }
+            
+            switch result {
+                case .success(let count):
+                    self?.countSaleList = count
+                case .failure(let error):
+                    print(error)
+            }
+        }
+        
+
+        profileService.getAdressCount { [weak self] result in
+            defer { group.leave() }
+            
+            switch result {
+                case .success(let count):
+                    self?.countAddresses = count
+                case .failure(let error):
+                    print(error)
+            }
+        }
+        
+        profileService.getOrdersCount { [weak self] result in
+            defer { group.leave() }
+            
+            self?.countOrders = result
+        }
+        
         profileService.getCurrentUser { [weak self] user in
-            if let user {
+            defer { group.leave() }
+            
+            if let user = user {
                 DispatchQueue.main.async {
-                    self?.view?.showUserProfile(with: user)
                     self?.currentUser = user
                 }
             } else {
@@ -33,8 +75,12 @@ class ProfilePresenter {
                 }
             }
         }
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.view?.showUserProfile(with: (self?.currentUser)!)
+        }
     }
-    
+
     func uploadProfileImage(_ image: UIImage) {
         view?.showLoader()
         profileService.uploadProfileImage(with: image) { [weak self] result in
@@ -78,19 +124,4 @@ class ProfilePresenter {
         }
         showAddressesCoordinator(user)
     }
-    
-    // TODO: Replace these functions on real ones from servies
-    
-    func getOrders() -> Int {
-        10
-    }
-    
-    func getListingsForSale() -> Int {
-        7
-    }
-    
-    func getAddresses() -> Int {
-        3
-    }
-    
 }

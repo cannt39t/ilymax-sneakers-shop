@@ -23,14 +23,13 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.title = "Profile"
         showLoader()
-        presenter.fetchUser()
+        presenter.fetchUserAndData()
     }
     
     public func showUserProfile(with user: IlymaxUser) {
         currentUser = user
-        print(user)
-        setupCollectionView()
         hideLoader()
+        setupCollectionView()
     }
     
     
@@ -92,11 +91,11 @@ extension ProfileViewController: UICollectionViewDataSource {
                 let profileCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
                 switch indexPath.item {
                     case 0:
-                        profileCell.configure(with: "My orders", "Already have \(presenter.getOrders()) orders")
+                        profileCell.configure(with: "My orders", "Already have \(presenter.countOrders) orders")
                     case 1:
-                        profileCell.configure(with: "My listings for sale", "\(presenter.getListingsForSale()) Items")
+                        profileCell.configure(with: "My listings for sale", "\(presenter.countSaleList) Items")
                     case 2:
-                        profileCell.configure(with: "Shipping addresses", "\(presenter.getAddresses()) Addresses")
+                        profileCell.configure(with: "Shipping addresses", "\(presenter.countAddresses) Addresses")
                     case 3:
                         profileCell.configure(with: "Setting", "Notification, Password, FAQ, Contact")
                     default:
@@ -187,6 +186,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.section {
             case 0:
                 print(0)

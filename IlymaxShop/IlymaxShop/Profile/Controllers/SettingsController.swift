@@ -57,6 +57,21 @@ class SettingsController: UIViewController {
         loader.dismiss(afterDelay: 1.0)
     }
     
+    func showAlert() {
+        let alert = UIAlertController(title: "Logout?", message: "Are you sure you want to logout? You can login back to access your content.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+        }))
+        alert.addAction(UIAlertAction(title: "Logout",
+                                      style: UIAlertAction.Style.destructive,
+                                      handler: { [weak self] (_: UIAlertAction!) in
+            self?.presenter.signOut()
+        }))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: false, completion: nil)
+        }
+    }
 }
 
 extension SettingsController: UICollectionViewDataSource {
@@ -305,7 +320,7 @@ extension SettingsController: UICollectionViewDelegate {
                     case 0 :
                         presenter.clearCache()
                     case 1 :
-                        presenter.signOut()
+                        showAlert()
                     default:
                         print(indexPath)
                 }

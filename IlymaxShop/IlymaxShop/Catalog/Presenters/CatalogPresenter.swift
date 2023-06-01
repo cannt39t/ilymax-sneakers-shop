@@ -31,6 +31,7 @@ class CatalogPresenter {
         group.notify(queue: .main) { [weak self] in
             self?.view?.reloadData()
             self?.view?.hideLoader()
+            self?.view?.collectionView.refreshControl?.endRefreshing()
         }
     }
 

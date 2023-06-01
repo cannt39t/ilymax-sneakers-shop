@@ -1,103 +1,72 @@
 //
-//  AddressesCollectionViewController.swift
+//  OrderDetailController.swift
 //  IlymaxShop
 //
-//  Created by Илья Казначеев on 04.05.2023.
+//  Created by Илья Казначеев on 01.06.2023.
 //
 
 import UIKit
-import JGProgressHUD
 
-extension AddressesCollectionViewController: UIGestureRecognizerDelegate {
+
+extension OrderDetailController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
 
-class AddressesCollectionViewController: UIViewController {
-
-    public var collectionView: UICollectionView!
-    public var presenter: AddressesPresenter!
-    private let loader = JGProgressHUD(style: .light)
+class OrderDetailController: UIViewController {
     
-    public  var noAddressesView: UILabel = {
-        let label = UILabel()
-        label.isHidden = true
-        label.text = "You have no addresses"
-        return label
-    }()
+    public var collectionView: UICollectionView!
+    public var order: IlymaxOrder!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = false
-        title = "Addresses"
+        title = "Order details"
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
-        
-        navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "plus")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(push))
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         setupCollectionView()
-        view.addSubview(noAddressesView)
-        presenter.getAddresses()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        noAddressesView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            noAddressesView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            noAddressesView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        presenter.saveAddresses()
-    }
-    
-    @objc func push() {
-        presenter.pushAddAddressController(!presenter.addresses.isEmpty)
+        collectionView.reloadData()
     }
     
     @objc func backButtonTaped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    func showLoader() {
-        loader.show(in: self.view, animated: true)
-    }
-    
-    func hideLoader() {
-        loader.dismiss(animated: true)
-    }
-    
 }
 
 
-extension AddressesCollectionViewController: UICollectionViewDataSource {
+extension OrderDetailController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        if section == order.items.count || section == order.items.count + 1 {
+            return 0
+        } else {
+            return 1
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        presenter.addresses.count
+        order.items.count + 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddressCell.identifier, for: indexPath) as! AddressCell
-        let address = presenter.addresses[indexPath.section]
-        cell.configureCell(with: address)
-        return cell
+        if indexPath.section < order.items.count + 2 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OrderItemCell.identifier, for: indexPath) as! OrderItemCell
+            cell.configure(with: order.items[indexPath.item])
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddressCell.identifier, for: indexPath) as! AddressCell
+            cell.configureCell(with: order.address)
+            return cell
+        }
     }
-    
 }
 
-extension AddressesCollectionViewController: UICollectionViewDelegate {
+extension OrderDetailController: UICollectionViewDelegate {
     
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -108,11 +77,39 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
     }
     
     private func createSectionFor(index: Int, enviroment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        setupFirstSection()
+        if index < order.items.count + 2 {
+            return setupFirstSection()
+        } else {
+            return setupAddressSection()
+        }
     }
     
     
     private func setupFirstSection() -> NSCollectionLayoutSection {
+        // item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+        
+        //group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        //section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
+        
+        //supplementary
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: "FooterView", alignment: .bottom)
+        
+        section.boundarySupplementaryItems = [footer]
+        
+        return section
+    }
+    
+    
+    private func setupAddressSection() -> NSCollectionLayoutSection {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -128,8 +125,8 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
         
         //supplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HeaderView", alignment: .top)
-
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "FooterView", alignment: .top)
+        
         section.boundarySupplementaryItems = [header]
         
         return section
@@ -153,27 +150,36 @@ extension AddressesCollectionViewController: UICollectionViewDelegate {
         ])
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(OrderItemCell.self, forCellWithReuseIdentifier: OrderItemCell.identifier)
         collectionView.register(AddressCell.self, forCellWithReuseIdentifier: AddressCell.identifier)
-        collectionView.register(AddressHeader.self, forSupplementaryViewOfKind: "HeaderView", withReuseIdentifier: AddressHeader.identifier)
+        collectionView.register(OrderFooter.self, forSupplementaryViewOfKind: "FooterView", withReuseIdentifier: OrderFooter.identifier)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "HeaderView", withReuseIdentifier: AddressHeader.identifier, for: indexPath) as? AddressHeader else {
-            return UICollectionReusableView()
-        }
-        view.completion = { [weak self] in
-            self?.presenter.makeDefault(index: indexPath.section)
-        }
-        if presenter.addresses[indexPath.section].isDefault {
-            view.makeDefault()
+        if indexPath.section < order.items.count + 2 {
+            guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "FooterView", withReuseIdentifier: OrderFooter.identifier, for: indexPath) as? OrderFooter else {
+                return UICollectionReusableView()
+            }
+            if indexPath.section < order.items.count {
+                let data = order.items[indexPath.item].data
+                view.setup(leftText: "$\(data.price)", rightText: "Size: \(data.size)")
+            } else if indexPath.section == order.items.count {
+                view.setup(leftText: "$30", rightText: "Shipping")
+            } else if indexPath.section == order.items.count + 1 {
+                let totalAmount: Float = order.items.reduce(0) { $0 + $1.data.price }
+                view.setup(leftText: "Total: $\(Int(totalAmount + 30))", rightText: "")
+            }
+            return view
         } else {
-            view.makeNotDefault()
+            guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: "FooterView", withReuseIdentifier: OrderFooter.identifier, for: indexPath) as? OrderFooter else {
+                return UICollectionReusableView()
+            }
+            view.setup(leftText: "Delivery Address: ", rightText: "")
+            return view
         }
-        return view
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
-

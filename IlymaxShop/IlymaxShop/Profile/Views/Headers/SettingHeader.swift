@@ -38,5 +38,4 @@ class SettingHeader: UICollectionReusableView {
     required init?(coder Decoder: NSCoder) {
         super.init(coder: Decoder)
     }
-    
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class LoginPresenter {
     
@@ -41,22 +42,22 @@ class LoginPresenter {
                 valid(textEmail, textPassword)
                 
             } catch {
-                notValid(error)
+                notValid(error, text: nil)
             }
         }
     }
     
     func valid(_ email: String, _ password: String) {
         DispatchQueue.main.async { [weak self] in
-            self?.view?.setupLayout()
+            self?.view?.setupLayout(text: nil)
             self?.view?.showLoader()
             self?.login(email: email, password: password)
         }
     }
     
-    func notValid(_ error: Error) {
+    func notValid(_ error: Error, text: String?) {
         DispatchQueue.main.async { [weak self] in
-            self?.view?.setupLayout(validationError: error as? ValidationError)
+            self?.view?.setupLayout(validationError: error as? ValidationError, text: text)
         }
     }
     
@@ -66,10 +67,28 @@ class LoginPresenter {
     
     func login(email: String, password: String) {
         authenticationService.login(email: email, password: password) { [weak self] error in
-            if let error {
+            if let error = error as NSError? {
                 DispatchQueue.main.async {
                     self?.view?.hideLoader()
-                    self?.view?.showAlert(error)
+                }
+                if let authError = AuthErrorCode.Code(rawValue: error.code) {
+                    switch authError {
+                        case .invalidEmail:
+                            let error = ValidationError(atIndex: 0, type: .invalidEmail)
+                            self?.notValid(error, text: "Enter valid email address")
+                        case .userNotFound:
+                            let error = ValidationError(atIndex: 0, type: .invalidEmail)
+                            self?.notValid(error, text: "User not found")
+                        case .wrongPassword:
+                            let error = ValidationError(atIndex: 1, type: .invalidPassword)
+                            self?.notValid(error, text: "Wrong password")
+                        case .networkError:
+                            self?.view?.showAlert(error, text: "Couldn't connect to the database. Network Error occured.")
+                        case .tooManyRequests:
+                            self?.view?.showAlert(error, text: "Too many requests")
+                        default:
+                            self?.view?.showAlert(error, text: "Unknown error")
+                    }
                 }
                 return
             }
@@ -78,5 +97,4 @@ class LoginPresenter {
             }
         }
     }
-    
 }

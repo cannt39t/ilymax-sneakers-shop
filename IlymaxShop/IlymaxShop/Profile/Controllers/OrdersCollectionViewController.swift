@@ -24,16 +24,24 @@ class OrdersCollectionViewController: UIViewController {
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backButtonTaped))
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
-//        showLoader()
         setupCollectionView()
-//        presenter.fetchOrders()
+        loadOrders()
+    }
+    
+    private func loadOrders() {
+        Task {
+            do {
+                try await presenter.fetchOrdersForCurrentUser()
+                collectionView.reloadData()
+            } catch {
+                print("Error loading orders: \(error)")
+            }
+        }
     }
     
     @objc func backButtonTaped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
     
     func showLoader() {
         loader.show(in: self.view, animated: true)
@@ -50,7 +58,7 @@ extension OrdersCollectionViewController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        presenter.orders.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -58,8 +66,8 @@ extension OrdersCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .secondarySystemBackground
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OrderCell.identifier, for: indexPath) as! OrderCell
+        cell.configureWith(order: presenter.orders[indexPath.item])
         return cell
     }
 
@@ -87,7 +95,7 @@ extension OrdersCollectionViewController: UICollectionViewDelegate {
         item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
         
         //group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(225))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(175))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         //section
@@ -102,7 +110,7 @@ extension OrdersCollectionViewController: UICollectionViewDelegate {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .systemGroupedBackground
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -115,6 +123,12 @@ extension OrdersCollectionViewController: UICollectionViewDelegate {
         ])
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(OrderCell.self, forCellWithReuseIdentifier: OrderCell.identifier)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        presenter.pushOrderDetail(presenter.orders[indexPath.item])
     }
 }
 

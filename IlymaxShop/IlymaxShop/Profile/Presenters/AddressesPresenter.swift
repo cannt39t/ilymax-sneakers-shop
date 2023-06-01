@@ -15,7 +15,7 @@ class AddressesPresenter {
     public var currentUser: IlymaxUser
     public var addresses: [IlymaxAddress] = []
     
-    public var pushAddAddressController: () -> () = {}
+    public var pushAddAddressController: (Bool) -> () = { _ in }
     
     init(currentUser: IlymaxUser) {
         self.currentUser = currentUser
@@ -42,15 +42,16 @@ class AddressesPresenter {
     }
     
     public func makeDefault(index: Int) {
-        if addresses[index].isDefault {
-            addresses[index].isDefault = false
-            view?.collectionView.reloadData()
-        } else {
+        if !addresses[index].isDefault {
             for i in 0..<addresses.count {
                 addresses[i].isDefault = false
             }
             addresses[index].isDefault = true
             view?.collectionView.reloadData()
         }
+    }
+    
+    public func saveAddresses() {
+        addressesService.saveAddresses(addresses: addresses)
     }
 }

@@ -32,7 +32,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         setupDesign()
-        setupLayout()
+        setupLayout(validationError: nil, text: nil)
         
         navigationItem.setHidesBackButton(true, animated: false)
     }
@@ -46,7 +46,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         hud.dismiss(animated: true)
     }
     
-    public func setupLayout(validationError: ValidationError? = nil) {
+    public func setupLayout(validationError: ValidationError? = nil, text: String?) {
         let stackSignIn = UIStackView(arrangedSubviews: [dontHaveAccountLabel, signUpButton])
         
         var arrangedSubviews = [
@@ -62,19 +62,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             validationLabel.textColor = .red
             validationLabel.font = validationLabel.font.withSize(15)
             let problemTextField = (arrangedSubviews[error.atIndex] as! UITextField)
-            switch error.type {
-                case .emptyField:
-                    validationLabel.text = "Please enter \(String(describing: problemTextField.accessibilityIdentifier!))"
-                case .invalidEmail:
-                    validationLabel.text = "Email doesn't exist"
-                case .shortPassword:
-                    validationLabel.text = "Password is too short"
-                case .cannotFindEmail:
-                    validationLabel.text = "Email not found"
-                case .invalidPassword:
-                    validationLabel.text = "The password is incorrect"
-                default:
-                    validationLabel.text = "Error"
+            if let text {
+                validationLabel.text = text
+            } else {
+                switch error.type {
+                    case .emptyField:
+                        validationLabel.text = "Please enter \(String(describing: problemTextField.accessibilityIdentifier!))"
+                    case .invalidEmail:
+                        validationLabel.text = "Email doesn't exist"
+                    case .shortPassword:
+                        validationLabel.text = "Password is too short"
+                    case .cannotFindEmail:
+                        validationLabel.text = "Email not found"
+                    case .invalidPassword:
+                        validationLabel.text = "The password is incorrect"
+                    default:
+                        validationLabel.text = "Error"
+                }
             }
             highlightTextField(problemTextField)
             lastRedIndex = error.atIndex
@@ -132,6 +136,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         emailTextField.placeholder = "Email"
         emailTextField.textContentType = .emailAddress
+        emailTextField.keyboardType = .emailAddress
         emailTextField.borderStyle = .roundedRect
         emailTextField.accessibilityIdentifier = "email"
         
@@ -180,9 +185,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    public func showAlert(_ error: Error) {
-        print(error)
-        let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+    public func showAlert(_ error: Error, text: String) {
+        let alert = UIAlertController(title: "Error", message: text, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
