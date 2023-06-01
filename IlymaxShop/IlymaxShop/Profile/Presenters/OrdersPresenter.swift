@@ -14,6 +14,8 @@ class OrdersPresenter {
     public var currentUser: IlymaxUser
     public var orders: [IlymaxOrder] = []
     
+    public var pushOrderDetail: (IlymaxOrder) -> Void = {_ in}
+    
     init(currentUser: IlymaxUser) {
         self.currentUser = currentUser
     }
