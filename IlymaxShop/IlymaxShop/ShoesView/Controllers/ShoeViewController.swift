@@ -57,6 +57,11 @@ class ShoeViewController: UIViewController, UIGestureRecognizerDelegate {
         presenter.loadReviews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
     func showSucces() {
         hud.indicatorView = JGProgressHUDSuccessIndicatorView()
         hud.square = true
