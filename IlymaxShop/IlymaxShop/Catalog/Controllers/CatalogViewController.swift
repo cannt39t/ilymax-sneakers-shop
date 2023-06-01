@@ -48,7 +48,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate {
         
         showLoader()
         showCollectionView()
-        setupRefreshController()
+//        setupRefreshController()
         presenter.fetchData()
     }
     
