@@ -136,7 +136,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
-        if let image = info[.editedImage] as? UIImage, let imageData = image.pngData() {
+        if let image = info[.cropRect] as? UIImage, let imageData = image.pngData() {
             presenter.uploadPhotoMessage(with: imageData)
         } else if let videoUrl = info[.mediaURL] as? URL {
             presenter.uploadVideoMessage(with: videoUrl)
