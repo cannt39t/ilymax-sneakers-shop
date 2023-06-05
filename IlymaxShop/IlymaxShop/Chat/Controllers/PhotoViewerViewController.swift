@@ -22,12 +22,13 @@ class PhotoViewerViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         title = "Photo"
-        view.backgroundColor = .black
+        view.backgroundColor = .systemBackground
         navigationItem.largeTitleDisplayMode = .never
         tabBarController?.tabBar.isHidden = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.navigationBar.tintColor = .systemBlue
         
         view.addSubview(imageView)
         imageView.sd_setImage(with: url)
@@ -52,7 +53,7 @@ class PhotoViewerViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
         tabBarController?.tabBar.isHidden = false
     }
