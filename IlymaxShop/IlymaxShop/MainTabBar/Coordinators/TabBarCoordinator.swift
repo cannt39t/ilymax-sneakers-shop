@@ -128,5 +128,6 @@ class TabBarCoordinator {
     
     private func test() {
 //        fatalError("Test")
+//        try? Auth.auth().signOut()
     }
 }
