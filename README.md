@@ -4,6 +4,8 @@
 
 Дизайн - https://www.figma.com/file/xnbCLuWAZPaOotKK6TxYdW/Ilymax?type=design&node-id=0%3A1&t=AuAlvYUMPKJIfjnb-1
 
+Документация со скриншотами - https://docs.google.com/document/d/18riPzI5B2gYlbQABFOGBmDFmPPrl_nRd/edit?usp=sharing&ouid=101976637139843148460&rtpof=true&sd=true
+
 ## Навигация
 
 В приложении будет отдельный модуль логина и 5 вкладок с основными возможностями: Главная страница, Корзина, Модуль добавление товара, Сообщения(с покупателями и продавцами) и Профиль.
