@@ -678,7 +678,7 @@ extension FirestoreManager {
     
     /// Creates a new converstion with target user email and first message sent
     public func createNewConveration(with otherUserEmail: String, name: String, fisrtMessage: Message, completion: @escaping (Bool) -> Void) {
-        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail") else {
+        guard let currentEmail = UserDefaults.standard.string(forKey: "currentUserEmail")?.lowercased() else {
             completion(false)
             return
         }

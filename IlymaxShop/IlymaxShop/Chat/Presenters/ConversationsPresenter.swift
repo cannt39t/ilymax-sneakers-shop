@@ -29,6 +29,7 @@ class ConversationsPresenter {
                 case .failure(let error):
                     print(error)
                 case.success(let conversations):
+                    print(conversations)
                     self?.conversations = conversations
                     if conversations.count != 0 {
                         DispatchQueue.main.async { [weak self] in

@@ -13,7 +13,7 @@ class ConversationsService {
         guard let email = UserDefaults.standard.string(forKey: "currentUserEmail") else {
             return
         }
-        
+        print(email)
         FirestoreManager.shared.getAllConversations(for: email) {  result in
             completion(result)
         }
