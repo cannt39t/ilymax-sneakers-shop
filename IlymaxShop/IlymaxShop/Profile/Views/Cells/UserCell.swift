@@ -106,5 +106,7 @@ class UserCell: UICollectionViewCell {
     
     func setImageProfile(_ image: UIImage) {
         userImageView.image = image
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        userImageView.layer.masksToBounds = true
     }
 }
